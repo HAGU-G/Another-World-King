@@ -1,10 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Collections.LowLevel.Unsafe;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
+[CreateAssetMenu(fileName = "Buff_", menuName = "CreateData/Buff")]
 public class Buff : ScriptableObject
 {
     public int id;
@@ -27,12 +23,10 @@ public class Buff : ScriptableObject
     public float moveSpeed;
     public float moveSpeed_P;
 
-    public int price;
-    public int price_P;
     public int dropGold;
-    public int dropGold_P;
+    public float dropGold_P;
     public int dropExp;
-    public int dropExp_P;
+    public float dropExp_P;
 
     public void Apply()
     {

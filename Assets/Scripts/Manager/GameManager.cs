@@ -5,7 +5,7 @@ public class GameManager : MonoBehaviour
     public Transform Left;
     public Transform Right;
 
-    public CharacterAI character;
+    public UnitAI character;
 
     public UnitStats player;
     public UnitStats enemy;

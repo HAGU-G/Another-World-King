@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "UnitName", menuName = "CreateData/UnitData")]
+[CreateAssetMenu(fileName = "UnitStats_", menuName = "CreateData/UnitStats")]
 public class UnitStats : ScriptableObject
 {
     //Init Stats
@@ -23,8 +23,8 @@ public class UnitStats : ScriptableObject
     public float initMoveSpeed = 10;
 
     public int price = 200;
-    public int dropGold = 50;
-    public int dropExp = 100;
+    public int initDropGold = 50;
+    public int initDropExp = 100;
 
     //Buffed Stats (Use at Runtime)
     public int level = 1;
@@ -39,12 +39,11 @@ public class UnitStats : ScriptableObject
                 buffedStat += buff.Value.hp;
                 persentage += buff.Value.hp_P;
             }
-            return (int)Mathf.Ceil(buffedStat * (1f + persentage));
+            return Mathf.Clamp((int)Mathf.Ceil(buffedStat * (1f + persentage)), 1, int.MaxValue);
         }
     }
     private int hp;
     public int HP { get => hp; set => hp = Mathf.Clamp(value, 0, MaxHP); }
-
     public int AttackDamage
     {
         get
@@ -59,7 +58,7 @@ public class UnitStats : ScriptableObject
             return (int)Mathf.Ceil(buffedStat * (1f + persentage));
         }
     }
-    private float AttackSpeed
+    public float AttackSpeed
     {
         get
         {
@@ -73,7 +72,7 @@ public class UnitStats : ScriptableObject
             return buffedStat * (1f + persentage);
         }
     }
-    private float AttackRange
+    public float AttackRange
     {
         get
         {
@@ -83,6 +82,48 @@ public class UnitStats : ScriptableObject
             {
                 buffedStat += buff.Value.attackRange;
                 persentage += buff.Value.attackRange_P;
+            }
+            return buffedStat * (1f + persentage);
+        }
+    }
+    public float MoveSpeed
+    {
+        get
+        {
+            float buffedStat = initMoveSpeed;
+            float persentage = 0f;
+            foreach (var buff in buffs)
+            {
+                buffedStat += buff.Value.moveSpeed;
+                persentage += buff.Value.moveSpeed_P;
+            }
+            return buffedStat * (1f + persentage);
+        }
+    }
+    public float DropGold
+    {
+        get
+        {
+            float buffedStat = initDropGold;
+            float persentage = 0f;
+            foreach (var buff in buffs)
+            {
+                buffedStat += buff.Value.dropGold;
+                persentage += buff.Value.dropGold_P;
+            }
+            return buffedStat * (1f + persentage);
+        }
+    }
+    public float DropExp
+    {
+        get
+        {
+            float buffedStat = initDropExp;
+            float persentage = 0f;
+            foreach (var buff in buffs)
+            {
+                buffedStat += buff.Value.dropExp;
+                persentage += buff.Value.dropExp_P;
             }
             return buffedStat * (1f + persentage);
         }
@@ -102,10 +143,18 @@ public class UnitStats : ScriptableObject
 
     public void UpdateBuffDuration(float deltaTime)
     {
+        List<int> removes = new();
+
         foreach (var buff in buffs)
         {
             if (buff.Value.UpdateDuration(deltaTime) == 0)
-                buffs.Remove(buff.Key);
+                removes.Add(buff.Key);
+        }
+        if (removes.Count == 0)
+            return;
+        foreach(var key in removes)
+        {
+            buffs.Remove(key);
         }
     }
 
