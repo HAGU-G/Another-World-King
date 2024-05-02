@@ -1,14 +1,14 @@
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(Buff))]
-public class BuffEditor : Editor
+[CustomEditor(typeof(BuffData))]
+public class BuffDataEditor : Editor
 {
-    private Buff buff = null;
+    private BuffData buff = null;
 
     private void OnEnable()
     {
-        buff = target as Buff;
+        buff = target as BuffData;
     }
 
     public override void OnInspectorGUI()
@@ -18,14 +18,29 @@ public class BuffEditor : Editor
         //ID
         buff.id = EditorGUILayout.IntField("ID", buff.id);
 
+        //적용 규칙
+        EditorGUILayout.Space(10);
+        EditorGUILayout.LabelField("적용 규칙");
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.Space(10, false);
+        EditorGUILayout.BeginVertical();
+        buff.duration = Mathf.Clamp(EditorGUILayout.FloatField("지속 시간", buff.duration), 0f, float.MaxValue);
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("적용될 때 지속시간 초기화",GUILayout.MaxWidth(145));
+        EditorGUILayout.Space(0);
+        buff.doResetDurationOnApply = EditorGUILayout.Toggle(buff.doResetDurationOnApply,GUILayout.Width(15));
+        EditorGUILayout.EndHorizontal();
+        EditorGUILayout.EndVertical();
+        EditorGUILayout.EndHorizontal();
+
         //체력
         EditorGUILayout.Space(10);
         EditorGUILayout.LabelField("체력");
         EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.Space(10,false);
+        EditorGUILayout.Space(10, false);
         EditorGUILayout.BeginVertical();
-        buff.hp = EditorGUILayout.IntField("체력", buff.hp);
-        buff.hp_P = EditorGUILayout.FloatField("체력%", buff.hp_P);
+        buff.hp = EditorGUILayout.IntField("최대 체력", buff.hp);
+        buff.hp_P = EditorGUILayout.FloatField("최대 체력%", buff.hp_P);
         EditorGUILayout.EndVertical();
         EditorGUILayout.EndHorizontal();
 

@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI text;
     public TextMeshProUGUI text2;
 
-    public Buff buff;
+    public BuffData buff;
 
     public UnitAI player;
     public UnitAI enemy;

@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEngine;
 
 [CustomEditor(typeof(UnitStatsData))]
-public class UnitStatsEditor : Editor
+public class UnitStatsDataEditor : Editor
 {
     private UnitStatsData stats = null;
 

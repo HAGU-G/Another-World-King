@@ -1,9 +1,10 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Buff_", menuName = "CreateData/Buff")]
-public class Buff : ScriptableObject
+public class BuffData : ScriptableObject
 {
     public int id;
+
     public int overlap = 1;
     public int Count { get; private set; }
     public float duration = 1f;
@@ -32,6 +33,7 @@ public class Buff : ScriptableObject
     {
         if (Count < overlap)
             Count++;
+
         if (doResetDurationOnApply)
             CurrentDuration = 0f;
     }

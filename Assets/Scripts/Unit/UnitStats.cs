@@ -110,8 +110,8 @@ public class UnitStats : MonoBehaviour
     }
 
     //Buff
-    public Dictionary<int, Buff> buffs = new();
-    public void ApplyBuff(Buff buff)
+    public Dictionary<int, BuffData> buffs = new();
+    public void ApplyBuff(BuffData buff)
     {
         if (!buffs.ContainsKey(buff.id))
         {
