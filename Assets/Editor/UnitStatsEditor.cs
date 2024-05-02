@@ -1,14 +1,14 @@
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(UnitStats))]
+[CustomEditor(typeof(UnitStatsData))]
 public class UnitStatsEditor : Editor
 {
-    private UnitStats stats = null;
+    private UnitStatsData stats = null;
 
     private void OnEnable()
     {
-        stats = target as UnitStats;
+        stats = target as UnitStatsData;
     }
 
     public override void OnInspectorGUI()

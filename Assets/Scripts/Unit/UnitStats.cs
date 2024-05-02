@@ -1,38 +1,18 @@
-using System;
+using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "UnitStats_", menuName = "CreateData/UnitStats")]
-public class UnitStats : ScriptableObject
+public class UnitStats : MonoBehaviour
 {
-    //Init Stats
-    public int id;
-
-    public int initHP = 30;
-    public bool useStartHP = false;
-    public int initHPStart = 30;
-
-    public int initAttackDamage = 10;
-    public float initAttackSpeed = 10;
-    public float initAttackRange = 10;
-
-    public bool IsHealer = false;
-    public int initHeal = 0;
-
-    public float initMoveSpeed = 10;
-
-    public int price = 200;
-    public int initDropGold = 50;
-    public int initDropExp = 100;
+    public UnitStatsData data;
 
     //Buffed Stats (Use at Runtime)
-    public int level = 1;
+    public int level { get; private set; } = 1;
     public int MaxHP
     {
         get
         {
-            float buffedStat = initHP;
+            float buffedStat = data.initHP;
             float persentage = 0f;
             foreach (var buff in buffs)
             {
@@ -48,7 +28,7 @@ public class UnitStats : ScriptableObject
     {
         get
         {
-            float buffedStat = initAttackDamage;
+            float buffedStat = data.initAttackDamage;
             float persentage = 0f;
             foreach (var buff in buffs)
             {
@@ -62,7 +42,7 @@ public class UnitStats : ScriptableObject
     {
         get
         {
-            float buffedStat = initAttackSpeed;
+            float buffedStat = data.initAttackSpeed;
             float persentage = 0f;
             foreach (var buff in buffs)
             {
@@ -76,7 +56,7 @@ public class UnitStats : ScriptableObject
     {
         get
         {
-            float buffedStat = initAttackRange;
+            float buffedStat = data.initAttackRange;
             float persentage = 0f;
             foreach (var buff in buffs)
             {
@@ -90,7 +70,7 @@ public class UnitStats : ScriptableObject
     {
         get
         {
-            float buffedStat = initMoveSpeed;
+            float buffedStat = data.initMoveSpeed;
             float persentage = 0f;
             foreach (var buff in buffs)
             {
@@ -104,7 +84,7 @@ public class UnitStats : ScriptableObject
     {
         get
         {
-            float buffedStat = initDropGold;
+            float buffedStat = data.initDropGold;
             float persentage = 0f;
             foreach (var buff in buffs)
             {
@@ -118,7 +98,7 @@ public class UnitStats : ScriptableObject
     {
         get
         {
-            float buffedStat = initDropExp;
+            float buffedStat = data.initDropExp;
             float persentage = 0f;
             foreach (var buff in buffs)
             {
@@ -130,18 +110,16 @@ public class UnitStats : ScriptableObject
     }
 
     //Buff
-    public Dictionary<int, Buff> buffs;
-
+    public Dictionary<int, Buff> buffs = new();
     public void ApplyBuff(Buff buff)
     {
         if (!buffs.ContainsKey(buff.id))
         {
             buffs.Add(buff.id, buff);
         }
-        buffs[id].Apply();
+        buffs[buff.id].Apply();
     }
-
-    public void UpdateBuffDuration(float deltaTime)
+    private void UpdateBuffDuration(float deltaTime)
     {
         List<int> removes = new();
 
@@ -152,11 +130,25 @@ public class UnitStats : ScriptableObject
         }
         if (removes.Count == 0)
             return;
-        foreach(var key in removes)
+        foreach (var key in removes)
         {
             buffs.Remove(key);
         }
     }
 
-}
+    //Behaviour
+    private void Awake()
+    {
+        ResetStats();
+    }
 
+    public void ResetStats()
+    {
+        hp = data.useStartHP ? data.initHPStart : MaxHP;
+    }
+
+    private void Update()
+    {
+        UpdateBuffDuration(Time.deltaTime);
+    }
+}

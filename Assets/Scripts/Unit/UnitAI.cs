@@ -11,6 +11,5 @@ public class UnitAI : MonoBehaviour
 
     private void Update()
     {
-        unitStats.UpdateBuffDuration(Time.deltaTime);
     }
 }
