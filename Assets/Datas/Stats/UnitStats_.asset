@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ea1fdbb85e1d90418a485eacf4c891c, type: 3}
   m_Name: UnitStats_
   m_EditorClassIdentifier: 
-  id: 0
-  initHP: 30
+  id: 155
+  initHP: 174
   useStartHP: 1
-  initHPStart: 10
+  initHPStart: 0
   initAttackDamage: 10
   initAttackSpeed: 10
   initAttackRange: 10
-  IsHealer: 0
+  isHealer: 1
   initHeal: 0
   initMoveSpeed: 10
   price: 200

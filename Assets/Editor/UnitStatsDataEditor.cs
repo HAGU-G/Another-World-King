@@ -36,7 +36,7 @@ public class UnitStatsDataEditor : Editor
 
         //공격
         EditorGUILayout.Space(10);
-        EditorGUILayout.PrefixLabel("공격");
+        EditorGUILayout.LabelField("공격");
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.Space(10, false);
         EditorGUILayout.BeginVertical();
@@ -46,9 +46,25 @@ public class UnitStatsDataEditor : Editor
         EditorGUILayout.EndVertical();
         EditorGUILayout.EndHorizontal();
 
+        //힐
+        EditorGUILayout.Space(10);
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("힐",GUILayout.Width(15));
+        stats.isHealer = EditorGUILayout.Toggle(stats.isHealer, GUILayout.Width(15));
+        EditorGUILayout.EndHorizontal();
+        if (stats.isHealer)
+        {
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.Space(10, false);
+            EditorGUILayout.BeginVertical();
+            stats.initHeal = Mathf.Clamp(EditorGUILayout.IntField("힐량", stats.initHeal), 0, int.MaxValue);
+            EditorGUILayout.EndVertical();
+            EditorGUILayout.EndHorizontal();
+        }
+
         //기타
         EditorGUILayout.Space(10);
-        EditorGUILayout.PrefixLabel("기타");
+        EditorGUILayout.LabelField("기타");
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.Space(10, false);
         EditorGUILayout.BeginVertical();

@@ -46,7 +46,7 @@ public class BuffDataEditor : Editor
 
         //공격
         EditorGUILayout.Space(10);
-        EditorGUILayout.PrefixLabel("공격");
+        EditorGUILayout.LabelField("공격");
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.Space(10, false);
         EditorGUILayout.BeginVertical();
@@ -61,7 +61,7 @@ public class BuffDataEditor : Editor
 
         //기타
         EditorGUILayout.Space(10);
-        EditorGUILayout.PrefixLabel("기타");
+        EditorGUILayout.LabelField("기타");
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.Space(10, false);
         EditorGUILayout.BeginVertical();

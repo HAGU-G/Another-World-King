@@ -128,12 +128,15 @@ public class UnitStats : MonoBehaviour
             if (buff.Value.UpdateDuration(deltaTime) == 0)
                 removes.Add(buff.Key);
         }
+
         if (removes.Count == 0)
             return;
         foreach (var key in removes)
         {
             buffs.Remove(key);
         }
+        if (HP > MaxHP)
+            HP = MaxHP;
     }
 
     //Behaviour
@@ -141,14 +144,19 @@ public class UnitStats : MonoBehaviour
     {
         ResetStats();
     }
+    private void Update()
+    {
+        UpdateBuffDuration(Time.deltaTime);
+    }
 
     public void ResetStats()
     {
         hp = data.useStartHP ? data.initHPStart : MaxHP;
     }
 
-    private void Update()
+
+    public void Damage()
     {
-        UpdateBuffDuration(Time.deltaTime);
+
     }
 }

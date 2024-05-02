@@ -15,7 +15,7 @@ public class UnitStatsData : ScriptableObject
     public float initAttackSpeed = 10;
     public float initAttackRange = 10;
 
-    public bool IsHealer = false;
+    public bool isHealer = false;
     public int initHeal = 0;
 
     public float initMoveSpeed = 10;
