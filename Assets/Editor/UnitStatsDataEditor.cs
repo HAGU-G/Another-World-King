@@ -68,7 +68,8 @@ public class UnitStatsDataEditor : Editor
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.Space(10, false);
         EditorGUILayout.BeginVertical();
-        stats.price = Mathf.Clamp(EditorGUILayout.IntField("소환 가격", stats.price),0,int.MaxValue);
+        stats.initMoveSpeed = Mathf.Clamp(EditorGUILayout.FloatField("이동 속도",stats.initMoveSpeed),0f,float.MaxValue);
+        stats.cost = Mathf.Clamp(EditorGUILayout.IntField("소환 가격", stats.cost),0,int.MaxValue);
         stats.initDropGold = Mathf.Clamp(EditorGUILayout.IntField("처치 골드", stats.initDropGold),0,int.MaxValue);
         stats.initDropExp = Mathf.Clamp(EditorGUILayout.IntField("처치 경험치", stats.initDropExp),0,int.MaxValue);
         EditorGUILayout.EndVertical();

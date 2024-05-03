@@ -1,10 +1,26 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class UnitStats : MonoBehaviour
 {
     public UnitStatsData data;
+
+
+    public bool isPlayer;
+
+    //State
+    private bool isDead;
+    public bool IsDead
+    {
+        get => isDead;
+        private set
+        {
+            if (value && isDead != value && OnDead != null)
+                OnDead();
+            isDead = value;
+        }
+    }
+
 
     //Buffed Stats (Use at Runtime)
     public int level { get; private set; } = 1;
@@ -109,8 +125,9 @@ public class UnitStats : MonoBehaviour
         }
     }
 
+
     //Buff
-    public Dictionary<int, BuffData> buffs = new();
+    public Dictionary<int, BuffData> buffs { get; private set; } = new();
     public void ApplyBuff(BuffData buff)
     {
         if (!buffs.ContainsKey(buff.id))
@@ -139,11 +156,8 @@ public class UnitStats : MonoBehaviour
             HP = MaxHP;
     }
 
+
     //Behaviour
-    private void Awake()
-    {
-        ResetStats();
-    }
     private void Update()
     {
         UpdateBuffDuration(Time.deltaTime);
@@ -152,11 +166,21 @@ public class UnitStats : MonoBehaviour
     public void ResetStats()
     {
         hp = data.useStartHP ? data.initHPStart : MaxHP;
+        buffs.Clear();
+        IsDead = false;
     }
 
 
-    public void Damage()
+    //Combat & Evemt
+    public event System.Action OnDead = null;
+    public event System.Action OnDamaged = null;
+    public void Damaged(int damage)
     {
+        HP -= damage;
+        if (OnDamaged != null)
+            OnDamaged();
 
+        if (HP <= 0)
+            IsDead = true;
     }
 }

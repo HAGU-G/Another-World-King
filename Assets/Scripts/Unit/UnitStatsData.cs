@@ -20,7 +20,7 @@ public class UnitStatsData : ScriptableObject
 
     public float initMoveSpeed = 10;
 
-    public int price = 200;
+    public int cost = 200;
     public int initDropGold = 50;
     public int initDropExp = 100;
 }

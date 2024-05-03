@@ -1,3 +1,4 @@
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEditor;
 using UnityEngine;
 
@@ -65,6 +66,8 @@ public class BuffDataEditor : Editor
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.Space(10, false);
         EditorGUILayout.BeginVertical();
+        buff.moveSpeed = EditorGUILayout.FloatField("이동 속도", buff.moveSpeed);
+        buff.moveSpeed_P = EditorGUILayout.FloatField("이동 속도%", buff.moveSpeed_P);
         buff.dropGold = EditorGUILayout.IntField("처치 골드", buff.dropGold);
         buff.dropGold_P = EditorGUILayout.FloatField("처치 골드%", buff.dropGold_P);
         buff.dropExp = EditorGUILayout.IntField("처치 경험치", buff.dropExp);
