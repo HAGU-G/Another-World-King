@@ -14,6 +14,7 @@ public class UnitStatsData : ScriptableObject
     public int initAttackDamage = 10;
     public float initAttackSpeed = 10;
     public float initAttackRange = 10;
+    public int[] initAttacUnitCount = { 1 };
 
     public bool isHealer = false;
     public int initHeal = 0;

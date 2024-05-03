@@ -82,6 +82,9 @@ public class UnitStats : MonoBehaviour
             return buffedStat * (1f + persentage);
         }
     }
+    public int[] AttackUnitCount => data.initAttacUnitCount;
+
+    //etc
     public float MoveSpeed
     {
         get

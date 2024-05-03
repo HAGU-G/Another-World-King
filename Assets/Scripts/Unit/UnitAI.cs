@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ public class UnitAI : MonoBehaviour
     private UnitStats unitStats;
     public BoxCollider2D attackCollider;
 
+    public List<UnitAI> TowerUnits { get; set; } = null;
     private UnitStats target = null;
     private bool isFighting;
 

@@ -597,6 +597,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1441483728308013933, guid: a41292c9df9e9a24683c37169c1f1aa8, type: 3}
   m_PrefabInstance: {fileID: 4047324532922908821}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1370779872 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4072995200197484176, guid: a41292c9df9e9a24683c37169c1f1aa8, type: 3}
+  m_PrefabInstance: {fileID: 4047324532922908821}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd1fa51072fc33e428e4e612fadced48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1513811637
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1235,6 +1246,38 @@ PrefabInstance:
     - target: {fileID: 6942419271501694074, guid: cdae51100765cb5498638551d11630f0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7779149641638129677, guid: cdae51100765cb5498638551d11630f0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7779149641638129677, guid: cdae51100765cb5498638551d11630f0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7779149641638129677, guid: cdae51100765cb5498638551d11630f0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1370779872}
+    - target: {fileID: 7779149641638129677, guid: cdae51100765cb5498638551d11630f0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7779149641638129677, guid: cdae51100765cb5498638551d11630f0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TrySpawnUnit
+      objectReference: {fileID: 0}
+    - target: {fileID: 7779149641638129677, guid: cdae51100765cb5498638551d11630f0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: TowerAI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7779149641638129677, guid: cdae51100765cb5498638551d11630f0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 2813511708992679264, guid: f3b4474a39e8e2d4897ff7a4e65da51c, type: 3}
+    - target: {fileID: 7779149641638129677, guid: cdae51100765cb5498638551d11630f0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
