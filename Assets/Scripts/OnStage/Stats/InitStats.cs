@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "UnitStats_", menuName = "CreateData/UnitStats")]
-public class UnitStatsData : ScriptableObject
+public class InitStats : ScriptableObject
 {
     //Init Stats
     public int id;
@@ -14,7 +14,8 @@ public class UnitStatsData : ScriptableObject
     public int initAttackDamage = 10;
     public float initAttackSpeed = 10;
     public float initAttackRange = 10;
-    public int[] initAttacUnitCount = { 1 };
+    public int initAttackOrder = 1;
+    public List<int> initAttackEnemyOrder = new(){ 1 };
 
     public bool isHealer = false;
     public int initHeal = 0;

@@ -4,32 +4,24 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
-[RequireComponent(typeof(UnitStats))]
-public class TowerAI : MonoBehaviour
+public class TowerAI : RuntimeStats
 {
-    private UnitStats towerStats;
-    private List<GameObject> units = new();
+    private List<RuntimeStats> units = new();
     private bool isBlocked;
 
     private void Awake()
     {
-        towerStats = GetComponent<UnitStats>();
-
-        towerStats.OnDead += () => Destroy(gameObject);
+        OnDead += () => Destroy(gameObject);
     }
     protected virtual void OnEnable()
     {
-        towerStats.ResetStats();
         ResetAI();
     }
 
-    private void Update()
+    public void ResetAI()
     {
-    }
-
-    private void ResetAI()
-    {
-        if (towerStats.isPlayer)
+        ResetStats();
+        if (isPlayer)
             transform.localScale = new(-1f, 1f, 1f);
         else
             transform.localScale = Vector3.one;
@@ -41,8 +33,10 @@ public class TowerAI : MonoBehaviour
         if (isBlocked)
             return;
 
-        var unit = Instantiate(prefab, transform.position, Quaternion.Euler(Vector3.up));
-        unit.GetComponent<UnitStats>().OnDamaged += () => { units.Remove(unit); };
+        var stats = Instantiate(prefab, transform.position, Quaternion.Euler(Vector3.up)).GetComponent<RuntimeStats>();
+        stats.OnDead += () => { units.Remove(stats); };
+        var unit = stats as UnitAI;
+        unit.towerUnits = units;
         units.Add(unit);
     }
 
@@ -50,8 +44,8 @@ public class TowerAI : MonoBehaviour
     {
         if (collision.isTrigger)
             return;
-        var unit = collision.GetComponent<UnitStats>();
-        if(unit != null && unit.isPlayer == towerStats.isPlayer)
+        var unit = collision.GetComponent<RuntimeStats>();
+        if (unit != null && unit.isPlayer == isPlayer)
             isBlocked = true;
     }
 
@@ -59,9 +53,9 @@ public class TowerAI : MonoBehaviour
     {
         if (collision.isTrigger)
             return;
-        var unit = collision.GetComponent<UnitStats>();
-        if (unit != null && unit.isPlayer == towerStats.isPlayer)
+        var unit = collision.GetComponent<RuntimeStats>();
+        if (unit != null && unit.isPlayer == isPlayer)
             isBlocked = false;
-        
+
     }
 }

@@ -1426,7 +1426,6 @@ GameObject:
   - component: {fileID: 5453180431532444276}
   - component: {fileID: 3325342423257663449}
   - component: {fileID: 7057274257859823147}
-  - component: {fileID: 7453713302602750585}
   - component: {fileID: 2474548720209105569}
   - component: {fileID: 7700066144859409963}
   - component: {fileID: 2185206997168032936}
@@ -1496,23 +1495,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 905586177221da8419c68494c2998456, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initStats: {fileID: 11400000, guid: 9faf40b6b5e48cd408057f59c7844ab5, type: 2}
+  isPlayer: 1
   animator: {fileID: 704863362149722878}
   rb: {fileID: 3325342423257663449}
   attackCollider: {fileID: 7700066144859409963}
---- !u!114 &7453713302602750585
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2813511708992679264}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b978cb3889711e4c8e7a547eb7cf778, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 9faf40b6b5e48cd408057f59c7844ab5, type: 2}
-  isPlayer: 1
+  towerUnits: []
 --- !u!61 &2474548720209105569
 BoxCollider2D:
   m_ObjectHideFlags: 0

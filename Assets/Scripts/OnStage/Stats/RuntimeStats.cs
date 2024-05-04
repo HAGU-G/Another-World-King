@@ -1,14 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitStats : MonoBehaviour
+public class RuntimeStats : MonoBehaviour
 {
-    public UnitStatsData data;
+    public InitStats initStats;
 
-
-    public bool isPlayer;
 
     //State
+    public bool isPlayer;
     private bool isDead;
     public bool IsDead
     {
@@ -23,12 +22,12 @@ public class UnitStats : MonoBehaviour
 
 
     //Buffed Stats (Use at Runtime)
-    public int level { get; private set; } = 1;
+    public int Level { get; private set; } = 1;
     public int MaxHP
     {
         get
         {
-            float buffedStat = data.initHP;
+            float buffedStat = initStats.initHP;
             float persentage = 0f;
             foreach (var buff in buffs)
             {
@@ -44,7 +43,7 @@ public class UnitStats : MonoBehaviour
     {
         get
         {
-            float buffedStat = data.initAttackDamage;
+            float buffedStat = initStats.initAttackDamage;
             float persentage = 0f;
             foreach (var buff in buffs)
             {
@@ -58,7 +57,7 @@ public class UnitStats : MonoBehaviour
     {
         get
         {
-            float buffedStat = data.initAttackSpeed;
+            float buffedStat = initStats.initAttackSpeed;
             float persentage = 0f;
             foreach (var buff in buffs)
             {
@@ -72,7 +71,7 @@ public class UnitStats : MonoBehaviour
     {
         get
         {
-            float buffedStat = data.initAttackRange;
+            float buffedStat = initStats.initAttackRange;
             float persentage = 0f;
             foreach (var buff in buffs)
             {
@@ -82,14 +81,15 @@ public class UnitStats : MonoBehaviour
             return buffedStat * (1f + persentage);
         }
     }
-    public int[] AttackUnitCount => data.initAttacUnitCount;
+    public List<int> AttackEnemyOrder => initStats.initAttackEnemyOrder;
+    public int AttackOrder => initStats.initAttackOrder;
 
     //etc
     public float MoveSpeed
     {
         get
         {
-            float buffedStat = data.initMoveSpeed;
+            float buffedStat = initStats.initMoveSpeed;
             float persentage = 0f;
             foreach (var buff in buffs)
             {
@@ -103,7 +103,7 @@ public class UnitStats : MonoBehaviour
     {
         get
         {
-            float buffedStat = data.initDropGold;
+            float buffedStat = initStats.initDropGold;
             float persentage = 0f;
             foreach (var buff in buffs)
             {
@@ -117,7 +117,7 @@ public class UnitStats : MonoBehaviour
     {
         get
         {
-            float buffedStat = data.initDropExp;
+            float buffedStat = initStats.initDropExp;
             float persentage = 0f;
             foreach (var buff in buffs)
             {
@@ -161,14 +161,14 @@ public class UnitStats : MonoBehaviour
 
 
     //Behaviour
-    private void Update()
+    protected virtual void Update()
     {
         UpdateBuffDuration(Time.deltaTime);
     }
 
     public void ResetStats()
     {
-        hp = data.useStartHP ? data.initHPStart : MaxHP;
+        hp = initStats.useStartHP ? initStats.initHPStart : MaxHP;
         buffs.Clear();
         IsDead = false;
     }
