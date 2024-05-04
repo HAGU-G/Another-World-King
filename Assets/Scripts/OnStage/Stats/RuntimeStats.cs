@@ -7,6 +7,7 @@ public class RuntimeStats : MonoBehaviour
 
 
     //State
+    public bool IsTower => initStats.isTower;
     public bool isPlayer;
     private bool isDead;
     public bool IsDead
@@ -14,9 +15,9 @@ public class RuntimeStats : MonoBehaviour
         get => isDead;
         private set
         {
-            if (value && isDead != value && OnDead != null)
-                OnDead();
             isDead = value;
+            if (isDead && OnDead != null)
+                OnDead();
         }
     }
 
@@ -83,6 +84,8 @@ public class RuntimeStats : MonoBehaviour
     }
     public List<int> AttackEnemyOrder => initStats.initAttackEnemyOrder;
     public int AttackOrder => initStats.initAttackOrder;
+    public int AttackEnemyCount => initStats.initAttackEnemyCount;
+    public COMBAT_TYPE CombatType => initStats.combatType;
 
     //etc
     public float MoveSpeed
@@ -183,7 +186,7 @@ public class RuntimeStats : MonoBehaviour
         if (OnDamaged != null)
             OnDamaged();
 
-        if (HP <= 0)
+        if (!IsDead && HP <= 0)
             IsDead = true;
     }
 }

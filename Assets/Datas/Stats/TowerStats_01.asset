@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: TowerStats_01
   m_EditorClassIdentifier: 
   id: 1001
+  isTower: 1
   initHP: 200
   useStartHP: 0
   initHPStart: 30
@@ -21,6 +22,7 @@ MonoBehaviour:
   initAttackRange: 0
   initAttackOrder: 1
   initAttackEnemyOrder: 01000000
+  combatType: 0
   isHealer: 0
   initHeal: 0
   initMoveSpeed: 0

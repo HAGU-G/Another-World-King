@@ -11,7 +11,15 @@ public class TowerAI : RuntimeStats
 
     private void Awake()
     {
-        OnDead += () => Destroy(gameObject);
+        OnDead += () =>
+        {
+            foreach (var item in GameObject.FindGameObjectsWithTag(Tags.unit))
+            {
+                if(item.GetComponent<RuntimeStats>().isPlayer == isPlayer)
+                    Destroy(item);
+            };
+            Destroy(gameObject);
+        };
     }
     protected virtual void OnEnable()
     {
@@ -36,7 +44,7 @@ public class TowerAI : RuntimeStats
         var stats = Instantiate(prefab, transform.position, Quaternion.Euler(Vector3.up)).GetComponent<RuntimeStats>();
         stats.OnDead += () => { units.Remove(stats); };
         var unit = stats as UnitAI;
-        unit.towerUnits = units;
+        unit.unitsOrder = units;
         units.Add(unit);
     }
 

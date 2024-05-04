@@ -1,4 +1,8 @@
+using System;
 using System.Collections.Generic;
+using Unity.IO.LowLevel.Unsafe;
+using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 
@@ -9,9 +13,9 @@ public class UnitAI : RuntimeStats
     public Rigidbody2D rb;
     public BoxCollider2D attackCollider;
 
-    public List<RuntimeStats> towerUnits = new();
-    private RuntimeStats target = null;
-    private bool isFighting;
+    public List<RuntimeStats> unitsOrder;
+    private List<RuntimeStats> targetInRange = new();
+    private List<RuntimeStats> targetCanAttack = new();
 
     private float lastAttackTime;
 
@@ -34,23 +38,32 @@ public class UnitAI : RuntimeStats
     protected override void Update()
     {
         base.Update();
-        if (isFighting)
+
+        if (GetOrder() > AttackOrder)
         {
-            rb.isKinematic = true;
-            rb.velocity = Vector3.zero;
-            if (target != null && Time.time >= lastAttackTime + 1f / AttackSpeed)
-                TryAttack();
+            Move();
+            return;
+        }
+
+        TargetFiltering();
+        if (targetCanAttack.Count > 0)
+        {
+            if (CombatType == COMBAT_TYPE.STOP_ON_HAS_TARGET)
+                Stop();
+
+            if (Time.time >= lastAttackTime + 1f / AttackSpeed)
+                AttackTargets();
         }
         else
         {
-            rb.isKinematic = false;
-            rb.velocity = transform.forward * MoveSpeed * -transform.localScale.x;
+            Move();
         }
     }
 
     public void ResetAI()
     {
         ResetStats();
+
         foreach (var c in GetComponents<Collider>())
             c.enabled = true;
         attackCollider.size = new Vector2(0.3f + AttackRange, 0.1f);
@@ -61,69 +74,99 @@ public class UnitAI : RuntimeStats
             transform.localScale = new(-1f, 1f, 1f);
         else
             transform.localScale = Vector3.one;
+
+        unitsOrder = null;
+        targetInRange.Clear();
+
     }
 
-    public int GetOrder()
-    {
-        Debug.Log($"{towerUnits.IndexOf(this) + 1}");
-        return towerUnits.IndexOf(this) + 1;
-    }
+    public int GetOrder() => unitsOrder.IndexOf(this) + 1;
 
-    protected virtual bool SetTarget(RuntimeStats target)
+    protected virtual void TargetFiltering()
     {
-        if (isPlayer != target.isPlayer && GetOrder() <= AttackOrder)
+        targetCanAttack.Clear();
+
+        foreach (var target in targetInRange)
         {
-            var unit = target as UnitAI;
-            if (unit != null && AttackEnemyOrder.Contains(unit.GetOrder()))
+            if (!target.IsTower)
             {
-                this.target = target;
-                return true;
+                var unit = target as UnitAI;
+                if (AttackEnemyOrder.Contains(unit.GetOrder()))
+                    targetCanAttack.Add(target);
             }
-
-            var tower = target as TowerAI;
-            if (tower != null && GetOrder() <= AttackOrder)
+            else
             {
-                this.target = target;
-                return true;
+                targetCanAttack.Add(target);
             }
         }
-
-        return false;
     }
 
-    protected virtual void TryAttack()
+
+    public void Stop()
+    {
+        rb.isKinematic = true;
+        rb.velocity = Vector3.zero;
+    }
+
+    public void Move()
+    {
+        rb.isKinematic = false;
+        rb.velocity = transform.forward * MoveSpeed * -transform.localScale.x;
+    }
+
+    protected virtual void AttackTargets()
     {
         lastAttackTime = Time.time;
-        target.Damaged(AttackDamage);
-        if (target == null || target.IsDead)
+        if (CombatType == COMBAT_TYPE.STOP_ON_ATTACK)
+            Stop();
+
+        if (targetCanAttack.Count > 1)
         {
-            target = null;
-            isFighting = false;
+            for (int i = 0, j = 0; i < AttackEnemyOrder.Count && j < AttackEnemyCount; i++)
+            {
+                var target = targetCanAttack.Find(x =>
+                {
+                    var unit = x as UnitAI;
+                    if (unit != null)
+                        return unit.GetOrder() == AttackEnemyOrder[i];
+                    else
+                        return false;
+                });
+                if (target != null)
+                {
+                    target.Damaged(AttackDamage);
+                    j++;
+                }
+            }
+        }
+        else
+        {
+            targetCanAttack[0].Damaged(AttackDamage);
         }
 
+        if (CombatType == COMBAT_TYPE.STOP_ON_ATTACK)
+            Move();
     }
+
+
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        var stats = collision.GetComponent<RuntimeStats>();
-        if (stats == null)
+        var target = collision.GetComponent<RuntimeStats>();
+        if (target == null)
             return;
 
-        SetTarget(stats);
-        if (target != null)
-            isFighting = true;
+        if (isPlayer != target.isPlayer && !targetInRange.Contains(target))
+            targetInRange.Add(target);
     }
 
     protected virtual void OnTriggerExit2D(Collider2D collision)
     {
-        var stats = collision.GetComponent<RuntimeStats>();
-        if (stats == null)
+        var target = collision.GetComponent<RuntimeStats>();
+        if (target == null)
             return;
 
-        if (target == stats)
-        {
-            isFighting = false;
-            target = null;
-        }
+        if (!target.IsDead)
+            targetInRange.Remove(target);
     }
 }

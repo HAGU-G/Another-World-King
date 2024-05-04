@@ -13,14 +13,17 @@ MonoBehaviour:
   m_Name: UnitStats_01
   m_EditorClassIdentifier: 
   id: 101
+  isTower: 0
   initHP: 100
   useStartHP: 0
   initHPStart: 0
+  combatType: 0
   initAttackDamage: 10
   initAttackSpeed: 10
-  initAttackRange: 0.3
+  initAttackRange: 1
+  initAttackEnemyCount: 1
   initAttackOrder: 1
-  initAttackEnemyOrder: 01000000
+  initAttackEnemyOrder: 0200000001000000
   isHealer: 0
   initHeal: 0
   initMoveSpeed: 200
