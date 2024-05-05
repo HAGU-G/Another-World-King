@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class TowerAI : RuntimeStats
 {
-    private List<RuntimeStats> units = new();
+    public TowerAI enemyTower;
+    public List<UnitAI> units { get; private set; } = new();
     private bool isBlocked;
 
     private void Awake()
@@ -41,10 +42,9 @@ public class TowerAI : RuntimeStats
         if (isBlocked)
             return;
 
-        var stats = Instantiate(prefab, transform.position, Quaternion.Euler(Vector3.up)).GetComponent<RuntimeStats>();
-        stats.OnDead += () => { units.Remove(stats); };
-        var unit = stats as UnitAI;
-        unit.unitsOrder = units;
+        var unit = Instantiate(prefab, transform.position, Quaternion.Euler(Vector3.up)).GetComponent<UnitAI>();
+        unit.OnDead += () => { units.Remove(unit); };
+        unit.tower = this;
         units.Add(unit);
     }
 

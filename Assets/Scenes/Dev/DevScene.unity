@@ -851,6 +851,10 @@ PrefabInstance:
       propertyPath: isPlayer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4072995200197484176, guid: a41292c9df9e9a24683c37169c1f1aa8, type: 3}
+      propertyPath: enemyTower
+      value: 
+      objectReference: {fileID: 1370779872}
     - target: {fileID: 7213193478852171184, guid: a41292c9df9e9a24683c37169c1f1aa8, type: 3}
       propertyPath: m_Name
       value: TowerEnemy
@@ -1141,6 +1145,10 @@ PrefabInstance:
       propertyPath: isPlayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4072995200197484176, guid: a41292c9df9e9a24683c37169c1f1aa8, type: 3}
+      propertyPath: enemyTower
+      value: 
+      objectReference: {fileID: 1893667659}
     - target: {fileID: 7213193478852171184, guid: a41292c9df9e9a24683c37169c1f1aa8, type: 3}
       propertyPath: m_Name
       value: TowerPlayer

@@ -4,6 +4,7 @@ using Unity.IO.LowLevel.Unsafe;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
+using static UnityEngine.UI.CanvasScaler;
 
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -13,9 +14,9 @@ public class UnitAI : RuntimeStats
     public Rigidbody2D rb;
     public BoxCollider2D attackCollider;
 
-    public List<RuntimeStats> unitsOrder;
-    private List<RuntimeStats> targetInRange = new();
-    private List<RuntimeStats> targetCanAttack = new();
+    public TowerAI tower;
+    private List<RuntimeStats> enemyInRange = new();
+    private List<RuntimeStats> targets = new();
 
     private float lastAttackTime;
 
@@ -46,9 +47,9 @@ public class UnitAI : RuntimeStats
         }
 
         TargetFiltering();
-        if (targetCanAttack.Count > 0)
+        if (targets.Count > 0)
         {
-            if (CombatType == COMBAT_TYPE.STOP_ON_HAS_TARGET)
+            if (CombatType == COMBAT_TYPE.STOP_ON_HAVE_TARGET)
                 Stop();
 
             if (Time.time >= lastAttackTime + 1f / AttackSpeed)
@@ -75,29 +76,38 @@ public class UnitAI : RuntimeStats
         else
             transform.localScale = Vector3.one;
 
-        unitsOrder = null;
-        targetInRange.Clear();
+        tower = null;
+        enemyInRange.Clear();
+        targets.Clear();
 
     }
 
-    public int GetOrder() => unitsOrder.IndexOf(this) + 1;
+    public int GetOrder() => tower.units.IndexOf(this) + 1;
 
     protected virtual void TargetFiltering()
     {
-        targetCanAttack.Clear();
+        targets.Clear();
 
-        foreach (var target in targetInRange)
+        if (tower.enemyTower.units.Count == 0 && enemyInRange.Contains(tower.enemyTower))
         {
-            if (!target.IsTower)
+            targets.Add(tower.enemyTower);
+            return;
+        }
+
+        int count = 0;
+        foreach (var attackEnemyOrder in AttackEnemyOrder)
+        {
+            if (tower.enemyTower.units.Count >= attackEnemyOrder)
             {
-                var unit = target as UnitAI;
-                if (AttackEnemyOrder.Contains(unit.GetOrder()))
-                    targetCanAttack.Add(target);
+                count++;
+                if (!targets.Contains(tower.enemyTower.units[attackEnemyOrder - 1])
+                    && tower.enemyTower.units[attackEnemyOrder - 1].GetOrder() == attackEnemyOrder
+                    && enemyInRange.Contains(tower.enemyTower.units[attackEnemyOrder - 1]))
+                    targets.Add(tower.enemyTower.units[attackEnemyOrder - 1]);
             }
-            else
-            {
-                targetCanAttack.Add(target);
-            }
+
+            if (count >= AttackEnemyCount)
+                break;
         }
     }
 
@@ -120,28 +130,9 @@ public class UnitAI : RuntimeStats
         if (CombatType == COMBAT_TYPE.STOP_ON_ATTACK)
             Stop();
 
-        if (targetCanAttack.Count > 1)
+        foreach (var target in targets)
         {
-            for (int i = 0, j = 0; i < AttackEnemyOrder.Count && j < AttackEnemyCount; i++)
-            {
-                var target = targetCanAttack.Find(x =>
-                {
-                    var unit = x as UnitAI;
-                    if (unit != null)
-                        return unit.GetOrder() == AttackEnemyOrder[i];
-                    else
-                        return false;
-                });
-                if (target != null)
-                {
-                    target.Damaged(AttackDamage);
-                    j++;
-                }
-            }
-        }
-        else
-        {
-            targetCanAttack[0].Damaged(AttackDamage);
+            target.Damaged(AttackDamage);
         }
 
         if (CombatType == COMBAT_TYPE.STOP_ON_ATTACK)
@@ -156,8 +147,8 @@ public class UnitAI : RuntimeStats
         if (target == null)
             return;
 
-        if (isPlayer != target.isPlayer && !targetInRange.Contains(target))
-            targetInRange.Add(target);
+        if (isPlayer != target.isPlayer && !enemyInRange.Contains(target))
+            enemyInRange.Add(target);
     }
 
     protected virtual void OnTriggerExit2D(Collider2D collision)
@@ -166,7 +157,6 @@ public class UnitAI : RuntimeStats
         if (target == null)
             return;
 
-        if (!target.IsDead)
-            targetInRange.Remove(target);
+        enemyInRange.Remove(target);
     }
 }
