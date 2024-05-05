@@ -1,7 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 
 public class TowerAI : RuntimeStats
@@ -16,7 +13,7 @@ public class TowerAI : RuntimeStats
         {
             foreach (var item in GameObject.FindGameObjectsWithTag(Tags.unit))
             {
-                if(item.GetComponent<RuntimeStats>().isPlayer == isPlayer)
+                if (item.GetComponent<RuntimeStats>().isPlayer == isPlayer)
                     Destroy(item);
             };
             Destroy(gameObject);

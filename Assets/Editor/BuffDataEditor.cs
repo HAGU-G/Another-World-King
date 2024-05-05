@@ -1,4 +1,3 @@
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEditor;
 using UnityEngine;
 
@@ -27,9 +26,9 @@ public class BuffDataEditor : Editor
         EditorGUILayout.BeginVertical();
         buff.duration = Mathf.Clamp(EditorGUILayout.FloatField("지속 시간", buff.duration), 0f, float.MaxValue);
         EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField("적용될 때 지속시간 초기화",GUILayout.MaxWidth(145));
+        EditorGUILayout.LabelField("적용될 때 지속시간 초기화", GUILayout.MaxWidth(145));
         EditorGUILayout.Space(0);
-        buff.doResetDurationOnApply = EditorGUILayout.Toggle(buff.doResetDurationOnApply,GUILayout.Width(15));
+        buff.doResetDurationOnApply = EditorGUILayout.Toggle(buff.doResetDurationOnApply, GUILayout.Width(15));
         EditorGUILayout.EndHorizontal();
         EditorGUILayout.EndVertical();
         EditorGUILayout.EndHorizontal();

@@ -17,12 +17,13 @@ MonoBehaviour:
   initHP: 200
   useStartHP: 0
   initHPStart: 30
+  combatType: 0
   initAttackDamage: 0
   initAttackSpeed: 0
   initAttackRange: 0
+  initAttackEnemyCount: 1
   initAttackOrder: 1
   initAttackEnemyOrder: 01000000
-  combatType: 0
   isHealer: 0
   initHeal: 0
   initMoveSpeed: 0

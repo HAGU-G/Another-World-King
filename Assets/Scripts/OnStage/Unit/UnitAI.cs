@@ -1,10 +1,5 @@
-using System;
 using System.Collections.Generic;
-using Unity.IO.LowLevel.Unsafe;
-using Unity.VisualScripting;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
-using static UnityEngine.UI.CanvasScaler;
 
 
 [RequireComponent(typeof(Rigidbody2D))]

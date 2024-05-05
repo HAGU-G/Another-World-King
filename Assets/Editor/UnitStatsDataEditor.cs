@@ -1,5 +1,4 @@
 using UnityEditor;
-using UnityEditorInternal;
 using UnityEngine;
 
 [CustomEditor(typeof(InitStats))]
@@ -55,7 +54,7 @@ public class UnitStatsDataEditor : Editor
         stats.initAttackEnemyCount = Mathf.Clamp(EditorGUILayout.IntField("공격 가능한 적의 수", stats.initAttackEnemyCount), 1, int.MaxValue);
         stats.initAttackOrder = Mathf.Clamp(EditorGUILayout.IntField("공격 가능 포지션", stats.initAttackOrder), 1, int.MaxValue);
         EditorGUILayout.PropertyField(attackEnemyOrder, new GUIContent("공격 가능한 적의 포지션", "공격 우선순위 오름차순"));
-        if(attackEnemyOrder.arraySize < stats.initAttackEnemyCount)
+        if (attackEnemyOrder.arraySize < stats.initAttackEnemyCount)
             EditorGUILayout.HelpBox("공격 가능한 '적의 포지션 수'가 '적의 수'이상이어야 합니다.", MessageType.Warning);
         for (int i = 0; i < attackEnemyOrder.arraySize; i++)
         {
