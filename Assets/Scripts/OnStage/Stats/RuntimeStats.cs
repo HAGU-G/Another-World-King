@@ -1,18 +1,34 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitStats : MonoBehaviour
+public class RuntimeStats : MonoBehaviour
 {
-    public UnitStatsData data;
+    public InitStats initStats;
+
+
+    //State
+    public bool IsTower => initStats.isTower;
+    public bool isPlayer;
+    private bool isDead;
+    public bool IsDead
+    {
+        get => isDead;
+        private set
+        {
+            isDead = value;
+            if (isDead && OnDead != null)
+                OnDead();
+        }
+    }
+
 
     //Buffed Stats (Use at Runtime)
-    public int level { get; private set; } = 1;
+    public int Level { get; private set; } = 1;
     public int MaxHP
     {
         get
         {
-            float buffedStat = data.initHP;
+            float buffedStat = initStats.initHP;
             float persentage = 0f;
             foreach (var buff in buffs)
             {
@@ -28,7 +44,7 @@ public class UnitStats : MonoBehaviour
     {
         get
         {
-            float buffedStat = data.initAttackDamage;
+            float buffedStat = initStats.initAttackDamage;
             float persentage = 0f;
             foreach (var buff in buffs)
             {
@@ -42,7 +58,7 @@ public class UnitStats : MonoBehaviour
     {
         get
         {
-            float buffedStat = data.initAttackSpeed;
+            float buffedStat = initStats.initAttackSpeed;
             float persentage = 0f;
             foreach (var buff in buffs)
             {
@@ -56,7 +72,7 @@ public class UnitStats : MonoBehaviour
     {
         get
         {
-            float buffedStat = data.initAttackRange;
+            float buffedStat = initStats.initAttackRange;
             float persentage = 0f;
             foreach (var buff in buffs)
             {
@@ -66,11 +82,17 @@ public class UnitStats : MonoBehaviour
             return buffedStat * (1f + persentage);
         }
     }
+    public List<int> AttackEnemyOrder => initStats.initAttackEnemyOrder;
+    public int AttackOrder => initStats.initAttackOrder;
+    public int AttackEnemyCount => initStats.initAttackEnemyCount;
+    public COMBAT_TYPE CombatType => initStats.combatType;
+
+    //etc
     public float MoveSpeed
     {
         get
         {
-            float buffedStat = data.initMoveSpeed;
+            float buffedStat = initStats.initMoveSpeed;
             float persentage = 0f;
             foreach (var buff in buffs)
             {
@@ -84,7 +106,7 @@ public class UnitStats : MonoBehaviour
     {
         get
         {
-            float buffedStat = data.initDropGold;
+            float buffedStat = initStats.initDropGold;
             float persentage = 0f;
             foreach (var buff in buffs)
             {
@@ -98,7 +120,7 @@ public class UnitStats : MonoBehaviour
     {
         get
         {
-            float buffedStat = data.initDropExp;
+            float buffedStat = initStats.initDropExp;
             float persentage = 0f;
             foreach (var buff in buffs)
             {
@@ -109,8 +131,9 @@ public class UnitStats : MonoBehaviour
         }
     }
 
+
     //Buff
-    public Dictionary<int, BuffData> buffs = new();
+    public Dictionary<int, BuffData> buffs { get; private set; } = new();
     public void ApplyBuff(BuffData buff)
     {
         if (!buffs.ContainsKey(buff.id))
@@ -139,24 +162,31 @@ public class UnitStats : MonoBehaviour
             HP = MaxHP;
     }
 
+
     //Behaviour
-    private void Awake()
-    {
-        ResetStats();
-    }
-    private void Update()
+    protected virtual void Update()
     {
         UpdateBuffDuration(Time.deltaTime);
     }
 
     public void ResetStats()
     {
-        hp = data.useStartHP ? data.initHPStart : MaxHP;
+        hp = initStats.useStartHP ? initStats.initHPStart : MaxHP;
+        buffs.Clear();
+        IsDead = false;
     }
 
 
-    public void Damage()
+    //Combat & Evemt
+    public event System.Action OnDead = null;
+    public event System.Action OnDamaged = null;
+    public void Damaged(int damage)
     {
+        HP -= damage;
+        if (OnDamaged != null)
+            OnDamaged();
 
+        if (!IsDead && HP <= 0)
+            IsDead = true;
     }
 }

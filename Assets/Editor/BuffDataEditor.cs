@@ -26,9 +26,9 @@ public class BuffDataEditor : Editor
         EditorGUILayout.BeginVertical();
         buff.duration = Mathf.Clamp(EditorGUILayout.FloatField("지속 시간", buff.duration), 0f, float.MaxValue);
         EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField("적용될 때 지속시간 초기화",GUILayout.MaxWidth(145));
+        EditorGUILayout.LabelField("적용될 때 지속시간 초기화", GUILayout.MaxWidth(145));
         EditorGUILayout.Space(0);
-        buff.doResetDurationOnApply = EditorGUILayout.Toggle(buff.doResetDurationOnApply,GUILayout.Width(15));
+        buff.doResetDurationOnApply = EditorGUILayout.Toggle(buff.doResetDurationOnApply, GUILayout.Width(15));
         EditorGUILayout.EndHorizontal();
         EditorGUILayout.EndVertical();
         EditorGUILayout.EndHorizontal();
@@ -65,6 +65,8 @@ public class BuffDataEditor : Editor
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.Space(10, false);
         EditorGUILayout.BeginVertical();
+        buff.moveSpeed = EditorGUILayout.FloatField("이동 속도", buff.moveSpeed);
+        buff.moveSpeed_P = EditorGUILayout.FloatField("이동 속도%", buff.moveSpeed_P);
         buff.dropGold = EditorGUILayout.IntField("처치 골드", buff.dropGold);
         buff.dropGold_P = EditorGUILayout.FloatField("처치 골드%", buff.dropGold_P);
         buff.dropExp = EditorGUILayout.IntField("처치 경험치", buff.dropExp);
