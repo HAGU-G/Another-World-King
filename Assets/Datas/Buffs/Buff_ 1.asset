@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   overlap: 1
-  duration: 1
-  doResetDurationOnApply: 0
+  duration: 100
+  doResetDurationOnApply: 1
   hp: 0
   hp_P: 0
   attackDamage: 0
   attackDamage_P: 0
-  attackSpeed: 0
+  attackSpeed: 100
   attackSpeed_P: 0
   attackRange: 0
   attackRange_P: 0

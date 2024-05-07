@@ -20,7 +20,7 @@ MonoBehaviour:
   combatType: 0
   initAttackDamage: 10
   initAttackSpeed: 1
-  initAttackRange: 1
+  initAttackRange: 2
   initAttackEnemyCount: 1
   initAttackOrder: 1
   initAttackEnemyOrder: 0200000001000000
