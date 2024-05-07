@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     #region INSTANCE
-    public static GameManager instance;
+    private static GameManager instance;
 
     public static GameManager Instance
     {
@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(name);
     }
 
-    public void SetCharacer(InitStats initStats, int index = -1)
+    public void SetExpedition(InitStats initStats, int index = -1)
     {
         if (index < 0)
         {
@@ -54,5 +54,9 @@ public class GameManager : MonoBehaviour
             return;
 
         Expedition[index] = initStats;
+    }
+    public InitStats GetExpedition(int index)
+    {
+        return Expedition[index];
     }
 }

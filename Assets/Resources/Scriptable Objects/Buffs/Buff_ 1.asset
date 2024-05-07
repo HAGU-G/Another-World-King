@@ -9,17 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5610cb33afc57214f8f156bf16cfb02f, type: 3}
-  m_Name: Buff_
+  m_Script: {fileID: 11500000, guid: 82947dc21f566164e923843ba244293a, type: 3}
+  m_Name: Buff_ 1
   m_EditorClassIdentifier: 
-  id: 1
+  id: 0
   overlap: 1
-  duration: 5
-  doResetDurationOnApply: 1
-  hp: 1
+  duration: 1
+  doResetDurationOnApply: 0
+  hp: 0
   hp_P: 0
-  attackDamage: 5
-  attackDamage_P: 1
+  attackDamage: 0
+  attackDamage_P: 0
   attackSpeed: 0
   attackSpeed_P: 0
   attackRange: 0

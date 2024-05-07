@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TowerAI : RuntimeStats
@@ -42,10 +43,13 @@ public class TowerAI : RuntimeStats
             return;
 
         var unit = Instantiate(prefab, transform.position, Quaternion.Euler(Vector3.up)).GetComponent<UnitAI>();
+        //unit.initStats = Resources.Load<InitStats>("Scriptable Objects/Stats/UnitStats_02");
+        //unit.ResetStats();
         unit.OnDead += () => { units.Remove(unit); };
         unit.tower = this;
         units.Add(unit);
     }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

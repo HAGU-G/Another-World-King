@@ -3,6 +3,7 @@
     public static readonly string tower = "Tower";
     public static readonly string unit = "Unit";
     public static readonly string gameManager = "GameController";
+    public static readonly string window = "Window";
 }
 
 public static class Scenes
