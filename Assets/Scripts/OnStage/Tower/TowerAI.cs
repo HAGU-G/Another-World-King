@@ -7,6 +7,8 @@ public class TowerAI : RuntimeStats
     public List<UnitAI> units { get; private set; } = new();
     private bool isBlocked;
 
+    public BuffData buff;
+
     private void Awake()
     {
         OnDead += () =>
@@ -62,5 +64,14 @@ public class TowerAI : RuntimeStats
         if (unit != null && unit.isPlayer == isPlayer)
             isBlocked = false;
 
+    }
+
+
+    public void DebugBuff()
+    {
+        foreach (var unit in units)
+        {
+            unit.ApplyBuff(buff);
+        }
     }
 }
