@@ -65,6 +65,7 @@ public class RuntimeStats : MonoBehaviour
                 buffedStat += buff.Value.attackSpeed;
                 persentage += buff.Value.attackSpeed_P;
             }
+
             return buffedStat * (1f + persentage);
         }
     }
@@ -141,6 +142,8 @@ public class RuntimeStats : MonoBehaviour
             buffs.Add(buff.id, buff);
         }
         buffs[buff.id].Apply();
+        Debug.Log(buffs[buff.id].attackSpeed);
+        Debug.Log(buffs[buff.id].attackDamage);
     }
     private void UpdateBuffDuration(float deltaTime)
     {

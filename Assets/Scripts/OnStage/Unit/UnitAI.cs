@@ -46,7 +46,6 @@ public class UnitAI : RuntimeStats
         {
             if (CombatType == COMBAT_TYPE.STOP_ON_HAVE_TARGET)
                 Stop();
-
             if (Time.time >= lastAttackTime + 1f / AttackSpeed)
                 AttackTargets();
         }

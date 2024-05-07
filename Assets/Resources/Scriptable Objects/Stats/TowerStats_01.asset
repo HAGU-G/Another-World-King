@@ -9,24 +9,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80b87baa74e923d4ca2426ee2fa2a346, type: 3}
+  m_Script: {fileID: 11500000, guid: 11e112565d9ed0044ad2cbcf071bc79e, type: 3}
   m_Name: TowerStats_01
   m_EditorClassIdentifier: 
-  id: 1001
-  isTower: 1
-  initHP: 200
+  id: 0
+  isTower: 0
+  initHP: 30
   useStartHP: 0
   initHPStart: 30
   combatType: 0
-  initAttackDamage: 0
-  initAttackSpeed: 0
-  initAttackRange: 0
+  initAttackDamage: 10
+  initAttackSpeed: 10
+  initAttackRange: 10
   initAttackEnemyCount: 1
   initAttackOrder: 1
   initAttackEnemyOrder: 01000000
   isHealer: 0
   initHeal: 0
-  initMoveSpeed: 0
-  cost: 0
-  initDropGold: 0
-  initDropExp: 0
+  initMoveSpeed: 10
+  cost: 200
+  initDropGold: 50
+  initDropExp: 100

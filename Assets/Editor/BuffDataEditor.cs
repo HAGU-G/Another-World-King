@@ -52,10 +52,10 @@ public class BuffDataEditor : Editor
         EditorGUILayout.BeginVertical();
         buff.attackDamage = EditorGUILayout.IntField("공격력", buff.attackDamage);
         buff.attackDamage_P = EditorGUILayout.FloatField("공격력%", buff.attackDamage_P);
-        buff.attackRange = EditorGUILayout.FloatField("공격 속도", buff.attackRange);
-        buff.attackRange_P = EditorGUILayout.FloatField("공격 속도%", buff.attackRange_P);
-        buff.attackSpeed = EditorGUILayout.FloatField("공격 범위", buff.attackSpeed);
-        buff.attackSpeed_P = EditorGUILayout.FloatField("공격 범위%", buff.attackSpeed_P);
+        buff.attackSpeed = EditorGUILayout.FloatField("공격 속도", buff.attackSpeed);
+        buff.attackSpeed_P = EditorGUILayout.FloatField("공격 속도%", buff.attackSpeed_P);
+        buff.attackRange = EditorGUILayout.FloatField("공격 범위", buff.attackRange);
+        buff.attackRange_P = EditorGUILayout.FloatField("공격 범위%", buff.attackRange_P);
         EditorGUILayout.EndVertical();
         EditorGUILayout.EndHorizontal();
 
