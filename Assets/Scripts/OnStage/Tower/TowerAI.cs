@@ -5,10 +5,9 @@ using UnityEngine;
 public class TowerAI : RuntimeStats
 {
     public TowerAI enemyTower;
+    public UnitAI characterRoot;
     public List<UnitAI> units { get; private set; } = new();
     private bool isBlocked;
-
-    public BuffData buff;
 
     private void Awake()
     {
@@ -37,18 +36,20 @@ public class TowerAI : RuntimeStats
     }
 
 
-    public void TrySpawnUnit(GameObject prefab)
+    public void TrySpawnUnit(CharacterInfos characterInfos)
     {
         if (isBlocked)
             return;
 
-        var unit = Instantiate(prefab, transform.position, Quaternion.Euler(Vector3.up)).GetComponent<UnitAI>();
-        //unit.initStats = Resources.Load<InitStats>("Scriptable Objects/Stats/UnitStats_02");
-        //unit.ResetStats();
+        var unit = Instantiate(characterRoot, transform.position, Quaternion.Euler(Vector3.up)).GetComponent<UnitAI>();
+        var animator = Instantiate(characterInfos.animator, unit.transform);
+        unit.initStats = characterInfos.initStats;
         unit.OnDead += () => { units.Remove(unit); };
-        unit.tower = this;
+        unit.Tower = this;
+        unit.ResetAI();
         units.Add(unit);
     }
+
 
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -70,12 +71,4 @@ public class TowerAI : RuntimeStats
 
     }
 
-
-    public void DebugBuff()
-    {
-        foreach (var unit in units)
-        {
-            unit.ApplyBuff(buff);
-        }
-    }
 }

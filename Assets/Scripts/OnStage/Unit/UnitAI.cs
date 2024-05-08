@@ -9,7 +9,7 @@ public class UnitAI : RuntimeStats
     public Rigidbody2D rb;
     public BoxCollider2D attackCollider;
 
-    public TowerAI tower;
+    public TowerAI Tower { get; set; }
     private List<RuntimeStats> enemyInRange = new();
     private List<RuntimeStats> targets = new();
 
@@ -58,6 +58,8 @@ public class UnitAI : RuntimeStats
     public void ResetAI()
     {
         ResetStats();
+        if(Tower != null)
+            isPlayer = Tower.isPlayer;
 
         foreach (var c in GetComponents<Collider>())
             c.enabled = true;
@@ -70,34 +72,33 @@ public class UnitAI : RuntimeStats
         else
             transform.localScale = Vector3.one;
 
-        tower = null;
         enemyInRange.Clear();
         targets.Clear();
 
     }
 
-    public int GetOrder() => tower.units.IndexOf(this) + 1;
+    public int GetOrder() => Tower.units.IndexOf(this) + 1;
 
     protected virtual void TargetFiltering()
     {
         targets.Clear();
 
-        if (tower.enemyTower.units.Count == 0 && enemyInRange.Contains(tower.enemyTower))
+        if (Tower.enemyTower.units.Count == 0 && enemyInRange.Contains(Tower.enemyTower))
         {
-            targets.Add(tower.enemyTower);
+            targets.Add(Tower.enemyTower);
             return;
         }
 
         int count = 0;
         foreach (var attackEnemyOrder in AttackEnemyOrder)
         {
-            if (tower.enemyTower.units.Count >= attackEnemyOrder)
+            if (Tower.enemyTower.units.Count >= attackEnemyOrder)
             {
                 count++;
-                if (!targets.Contains(tower.enemyTower.units[attackEnemyOrder - 1])
-                    && tower.enemyTower.units[attackEnemyOrder - 1].GetOrder() == attackEnemyOrder
-                    && enemyInRange.Contains(tower.enemyTower.units[attackEnemyOrder - 1]))
-                    targets.Add(tower.enemyTower.units[attackEnemyOrder - 1]);
+                if (!targets.Contains(Tower.enemyTower.units[attackEnemyOrder - 1])
+                    && Tower.enemyTower.units[attackEnemyOrder - 1].GetOrder() == attackEnemyOrder
+                    && enemyInRange.Contains(Tower.enemyTower.units[attackEnemyOrder - 1]))
+                    targets.Add(Tower.enemyTower.units[attackEnemyOrder - 1]);
             }
 
             if (count >= AttackEnemyCount)

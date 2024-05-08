@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    public InitStats[] Expedition { get; private set; } = new InitStats[5];
+    public CharacterInfos[] Expedition { get; private set; } = new CharacterInfos[5];
 
     private void Awake()
     {
@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(name);
     }
 
-    public void SetExpedition(InitStats initStats, int index = -1)
+    public void SetExpedition(CharacterInfos characterInfos, int index = -1)
     {
         if (index < 0)
         {
@@ -53,9 +53,9 @@ public class GameManager : MonoBehaviour
         if (index < 0)
             return;
 
-        Expedition[index] = initStats;
+        Expedition[index] = characterInfos;
     }
-    public InitStats GetExpedition(int index)
+    public CharacterInfos GetExpedition(int index)
     {
         return Expedition[index];
     }

@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toggle: {fileID: 5160220733901238724}
-  initStats: {fileID: 11400000, guid: 42c61072d63a1d942a113f6dd422e1c3, type: 2}
+  animator: {fileID: 8620658186912509578, guid: e2eeb1fbc32eb9a4c83b791679767051, type: 3}
 --- !u!1 &6305048549890672564
 GameObject:
   m_ObjectHideFlags: 0

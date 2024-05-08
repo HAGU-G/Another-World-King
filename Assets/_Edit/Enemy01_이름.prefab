@@ -2822,7 +2822,7 @@ GameObject:
   - component: {fileID: 6361291773042703851}
   - component: {fileID: 4830133669603243517}
   m_Layer: 10
-  m_Name: Enemy01
+  m_Name: "Enemy01_\uC774\uB984"
   m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
