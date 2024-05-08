@@ -20,13 +20,13 @@ MonoBehaviour:
   combatType: 0
   initAttackDamage: 10
   initAttackSpeed: 10
-  initAttackRange: 10
+  initAttackRange: 3
   initAttackEnemyCount: 1
   initAttackOrder: 1
   initAttackEnemyOrder: 01000000
   isHealer: 0
   initHeal: 0
-  initMoveSpeed: 10
+  initMoveSpeed: 30
   cost: 200
   initDropGold: 50
   initDropExp: 100
