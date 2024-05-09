@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TowerAI : RuntimeStats
 {
+    private Player player;
     public TowerAI enemyTower;
     public UnitAI characterRoot;
     public List<UnitAI> units { get; private set; } = new();
@@ -24,17 +25,19 @@ public class TowerAI : RuntimeStats
             };
             Destroy(gameObject);
         };
-    }
-    protected virtual void OnEnable()
-    {
         ResetAI();
+    }
+    private void Start()
+    {
+        player = GameObject.FindWithTag(Tags.player).GetComponent<Player>();
     }
 
     protected override void Update()
     {
-        if (!isPlayer && Time.time >= lastSpawnTime + spawnInterval)
+        base.Update();
+        if (!isPlayer && Time.time >= lastSpawnTime + spawnInterval && CanSpawnUnit())
         {
-            TrySpawnUnit(GameManager.Instance.Expedition[0]);
+            SpawnUnit(GameManager.Instance.Expedition[0]);
             lastSpawnTime = Time.time;
         }
     }
@@ -47,17 +50,22 @@ public class TowerAI : RuntimeStats
         else
             transform.localScale = Vector3.one;
     }
-
-
-    public void TrySpawnUnit(CharacterInfos characterInfos)
+    public bool CanSpawnUnit()
     {
         if (isBlocked)
-            return;
+            return false;
+        else
+            return true;
+    }
 
+    public void SpawnUnit(CharacterInfos characterInfos)
+    {
         var unit = Instantiate(characterRoot, transform.position, Quaternion.Euler(Vector3.up)).GetComponent<UnitAI>();
         var animator = Instantiate(characterInfos.animator, unit.transform);
         unit.initStats = characterInfos.initStats;
         unit.OnDead += () => { units.Remove(unit); };
+        if (isPlayer)
+            unit.OnDead += () => { player.GetExp(unit.initStats.initDropExp); player.GetGold(unit.initStats.initDropGold); };
         unit.Tower = this;
         unit.ResetAI();
         units.Add(unit);

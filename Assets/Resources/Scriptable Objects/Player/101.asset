@@ -29,5 +29,5 @@ MonoBehaviour:
   initHeal: 0
   initMoveSpeed: 100
   cost: 100
-  initDropGold: 0
-  initDropExp: 0
+  initDropGold: 100
+  initDropExp: 100

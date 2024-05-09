@@ -5,10 +5,13 @@ using UnityEngine.UI;
 public class UIWindowExpedition : UIWindow
 {
     public ScrollRect scrollRect;
-    public UICharacterSlot prefabSlot;
+    public UISlotCharacter prefabSlot;
     public ToggleGroup toggleGroup;
 
-    public UICharacterSlot[] expedition;
+    public UISlotExpedition[] expedition;
+
+    private UISlotCharacter select;
+    private UISlotExpedition selectSlot;
 
     // Start is called before the first frame update
     private void Start()
@@ -16,13 +19,58 @@ public class UIWindowExpedition : UIWindow
         InitStats[] characters = Resources.LoadAll<InitStats>("Scriptable Objects/Player");
         for (int i = 0; i < characters.Length; i++)
         {
+            var characterInfos = new CharacterInfos();
+            characterInfos.initStats = characters[i];
+            characterInfos.animator = Resources.Load<GameObject>($"Animation/{characters[i].prefab}");
+
             var slot = Instantiate(prefabSlot, scrollRect.content);
-            slot.characterInfos.initStats = characters[i];
-            slot.characterInfos.animator = Resources.Load<GameObject>($"Animation/{characters[i].prefab}");
-            slot.textName.text = characters[i].id.ToString();
+            slot.SetData(characterInfos);
             slot.toggle.group = toggleGroup;
-            slot.toggle.onValueChanged.AddListener(x => { if (x) { GameManager.Instance.SetExpedition(slot.characterInfos); } Refresh(); });
+            slot.toggle.onValueChanged.AddListener(x =>
+            {
+                if (x)
+                {
+                    select = slot;
+                    selectSlot = null;
+                }
+                else
+                {
+                    select = null;
+                }
+            });
         }
+
+        for (int i =0; i<expedition.Length;i++)
+        {
+            int index = i;
+            expedition[i].button.onClick.AddListener(() =>
+            {
+                if (select != null)
+                {
+                    expedition[index].SetData(select.characterInfos);
+                    select.toggle.isOn = false;
+                    select = null;
+                    selectSlot = expedition[index];
+                    GameManager.Instance.SetExpedition(expedition[index].characterInfos, index);
+                }
+                else
+                {
+                    if(selectSlot != expedition[index])
+                    {
+                        selectSlot = expedition[index];
+                    }
+                    else
+                    {
+                        expedition[index].SetData(null);
+                        selectSlot = null;
+                        GameManager.Instance.SetExpedition(expedition[index].characterInfos, index);
+                    }
+                }
+
+
+            });
+        }
+
     }
     public void Refresh()
     {
