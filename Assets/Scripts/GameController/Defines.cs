@@ -4,6 +4,7 @@
     public static readonly string unit = "Unit";
     public static readonly string gameManager = "GameController";
     public static readonly string window = "Window";
+    public static readonly string player = "Player";
 }
 
 public static class Scenes

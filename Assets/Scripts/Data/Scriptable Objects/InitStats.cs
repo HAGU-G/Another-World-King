@@ -8,6 +8,7 @@ public class InitStats : ScriptableObject
 {
     //Init Stats
     public int id;
+    public string prefab;
     public bool isTower;
 
     public int initHP = 30;
