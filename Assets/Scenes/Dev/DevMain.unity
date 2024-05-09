@@ -911,7 +911,7 @@ MonoBehaviour:
   scrollRect: {fileID: 114142949}
   prefabSlot: {fileID: 6964533286878031006, guid: 424c3ca75c844734f94aa737d52684d5, type: 3}
   toggleGroup: {fileID: 114142952}
-  goStage: {fileID: 0}
+  goStage: {fileID: 2040120442}
   expedition:
   - {fileID: 1084354447}
   - {fileID: 1218102641}
