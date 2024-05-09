@@ -64,8 +64,12 @@ public class TowerAI : RuntimeStats
         var animator = Instantiate(characterInfos.animator, unit.transform);
         unit.initStats = characterInfos.initStats;
         unit.OnDead += () => { units.Remove(unit); };
-        if (isPlayer)
-            unit.OnDead += () => { player.GetExp(unit.initStats.initDropExp); player.GetGold(unit.initStats.initDropGold); };
+        if (!isPlayer)
+            unit.OnDead += () =>
+            {
+                player.GetExp(unit.initStats.initDropExp);
+                player.GetGold(unit.initStats.initDropGold);
+            };
         unit.Tower = this;
         unit.ResetAI();
         units.Add(unit);
