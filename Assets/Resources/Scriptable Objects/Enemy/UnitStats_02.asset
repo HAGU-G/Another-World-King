@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 11e112565d9ed0044ad2cbcf071bc79e, type: 3}
-  m_Name: UnitStats_01
+  m_Name: UnitStats_02
   m_EditorClassIdentifier: 
-  id: 0
+  id: 32
   isTower: 0
   initHP: 30
   useStartHP: 0
@@ -27,6 +27,6 @@ MonoBehaviour:
   isHealer: 0
   initHeal: 0
   initMoveSpeed: 30
-  cost: 200
+  cost: 245
   initDropGold: 50
   initDropExp: 100

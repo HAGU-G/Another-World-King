@@ -8,16 +8,18 @@ public class UIWindowExpedition : UIWindow
     public UICharacterSlot prefabSlot;
     public ToggleGroup toggleGroup;
 
-    public TextMeshProUGUI[] expedition;
+    public UICharacterSlot[] expedition;
 
     // Start is called before the first frame update
     private void Start()
     {
-        for (int i = 0; i < 10; i++)
+        InitStats[] characters = Resources.LoadAll<InitStats>("Scriptable Objects/Player");
+        for (int i = 0; i < characters.Length; i++)
         {
             var slot = Instantiate(prefabSlot, scrollRect.content);
-            slot.characterInfos.initStats = Resources.Load<InitStats>("UnitStats_01");
-            slot.characterInfos.animator = Resources.Load<GameObject>("Player");
+            slot.characterInfos.initStats = characters[i];
+            slot.characterInfos.animator = Resources.Load<GameObject>($"Animation/{characters[i].prefab}");
+            slot.textName.text = characters[i].id.ToString();
             slot.toggle.group = toggleGroup;
             slot.toggle.onValueChanged.AddListener(x => { if (x) { GameManager.Instance.SetExpedition(slot.characterInfos); } Refresh(); });
         }
@@ -26,7 +28,7 @@ public class UIWindowExpedition : UIWindow
     {
         for (int i = 0; i < expedition.Length; i++)
         {
-            expedition[i].text = GameManager.Instance.GetExpedition(i)?.initStats.id.ToString();
+            expedition[i].textName.text = GameManager.Instance.GetExpedition(i)?.initStats.id.ToString();
         }
     }
 }

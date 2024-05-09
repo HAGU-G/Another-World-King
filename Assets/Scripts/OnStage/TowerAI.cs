@@ -7,7 +7,11 @@ public class TowerAI : RuntimeStats
     public TowerAI enemyTower;
     public UnitAI characterRoot;
     public List<UnitAI> units { get; private set; } = new();
+
     private bool isBlocked;
+    private float spawnInterval = 1f;
+    private float lastSpawnTime = 0f;
+
 
     private void Awake()
     {
@@ -24,6 +28,15 @@ public class TowerAI : RuntimeStats
     protected virtual void OnEnable()
     {
         ResetAI();
+    }
+
+    protected override void Update()
+    {
+        if (!isPlayer && Time.time >= lastSpawnTime + spawnInterval)
+        {
+            TrySpawnUnit(GameManager.Instance.Expedition[0]);
+            lastSpawnTime = Time.time;
+        }
     }
 
     public void ResetAI()
@@ -53,6 +66,16 @@ public class TowerAI : RuntimeStats
 
 
     private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.isTrigger)
+            return;
+        var unit = collision.GetComponent<RuntimeStats>();
+        if (unit != null && unit.isPlayer == isPlayer)
+            isBlocked = true;
+
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.isTrigger)
             return;

@@ -188,7 +188,6 @@ MonoBehaviour:
   animator: {fileID: 0}
   rb: {fileID: 3325342423257663449}
   attackCollider: {fileID: 7700066144859409963}
-  tower: {fileID: 0}
 --- !u!114 &3825334742286290610
 MonoBehaviour:
   m_ObjectHideFlags: 0

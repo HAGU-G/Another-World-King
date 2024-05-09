@@ -63,6 +63,7 @@ public class UnitAI : RuntimeStats
 
         foreach (var c in GetComponents<Collider>())
             c.enabled = true;
+
         attackCollider.size = new Vector2(0.3f + AttackRange, 0.1f);
         attackCollider.offset = new Vector2(-attackCollider.size.x * 0.5f, isPlayer ? 0.2f : 0.6f);
 
@@ -143,7 +144,11 @@ public class UnitAI : RuntimeStats
             return;
 
         if (isPlayer != target.isPlayer && !enemyInRange.Contains(target))
+        {
+            if (!target.IsTower && collision.isTrigger)
+                return;
             enemyInRange.Add(target);
+        }
     }
 
     protected virtual void OnTriggerExit2D(Collider2D collision)

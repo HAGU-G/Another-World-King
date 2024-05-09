@@ -20,6 +20,7 @@ public class UnitStatsDataEditor : Editor
 
         //ID & State
         stats.id = EditorGUILayout.IntField("ID", stats.id);
+        stats.prefab = EditorGUILayout.TextField("프리펩", stats.prefab);
         stats.isTower = EditorGUILayout.Toggle("타워", stats.isTower);
 
         //체력

@@ -176,6 +176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toggle: {fileID: 5160220733901238724}
+  textName: {fileID: 4118780280986687192}
   animator: {fileID: 8620658186912509578, guid: e2eeb1fbc32eb9a4c83b791679767051, type: 3}
 --- !u!1 &6305048549890672564
 GameObject:
