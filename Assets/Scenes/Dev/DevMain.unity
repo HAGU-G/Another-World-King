@@ -911,6 +911,7 @@ MonoBehaviour:
   scrollRect: {fileID: 114142949}
   prefabSlot: {fileID: 6964533286878031006, guid: 424c3ca75c844734f94aa737d52684d5, type: 3}
   toggleGroup: {fileID: 114142952}
+  goStage: {fileID: 0}
   expedition:
   - {fileID: 1084354447}
   - {fileID: 1218102641}
@@ -2105,19 +2106,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2040120443}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 243646519}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: ChangeScene
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: DevStage
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &2040120443
 MonoBehaviour:
   m_ObjectHideFlags: 0

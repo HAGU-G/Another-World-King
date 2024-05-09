@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.Android.Types;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -24,6 +25,7 @@ public class TowerAI : RuntimeStats
                     Destroy(item);
             };
             Destroy(gameObject);
+            GameManager.Instance.ChangeScene(Scenes.devMain);
         };
         ResetAI();
     }

@@ -8,6 +8,7 @@ public class UIWindowExpedition : UIWindow
     public ScrollRect scrollRect;
     public UISlotCharacter prefabSlot;
     public ToggleGroup toggleGroup;
+    public Button goStage; //TEMP
 
     public UISlotExpedition[] expedition;
 
@@ -17,6 +18,12 @@ public class UIWindowExpedition : UIWindow
     // Start is called before the first frame update
     private void Start()
     {
+        goStage.onClick.AddListener(() => GameManager.Instance.ChangeScene(Scenes.devStage));
+        for (int i = 0; i < expedition.Length; i++)
+        {
+            expedition[i].SetData(GameManager.Instance.Expedition[i]);
+        }
+
         InitStats[] characters = Resources.LoadAll<InitStats>("Scriptable Objects/Player");
         for (int i = 0; i < characters.Length; i++)
         {
@@ -54,7 +61,7 @@ public class UIWindowExpedition : UIWindow
 
         if (select != null)
         {
-            foreach(var slot in expedition)
+            foreach (var slot in expedition)
             {
                 if (slot.characterInfos == select.characterInfos)
                     slot.SetData(null);
