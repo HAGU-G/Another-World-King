@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11e112565d9ed0044ad2cbcf071bc79e, type: 3}
+  m_Name: 302
+  m_EditorClassIdentifier: 
+  ignore: "\uAC15\uD654 \uC131\uC9C1\uC790"
+  id: 302
+  division: 4
+  prefab: 
+  isTower: 0
+  initHP: 60
+  useStartHP: 0
+  initHPStart: 0
+  combatType: 0
+  initAttackDamage: 0
+  initAttackSpeed: 2.5
+  initAttackRange: 2
+  initAttackEnemyCount: 1
+  initAttackOrder: 1
+  initAttackEnemyOrder: 01000000
+  isHealer: 0
+  initHeal: 0
+  initMoveSpeed: 80
+  cost: 150
+  spawnTime: 0
+  initDropGold: 0
+  initDropExp: 0
+  effect: 
+  image: 
+  skill: 

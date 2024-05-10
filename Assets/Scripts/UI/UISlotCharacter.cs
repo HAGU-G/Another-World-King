@@ -11,6 +11,6 @@ public class UISlotCharacter : MonoBehaviour
     public void SetData(CharacterInfos characterInfos)
     {
         this.characterInfos = characterInfos;
-        textName.text = characterInfos.initStats.id.ToString();
+        textName.text = characterInfos.initStats.id;
     }
 }

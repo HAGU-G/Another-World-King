@@ -1,35 +1,44 @@
+using CsvHelper.Configuration;
+using CsvHelper.Configuration.Attributes;
 using System.Collections.Generic;
 using UnityEngine;
 
 
-
-[CreateAssetMenu(fileName = "UnitStats_", menuName = "CreateData/UnitStats")]
+[CreateAssetMenu(fileName = "캐릭터 ID", menuName = "데이터 생성/캐릭터 정보")]
 public class InitStats : ScriptableObject
 {
-    //Init Stats
-    public int id;
-    public string prefab;
-    public bool isTower;
+    public string ignore; //Don't use in game
 
-    public int initHP = 30;
+    //Init Stats
+    public string id;
+    public int division;
+    public string prefab;
+    public bool isTower = false;
+
+    public int initHP;
     public bool useStartHP = false;
-    public int initHPStart = 30;
+    public int initHPStart;
 
     public COMBAT_TYPE combatType;
-    public int initAttackDamage = 10;
-    public float initAttackSpeed = 10;
-    public float initAttackRange = 10;
-    public int initAttackEnemyCount = 1;
-    public int initAttackOrder = 1;
+    public int initAttackDamage;
+    public float initAttackSpeed;
+    public float initAttackRange;
+    public int initAttackEnemyCount;
+    public int initAttackOrder;
     public List<int> initAttackEnemyOrder = new() { 1 };
 
     public bool isHealer = false;
     public int initHeal = 0;
 
-    public float initMoveSpeed = 10;
+    public float initMoveSpeed = 80;
 
-    public int cost = 200;
-    public int initDropGold = 50;
-    public int initDropExp = 100;
+    public int cost;
+    public float spawnTime;
+    public int initDropGold;
+    public int initDropExp;
+
+    public string effect;
+    public string image;
+    public string skill;
 }
 

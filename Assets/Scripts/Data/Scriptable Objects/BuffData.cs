@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Buff_", menuName = "CreateData/Buff")]
+[CreateAssetMenu(fileName = "버프 ID", menuName = "데이터 생성/버프")]
 public class BuffData : ScriptableObject
 {
     public int id;
