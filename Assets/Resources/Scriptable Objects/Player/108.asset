@@ -24,12 +24,16 @@ MonoBehaviour:
   initAttackDamage: 80
   initAttackSpeed: 2.5
   initAttackRange: 1
-  initAttackEnemyCount: 0
-  initAttackOrder: 0
+  initAttackEnemyCount: 1
+  initAttackOrder: 1
   initAttackEnemyOrder: 01000000
   isHealer: 0
   initHeal: 0
   initMoveSpeed: 80
   cost: 200
+  spawnTime: 0
   initDropGold: 0
   initDropExp: 0
+  effect: 
+  image: 
+  skill: 
