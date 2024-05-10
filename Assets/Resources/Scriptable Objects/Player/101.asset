@@ -12,22 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11e112565d9ed0044ad2cbcf071bc79e, type: 3}
   m_Name: 101
   m_EditorClassIdentifier: 
+  ignore: "\uC804\uC0AC"
   id: 101
-  prefab: A
+  division: 1
+  prefab: 
   isTower: 0
   initHP: 80
   useStartHP: 0
-  initHPStart: 30
+  initHPStart: 0
   combatType: 0
   initAttackDamage: 50
   initAttackSpeed: 2
-  initAttackRange: 0.3
+  initAttackRange: 1
   initAttackEnemyCount: 1
   initAttackOrder: 1
   initAttackEnemyOrder: 01000000
   isHealer: 0
   initHeal: 0
-  initMoveSpeed: 100
+  initMoveSpeed: 80
   cost: 100
-  initDropGold: 100
-  initDropExp: 100
+  spawnTime: 0
+  initDropGold: 0
+  initDropExp: 0
+  effect: 
+  image: 
+  skill: 

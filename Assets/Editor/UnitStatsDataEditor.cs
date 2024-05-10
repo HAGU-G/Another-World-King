@@ -19,7 +19,7 @@ public class UnitStatsDataEditor : Editor
         Undo.RecordObject(stats, "À¯´Ö ½ºÅÈ º¯°æ");
 
         //ID & State
-        stats.id = EditorGUILayout.IntField("ID", stats.id);
+        stats.id = EditorGUILayout.TextField("ID", stats.id);
         stats.prefab = EditorGUILayout.TextField("ÇÁ¸®Æé", stats.prefab);
         stats.isTower = EditorGUILayout.Toggle("Å¸¿ö", stats.isTower);
 

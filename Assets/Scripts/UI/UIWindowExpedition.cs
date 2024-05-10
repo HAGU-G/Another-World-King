@@ -1,5 +1,3 @@
-using System;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,12 +22,12 @@ public class UIWindowExpedition : UIWindow
             expedition[i].SetData(GameManager.Instance.Expedition[i]);
         }
 
-        InitStats[] characters = Resources.LoadAll<InitStats>("Scriptable Objects/Player");
+        InitStats[] characters = Resources.LoadAll<InitStats>(string.Format(Paths.resourcesPlayer, string.Empty));
         for (int i = 0; i < characters.Length; i++)
         {
             var characterInfos = new CharacterInfos();
             characterInfos.initStats = characters[i];
-            characterInfos.animator = Resources.Load<GameObject>($"Animation/{characters[i].prefab}");
+            characterInfos.animator = Resources.Load<GameObject>(string.Format(Paths.resourcesPrefabs, characters[i].prefab));
 
             var slot = Instantiate(prefabSlot, scrollRect.content);
             slot.SetData(characterInfos);
