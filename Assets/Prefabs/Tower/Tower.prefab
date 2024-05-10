@@ -135,6 +135,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initStats: {fileID: 11400000, guid: 9e6162b73046c8849934f075c698828c, type: 2}
   isPlayer: 0
+  enemyTower: {fileID: 0}
+  characterRoot: {fileID: 7057274257859823147, guid: f9025effca4be164faa0dc838d7b9b0e, type: 3}
 --- !u!210 &1369464387145922124
 SortingGroup:
   m_ObjectHideFlags: 0
