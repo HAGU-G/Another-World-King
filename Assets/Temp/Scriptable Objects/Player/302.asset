@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 11e112565d9ed0044ad2cbcf071bc79e, type: 3}
-  m_Name: 203
+  m_Name: 302
   m_EditorClassIdentifier: 
-  ignore: "\uAC15\uD654 \uAD81\uC218"
-  id: 203
-  division: 3
-  prefab: A
+  ignore: "\uAC15\uD654 \uC131\uC9C1\uC790"
+  id: 302
+  division: 4
+  prefab: 
   isTower: 0
   initHP: 60
   useStartHP: 0
   initHPStart: 0
   combatType: 0
-  initAttackDamage: 7
-  initAttackSpeed: 0.5
+  initAttackDamage: 0
+  initAttackSpeed: 2.5
   initAttackRange: 2
   initAttackEnemyCount: 1
   initAttackOrder: 1
@@ -30,7 +30,7 @@ MonoBehaviour:
   isHealer: 0
   initHeal: 0
   initMoveSpeed: 80
-  cost: 100
+  cost: 150
   spawnTime: 0
   initDropGold: 0
   initDropExp: 0
