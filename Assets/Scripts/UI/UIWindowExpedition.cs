@@ -13,7 +13,6 @@ public class UIWindowExpedition : UIWindow
     private UISlotCharacter select;
     private UISlotExpedition selectSlot;
 
-    // Start is called before the first frame update
     private void Start()
     {
         goStage.onClick.AddListener(() => GameManager.Instance.ChangeScene(Scenes.devStage));
