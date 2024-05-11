@@ -27,7 +27,7 @@ public class TowerAI : RuntimeStats
             Destroy(gameObject);
             GameManager.Instance.ChangeScene(Scenes.devMain);
         };
-        ResetAI();
+        ResetUnit();
     }
     private void Start()
     {
@@ -44,13 +44,16 @@ public class TowerAI : RuntimeStats
         }
     }
 
-    public void ResetAI()
+    public override void ResetUnit()
     {
-        ResetStats();
+        base.ResetUnit();
+
         if (isPlayer)
-            transform.localScale = new(-1f, 1f, 1f);
+            transform.localScale = Vectors.filpX;
         else
             transform.localScale = Vector3.one;
+
+        isBlocked = false;
     }
     public bool CanSpawnUnit()
     {
@@ -65,6 +68,8 @@ public class TowerAI : RuntimeStats
         var unit = Instantiate(characterRoot, transform.position, Quaternion.Euler(Vector3.up)).GetComponent<UnitAI>();
         var animator = Instantiate(characterInfos.animator, unit.transform);
         unit.initStats = characterInfos.initStats;
+        unit.ResetUnit();
+        unit.SetTower(this);
         unit.OnDead += () => { units.Remove(unit); };
         if (!isPlayer)
             unit.OnDead += () =>
@@ -72,8 +77,6 @@ public class TowerAI : RuntimeStats
                 player.GetExp(unit.initStats.initDropExp);
                 player.GetGold(unit.initStats.initDropGold);
             };
-        unit.Tower = this;
-        unit.ResetAI();
         units.Add(unit);
     }
 

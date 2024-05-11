@@ -15,7 +15,7 @@ MonoBehaviour:
   ignore: "\uD0F1\uCEE4"
   id: 102
   division: 2
-  prefab: 
+  prefab: None
   isTower: 0
   initHP: 150
   useStartHP: 0
@@ -24,12 +24,16 @@ MonoBehaviour:
   initAttackDamage: 20
   initAttackSpeed: 2
   initAttackRange: 1
-  initAttackEnemyCount: 0
-  initAttackOrder: 0
+  initAttackEnemyCount: 1
+  initAttackOrder: 1
   initAttackEnemyOrder: 01000000
   isHealer: 0
   initHeal: 0
   initMoveSpeed: 80
   cost: 250
+  spawnTime: 0
   initDropGold: 0
   initDropExp: 0
+  effect: 
+  image: 
+  skill: 

@@ -2,7 +2,11 @@ using CsvHelper.Configuration;
 using CsvHelper.Configuration.Attributes;
 using System.Collections.Generic;
 using UnityEngine;
-
+public enum COMBAT_TYPE
+{
+    STOP_ON_HAVE_TARGET,
+    STOP_ON_ATTACK
+}
 
 [CreateAssetMenu(fileName = "캐릭터 ID", menuName = "데이터 생성/캐릭터 정보")]
 public class InitStats : ScriptableObject
@@ -12,7 +16,7 @@ public class InitStats : ScriptableObject
     //Init Stats
     public string id;
     public int division;
-    public string prefab;
+    public string prefab = Strings.nonePrefab;
     public bool isTower = false;
 
     public int initHP;

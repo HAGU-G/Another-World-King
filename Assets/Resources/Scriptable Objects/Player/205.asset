@@ -15,7 +15,7 @@ MonoBehaviour:
   ignore: "\uB300\uD3EC"
   id: 205
   division: 3
-  prefab: 
+  prefab: None
   isTower: 0
   initHP: 100
   useStartHP: 0
@@ -31,5 +31,9 @@ MonoBehaviour:
   initHeal: 0
   initMoveSpeed: 80
   cost: 300
+  spawnTime: 0
   initDropGold: 0
   initDropExp: 0
+  effect: 
+  image: 
+  skill: 
