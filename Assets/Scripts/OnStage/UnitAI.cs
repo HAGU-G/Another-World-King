@@ -1,6 +1,15 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Timeline;
 
+public enum UNIT_STATE
+{
+    IDLE,
+    MOVE,
+    ATTACK,
+    DEAD
+}
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class UnitAI : RuntimeStats
@@ -15,20 +24,12 @@ public class UnitAI : RuntimeStats
 
     private float lastAttackTime;
 
+    private UNIT_STATE unitState = UNIT_STATE.IDLE; //애니메이션으로 교체 예정
+    private bool isBlocked;
+
     protected virtual void Awake()
     {
-        OnDead += () =>
-        {
-            foreach (var c in GetComponents<Collider>())
-                c.enabled = false;
-
-            //TESTCODE
-            Destroy(gameObject);
-        };
-    }
-    protected virtual void OnEnable()
-    {
-        ResetAI();
+        OnDead += () => { SetUnitState(UNIT_STATE.DEAD); };
     }
 
     protected override void Update()
@@ -37,45 +38,85 @@ public class UnitAI : RuntimeStats
 
         if (GetOrder() > AttackOrder)
         {
-            Move();
+            SetUnitState(UNIT_STATE.MOVE);
             return;
         }
 
         TargetFiltering();
-        if (targets.Count > 0)
+        if (targets.Count <= 0)
         {
-            if (CombatType == COMBAT_TYPE.STOP_ON_HAVE_TARGET)
-                Stop();
-            if (Time.time >= lastAttackTime + 1f / AttackSpeed)
-                AttackTargets();
+            SetUnitState(UNIT_STATE.MOVE);
+            return;
         }
-        else
-        {
-            Move();
-        }
+
+        if (Time.time >= lastAttackTime + AttackSpeed)
+            SetUnitState(UNIT_STATE.ATTACK);
+        else if (CombatType == COMBAT_TYPE.STOP_ON_HAVE_TARGET)
+            SetUnitState(UNIT_STATE.IDLE);
+
     }
 
-    public void ResetAI()
+    public void SetUnitState(UNIT_STATE state)
     {
-        ResetStats();
-        if (Tower != null)
-            isPlayer = Tower.isPlayer;
+        if (unitState == state)
+            return;
+        else if (state == UNIT_STATE.MOVE && isBlocked)
+            return;
+
+        switch (state)
+        {
+            case UNIT_STATE.IDLE:
+                rb.velocity = Vector3.zero;
+                break;
+            case UNIT_STATE.MOVE:
+                rb.velocity = transform.forward * MoveSpeed * -transform.localScale.x;
+                break;
+            case UNIT_STATE.ATTACK:
+                lastAttackTime = Time.time;
+                rb.velocity = Vector3.zero;
+                AttackTargets();
+                break;
+            case UNIT_STATE.DEAD:
+                foreach (var c in GetComponents<Collider>())
+                    c.enabled = false;
+                Destroy(gameObject);
+                break;
+        }
+
+        unitState = state;
+    }
+
+    public override void ResetUnit()
+    {
+        base.ResetUnit();
 
         foreach (var c in GetComponents<Collider>())
             c.enabled = true;
-
         attackCollider.size = new Vector2(0.3f + (AttackRange <= 1f ? 0.3f : AttackRange * 0.6f), 0.1f);
         attackCollider.offset = new Vector2(-attackCollider.size.x * 0.5f, isPlayer ? 0.2f : 0.6f);
 
-        lastAttackTime = Time.time - 1f / AttackSpeed;
+        lastAttackTime = Time.time - AttackSpeed;
         if (isPlayer)
-            transform.localScale = new(-1f, 1f, 1f);
+            transform.localScale = Vectors.filpX;
         else
             transform.localScale = Vector3.one;
 
         enemyInRange.Clear();
         targets.Clear();
 
+        isBlocked = false;
+        SetUnitState(UNIT_STATE.IDLE);
+    }
+
+    public void SetTower(TowerAI tower)
+    {
+        Tower = tower;
+        isPlayer = Tower.isPlayer;
+        attackCollider.offset = new Vector2(-attackCollider.size.x * 0.5f, isPlayer ? 0.2f : 0.6f);
+        if (isPlayer)
+            transform.localScale = Vectors.filpX;
+        else
+            transform.localScale = Vector3.one;
     }
 
     public int GetOrder() => Tower.units.IndexOf(this) + 1;
@@ -107,24 +148,8 @@ public class UnitAI : RuntimeStats
         }
     }
 
-
-    public void Stop()
-    {
-        rb.isKinematic = true;
-        rb.velocity = Vector3.zero;
-    }
-
-    public void Move()
-    {
-        rb.isKinematic = false;
-        rb.velocity = transform.forward * MoveSpeed * -transform.localScale.x;
-    }
-
     protected virtual void AttackTargets()
     {
-        lastAttackTime = Time.time;
-        if (CombatType == COMBAT_TYPE.STOP_ON_ATTACK)
-            Stop();
 
         foreach (var target in targets)
         {
@@ -132,7 +157,7 @@ public class UnitAI : RuntimeStats
         }
 
         if (CombatType == COMBAT_TYPE.STOP_ON_ATTACK)
-            Move();
+            SetUnitState(UNIT_STATE.MOVE);
     }
 
 
@@ -158,5 +183,34 @@ public class UnitAI : RuntimeStats
             return;
 
         enemyInRange.Remove(target);
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (isBlocked)
+            return;
+
+        var character = collision.gameObject.GetComponent<UnitAI>();
+        if (character == null)
+            return;
+
+        if (Mathf.Sign(character.transform.position.x - transform.position.x) == (isPlayer ? 1f : -1f))
+        {
+            isBlocked = true;
+            if (unitState == UNIT_STATE.MOVE)
+                SetUnitState(UNIT_STATE.IDLE);
+        }
+    }
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        if (!isBlocked)
+            return;
+
+        var character = collision.gameObject.GetComponent<UnitAI>();
+        if (character == null)
+            return;
+
+        if (Mathf.Sign(character.transform.position.x - transform.position.x) == (isPlayer ? 1f : -1f))
+            isBlocked = false;
     }
 }

@@ -18,11 +18,19 @@ public class Player : MonoBehaviour
             uiOnStage.textGold.text = gold.ToString();
         }
     }
-    public int Exp { get; private set; }
+    public int Exp
+    {
+        get => exp;
+        private set
+        {
+            exp = value;
+           // uiOnStage.textExp.text = exp.ToString();
+        }
+    }
 
     private void Start()
     {
-        Gold = 1000;
+        Gold = int.MaxValue;
         for (int i = 0; i < uiOnStage.buttonSummons.Length; i++)
         {
             uiOnStage.buttonSummons[i].SetData(GameManager.Instance.GetExpedition(i));

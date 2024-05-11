@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,7 +12,7 @@ public class GameManager : MonoBehaviour
         get
         {
             if (instance == null)
-                instance = GameObject.FindWithTag(Tags.gameManager).GetComponent<GameManager>();
+                instance = Instantiate(Resources.Load<GameObject>(Paths.gameManager)).GetComponent<GameManager>();
 
             return instance;
         }
@@ -19,6 +20,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
     public CharacterInfos[] Expedition { get; private set; } = new CharacterInfos[5];
+    public List<string> purchasedID { get; private set; } = new();
 
     private void Awake()
     {

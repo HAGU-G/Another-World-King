@@ -15,7 +15,7 @@ MonoBehaviour:
   ignore: "\uAC15\uD654 \uB9C8\uBC95\uC0AC"
   id: 204
   division: 5
-  prefab: 
+  prefab: None
   isTower: 0
   initHP: 60
   useStartHP: 0

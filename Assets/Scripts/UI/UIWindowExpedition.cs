@@ -1,3 +1,4 @@
+using Unity.Loading;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,6 +25,9 @@ public class UIWindowExpedition : UIWindow
         InitStats[] characters = Resources.LoadAll<InitStats>(string.Format(Paths.resourcesPlayer, string.Empty));
         for (int i = 0; i < characters.Length; i++)
         {
+            if (!GameManager.Instance.purchasedID.Contains(characters[i].id))
+                continue;
+
             var characterInfos = new CharacterInfos();
             characterInfos.initStats = characters[i];
             characterInfos.animator = Resources.Load<GameObject>(string.Format(Paths.resourcesPrefabs, characters[i].prefab));

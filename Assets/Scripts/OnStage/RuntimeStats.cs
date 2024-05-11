@@ -172,7 +172,7 @@ public class RuntimeStats : MonoBehaviour
         UpdateBuffDuration(Time.deltaTime);
     }
 
-    public void ResetStats()
+    public virtual void ResetUnit()
     {
         hp = initStats.useStartHP ? initStats.initHPStart : MaxHP;
         buffs.Clear();

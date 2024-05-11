@@ -1,7 +1,7 @@
 ﻿public static class Paths
 {
+    public static readonly string gameManager = "Prefabs/GameController/GameManager";
     public static readonly string dataTablePlayer = "DataTables/Player";
-
     public static readonly string resourcesRaw = "Assets/Resources/";
     public static readonly string asset = ".asset";
     public static readonly string resourcesPlayer = "Scriptable Objects/Player/{0}";
@@ -24,9 +24,14 @@ public static class Scenes
     public static readonly string devStage = "DevStage";
 }
 
-public enum COMBAT_TYPE
+
+
+public static class Strings
 {
-    STOP_ON_HAVE_TARGET,
-    STOP_ON_ATTACK,
-    DONT_STOP
+    public static readonly string nonePrefab = "None";
+}
+
+public static class Vectors
+{
+    public static readonly UnityEngine.Vector3 filpX = new(-1, 1, 1);
 }

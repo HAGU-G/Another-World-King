@@ -15,7 +15,7 @@ MonoBehaviour:
   ignore: "\uAD11\uC804\uC0AC"
   id: 305
   division: 6
-  prefab: 
+  prefab: None
   isTower: 0
   initHP: 60
   useStartHP: 0
@@ -24,8 +24,8 @@ MonoBehaviour:
   initAttackDamage: 0
   initAttackSpeed: 3
   initAttackRange: 2
-  initAttackEnemyCount: 0
-  initAttackOrder: 0
+  initAttackEnemyCount: 1
+  initAttackOrder: 1
   initAttackEnemyOrder: 01000000
   isHealer: 0
   initHeal: 0
