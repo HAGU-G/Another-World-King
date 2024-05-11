@@ -150,11 +150,21 @@ public class UnitAI : RuntimeStats
 
     protected virtual void AttackTargets()
     {
-
-        foreach (var target in targets)
+        if(IsHealer)
         {
-            target.Damaged(AttackDamage);
+            for(int i = 0; i < GetOrder();i++)
+            {
+                Tower.units[i].Healed(Heal);
+            }
         }
+        else
+        {
+            foreach (var target in targets)
+            {
+                target.Damaged(AttackDamage);
+            }
+        }
+        
 
         if (CombatType == COMBAT_TYPE.STOP_ON_ATTACK)
             SetUnitState(UNIT_STATE.MOVE);

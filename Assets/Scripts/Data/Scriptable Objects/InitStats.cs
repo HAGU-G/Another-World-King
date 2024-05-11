@@ -7,6 +7,17 @@ public enum COMBAT_TYPE
     STOP_ON_HAVE_TARGET,
     STOP_ON_ATTACK
 }
+public enum DIVISION
+{
+    NONE,
+    MELEE,
+    TANKER,
+    MARKSMAN,
+    HEALER,
+    MAGIC,
+    SPECIAL,
+}
+
 
 [CreateAssetMenu(fileName = "캐릭터 ID", menuName = "데이터 생성/캐릭터 정보")]
 public class InitStats : ScriptableObject
@@ -15,7 +26,7 @@ public class InitStats : ScriptableObject
 
     //Init Stats
     public string id;
-    public int division;
+    public DIVISION division;
     public string prefab = Strings.nonePrefab;
     public bool isTower = false;
 
@@ -31,9 +42,7 @@ public class InitStats : ScriptableObject
     public int initAttackOrder;
     public List<int> initAttackEnemyOrder = new() { 1 };
 
-    public bool isHealer = false;
     public int initHeal = 0;
-
     public float initMoveSpeed = 80;
 
     public int cost;

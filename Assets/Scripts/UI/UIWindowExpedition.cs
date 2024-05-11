@@ -25,8 +25,10 @@ public class UIWindowExpedition : UIWindow
         InitStats[] characters = Resources.LoadAll<InitStats>(string.Format(Paths.resourcesPlayer, string.Empty));
         for (int i = 0; i < characters.Length; i++)
         {
+#if !UNITY_EDITOR
             if (!GameManager.Instance.purchasedID.Contains(characters[i].id))
                 continue;
+#endif
 
             var characterInfos = new CharacterInfos();
             characterInfos.initStats = characters[i];

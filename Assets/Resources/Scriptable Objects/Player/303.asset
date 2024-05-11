@@ -25,10 +25,9 @@ MonoBehaviour:
   initAttackSpeed: 2.5
   initAttackRange: 3
   initAttackEnemyCount: 1
-  initAttackOrder: 1
+  initAttackOrder: 3
   initAttackEnemyOrder: 01000000
-  isHealer: 0
-  initHeal: 0
+  initHeal: 20
   initMoveSpeed: 80
   cost: 300
   spawnTime: 0

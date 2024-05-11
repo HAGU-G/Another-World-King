@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RuntimeStats : MonoBehaviour
@@ -131,6 +132,15 @@ public class RuntimeStats : MonoBehaviour
             return buffedStat * (1f + persentage);
         }
     }
+    public bool IsHealer => initStats.division == DIVISION.HEALER;
+    public int Heal
+    {
+        get
+        {
+            return initStats.initHeal;
+        }
+    }
+
 
 
     //Buff
@@ -191,5 +201,10 @@ public class RuntimeStats : MonoBehaviour
 
         if (!IsDead && HP <= 0)
             IsDead = true;
+    }
+    public void Healed(int heal)
+    {
+        if (!IsDead)
+            HP += heal;
     }
 }

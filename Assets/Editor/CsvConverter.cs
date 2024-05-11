@@ -6,7 +6,7 @@ public class InitStats_Csv
 {
     public string List { get; set; }
     public string ID { get; set; }
-    public int Division { get; set; }
+    public DIVISION Division { get; set; }
     public int Hp { get; set; }
     public int Attack { get; set; }
     public float A_Speed { get; set; }
