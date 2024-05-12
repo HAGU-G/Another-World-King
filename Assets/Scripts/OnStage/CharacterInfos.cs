@@ -2,6 +2,6 @@ using UnityEngine;
 
 public class CharacterInfos
 {
-    public InitStats initStats;
+    public UnitData initStats;
     public GameObject animator;
 }

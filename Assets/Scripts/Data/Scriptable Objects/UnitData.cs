@@ -20,7 +20,7 @@ public enum DIVISION
 
 
 [CreateAssetMenu(fileName = "캐릭터 ID", menuName = "데이터 생성/캐릭터 정보")]
-public class InitStats : ScriptableObject
+public class UnitData : ScriptableObject
 {
     public string ignore; //Don't use in game
 
@@ -28,6 +28,7 @@ public class InitStats : ScriptableObject
     public string id;
     public DIVISION division;
     public string prefab = Strings.nonePrefab;
+
     public bool isTower = false;
 
     public int initHP;
@@ -53,5 +54,6 @@ public class InitStats : ScriptableObject
     public string effect;
     public string image;
     public string skill;
+    public string desc;
 }
 

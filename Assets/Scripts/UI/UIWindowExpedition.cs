@@ -22,7 +22,7 @@ public class UIWindowExpedition : UIWindow
             expedition[i].SetData(GameManager.Instance.Expedition[i]);
         }
 
-        InitStats[] characters = Resources.LoadAll<InitStats>(string.Format(Paths.resourcesPlayer, string.Empty));
+        UnitData[] characters = Resources.LoadAll<UnitData>(string.Format(Paths.resourcesPlayer, string.Empty));
         for (int i = 0; i < characters.Length; i++)
         {
 #if !UNITY_EDITOR
@@ -33,6 +33,8 @@ public class UIWindowExpedition : UIWindow
             var characterInfos = new CharacterInfos();
             characterInfos.initStats = characters[i];
             characterInfos.animator = Resources.Load<GameObject>(string.Format(Paths.resourcesPrefabs, characters[i].prefab));
+            if(characterInfos.animator == null)
+                characterInfos.animator = Resources.Load<GameObject>(string.Format(Paths.resourcesPrefabs, Strings.nonePrefab));
 
             var slot = Instantiate(prefabSlot, scrollRect.content);
             slot.SetData(characterInfos);

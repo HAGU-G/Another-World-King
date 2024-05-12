@@ -1,9 +1,9 @@
 using UnityEngine;
 
-[RequireComponent(typeof(RuntimeStats))]
+[RequireComponent(typeof(UnitBase))]
 public class HUDHealthBar : MonoBehaviour
 {
-    public RuntimeStats stats;
+    public UnitBase stats;
     public SpriteRenderer healthBar;
 
     private void Update()

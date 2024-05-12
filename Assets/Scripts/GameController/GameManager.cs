@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
         get
         {
             if (instance == null)
-                instance = Instantiate(Resources.Load<GameObject>(Paths.gameManager)).GetComponent<GameManager>();
+                instance = Instantiate(Resources.Load<GameObject>(Paths.resourcesGameManager)).GetComponent<GameManager>();
 
             return instance;
         }

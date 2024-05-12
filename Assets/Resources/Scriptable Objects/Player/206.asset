@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11e112565d9ed0044ad2cbcf071bc79e, type: 3}
+  m_Script: {fileID: 11500000, guid: 9e5390eeabe2e0148bd1783116bb6660, type: 3}
   m_Name: 206
   m_EditorClassIdentifier: 
   ignore: "\uD3EC\uD0D1"
   id: 206
   division: 5
-  prefab: None
+  prefab: Turret
   isTower: 0
   initHP: 100
   useStartHP: 0
@@ -24,16 +24,16 @@ MonoBehaviour:
   initAttackDamage: 7
   initAttackSpeed: 0.5
   initAttackRange: 10
-  initAttackEnemyCount: 1
-  initAttackOrder: 1
+  initAttackEnemyCount: 0
+  initAttackOrder: 10
   initAttackEnemyOrder: 01000000
-  isHealer: 0
   initHeal: 0
   initMoveSpeed: 80
   cost: 500
-  spawnTime: 0
+  spawnTime: 30
   initDropGold: 0
   initDropExp: 0
-  effect: 
-  image: 
-  skill: 
+  effect: tower1
+  image: "\uD3EC\uD0D1.jpg"
+  skill: 0
+  desc: Turret_explan

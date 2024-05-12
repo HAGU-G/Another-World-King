@@ -12,15 +12,15 @@ public enum UNIT_STATE
 }
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class UnitAI : RuntimeStats
+public class CharacterAI : UnitBase
 {
     public Animator animator;
     public Rigidbody2D rb;
     public BoxCollider2D attackCollider;
 
     public TowerAI Tower { get; set; }
-    private List<RuntimeStats> enemyInRange = new();
-    private List<RuntimeStats> targets = new();
+    private List<UnitBase> enemyInRange = new();
+    private List<UnitBase> targets = new();
 
     private float lastAttackTime;
 
@@ -174,7 +174,7 @@ public class UnitAI : RuntimeStats
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        var target = collision.GetComponent<RuntimeStats>();
+        var target = collision.GetComponent<UnitBase>();
         if (target == null)
             return;
 
@@ -188,7 +188,7 @@ public class UnitAI : RuntimeStats
 
     protected virtual void OnTriggerExit2D(Collider2D collision)
     {
-        var target = collision.GetComponent<RuntimeStats>();
+        var target = collision.GetComponent<UnitBase>();
         if (target == null)
             return;
 
@@ -200,7 +200,7 @@ public class UnitAI : RuntimeStats
         if (isBlocked)
             return;
 
-        var character = collision.gameObject.GetComponent<UnitAI>();
+        var character = collision.gameObject.GetComponent<CharacterAI>();
         if (character == null)
             return;
 
@@ -216,7 +216,7 @@ public class UnitAI : RuntimeStats
         if (!isBlocked)
             return;
 
-        var character = collision.gameObject.GetComponent<UnitAI>();
+        var character = collision.gameObject.GetComponent<CharacterAI>();
         if (character == null)
             return;
 

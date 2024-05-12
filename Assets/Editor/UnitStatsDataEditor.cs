@@ -2,15 +2,15 @@ using System.Diagnostics.Eventing.Reader;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(InitStats))]
+[CustomEditor(typeof(UnitData))]
 public class UnitStatsDataEditor : Editor
 {
-    private InitStats stats = null;
+    private UnitData stats = null;
     private SerializedProperty attackEnemyOrder = null;
 
     private void OnEnable()
     {
-        stats = target as InitStats;
+        stats = target as UnitData;
         attackEnemyOrder = serializedObject.FindProperty("initAttackEnemyOrder");
     }
 

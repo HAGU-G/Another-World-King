@@ -2,10 +2,9 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class RuntimeStats : MonoBehaviour
+public class UnitBase : MonoBehaviour
 {
-    public InitStats initStats;
-
+    public UnitData initStats;
 
     //State
     public bool IsTower => initStats.isTower;

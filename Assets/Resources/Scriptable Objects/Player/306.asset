@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11e112565d9ed0044ad2cbcf071bc79e, type: 3}
+  m_Script: {fileID: 11500000, guid: 9e5390eeabe2e0148bd1783116bb6660, type: 3}
   m_Name: 306
   m_EditorClassIdentifier: 
   ignore: "\uC2A4\uD134"
   id: 306
   division: 6
-  prefab: None
+  prefab: Shaman
   isTower: 0
   initHP: 60
   useStartHP: 0
@@ -24,16 +24,16 @@ MonoBehaviour:
   initAttackDamage: 0
   initAttackSpeed: 3
   initAttackRange: 2
-  initAttackEnemyCount: 1
-  initAttackOrder: 1
+  initAttackEnemyCount: 0
+  initAttackOrder: 3
   initAttackEnemyOrder: 01000000
-  isHealer: 0
   initHeal: 0
   initMoveSpeed: 80
   cost: 300
-  spawnTime: 0
+  spawnTime: 15
   initDropGold: 0
   initDropExp: 0
-  effect: 
-  image: 
-  skill: 
+  effect: buff2
+  image: "\uC2A4\uD134.jpg"
+  skill: Stun_Skill
+  desc: Shaman_explan
