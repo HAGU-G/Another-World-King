@@ -9,31 +9,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11e112565d9ed0044ad2cbcf071bc79e, type: 3}
+  m_Script: {fileID: 11500000, guid: 9e5390eeabe2e0148bd1783116bb6660, type: 3}
   m_Name: 207
   m_EditorClassIdentifier: 
   ignore: "\uC2A4\uB098\uC774\uD37C"
   id: 207
   division: 3
-  prefab: None
+  prefab: Sniper
   isTower: 0
   initHP: 60
   useStartHP: 0
   initHPStart: 0
   combatType: 0
-  initAttackDamage: 7
-  initAttackSpeed: 0.5
+  initAttackDamage: 50
+  initAttackSpeed: 3
   initAttackRange: 3
-  initAttackEnemyCount: 0
-  initAttackOrder: 0
+  initAttackEnemyCount: 1
+  initAttackOrder: 3
   initAttackEnemyOrder: 01000000
-  isHealer: 0
   initHeal: 0
   initMoveSpeed: 80
   cost: 400
-  spawnTime: 0
+  spawnTime: 15
   initDropGold: 0
   initDropExp: 0
-  effect: 
-  image: 
-  skill: 
+  effect: Arrow1
+  image: "\uC2A4\uB098\uC774\uD37C.jpg"
+  skill: 0
+  desc: Sniper_explan

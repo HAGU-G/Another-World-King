@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11e112565d9ed0044ad2cbcf071bc79e, type: 3}
+  m_Script: {fileID: 11500000, guid: 9e5390eeabe2e0148bd1783116bb6660, type: 3}
   m_Name: 204
   m_EditorClassIdentifier: 
   ignore: "\uAC15\uD654 \uB9C8\uBC95\uC0AC"
   id: 204
   division: 5
-  prefab: None
+  prefab: Sorcerer
   isTower: 0
   initHP: 60
   useStartHP: 0
@@ -25,15 +25,15 @@ MonoBehaviour:
   initAttackSpeed: 2
   initAttackRange: 2
   initAttackEnemyCount: 0
-  initAttackOrder: 0
+  initAttackOrder: 2
   initAttackEnemyOrder: 01000000
-  isHealer: 0
   initHeal: 0
   initMoveSpeed: 80
   cost: 250
-  spawnTime: 0
+  spawnTime: 7
   initDropGold: 0
   initDropExp: 0
-  effect: 
-  image: 
-  skill: 
+  effect: Magic1
+  image: "\uAC15\uD654 \uB9C8\uBC95\uC0AC.jpg"
+  skill: Magic_Skill
+  desc: Sorcerer_explan

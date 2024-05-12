@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11e112565d9ed0044ad2cbcf071bc79e, type: 3}
+  m_Script: {fileID: 11500000, guid: 9e5390eeabe2e0148bd1783116bb6660, type: 3}
   m_Name: 301
   m_EditorClassIdentifier: 
   ignore: "\uC131\uC9C1\uC790"
   id: 301
   division: 4
-  prefab: None
+  prefab: Bishop
   isTower: 0
   initHP: 60
   useStartHP: 0
@@ -25,15 +25,15 @@ MonoBehaviour:
   initAttackSpeed: 2.5
   initAttackRange: 2
   initAttackEnemyCount: 0
-  initAttackOrder: 0
+  initAttackOrder: 3
   initAttackEnemyOrder: 01000000
-  isHealer: 0
   initHeal: 0
   initMoveSpeed: 80
   cost: 150
-  spawnTime: 0
+  spawnTime: 5
   initDropGold: 0
   initDropExp: 0
-  effect: 
-  image: 
-  skill: 
+  effect: Heal1
+  image: "\uC131\uC9C1\uC790.jpg"
+  skill: Heal_Skill
+  desc: Bishop_explan

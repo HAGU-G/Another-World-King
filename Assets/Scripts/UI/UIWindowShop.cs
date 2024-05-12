@@ -12,7 +12,7 @@ public class UIWindowShop : UIWindow
 
     private void Start()
     {
-        InitStats[] characters = Resources.LoadAll<InitStats>(string.Format(Paths.resourcesPlayer, string.Empty));
+        UnitData[] characters = Resources.LoadAll<UnitData>(string.Format(Paths.resourcesPlayer, string.Empty));
         for (int i = 0; i < characters.Length; i++)
         {
             var characterInfos = new CharacterInfos();

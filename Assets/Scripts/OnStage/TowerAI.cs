@@ -3,12 +3,12 @@ using Unity.Android.Types;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class TowerAI : RuntimeStats
+public class TowerAI : UnitBase
 {
     private Player player;
     public TowerAI enemyTower;
-    public UnitAI characterRoot;
-    public List<UnitAI> units { get; private set; } = new();
+    public CharacterAI characterRoot;
+    public List<CharacterAI> units { get; private set; } = new();
 
     private bool isBlocked;
     private float spawnInterval = 1f;
@@ -21,7 +21,7 @@ public class TowerAI : RuntimeStats
         {
             foreach (var item in GameObject.FindGameObjectsWithTag(Tags.unit))
             {
-                if (item.GetComponent<RuntimeStats>().isPlayer == isPlayer)
+                if (item.GetComponent<UnitBase>().isPlayer == isPlayer)
                     Destroy(item);
             };
             Destroy(gameObject);
@@ -65,7 +65,7 @@ public class TowerAI : RuntimeStats
 
     public void SpawnUnit(CharacterInfos characterInfos)
     {
-        var unit = Instantiate(characterRoot, transform.position, Quaternion.Euler(Vector3.up)).GetComponent<UnitAI>();
+        var unit = Instantiate(characterRoot, transform.position, Quaternion.Euler(Vector3.up)).GetComponent<CharacterAI>();
         var animator = Instantiate(characterInfos.animator, unit.transform);
         unit.initStats = characterInfos.initStats;
         unit.ResetUnit();
@@ -86,7 +86,7 @@ public class TowerAI : RuntimeStats
     {
         if (collision.isTrigger)
             return;
-        var unit = collision.GetComponent<RuntimeStats>();
+        var unit = collision.GetComponent<UnitBase>();
         if (unit != null && unit.isPlayer == isPlayer)
             isBlocked = true;
 
@@ -96,7 +96,7 @@ public class TowerAI : RuntimeStats
     {
         if (collision.isTrigger)
             return;
-        var unit = collision.GetComponent<RuntimeStats>();
+        var unit = collision.GetComponent<UnitBase>();
         if (unit != null && unit.isPlayer == isPlayer)
             isBlocked = true;
     }
@@ -105,7 +105,7 @@ public class TowerAI : RuntimeStats
     {
         if (collision.isTrigger)
             return;
-        var unit = collision.GetComponent<RuntimeStats>();
+        var unit = collision.GetComponent<UnitBase>();
         if (unit != null && unit.isPlayer == isPlayer)
             isBlocked = false;
 

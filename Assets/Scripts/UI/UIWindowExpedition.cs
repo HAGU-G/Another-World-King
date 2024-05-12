@@ -22,15 +22,19 @@ public class UIWindowExpedition : UIWindow
             expedition[i].SetData(GameManager.Instance.Expedition[i]);
         }
 
-        InitStats[] characters = Resources.LoadAll<InitStats>(string.Format(Paths.resourcesPlayer, string.Empty));
+        UnitData[] characters = Resources.LoadAll<UnitData>(string.Format(Paths.resourcesPlayer, string.Empty));
         for (int i = 0; i < characters.Length; i++)
         {
+#if !UNITY_EDITOR
             if (!GameManager.Instance.purchasedID.Contains(characters[i].id))
                 continue;
+#endif
 
             var characterInfos = new CharacterInfos();
             characterInfos.initStats = characters[i];
             characterInfos.animator = Resources.Load<GameObject>(string.Format(Paths.resourcesPrefabs, characters[i].prefab));
+            if(characterInfos.animator == null)
+                characterInfos.animator = Resources.Load<GameObject>(string.Format(Paths.resourcesPrefabs, Strings.nonePrefab));
 
             var slot = Instantiate(prefabSlot, scrollRect.content);
             slot.SetData(characterInfos);
