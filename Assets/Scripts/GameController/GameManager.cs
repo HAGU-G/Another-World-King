@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -18,7 +19,17 @@ public class GameManager : MonoBehaviour
         }
     }
     #endregion
-
+    private int flags;
+    public int Flags
+    {
+        get => flags;
+        set
+        {
+            flags = value;
+            if (flags < 0)
+                flags = 0;
+        }
+    }
     public List<string> purchasedID { get; private set; } = new();
     public CharacterInfos[] Expedition { get; private set; } = new CharacterInfos[5];
     private int selectedStageID;
@@ -69,11 +80,12 @@ public class GameManager : MonoBehaviour
         return Expedition[index];
     }
 
-    public void StageClear(int index, int stars)
+    public void StageClear(int index, int star, int flag)
     {
         if (StageClearInfo.ContainsKey(index))
-            StageClearInfo[index] = StageClearInfo[index] < stars ? stars : StageClearInfo[index];
+            StageClearInfo[index] = StageClearInfo[index] < star ? star : StageClearInfo[index];
         else
-            StageClearInfo.Add(index, stars);
+            StageClearInfo.Add(index, star);
+        flags += flag;
     }
 }

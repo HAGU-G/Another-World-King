@@ -35,6 +35,8 @@ public class CharacterAI : UnitBase
     protected override void Update()
     {
         base.Update();
+        if (IsDead)
+            return;
 
         if (GetOrder() > AttackOrder)
         {
@@ -58,7 +60,7 @@ public class CharacterAI : UnitBase
 
     public void SetUnitState(UNIT_STATE state)
     {
-        if (unitState == state)
+        if (unitState == state || unitState == UNIT_STATE.DEAD)
             return;
         else if (state == UNIT_STATE.MOVE && isBlocked)
             return;
@@ -101,9 +103,10 @@ public class CharacterAI : UnitBase
             case UNIT_STATE.DEAD:
                 if (Animator != null)
                     Animator.SetTrigger(AnimatorTriggers.dead);
-                foreach (var c in GetComponents<Collider>())
+                foreach (var c in GetComponents<Collider2D>())
                     c.enabled = false;
-                Destroy(gameObject);
+                rb.velocity = Vector3.zero;
+                Destroy(gameObject,3f);
                 break;
         }
 
@@ -114,7 +117,7 @@ public class CharacterAI : UnitBase
     {
         base.ResetUnit();
 
-        foreach (var c in GetComponents<Collider>())
+        foreach (var c in GetComponents<Collider2D>())
             c.enabled = true;
         attackCollider.size = new Vector2(0.3f + (AttackRange <= 1f ? 0.3f : AttackRange * 0.6f), 0.1f);
         attackCollider.offset = new Vector2(-attackCollider.size.x * 0.5f, isPlayer ? 0.2f : 0.6f);

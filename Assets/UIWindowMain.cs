@@ -16,6 +16,7 @@ public class UIWindowMain : UIWindow
     public Button buttonPlay;
 
     public TextMeshProUGUI currentStage;
+    public TextMeshProUGUI flags;
 
     private void Start()
     {
@@ -29,6 +30,7 @@ public class UIWindowMain : UIWindow
 
     public override void Refresh()
     {
+        flags.text = GameManager.Instance.Flags.ToString();
         currentStage.text = (GameManager.Instance.SelectedStageID - 100).ToString();
     }
 }

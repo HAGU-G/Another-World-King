@@ -14,7 +14,6 @@ public class Stage
     public int Stars_3_reward { get; set; }
     public int Stars_2_CastleHp { get; set; }
     public int Stars_2_reward { get; set; }
-    public int Stars_1_CastleHp { get; set; }
     public int Stars_1_reward { get; set; }
     public int Repeat_Reward { get; set; }
 
@@ -96,11 +95,15 @@ public class StageManager : MonoBehaviour
         playerTower.unitData = Resources.Load<UnitData>(string.Format(Paths.resourcesStage, GameManager.Instance.SelectedStageID));
         playerTower.isPlayer = true;
         playerTower.ResetUnit();
+        playerTower.OnDead += Defeat;
+
         enemyTower.unitData = Resources.Load<UnitData>(string.Format(Paths.resourcesStage, GameManager.Instance.SelectedStageID));
         enemyTower.isPlayer = false;
         enemyTower.ResetUnit();
+        enemyTower.OnDead += Victory;
     }
 
+    #region Cost
     public void GetExp(int exp)
     {
         Exp += exp;
@@ -134,5 +137,47 @@ public class StageManager : MonoBehaviour
         {
             return false;
         }
+    }
+    #endregion
+
+    public void Defeat()
+    {
+        GameManager.Instance.ChangeScene(Scenes.devMain);
+    }
+
+    public void Victory()
+    {
+        int star;
+        int flag;
+
+        switch (playerTower.HP)
+        {
+            case int hp when hp >= DataTableManager.Stages[GameManager.Instance.SelectedStageID].Stars_3_CastleHp:
+                star = 3;
+                break;
+            case int hp when hp >= DataTableManager.Stages[GameManager.Instance.SelectedStageID].Stars_2_CastleHp:
+                star = 2;
+                break;
+            default:
+                star = 1;
+                break;
+        };
+
+        if (GameManager.Instance.StageClearInfo.ContainsKey(GameManager.Instance.SelectedStageID))
+        {
+            flag = DataTableManager.Stages[GameManager.Instance.SelectedStageID].Repeat_Reward;
+        }
+        else
+        {
+            flag = star switch
+            {
+                3 => DataTableManager.Stages[GameManager.Instance.SelectedStageID].Stars_3_reward,
+                2 => DataTableManager.Stages[GameManager.Instance.SelectedStageID].Stars_2_reward,
+                _ => DataTableManager.Stages[GameManager.Instance.SelectedStageID].Stars_1_reward,
+            };
+        }
+        Debug.Log(flag);
+        GameManager.Instance.StageClear(GameManager.Instance.SelectedStageID, star, flag);
+        GameManager.Instance.ChangeScene(Scenes.devMain);
     }
 }
