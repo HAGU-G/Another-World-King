@@ -1,14 +1,19 @@
 ﻿public static class Paths
 {
     public static readonly string folderResources = "Assets/Resources/";
-    public static readonly string resourcesGameManager = "Prefabs/GameController/GameManager";
-    public static readonly string resourcesCharTable = "DataTables/Char_Table";
-    public static readonly string resourcesMonTable = "DataTables/Mon_Table";
     public static readonly string resourcesPlayer = "Scriptable Objects/Player/{0}";
     public static readonly string resourcesEnemy = "Scriptable Objects/Enemy/{0}";
     public static readonly string resourcesPrefabs = "Prefabs/{0}";
+
     public static readonly string _asset = ".asset";
     public static readonly string _csv = ".csv";
+
+    public static readonly string resourcesGameManager = "Prefabs/GameController/GameManager";
+
+    public static readonly string resourcesMonTable = "DataTables/Mon_Table";
+    public static readonly string resourcesCharTable = "DataTables/Char_Table";
+    public static readonly string resourcesPatternTable = "DataTables/Pattern_Table";
+    public static readonly string resourcesMonAppareTable = "DataTables/MonAppare_Table";
 }
 
 public static class Tags

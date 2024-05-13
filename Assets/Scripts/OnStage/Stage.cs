@@ -6,10 +6,11 @@ using UnityEngine;
 public class Stage : MonoBehaviour
 {
     public UIOnStage uiOnStage;
-    public TowerAI tower;
+    #region Player
+    public TowerAI playerTower;
     private int gold;
     private int exp;
-    public int Gold 
+    public int Gold
     {
         get => gold;
         private set
@@ -24,20 +25,26 @@ public class Stage : MonoBehaviour
         private set
         {
             exp = value;
-           // uiOnStage.textExp.text = exp.ToString();
+            // uiOnStage.textExp.text = exp.ToString();
         }
     }
+    #endregion
+    #region Enemy
+
+    #endregion
+
+
     private void Start()
     {
-        Gold = int.MaxValue;
+        Gold = int.MaxValue / 2;
         for (int i = 0; i < uiOnStage.buttonSummons.Length; i++)
         {
             uiOnStage.buttonSummons[i].SetData(GameManager.Instance.GetExpedition(i));
             int index = i;
             uiOnStage.buttonSummons[i].button.onClick.AddListener(() =>
             {
-                if (tower.CanSpawnUnit() && UseGold(uiOnStage.buttonSummons[index].CharacterInfos.initStats.cost))
-                    tower.SpawnUnit(uiOnStage.buttonSummons[index].CharacterInfos);
+                if (playerTower.CanSpawnUnit() && UseGold(uiOnStage.buttonSummons[index].CharacterInfos.initStats.cost))
+                    playerTower.SpawnUnit(uiOnStage.buttonSummons[index].CharacterInfos);
             });
         }
     }

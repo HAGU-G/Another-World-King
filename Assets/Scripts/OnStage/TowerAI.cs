@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class TowerAI : UnitBase
 {
-    private Stage player;
+    private Stage stage;
     public TowerAI enemyTower;
     public CharacterAI characterRoot;
     public List<CharacterAI> units { get; private set; } = new();
@@ -31,13 +31,16 @@ public class TowerAI : UnitBase
     }
     private void Start()
     {
-        player = GameObject.FindWithTag(Tags.player).GetComponent<Stage>();
+        stage = GameObject.FindWithTag(Tags.player).GetComponent<Stage>();
     }
 
     protected override void Update()
     {
         base.Update();
-        if (!isPlayer && Time.time >= lastSpawnTime + spawnInterval && CanSpawnUnit())
+        if (isPlayer)
+            return;
+
+        if (Time.time >= lastSpawnTime + spawnInterval && CanSpawnUnit())
         {
             SpawnUnit(GameManager.Instance.Expedition[0]);
             lastSpawnTime = Time.time;
@@ -74,8 +77,8 @@ public class TowerAI : UnitBase
         if (!isPlayer)
             unit.OnDead += () =>
             {
-                player.GetExp(unit.initStats.initDropExp);
-                player.GetGold(unit.initStats.initDropGold);
+                stage.GetExp(unit.initStats.initDropExp);
+                stage.GetGold(unit.initStats.initDropGold);
             };
         units.Add(unit);
     }

@@ -678,7 +678,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiOnStage: {fileID: 1979521734}
-  tower: {fileID: 1370779872}
+  playerTower: {fileID: 1370779872}
 --- !u!4 &686351159
 Transform:
   m_ObjectHideFlags: 0

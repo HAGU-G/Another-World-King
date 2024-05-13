@@ -31,8 +31,8 @@ MonoBehaviour:
   initMoveSpeed: 80
   cost: 100
   spawnTime: 3
-  initDropGold: 0
-  initDropExp: 0
+  initDropGold: 50
+  initDropExp: 200
   effect: Attack1
   image: "\uC804\uC0AC.jpg"
   skill: 0

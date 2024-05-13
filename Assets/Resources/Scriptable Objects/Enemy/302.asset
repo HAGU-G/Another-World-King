@@ -10,30 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9e5390eeabe2e0148bd1783116bb6660, type: 3}
-  m_Name: 111
+  m_Name: 302
   m_EditorClassIdentifier: 
-  ignore: "\uB3C4\uC0AC"
-  id: 111
-  division: 1
-  prefab: Alchemist
+  ignore: "\uAC15\uD654 \uD790\uB7EC"
+  id: 302
+  division: 4
+  prefab: None
   isTower: 0
-  initHP: 100
+  initHP: 60
   useStartHP: 0
   initHPStart: 0
   combatType: 0
-  initAttackDamage: 20
-  initAttackSpeed: 1
-  initAttackRange: 1
+  initAttackDamage: 0
+  initAttackSpeed: 3
+  initAttackRange: 2
   initAttackEnemyCount: 0
-  initAttackOrder: 1
+  initAttackOrder: 2
   initAttackEnemyOrder: 01000000
   initHeal: 0
   initMoveSpeed: 80
-  cost: 100
-  spawnTime: 10
-  initDropGold: 0
-  initDropExp: 0
-  effect: Attack1
-  image: "\uB3C4\uC0AC.jpg"
-  skill: Exp_Skill
-  desc: Alchemist_explan
+  cost: 0
+  spawnTime: 0
+  initDropGold: 100
+  initDropExp: 350
+  effect: MonHeal
+  image: "\uC774\uD6C4 \uACB0\uC815"
+  skill: Heal_Skill
+  desc: 

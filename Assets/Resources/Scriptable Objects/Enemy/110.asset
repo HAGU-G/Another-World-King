@@ -10,30 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9e5390eeabe2e0148bd1783116bb6660, type: 3}
-  m_Name: 111
+  m_Name: 110
   m_EditorClassIdentifier: 
-  ignore: "\uB3C4\uC0AC"
-  id: 111
+  ignore: "\uAD11\uC804\uC0AC"
+  id: 110
   division: 1
-  prefab: Alchemist
+  prefab: None
   isTower: 0
   initHP: 100
   useStartHP: 0
   initHPStart: 0
   combatType: 0
-  initAttackDamage: 20
-  initAttackSpeed: 1
+  initAttackDamage: 30
+  initAttackSpeed: 1.5
   initAttackRange: 1
-  initAttackEnemyCount: 0
+  initAttackEnemyCount: 1
   initAttackOrder: 1
   initAttackEnemyOrder: 01000000
   initHeal: 0
   initMoveSpeed: 80
-  cost: 100
-  spawnTime: 10
-  initDropGold: 0
-  initDropExp: 0
-  effect: Attack1
-  image: "\uB3C4\uC0AC.jpg"
-  skill: Exp_Skill
-  desc: Alchemist_explan
+  cost: 0
+  spawnTime: 0
+  initDropGold: 200
+  initDropExp: 300
+  effect: MonAttack1
+  image: "\uC774\uD6C4 \uACB0\uC815"
+  skill: Fast_Skill
+  desc: 
