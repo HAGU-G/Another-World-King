@@ -14,7 +14,7 @@ public enum UNIT_STATE
 [RequireComponent(typeof(Rigidbody2D))]
 public class CharacterAI : UnitBase
 {
-    public Animator animator;
+    public Animator Animator { get; set; }
     public Rigidbody2D rb;
     public BoxCollider2D attackCollider;
 
@@ -66,17 +66,41 @@ public class CharacterAI : UnitBase
         switch (state)
         {
             case UNIT_STATE.IDLE:
+                if(Animator!= null)
+                Animator.SetTrigger(AnimatorTriggers.idle);
                 rb.velocity = Vector3.zero;
                 break;
             case UNIT_STATE.MOVE:
+                if (Animator != null)
+                    Animator.SetTrigger(AnimatorTriggers.move);
                 rb.velocity = transform.forward * MoveSpeed * -transform.localScale.x;
                 break;
             case UNIT_STATE.ATTACK:
+                if (Animator != null)
+                {
+                    switch (unitData.division)
+                    {
+                        case DIVISION.MELEE:
+                        case DIVISION.TANKER:
+                            Animator.SetTrigger(AnimatorTriggers.attackNormal);
+                            break;
+                        case DIVISION.MARKSMAN:
+                            Animator.SetTrigger(AnimatorTriggers.attackBow);
+                            break;
+                        case DIVISION.HEALER:
+                        case DIVISION.MAGIC:
+                        case DIVISION.SPECIAL:
+                            Animator.SetTrigger(AnimatorTriggers.attackMagic);
+                            break;
+                    }
+                }
                 lastAttackTime = Time.time;
                 rb.velocity = Vector3.zero;
                 AttackTargets();
                 break;
             case UNIT_STATE.DEAD:
+                if (Animator != null)
+                    Animator.SetTrigger(AnimatorTriggers.dead);
                 foreach (var c in GetComponents<Collider>())
                     c.enabled = false;
                 Destroy(gameObject);
@@ -105,6 +129,7 @@ public class CharacterAI : UnitBase
         targets.Clear();
 
         isBlocked = false;
+        Animator = GetComponentInChildren<Animator>();
         SetUnitState(UNIT_STATE.IDLE);
     }
 
@@ -150,9 +175,9 @@ public class CharacterAI : UnitBase
 
     protected virtual void AttackTargets()
     {
-        if(IsHealer)
+        if (IsHealer)
         {
-            for(int i = 0; i < GetOrder();i++)
+            for (int i = 0; i < GetOrder(); i++)
             {
                 Tower.units[i].Healed(Heal);
             }
@@ -164,7 +189,7 @@ public class CharacterAI : UnitBase
                 target.Damaged(AttackDamage);
             }
         }
-        
+
 
         if (CombatType == COMBAT_TYPE.STOP_ON_ATTACK)
             SetUnitState(UNIT_STATE.MOVE);
