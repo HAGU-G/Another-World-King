@@ -6,12 +6,15 @@ using UnityEngine.UI;
 
 public class UIWindowShop : UIWindow
 {
+    public UIWindow uiMain;
     public ScrollRect scrollRect;
     public UISlotCharacterInShop prefabSlot;
     public ToggleGroup toggleGroup;
+    public Button buttonBack;
 
     private void Start()
     {
+        buttonBack.onClick.AddListener(() => { uiMain.Open(); Close(); });
         UnitData[] characters = Resources.LoadAll<UnitData>(string.Format(Paths.resourcesPlayer, string.Empty));
         for (int i = 0; i < characters.Length; i++)
         {
@@ -24,7 +27,7 @@ public class UIWindowShop : UIWindow
             slot.slot.toggle.group = toggleGroup;
         }
 
-       
+
 
     }
 }

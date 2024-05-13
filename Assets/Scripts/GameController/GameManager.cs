@@ -19,8 +19,10 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    public CharacterInfos[] Expedition { get; private set; } = new CharacterInfos[5];
     public List<string> purchasedID { get; private set; } = new();
+    public CharacterInfos[] Expedition { get; private set; } = new CharacterInfos[5];
+    public int SelectedStageID { get; private set; } = 101;
+
 
     private void Awake()
     {
@@ -58,5 +60,15 @@ public class GameManager : MonoBehaviour
     public CharacterInfos GetExpedition(int index)
     {
         return Expedition[index];
+    }
+
+    public void SetStageID(int id)
+    {
+        SelectedStageID = id;
+    }
+
+    public int GetStageID()
+    {
+        return SelectedStageID;
     }
 }

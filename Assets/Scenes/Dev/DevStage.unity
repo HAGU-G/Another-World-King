@@ -659,7 +659,7 @@ GameObject:
   - component: {fileID: 686351159}
   - component: {fileID: 686351158}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Stage
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1319,6 +1319,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   windows: []
+  defaulIndex: 0
 --- !u!114 &1979521734
 MonoBehaviour:
   m_ObjectHideFlags: 0

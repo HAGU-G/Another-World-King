@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Stage : MonoBehaviour
 {
     public UIOnStage uiOnStage;
     public TowerAI tower;
@@ -27,7 +27,6 @@ public class Player : MonoBehaviour
            // uiOnStage.textExp.text = exp.ToString();
         }
     }
-
     private void Start()
     {
         Gold = int.MaxValue;

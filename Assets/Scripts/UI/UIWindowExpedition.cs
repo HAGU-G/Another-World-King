@@ -4,10 +4,11 @@ using UnityEngine.UI;
 
 public class UIWindowExpedition : UIWindow
 {
+    public UIWindow uiMain;
     public ScrollRect scrollRect;
     public UISlotCharacter prefabSlot;
     public ToggleGroup toggleGroup;
-    public Button goStage; //TEMP
+    public Button buttonBack;
 
     public UISlotExpedition[] expedition;
 
@@ -16,7 +17,7 @@ public class UIWindowExpedition : UIWindow
 
     private void Start()
     {
-        goStage.onClick.AddListener(() => GameManager.Instance.ChangeScene(Scenes.devStage));
+        buttonBack.onClick.AddListener(() => { uiMain.Open(); Close(); });
         for (int i = 0; i < expedition.Length; i++)
         {
             expedition[i].SetData(GameManager.Instance.Expedition[i]);
@@ -33,7 +34,7 @@ public class UIWindowExpedition : UIWindow
             var characterInfos = new CharacterInfos();
             characterInfos.initStats = characters[i];
             characterInfos.animator = Resources.Load<GameObject>(string.Format(Paths.resourcesPrefabs, characters[i].prefab));
-            if(characterInfos.animator == null)
+            if (characterInfos.animator == null)
                 characterInfos.animator = Resources.Load<GameObject>(string.Format(Paths.resourcesPrefabs, Strings.nonePrefab));
 
             var slot = Instantiate(prefabSlot, scrollRect.content);

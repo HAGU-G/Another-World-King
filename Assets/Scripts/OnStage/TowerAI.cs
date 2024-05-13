@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class TowerAI : UnitBase
 {
-    private Player player;
+    private Stage player;
     public TowerAI enemyTower;
     public CharacterAI characterRoot;
     public List<CharacterAI> units { get; private set; } = new();
@@ -31,7 +31,7 @@ public class TowerAI : UnitBase
     }
     private void Start()
     {
-        player = GameObject.FindWithTag(Tags.player).GetComponent<Player>();
+        player = GameObject.FindWithTag(Tags.player).GetComponent<Stage>();
     }
 
     protected override void Update()
