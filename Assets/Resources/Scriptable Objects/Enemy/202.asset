@@ -15,7 +15,7 @@ MonoBehaviour:
   ignore: "\uB9C8\uBC95\uC0AC"
   id: 202
   division: 5
-  prefab: None
+  prefab: Mon_Magician
   isTower: 0
   initHP: 60
   useStartHP: 0
@@ -24,7 +24,7 @@ MonoBehaviour:
   initAttackDamage: 40
   initAttackSpeed: 2
   initAttackRange: 2
-  initAttackEnemyCount: 0
+  initAttackEnemyCount: 1
   initAttackOrder: 2
   initAttackEnemyOrder: 01000000
   initHeal: 0
