@@ -17,17 +17,11 @@ public class UIWindowMain : UIWindow
 
     public TextMeshProUGUI currentStage;
 
-    public int CurrentStageID
-    {
-        get => GameManager.Instance.GetStageID();
-        set => GameManager.Instance.SetStageID(Mathf.Clamp(value, 101, int.MaxValue));
-    }
-
     private void Start()
     {
         Refresh();
-        buttonNextStage.onClick.AddListener(() => { CurrentStageID++; Refresh(); });
-        buttonPrevStage.onClick.AddListener(() => { CurrentStageID--; Refresh(); });
+        buttonNextStage.onClick.AddListener(() => { GameManager.Instance.SelectedStageID++; Refresh(); });
+        buttonPrevStage.onClick.AddListener(() => { GameManager.Instance.SelectedStageID--; Refresh(); });
         buttonExpedition.onClick.AddListener(() => { expedition.Open(); Close(); });
         buttonShop.onClick.AddListener(() => { shop.Open(); Close(); });
         buttonPlay.onClick.AddListener(() => { GameManager.Instance.ChangeScene(Scenes.devStage); });
@@ -35,6 +29,6 @@ public class UIWindowMain : UIWindow
 
     public override void Refresh()
     {
-        currentStage.text = (CurrentStageID - 100).ToString();
+        currentStage.text = (GameManager.Instance.SelectedStageID - 100).ToString();
     }
 }

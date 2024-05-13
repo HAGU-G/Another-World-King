@@ -19,7 +19,7 @@ public class UISlotExpedition : MonoBehaviour
         else
         {
             this.characterInfos = characterInfos;
-            textName.text = characterInfos.initStats.id;
+            textName.text = characterInfos.unitData.id;
         }
     }
 }

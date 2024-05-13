@@ -19,7 +19,7 @@ public class UIWindowShop : UIWindow
         for (int i = 0; i < characters.Length; i++)
         {
             var characterInfos = new CharacterInfos();
-            characterInfos.initStats = characters[i];
+            characterInfos.unitData = characters[i];
             characterInfos.animator = Resources.Load<GameObject>(string.Format(Paths.resourcesPrefabs, characters[i].prefab));
 
             var slot = Instantiate(prefabSlot, scrollRect.content);

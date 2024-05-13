@@ -10,11 +10,14 @@ public class SaveLoadScriptable
     public static void LoadAll()
     {
         LoadPlayerCharacters();
+        LoadEnemyCharacters();
+        LoadStages();
     }
     [MenuItem("데이터테이블/저장/모두", priority = 0)]
     public static void SaveAll()
     {
         SavePlayerCharacters();
+        SaveEnemyCharacters();
     }
 
 
@@ -89,5 +92,21 @@ public class SaveLoadScriptable
 
         }
         AssetDatabase.Refresh();
+    }
+
+    [MenuItem("데이터테이블/불러오기/스테이지")]
+    public static void LoadStages()
+    {
+        var textAsset = Resources.Load<TextAsset>(Paths.resourcesStageTable);
+
+        using (var reader = new StringReader(textAsset.text))
+        using (var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture))
+        {
+            var records = csvReader.GetRecords<Stage>();
+            foreach (var record in records)
+            {
+                record.ToScriptable();
+            }
+        }
     }
 }

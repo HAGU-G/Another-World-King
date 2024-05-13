@@ -1,13 +1,14 @@
+using Newtonsoft.Json.Converters;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class UnitBase : MonoBehaviour
 {
-    public UnitData initStats;
+    public UnitData unitData { get; set; }
 
     //State
-    public bool IsTower => initStats.isTower;
+    public bool IsTower => unitData.isTower;
     public bool isPlayer;
     private bool isDead;
     public bool IsDead
@@ -28,7 +29,7 @@ public class UnitBase : MonoBehaviour
     {
         get
         {
-            float buffedStat = initStats.initHP;
+            float buffedStat = unitData.initHP;
             float persentage = 0f;
             foreach (var buff in buffs)
             {
@@ -44,7 +45,7 @@ public class UnitBase : MonoBehaviour
     {
         get
         {
-            float buffedStat = initStats.initAttackDamage;
+            float buffedStat = unitData.initAttackDamage;
             float persentage = 0f;
             foreach (var buff in buffs)
             {
@@ -58,7 +59,7 @@ public class UnitBase : MonoBehaviour
     {
         get
         {
-            float buffedStat = initStats.initAttackSpeed;
+            float buffedStat = unitData.initAttackSpeed;
             float persentage = 0f;
             foreach (var buff in buffs)
             {
@@ -73,7 +74,7 @@ public class UnitBase : MonoBehaviour
     {
         get
         {
-            float buffedStat = initStats.initAttackRange;
+            float buffedStat = unitData.initAttackRange;
             float persentage = 0f;
             foreach (var buff in buffs)
             {
@@ -83,17 +84,17 @@ public class UnitBase : MonoBehaviour
             return buffedStat * (1f + persentage);
         }
     }
-    public List<int> AttackEnemyOrder => initStats.initAttackEnemyOrder;
-    public int AttackOrder => initStats.initAttackOrder;
-    public int AttackEnemyCount => initStats.initAttackEnemyCount;
-    public COMBAT_TYPE CombatType => initStats.combatType;
+    public List<int> AttackEnemyOrder => unitData.initAttackEnemyOrder;
+    public int AttackOrder => unitData.initAttackOrder;
+    public int AttackEnemyCount => unitData.initAttackEnemyCount;
+    public COMBAT_TYPE CombatType => unitData.combatType;
 
     //etc
     public float MoveSpeed
     {
         get
         {
-            float buffedStat = initStats.initMoveSpeed;
+            float buffedStat = unitData.initMoveSpeed;
             float persentage = 0f;
             foreach (var buff in buffs)
             {
@@ -107,7 +108,7 @@ public class UnitBase : MonoBehaviour
     {
         get
         {
-            float buffedStat = initStats.initDropGold;
+            float buffedStat = unitData.initDropGold;
             float persentage = 0f;
             foreach (var buff in buffs)
             {
@@ -121,7 +122,7 @@ public class UnitBase : MonoBehaviour
     {
         get
         {
-            float buffedStat = initStats.initDropExp;
+            float buffedStat = unitData.initDropExp;
             float persentage = 0f;
             foreach (var buff in buffs)
             {
@@ -131,12 +132,12 @@ public class UnitBase : MonoBehaviour
             return buffedStat * (1f + persentage);
         }
     }
-    public bool IsHealer => initStats.division == DIVISION.HEALER;
+    public bool IsHealer => unitData.division == DIVISION.HEALER;
     public int Heal
     {
         get
         {
-            return initStats.initHeal;
+            return unitData.initHeal;
         }
     }
 
@@ -178,12 +179,14 @@ public class UnitBase : MonoBehaviour
     //Behaviour
     protected virtual void Update()
     {
+        if(IsDead)
+            return;
         UpdateBuffDuration(Time.deltaTime);
     }
 
     public virtual void ResetUnit()
     {
-        hp = initStats.useStartHP ? initStats.initHPStart : MaxHP;
+        hp = unitData.useStartHP ? unitData.initHPStart : MaxHP;
         buffs.Clear();
         IsDead = false;
     }

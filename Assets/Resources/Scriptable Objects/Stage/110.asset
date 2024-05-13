@@ -10,30 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9e5390eeabe2e0148bd1783116bb6660, type: 3}
-  m_Name: 109
+  m_Name: 110
   m_EditorClassIdentifier: 
-  ignore: "\uD3ED\uBC1C"
-  id: 109
-  division: 1
-  prefab: Bomber
-  isTower: 0
-  initHP: 80
+  ignore: 10
+  id: 110
+  division: 0
+  prefab: None
+  isTower: 1
+  initHP: 3500
   useStartHP: 0
   initHPStart: 0
   combatType: 0
-  initAttackDamage: 999
-  initAttackSpeed: 3
-  initAttackRange: 1
-  initAttackEnemyCount: 1
-  initAttackOrder: 1
+  initAttackDamage: 0
+  initAttackSpeed: 0
+  initAttackRange: 0
+  initAttackEnemyCount: 0
+  initAttackOrder: 0
   initAttackEnemyOrder: 01000000
   initHeal: 0
   initMoveSpeed: 80
-  cost: 300
-  spawnTime: 15
+  cost: 0
+  spawnTime: 0
   initDropGold: 0
   initDropExp: 0
-  effect: Bomb1
-  image: "\uD3ED\uBC1C.jpg"
-  skill: 0
-  desc: Bomber_explan
+  effect: 
+  image: 
+  skill: 
+  desc: 

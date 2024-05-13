@@ -5,9 +5,9 @@ using UnityEngine;
 public class Pattern
 {
     public string ID { get; set; }
-    public string Monster_1 { get; set; }
-    public string Monster_2 { get; set; }
-    public string Monster_3 { get; set; }
+    public int Monster_1 { get; set; }
+    public int Monster_2 { get; set; }
+    public int Monster_3 { get; set; }
 }
 
 public class PatternSet
@@ -19,7 +19,7 @@ public class PatternSet
 
 public class MonsterAppare
 {
-    public string ID { get; set; }
+    public int ID { get; set; }
     public int Division { get; set; }
     [Ignore] public List<PatternSet> PatternSets { get; set; } = new();
     public int weightSum;
@@ -37,10 +37,18 @@ public class MonsterAppare
     public PatternSet GetPattern()
     {
         int randomWeight = Random.Range(0, weightSum);
-        foreach (var i in weightMarks)
+        for (int i = 0; i < weightMarks.Count; i++)
         {
-            if (randomWeight < i)
-                return PatternSets[i];
+            if (i == 0)
+            {
+                if (randomWeight < weightMarks[i])
+                    return PatternSets[i];
+            }
+            else
+            {
+                if (randomWeight >= weightMarks[i - 1] && randomWeight < weightMarks[i])
+                    return PatternSets[i];
+            }
         }
         return null;
     }

@@ -5,15 +5,16 @@ using UnityEngine;
 
 public class TowerAI : UnitBase
 {
-    private Stage stage;
+    private StageManager stage;
     public TowerAI enemyTower;
     public CharacterAI characterRoot;
     public List<CharacterAI> units { get; private set; } = new();
+    public List<int> waitingUnits = new();
 
     private bool isBlocked;
-    private float spawnInterval = 1f;
-    private float lastSpawnTime = 0f;
-
+    private float nextSpawnTime;
+    private float waitTime;
+    private bool isPatternEnd = true;
 
     private void Awake()
     {
@@ -24,26 +25,51 @@ public class TowerAI : UnitBase
                 if (item.GetComponent<UnitBase>().isPlayer == isPlayer)
                     Destroy(item);
             };
-            Destroy(gameObject);
-            GameManager.Instance.ChangeScene(Scenes.devMain);
         };
-        ResetUnit();
     }
     private void Start()
     {
-        stage = GameObject.FindWithTag(Tags.player).GetComponent<Stage>();
+        stage = GameObject.FindWithTag(Tags.player).GetComponent<StageManager>();
     }
 
     protected override void Update()
     {
         base.Update();
-        if (isPlayer)
+        if (IsDead || isPlayer)
             return;
 
-        if (Time.time >= lastSpawnTime + spawnInterval && CanSpawnUnit())
+        if (isPatternEnd && Time.time >= nextSpawnTime)
         {
-            SpawnUnit(GameManager.Instance.Expedition[0]);
-            lastSpawnTime = Time.time;
+            int stageID = GameManager.Instance.SelectedStageID;
+            if (HP <= MaxHP * 0.3f)
+                stageID += 200;
+            else if (HP <= MaxHP * 0.5f)
+                stageID += 100;
+
+            var patternSet = DataTableManager.MonsterAppares[stageID].GetPattern();
+            var patterns = DataTableManager.Patterns[patternSet.pattern];
+            if (patterns.Monster_1 != 0)
+                waitingUnits.Add(patterns.Monster_1);
+            if (patterns.Monster_2 != 0)
+                waitingUnits.Add(patterns.Monster_2);
+            if (patterns.Monster_3 != 0)
+                waitingUnits.Add(patterns.Monster_3);
+            isPatternEnd = false;
+            waitTime = patternSet.waitingTime;
+        }
+
+        if (waitingUnits.Count > 0 && CanSpawnUnit())
+        {
+            CharacterInfos enemy = new();
+            enemy.SetData(Resources.Load<UnitData>(string.Format(Paths.resourcesEnemy, waitingUnits[0])));
+            SpawnUnit(enemy);
+            waitingUnits.RemoveAt(0);
+        }
+
+        if (!isPatternEnd && waitingUnits.Count == 0)
+        {
+            isPatternEnd = true;
+            nextSpawnTime = Time.time + waitTime;
         }
     }
 
@@ -70,15 +96,15 @@ public class TowerAI : UnitBase
     {
         var unit = Instantiate(characterRoot, transform.position, Quaternion.Euler(Vector3.up)).GetComponent<CharacterAI>();
         var animator = Instantiate(characterInfos.animator, unit.transform);
-        unit.initStats = characterInfos.initStats;
+        unit.unitData = characterInfos.unitData;
         unit.ResetUnit();
         unit.SetTower(this);
         unit.OnDead += () => { units.Remove(unit); };
         if (!isPlayer)
             unit.OnDead += () =>
             {
-                stage.GetExp(unit.initStats.initDropExp);
-                stage.GetGold(unit.initStats.initDropGold);
+                stage.GetExp(unit.unitData.initDropExp);
+                stage.GetGold(unit.unitData.initDropGold);
             };
         units.Add(unit);
     }
