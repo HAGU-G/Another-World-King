@@ -21,12 +21,19 @@ public class GameManager : MonoBehaviour
 
     public List<string> purchasedID { get; private set; } = new();
     public CharacterInfos[] Expedition { get; private set; } = new CharacterInfos[5];
-    public int SelectedStageID { get; private set; } = 101;
+    private int selectedStageID;
+    public int SelectedStageID
+    {
+        get => selectedStageID;
+        set => selectedStageID = Mathf.Clamp(value, DataTableManager.MinStageID, DataTableManager.MaxStageID);
+    }
+    public Dictionary<int, int> StageClearInfo { get; private set; } = new();
 
 
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
+        SelectedStageID = DataTableManager.MinStageID;
     }
     private void Start()
     {
@@ -62,13 +69,11 @@ public class GameManager : MonoBehaviour
         return Expedition[index];
     }
 
-    public void SetStageID(int id)
+    public void StageClear(int index, int stars)
     {
-        SelectedStageID = id;
-    }
-
-    public int GetStageID()
-    {
-        return SelectedStageID;
+        if (StageClearInfo.ContainsKey(index))
+            StageClearInfo[index] = StageClearInfo[index] < stars ? stars : StageClearInfo[index];
+        else
+            StageClearInfo.Add(index, stars);
     }
 }

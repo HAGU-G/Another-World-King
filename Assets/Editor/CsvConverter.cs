@@ -18,10 +18,13 @@ public class InitStats_Csv
     [Index(10)] public string Skill { get; set; }
 
 
-    public void ToScriptable()
+    public void ToScriptable(bool isPlayer)
     {
-        
-        var unitData = Resources.Load<UnitData>(string.Format(Paths.resourcesPlayer, ID));
+        UnitData unitData;
+        if(isPlayer)
+            unitData = Resources.Load<UnitData>(string.Format(Paths.resourcesPlayer, ID));
+        else
+            unitData = Resources.Load<UnitData>(string.Format(Paths.resourcesEnemy, ID));
         bool create = false;
         if (unitData == null)
         {

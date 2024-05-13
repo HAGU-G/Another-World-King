@@ -657,7 +657,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 686351159}
-  - component: {fileID: 686351158}
+  - component: {fileID: 686351160}
   m_Layer: 0
   m_Name: Stage
   m_TagString: Player
@@ -665,20 +665,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &686351158
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 686351157}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e52f5c21b0546b8468ee765a5ede4ae9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uiOnStage: {fileID: 1979521734}
-  tower: {fileID: 1370779872}
 --- !u!4 &686351159
 Transform:
   m_ObjectHideFlags: 0
@@ -694,6 +680,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &686351160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686351157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0f6d4f2d9f4bae4d97bd301eec4e11d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiOnStage: {fileID: 1979521734}
+  playerTower: {fileID: 1370779872}
+  enemyTower: {fileID: 1893667659}
 --- !u!224 &789359362 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6942419271501694074, guid: cdae51100765cb5498638551d11630f0, type: 3}
@@ -1269,6 +1270,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4072995200197484176, guid: a41292c9df9e9a24683c37169c1f1aa8, type: 3}
+      propertyPath: initStats
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4072995200197484176, guid: a41292c9df9e9a24683c37169c1f1aa8, type: 3}
       propertyPath: enemyTower
       value: 
       objectReference: {fileID: 1370779872}
@@ -1625,6 +1630,10 @@ PrefabInstance:
     - target: {fileID: 4072995200197484176, guid: a41292c9df9e9a24683c37169c1f1aa8, type: 3}
       propertyPath: isPlayer
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4072995200197484176, guid: a41292c9df9e9a24683c37169c1f1aa8, type: 3}
+      propertyPath: initStats
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4072995200197484176, guid: a41292c9df9e9a24683c37169c1f1aa8, type: 3}
       propertyPath: enemyTower

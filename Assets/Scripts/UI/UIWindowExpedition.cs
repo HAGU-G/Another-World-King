@@ -32,11 +32,8 @@ public class UIWindowExpedition : UIWindow
 #endif
 
             var characterInfos = new CharacterInfos();
-            characterInfos.initStats = characters[i];
-            characterInfos.animator = Resources.Load<GameObject>(string.Format(Paths.resourcesPrefabs, characters[i].prefab));
-            if (characterInfos.animator == null)
-                characterInfos.animator = Resources.Load<GameObject>(string.Format(Paths.resourcesPrefabs, Strings.nonePrefab));
-
+            characterInfos.SetData(characters[i]);
+      
             var slot = Instantiate(prefabSlot, scrollRect.content);
             slot.SetData(characterInfos);
             slot.toggle.group = toggleGroup;

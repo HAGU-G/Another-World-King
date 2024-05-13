@@ -4,17 +4,20 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-public class DataTable
+public class SaveLoadScriptable
 {
     [MenuItem("데이터테이블/불러오기/모두", priority = 0)]
     public static void LoadAll()
     {
         LoadPlayerCharacters();
+        LoadEnemyCharacters();
+        LoadStages();
     }
     [MenuItem("데이터테이블/저장/모두", priority = 0)]
     public static void SaveAll()
     {
         SavePlayerCharacters();
+        SaveEnemyCharacters();
     }
 
 
@@ -24,15 +27,13 @@ public class DataTable
         var textAsset = Resources.Load<TextAsset>(Paths.resourcesCharTable);
 
         using (var reader = new StringReader(textAsset.text))
+        using (var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture))
         {
-            using (var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture))
-            {
 
-                var records = csvReader.GetRecords<Player_Csv>();
-                foreach (var record in records)
-                {
-                    record.ToScriptable();
-                }
+            var records = csvReader.GetRecords<Player_Csv>();
+            foreach (var record in records)
+            {
+                record.ToScriptable(true);
             }
         }
     }
@@ -41,7 +42,7 @@ public class DataTable
     [MenuItem("데이터테이블/저장/아군 캐릭터")]
     public static void SavePlayerCharacters()
     {
-        using (var writer = new StreamWriter(string.Concat(Paths.folderResources, Paths.resourcesCharTable,Paths._csv)))
+        using (var writer = new StreamWriter(string.Concat(Paths.folderResources, Paths.resourcesCharTable, Paths._csv)))
         using (var csvWriter = new CsvWriter(writer, CultureInfo.InvariantCulture))
         {
             var stats = Resources.LoadAll<UnitData>(string.Format(Paths.resourcesPlayer, string.Empty));
@@ -63,14 +64,12 @@ public class DataTable
         var textAsset = Resources.Load<TextAsset>(Paths.resourcesMonTable);
 
         using (var reader = new StringReader(textAsset.text))
+        using (var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture))
         {
-            using (var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture))
+            var records = csvReader.GetRecords<Enemy_Csv>();
+            foreach (var record in records)
             {
-                var records = csvReader.GetRecords<Enemy_Csv>();
-                foreach (var record in records)
-                {
-                    record.ToScriptable();
-                }
+                record.ToScriptable(false);
             }
         }
     }
@@ -93,5 +92,21 @@ public class DataTable
 
         }
         AssetDatabase.Refresh();
+    }
+
+    [MenuItem("데이터테이블/불러오기/스테이지")]
+    public static void LoadStages()
+    {
+        var textAsset = Resources.Load<TextAsset>(Paths.resourcesStageTable);
+
+        using (var reader = new StringReader(textAsset.text))
+        using (var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture))
+        {
+            var records = csvReader.GetRecords<Stage>();
+            foreach (var record in records)
+            {
+                record.ToScriptable();
+            }
+        }
     }
 }

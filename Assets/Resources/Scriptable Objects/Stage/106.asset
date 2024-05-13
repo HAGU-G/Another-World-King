@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9e5390eeabe2e0148bd1783116bb6660, type: 3}
-  m_Name: TowerStats_01
+  m_Name: 106
   m_EditorClassIdentifier: 
-  ignore: 
-  id: 1000
+  ignore: 6
+  id: 106
   division: 0
   prefab: None
   isTower: 1
-  initHP: 1000
+  initHP: 3000
   useStartHP: 0
   initHPStart: 0
   combatType: 0
   initAttackDamage: 0
   initAttackSpeed: 0
   initAttackRange: 0
-  initAttackEnemyCount: 1
-  initAttackOrder: 1
+  initAttackEnemyCount: 0
+  initAttackOrder: 0
   initAttackEnemyOrder: 01000000
   initHeal: 0
   initMoveSpeed: 80
