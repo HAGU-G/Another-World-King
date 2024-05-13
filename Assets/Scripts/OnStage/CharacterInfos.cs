@@ -3,13 +3,13 @@ using UnityEngine;
 public class CharacterInfos
 {
     public UnitData unitData;
-    public GameObject animator;
+    public GameObject dress;
 
     public void SetData(UnitData unitData)
     {
         this.unitData = unitData;
-        animator = Resources.Load<GameObject>(string.Format(Paths.resourcesPrefabs, unitData.prefab));
-        if (animator == null)
-            animator = Resources.Load<GameObject>(string.Format(Paths.resourcesPrefabs, Strings.nonePrefab));
+        dress = Resources.Load<GameObject>(string.Format(Paths.resourcesPrefabs, unitData.prefab));
+        if (dress == null)
+            dress = Resources.Load<GameObject>(string.Format(Paths.resourcesPrefabs, Strings.nonePrefab));
     }
 }

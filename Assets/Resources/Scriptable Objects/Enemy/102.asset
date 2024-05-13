@@ -15,7 +15,7 @@ MonoBehaviour:
   ignore: "\uD0F1\uCEE4"
   id: 102
   division: 2
-  prefab: None
+  prefab: Mon_Warrior
   isTower: 0
   initHP: 150
   useStartHP: 0

@@ -22,7 +22,7 @@ MonoBehaviour:
   initHPStart: 0
   combatType: 0
   initAttackDamage: 50
-  initAttackSpeed: 0.1
+  initAttackSpeed: 2
   initAttackRange: 1
   initAttackEnemyCount: 1
   initAttackOrder: 1
@@ -31,8 +31,8 @@ MonoBehaviour:
   initMoveSpeed: 80
   cost: 100
   spawnTime: 3
-  initDropGold: 50
-  initDropExp: 200
+  initDropGold: 0
+  initDropExp: 0
   effect: Attack1
   image: "\uC804\uC0AC.jpg"
   skill: 0

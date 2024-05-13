@@ -1,6 +1,16 @@
 ﻿using Unity.VisualScripting;
 using UnityEditor.Search;
 
+public static class AnimatorTriggers
+{
+    public static readonly string idle = "Idle";
+    public static readonly string move = "Move";
+    public static readonly string attackNormal = "Attack_Normal";
+    public static readonly string attackMagic = "Attack_Magic";
+    public static readonly string attackBow = "Attack_Bow";
+    public static readonly string dead = "Dead";
+}
+
 public static class Paths
 {
     public static readonly string folderResources = "Assets/Resources/";

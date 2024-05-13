@@ -95,7 +95,7 @@ public class TowerAI : UnitBase
     public void SpawnUnit(CharacterInfos characterInfos)
     {
         var unit = Instantiate(characterRoot, transform.position, Quaternion.Euler(Vector3.up)).GetComponent<CharacterAI>();
-        var animator = Instantiate(characterInfos.animator, unit.transform);
+        var dress = Instantiate(characterInfos.dress, unit.transform);
         unit.unitData = characterInfos.unitData;
         unit.ResetUnit();
         unit.SetTower(this);
