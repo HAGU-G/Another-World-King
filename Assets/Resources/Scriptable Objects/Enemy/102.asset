@@ -15,7 +15,7 @@ MonoBehaviour:
   ignore: "\uD0F1\uCEE4"
   id: 102
   division: 2
-  prefab: Mon_Warrior
+  prefab: Mon_Knight
   isTower: 0
   initHP: 150
   useStartHP: 0
@@ -24,7 +24,7 @@ MonoBehaviour:
   initAttackDamage: 20
   initAttackSpeed: 2
   initAttackRange: 1
-  initAttackEnemyCount: 1
+  initAttackEnemyCount: 0
   initAttackOrder: 1
   initAttackEnemyOrder: 01000000
   initHeal: 0
@@ -37,3 +37,4 @@ MonoBehaviour:
   image: "\uC774\uD6C4 \uACB0\uC815"
   skill: 0
   desc: 
+  price: 0

@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5390eeabe2e0148bd1783116bb6660, type: 3}
   m_Name: 107
   m_EditorClassIdentifier: 
-  ignore: "\uBAA9\uC228 2\uAC1C"
+  ignore: "\uAE30\uB9C8\uBCD1"
   id: 107
   division: 1
-  prefab: None
+  prefab: Mon_Cavalry
   isTower: 0
   initHP: 150
   useStartHP: 0
@@ -24,7 +24,7 @@ MonoBehaviour:
   initAttackDamage: 30
   initAttackSpeed: 2
   initAttackRange: 1
-  initAttackEnemyCount: 1
+  initAttackEnemyCount: 0
   initAttackOrder: 1
   initAttackEnemyOrder: 01000000
   initHeal: 0
@@ -37,3 +37,4 @@ MonoBehaviour:
   image: "\uC774\uD6C4 \uACB0\uC815"
   skill: 0
   desc: 
+  price: 0

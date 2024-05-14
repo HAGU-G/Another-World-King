@@ -27,8 +27,9 @@ public class TowerAI : UnitBase
             };
         };
     }
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         stage = GameObject.FindWithTag(Tags.player).GetComponent<StageManager>();
     }
 

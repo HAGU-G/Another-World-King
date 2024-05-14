@@ -15,7 +15,7 @@ MonoBehaviour:
   ignore: "\uC2A4\uD134"
   id: 303
   division: 6
-  prefab: None
+  prefab: Mon_Shaman
   isTower: 0
   initHP: 60
   useStartHP: 0
@@ -37,3 +37,4 @@ MonoBehaviour:
   image: "\uC774\uD6C4 \uACB0\uC815"
   skill: Stun_Skill
   desc: 
+  price: 0

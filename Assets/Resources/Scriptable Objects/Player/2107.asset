@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e5390eeabe2e0148bd1783116bb6660, type: 3}
+  m_Name: 2107
+  m_EditorClassIdentifier: 
+  ignore: "\uAE30\uC218Lv2"
+  id: 2107
+  division: 1
+  prefab: Banner
+  isTower: 0
+  initHP: 80
+  useStartHP: 0
+  initHPStart: 0
+  combatType: 0
+  initAttackDamage: 55
+  initAttackSpeed: 2
+  initAttackRange: 1
+  initAttackEnemyCount: 0
+  initAttackOrder: 1
+  initAttackEnemyOrder: 01000000
+  initHeal: 0
+  initMoveSpeed: 80
+  cost: 100
+  spawnTime: 3
+  initDropGold: 0
+  initDropExp: 0
+  effect: Attack1
+  image: "\uAE30\uC218.jpg"
+  skill: Plag_Skill
+  desc: Banner_explan
+  price: 0

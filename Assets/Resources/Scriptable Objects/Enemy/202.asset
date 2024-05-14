@@ -24,9 +24,9 @@ MonoBehaviour:
   initAttackDamage: 40
   initAttackSpeed: 2
   initAttackRange: 2
-  initAttackEnemyCount: 1
+  initAttackEnemyCount: 2
   initAttackOrder: 2
-  initAttackEnemyOrder: 01000000
+  initAttackEnemyOrder: 0100000002000000
   initHeal: 0
   initMoveSpeed: 80
   cost: 0
@@ -35,5 +35,6 @@ MonoBehaviour:
   initDropExp: 350
   effect: MonMagic
   image: "\uC774\uD6C4 \uACB0\uC815"
-  skill: Magic_Skill
+  skill: Magic1_Skill
   desc: 
+  price: 0

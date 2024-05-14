@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5390eeabe2e0148bd1783116bb6660, type: 3}
   m_Name: 302
   m_EditorClassIdentifier: 
-  ignore: "\uAC15\uD654 \uD790\uB7EC"
+  ignore: "\uAC15\uD654 \uC131\uC9C1\uC790"
   id: 302
   division: 4
-  prefab: None
+  prefab: Mon_Cleric
   isTower: 0
   initHP: 60
   useStartHP: 0
@@ -27,7 +27,7 @@ MonoBehaviour:
   initAttackEnemyCount: 0
   initAttackOrder: 2
   initAttackEnemyOrder: 01000000
-  initHeal: 0
+  initHeal: 30
   initMoveSpeed: 80
   cost: 0
   spawnTime: 0
@@ -35,5 +35,6 @@ MonoBehaviour:
   initDropExp: 350
   effect: MonHeal
   image: "\uC774\uD6C4 \uACB0\uC815"
-  skill: Heal_Skill
+  skill: Heal3_Skill
   desc: 
+  price: 0
