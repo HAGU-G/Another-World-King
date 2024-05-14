@@ -26,7 +26,7 @@ MonoBehaviour:
   initAttackRange: 2
   initAttackEnemyCount: 2
   initAttackOrder: 2
-  initAttackEnemyOrder: 0000000001000000
+  initAttackEnemyOrder: 0100000002000000
   initHeal: 0
   initMoveSpeed: 80
   cost: 250

@@ -22,9 +22,9 @@ MonoBehaviour:
   initHPStart: 0
   combatType: 0
   initAttackDamage: 50
-  initAttackSpeed: 2
+  initAttackSpeed: 100
   initAttackRange: 1
-  initAttackEnemyCount: 0
+  initAttackEnemyCount: 1
   initAttackOrder: 1
   initAttackEnemyOrder: 01000000
   initHeal: 0

@@ -36,7 +36,12 @@ public class GameManager : MonoBehaviour
     public int SelectedStageID
     {
         get => selectedStageID;
-        set => selectedStageID = Mathf.Clamp(value, DataTableManager.MinStageID, DataTableManager.MaxStageID);
+        set
+        {
+            int max = (DataTableManager.MinStageID + StageClearInfo.Count) < DataTableManager.MaxStageID
+                ? (DataTableManager.MinStageID + StageClearInfo.Count) : DataTableManager.MaxStageID;
+            selectedStageID = Mathf.Clamp(value, DataTableManager.MinStageID, max);
+        }
     }
     public Dictionary<int, int> StageClearInfo { get; private set; } = new();
 
