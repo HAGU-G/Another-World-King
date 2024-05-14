@@ -20,10 +20,10 @@ public class TowerAI : UnitBase
     {
         OnDead += () =>
         {
-            foreach (var item in GameObject.FindGameObjectsWithTag(Tags.unit))
+            foreach (var unit in units)
             {
-                if (item.GetComponent<UnitBase>().isPlayer == isPlayer)
-                    Destroy(item);
+                if (unit!= null && unit.isPlayer == isPlayer)
+                    unit.Damaged(unit.MaxHP);
             };
         };
     }

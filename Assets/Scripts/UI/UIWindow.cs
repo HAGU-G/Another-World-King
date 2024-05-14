@@ -6,6 +6,7 @@ public class UIWindow : MonoBehaviour
     public virtual void Open()
     {
         gameObject.SetActive(true);
+        Refresh();
     }
 
     public virtual void Close()
