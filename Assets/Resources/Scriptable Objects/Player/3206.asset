@@ -24,7 +24,7 @@ MonoBehaviour:
   initAttackDamage: 33
   initAttackSpeed: 0.5
   initAttackRange: 10
-  initAttackEnemyCount: 0
+  initAttackEnemyCount: 1
   initAttackOrder: 10
   initAttackEnemyOrder: 01000000
   initHeal: 0

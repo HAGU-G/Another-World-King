@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class UIButtonSummon : MonoBehaviour
 {
     public TextMeshProUGUI cost;
+    public TextMeshProUGUI level;
     public Button button;
     public CharacterInfos CharacterInfos { get; private set; } = new();
 
@@ -15,5 +16,6 @@ public class UIButtonSummon : MonoBehaviour
     {
         CharacterInfos = characterInfos;
         cost.text = CharacterInfos.unitData.cost.ToString();
+        level.text = CharacterInfos.unitData.ignore;
     }
 }
