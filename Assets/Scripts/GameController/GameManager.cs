@@ -1,4 +1,5 @@
-using Unity.VisualScripting;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,19 +13,38 @@ public class GameManager : MonoBehaviour
         get
         {
             if (instance == null)
-                instance = GameObject.FindWithTag(Tags.gameManager).GetComponent<GameManager>();
+                instance = Instantiate(Resources.Load<GameObject>(Paths.resourcesGameManager)).GetComponent<GameManager>();
 
             return instance;
         }
     }
     #endregion
+    private int flags;
+    public int Flags
+    {
+        get => flags;
+        set
+        {
+            flags = value;
+            if (flags < 0)
+                flags = 0;
+        }
+    }
+    public List<string> purchasedID { get; private set; } = new();
+    public CharacterInfos[] Expedition { get; private set; } = new CharacterInfos[5];
+    private int selectedStageID;
+    public int SelectedStageID
+    {
+        get => selectedStageID;
+        set => selectedStageID = Mathf.Clamp(value, DataTableManager.MinStageID, DataTableManager.MaxStageID);
+    }
+    public Dictionary<int, int> StageClearInfo { get; private set; } = new();
 
-    public InitStats[] Expedition { get; private set; } = new InitStats[5];
 
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
-
+        SelectedStageID = DataTableManager.MinStageID;
     }
     private void Start()
     {
@@ -37,7 +57,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(name);
     }
 
-    public void SetExpedition(InitStats initStats, int index = -1)
+    public void SetExpedition(CharacterInfos characterInfos, int index = -1)
     {
         if (index < 0)
         {
@@ -53,10 +73,19 @@ public class GameManager : MonoBehaviour
         if (index < 0)
             return;
 
-        Expedition[index] = initStats;
+        Expedition[index] = characterInfos;
     }
-    public InitStats GetExpedition(int index)
+    public CharacterInfos GetExpedition(int index)
     {
         return Expedition[index];
+    }
+
+    public void StageClear(int index, int star, int flag)
+    {
+        if (StageClearInfo.ContainsKey(index))
+            StageClearInfo[index] = StageClearInfo[index] < star ? star : StageClearInfo[index];
+        else
+            StageClearInfo.Add(index, star);
+        flags += flag;
     }
 }

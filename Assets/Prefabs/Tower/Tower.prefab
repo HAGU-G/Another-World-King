@@ -133,8 +133,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd1fa51072fc33e428e4e612fadced48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initStats: {fileID: 11400000, guid: 9e6162b73046c8849934f075c698828c, type: 2}
   isPlayer: 0
+  enemyTower: {fileID: 0}
+  characterRoot: {fileID: 7057274257859823147, guid: f9025effca4be164faa0dc838d7b9b0e, type: 3}
+  waitingUnits: 
 --- !u!210 &1369464387145922124
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -190,7 +192,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 10}
+  m_Size: {x: 0.6, y: 10}
   m_EdgeRadius: 0
 --- !u!114 &5417583185714785494
 MonoBehaviour:
