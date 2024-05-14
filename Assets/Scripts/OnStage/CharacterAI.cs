@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Timeline;
 
 public enum UNIT_STATE
 {
@@ -68,8 +66,8 @@ public class CharacterAI : UnitBase
         switch (state)
         {
             case UNIT_STATE.IDLE:
-                if(Animator!= null)
-                Animator.SetTrigger(AnimatorTriggers.idle);
+                if (Animator != null)
+                    Animator.SetTrigger(AnimatorTriggers.idle);
                 rb.velocity = Vector3.zero;
                 break;
             case UNIT_STATE.MOVE:
@@ -106,7 +104,7 @@ public class CharacterAI : UnitBase
                 foreach (var c in GetComponents<Collider2D>())
                     c.enabled = false;
                 rb.velocity = Vector3.zero;
-                Destroy(gameObject,3f);
+                Destroy(gameObject, 3f);
                 break;
         }
 
@@ -180,7 +178,7 @@ public class CharacterAI : UnitBase
     {
         if (IsHealer)
         {
-            for (int i = 0; i < GetOrder(); i++)
+            for (int i = 0; i < GetOrder() - 1; i++)
             {
                 Tower.units[i].Healed(Heal);
             }

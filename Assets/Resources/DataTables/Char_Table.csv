@@ -1,25 +1,73 @@
-List,ID,Division,Hp,Attack,A_Speed,A_Range,Chr_Position,Effect,Image,Skill,Spawn_Price,Spawn_Time,Char_ID,Char_Info
-전사,101,1,80,50,2,1,1,Attack1,전사.jpg,0,100,3,Brave,Brave_explan
-탱커,102,2,150,20,2,1,1,Attack2,탱커.jpg,0,250,7,Knight,Knight_explan
-강화 전사,103,1,100,60,2,1,1,Attack1,강화 전사.jpg,0,100,3,Warrior,Warrior_explan
-강화 탱커,104,2,200,20,2,1,1,Attack2,강화 탱커.jpg,0,250,7,Guardian,Guardian_explan
-광부,106,1,100,20,1,1,1,Attack3,광부.jpg,Gold_Skill,100,10,Mine,Mine_explan
-기수,107,1,80,50,2,1,1,Attack1,기수.jpg,Plag_Skill,100,3,Banner,Banner_explan
-해머,108,1,150,80,2.5,1,1,Attack4,해머.jpg,0,200,10,Olaf,Olaf_explan
-폭발,109,1,80,999,3,1,1,Bomb1,폭발.jpg,0,300,15,Bomber,Bomber_explan
-목숨 2개,110,2,100,40,1,1,1,Attack1,목숨 2개.jpg,0,400,15,Cavalry,Cavalry_explan
-도사,111,1,100,20,1,1,1,Attack1,도사.jpg,Exp_Skill,100,10,Alchemist,Alchemist_explan
-흡혈 탱커,112,2,150,20,2.5,1,1,AtHeal1,흡혈 탱커.jpg,Heal_Skill,400,15,Bloody,Bloody_explan
-광전사,113,1,100,30,1.5,1,1,Attack1,광전사.jpg,Fast_Skill,250,25,Berserker,Berserker_explan
-궁수,201,3,60,5,0.5,2,2,Arrow1,궁수.jpg,0,100,5,Archer,Archer_explan
-마법사,202,5,60,30,2,2,2,Magic1,마법사.jpg,Magic_Skill,250,7,Magician,Magician_explan
-강화 궁수,203,3,60,7,0.5,2,2,Arrow1,강화 궁수.jpg,0,100,5,Hunter,Hunter_explan
-강화 마법사,204,5,60,40,2,2,2,Magic1,강화 마법사.jpg,Magic_Skill,250,7,Sorcerer,Sorcerer_explan
-대포,205,3,100,20,1,1,1,Cannon1,대포.jpg,0,300,15,Cannon,Cannon_explan
-포탑,206,5,100,7,0.5,10,10,tower1,포탑.jpg,0,500,30,Turret,Turret_explan
-스나이퍼,207,3,60,50,3,3,3,Arrow1,스나이퍼.jpg,0,400,15,Sniper,Sniper_explan
-성직자,301,4,60,0,2.5,2,3,Heal1,성직자.jpg,Heal_Skill,150,5,Bishop,Bishop_explan
-강화 성직자,302,4,60,0,2.5,2,3,Heal1,강화 성직자.jpg,Heal_Skill,150,5,Cleric,Cleric_explan
-광역 성직자,303,4,60,0,2.5,3,4,Heal2,광역 성직자.jpg,Heal2_Skill,300,10,Priest,Priest_explan
-공속 슬로우,304,6,60,0,3,2,3,slow1,슬로우.jpg,slow_Skill,300,15,Witch,Witch_explan
-스턴,306,6,60,0,3,2,3,buff2,스턴.jpg,Stun_Skill,300,15,Shaman,Shaman_explan
+List,ID,Division,Hp,Attack,A_Speed,A_Range,Chr_Position,Effect,Image,Skill,Char_ID,Spawn_Price,Spawn_Time,Char_Info,Shop_Value
+전사Lv1,1101,1,80,50,2,1,1,Attack1,전사.jpg,0,Brave,100,3,Brave_explan,0
+탱커Lv1,1102,2,150,20,2,1,1,Attack2,탱커.jpg,0,Knight,250,7,Knight_explan,0
+강화 전사Lv1,1103,1,100,60,2,1,1,Attack1,강화 전사.jpg,0,Warrior,100,3,Warrior_explan,30
+강화 탱커Lv1,1104,2,200,20,2,1,1,Attack2,강화 탱커.jpg,0,Guardian,250,7,Guardian_explan,30
+광부Lv1,1106,1,100,20,1,1,1,Attack3,광부.jpg,Gold_Skill,Mine,100,10,Mine_explan,35
+기수Lv1,1107,1,80,50,2,1,1,Attack1,기수.jpg,Plag_Skill,Banner,100,3,Banner_explan,35
+해머Lv1,1108,1,150,80,2.5,1,1,Attack4,해머.jpg,0,Olaf,200,10,Olaf_explan,30
+폭발Lv1,1109,1,80,999,3,1,1,Bomb1,폭발.jpg,0,Bomber,300,15,Bomber_explan,40
+기마병Lv1,1110,2,100,40,1,1,1,Attack1,목숨 2개.jpg,0,Cavalry,400,15,Cavalry_explan,50
+연금술사Lv1,1111,1,100,20,1,1,1,Attack1,도사.jpg,Exp_Skill,Alchemist,100,10,Alchemist_explan,40
+흡혈 탱커Lv1,1112,2,150,20,2.5,1,1,AtHeal1,흡혈 탱커.jpg,Drain_Skill,Bloody,400,15,Bloody_explan,50
+광전사Lv1,1113,1,100,30,1.5,1,1,Attack1,광전사.jpg,Fast_Skill,Berserker,250,25,Berserker_explan,40
+궁수Lv1,1201,3,60,5,0.5,2,2,Arrow1,궁수.jpg,0,Archer,100,5,Archer_explan,0
+마법사Lv1,1202,5,60,30,2,2,2,Magic1,마법사.jpg,Magic1_Skill,Magician,250,7,Magician_explan,0
+강화 궁수Lv1,1203,3,60,7,0.5,2,2,Arrow1,강화 궁수.jpg,0,Hunter,100,5,Hunter_explan,30
+강화 마법사Lv1,1204,5,60,40,2,2,2,Magic1,강화 마법사.jpg,Magic2_Skill,Sorcerer,250,7,Sorcerer_explan,40
+대포Lv1,1205,3,100,20,1,1,1,Cannon1,대포.jpg,0,Cannon,300,15,Cannon_explan,40
+포탑Lv1,1206,5,100,7,0.5,10,10,tower1,포탑.jpg,0,Turret,500,30,Turret_explan,50
+스나이퍼Lv1,1207,3,60,50,3,3,3,Arrow1,스나이퍼.jpg,0,Sniper,400,15,Sniper_explan,60
+성직자Lv1,1301,4,60,0,2.5,2,3,Heal1,성직자.jpg,Heal_Skill,Bishop,150,5,Bishop_explan,0
+강화 성직자Lv1,1302,4,60,0,2.5,2,3,Heal1,강화 성직자.jpg,Heal3_Skill,Cleric,150,5,Cleric_explan,30
+광역 성직자Lv1,1303,4,60,0,2.5,3,4,Heal2,광역 성직자.jpg,Heal2_Skill,Priest,300,10,Priest_explan,40
+위치Lv1,1304,6,60,0,3,2,3,slow1,슬로우.jpg,slow_Skill,Witch,300,15,Witch_explan,40
+스턴Lv1,1306,6,60,0,3,2,3,buff2,스턴.jpg,Stun_Skill,Shaman,300,15,Shaman_explan,40
+전사Lv2,2101,1,80,55,2,1,1,Attack1,전사.jpg,0,Brave,100,3,Brave_explan,0
+탱커Lv2,2102,2,150,25,2,1,1,Attack2,탱커.jpg,0,Knight,250,7,Knight_explan,0
+강화 전사Lv2,2103,1,100,65,2,1,1,Attack1,강화 전사.jpg,0,Warrior,100,3,Warrior_explan,0
+강화 탱커Lv2,2104,2,200,25,2,1,1,Attack2,강화 탱커.jpg,0,Guardian,250,7,Guardian_explan,0
+광부Lv2,2106,1,100,25,1,1,1,Attack3,광부.jpg,Gold_Skill,Mine,100,10,Mine_explan,0
+기수Lv2,2107,1,80,55,2,1,1,Attack1,기수.jpg,Plag_Skill,Banner,100,3,Banner_explan,0
+해머Lv2,2108,1,150,85,2.5,1,1,Attack4,해머.jpg,0,Olaf,200,10,Olaf_explan,0
+폭발Lv2,2109,1,80,999,3,1,1,Bomb1,폭발.jpg,0,Bomber,300,15,Bomber_explan,0
+기마병Lv2,2110,2,100,45,1,1,1,Attack1,목숨 2개.jpg,0,Cavalry,400,15,Cavalry_explan,0
+연금술사Lv2,2111,1,100,25,1,1,1,Attack1,도사.jpg,Exp_Skill,Alchemist,100,10,Alchemist_explan,0
+흡혈 탱커Lv2,2112,2,150,25,2.5,1,1,AtHeal1,흡혈 탱커.jpg,Drain_Skill,Bloody,400,15,Bloody_explan,0
+광전사Lv2,2113,1,100,35,1.5,1,1,Attack1,광전사.jpg,Fast_Skill,Berserker,250,25,Berserker_explan,0
+궁수Lv2,2201,3,60,8,0.5,2,2,Arrow1,궁수.jpg,0,Archer,100,5,Archer_explan,0
+마법사Lv2,2202,5,60,33,2,2,2,Magic1,마법사.jpg,Magic1_Skill,Magician,250,7,Magician_explan,0
+강화 궁수Lv2,2203,3,60,10,0.5,2,2,Arrow1,강화 궁수.jpg,0,Hunter,100,5,Hunter_explan,0
+강화 마법사Lv2,2204,5,60,43,2,2,2,Magic1,강화 마법사.jpg,Magic2_Skill,Sorcerer,250,7,Sorcerer_explan,0
+대포Lv2,2205,3,100,23,1,1,1,Cannon1,대포.jpg,0,Cannon,300,15,Cannon_explan,0
+포탑Lv2,2206,5,100,30,0.5,10,10,tower1,포탑.jpg,0,Turret,500,30,Turret_explan,0
+스나이퍼Lv2,2207,3,60,53,3,3,3,Arrow1,스나이퍼.jpg,0,Sniper,400,15,Sniper_explan,0
+성직자Lv2,2301,4,60,0,2.5,2,3,Heal1,성직자.jpg,Heal_Skill,Bishop,150,5,Bishop_explan,0
+강화 성직자Lv2,2302,4,60,0,2.5,2,3,Heal1,강화 성직자.jpg,Heal3_Skill,Cleric,150,5,Cleric_explan,0
+광역 성직자Lv2,2303,4,60,0,2.5,3,4,Heal2,광역 성직자.jpg,Heal2_Skill,Priest,300,10,Priest_explan,0
+위치Lv2,2304,6,60,0,3,2,3,slow1,슬로우.jpg,slow_Skill,Witch,300,15,Witch_explan,0
+스턴Lv2,2306,6,60,0,3,2,3,buff2,스턴.jpg,Stun_Skill,Shaman,300,15,Shaman_explan,0
+전사Lv3,3101,1,80,60,2,1,1,Attack1,전사.jpg,0,Brave,100,3,Brave_explan,0
+탱커Lv3,3102,2,150,30,2,1,1,Attack2,탱커.jpg,0,Knight,250,7,Knight_explan,0
+강화 전사Lv3,3103,1,100,70,2,1,1,Attack1,강화 전사.jpg,0,Warrior,100,3,Warrior_explan,0
+강화 탱커Lv3,3104,2,200,30,2,1,1,Attack2,강화 탱커.jpg,0,Guardian,250,7,Guardian_explan,0
+광부Lv3,3106,1,100,30,1,1,1,Attack3,광부.jpg,Gold_Skill,Mine,100,10,Mine_explan,0
+기수Lv3,3107,1,80,60,2,1,1,Attack1,기수.jpg,Plag_Skill,Banner,100,3,Banner_explan,0
+해머Lv3,3108,1,150,90,2.5,1,1,Attack4,해머.jpg,0,Olaf,200,10,Olaf_explan,0
+폭발Lv3,3109,1,80,999,3,1,1,Bomb1,폭발.jpg,0,Bomber,300,15,Bomber_explan,0
+기마병Lv3,3110,2,100,50,1,1,1,Attack1,목숨 2개.jpg,0,Cavalry,400,15,Cavalry_explan,0
+연금술사Lv3,3111,1,100,30,1,1,1,Attack1,도사.jpg,Exp_Skill,Alchemist,100,10,Alchemist_explan,0
+흡혈 탱커Lv3,3112,2,150,30,2.5,1,1,AtHeal1,흡혈 탱커.jpg,Drain_Skill,Bloody,400,15,Bloody_explan,0
+광전사Lv3,3113,1,100,40,1.5,1,1,Attack1,광전사.jpg,Fast_Skill,Berserker,250,25,Berserker_explan,0
+궁수Lv3,3201,3,60,11,0.5,2,2,Arrow1,궁수.jpg,0,Archer,100,5,Archer_explan,0
+마법사Lv3,3202,5,60,36,2,2,2,Magic1,마법사.jpg,Magic1_Skill,Magician,250,7,Magician_explan,0
+강화 궁수Lv3,3203,3,60,13,0.5,2,2,Arrow1,강화 궁수.jpg,0,Hunter,100,5,Hunter_explan,0
+강화 마법사Lv3,3204,5,60,46,2,2,2,Magic1,강화 마법사.jpg,Magic2_Skill,Sorcerer,250,7,Sorcerer_explan,0
+대포Lv3,3205,3,100,26,1,1,1,Cannon1,대포.jpg,0,Cannon,300,15,Cannon_explan,0
+포탑Lv3,3206,5,100,33,0.5,10,10,tower1,포탑.jpg,0,Turret,500,30,Turret_explan,0
+스나이퍼Lv3,3207,3,60,56,3,3,3,Arrow1,스나이퍼.jpg,0,Sniper,400,15,Sniper_explan,0
+성직자Lv3,3301,4,60,0,2.5,2,3,Heal1,성직자.jpg,Heal_Skill,Bishop,150,5,Bishop_explan,0
+강화 성직자Lv3,3302,4,60,0,2.5,2,3,Heal1,강화 성직자.jpg,Heal3_Skill,Cleric,150,5,Cleric_explan,0
+광역 성직자Lv3,3303,4,60,0,2.5,3,4,Heal2,광역 성직자.jpg,Heal2_Skill,Priest,300,10,Priest_explan,0
+위치Lv3,3304,6,60,0,3,2,3,slow1,슬로우.jpg,slow_Skill,Witch,300,15,Witch_explan,0
+스턴Lv3,3306,6,60,0,3,2,3,buff2,스턴.jpg,Stun_Skill,Shaman,300,15,Shaman_explan,0

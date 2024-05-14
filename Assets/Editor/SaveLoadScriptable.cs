@@ -1,6 +1,8 @@
 using CsvHelper;
 using System.Globalization;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -24,6 +26,7 @@ public class SaveLoadScriptable
     [MenuItem("데이터테이블/불러오기/아군 캐릭터")]
     public static void LoadPlayerCharacters()
     {
+        var skills = LoadSkills();
         var textAsset = Resources.Load<TextAsset>(Paths.resourcesCharTable);
 
         using (var reader = new StringReader(textAsset.text))
@@ -33,6 +36,12 @@ public class SaveLoadScriptable
             var records = csvReader.GetRecords<Player_Csv>();
             foreach (var record in records)
             {
+                if (record.Skill != Strings.dataTableNone
+                    && skills.ContainsKey(record.Skill))
+                {
+                    record.Heal = skills[record.Skill].Hp_Healing;
+                    record.EnemyCount = skills[record.Skill].Wide_Area_Range;
+                }
                 record.ToScriptable(true);
             }
         }
@@ -61,6 +70,7 @@ public class SaveLoadScriptable
     [MenuItem("데이터테이블/불러오기/적 캐릭터")]
     public static void LoadEnemyCharacters()
     {
+        var skills = LoadSkills();
         var textAsset = Resources.Load<TextAsset>(Paths.resourcesMonTable);
 
         using (var reader = new StringReader(textAsset.text))
@@ -69,6 +79,12 @@ public class SaveLoadScriptable
             var records = csvReader.GetRecords<Enemy_Csv>();
             foreach (var record in records)
             {
+                if (record.Skill != Strings.dataTableNone
+                    && skills.ContainsKey(record.Skill))
+                {
+                    record.Heal = skills[record.Skill].Hp_Healing;
+                    record.EnemyCount = skills[record.Skill].Wide_Area_Range;
+                }
                 record.ToScriptable(false);
             }
         }
@@ -107,6 +123,25 @@ public class SaveLoadScriptable
             {
                 record.ToScriptable();
             }
+        }
+    }
+
+    private static Dictionary<string, Skill_Csv> LoadSkills()
+    {
+        var textAsset = Resources.Load<TextAsset>(Paths.resourcesSkillTable);
+
+        using (var reader = new StringReader(textAsset.text))
+        using (var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture))
+        {
+            var records = csvReader.GetRecords<Skill_Csv>();
+            var skills = new Dictionary<string, Skill_Csv>();
+            foreach (var record in records)
+            {
+                if (!skills.ContainsKey(record.ID))
+                    skills.Add(record.ID, record);
+                record.ToScriptable();
+            }
+            return skills;
         }
     }
 }

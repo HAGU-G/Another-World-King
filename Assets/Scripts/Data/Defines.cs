@@ -17,6 +17,7 @@ public static class Paths
     public static readonly string resourcesPlayer = "Scriptable Objects/Player/{0}";
     public static readonly string resourcesStage = "Scriptable Objects/Stage/{0}";
     public static readonly string resourcesEnemy = "Scriptable Objects/Enemy/{0}";
+    public static readonly string resourcesSkill = "Scriptable Objects/Skill/{0}";
     public static readonly string resourcesPrefabs = "Prefabs/{0}";
 
     public static readonly string resourcesGameManager = "Prefabs/GameController/GameManager";
@@ -28,6 +29,7 @@ public static class Paths
 #if UNITY_EDITOR
     public static readonly string resourcesMonTable = "DataTables/Mon_Table";
     public static readonly string resourcesCharTable = "DataTables/Char_Table";
+    public static readonly string resourcesSkillTable = "DataTables/Skill_Table";
 
     public static readonly string _asset = ".asset";
     public static readonly string _csv = ".csv";

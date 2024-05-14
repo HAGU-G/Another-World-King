@@ -55,5 +55,6 @@ public class UnitData : ScriptableObject
     public string image;
     public string skill;
     public string desc;
+    public int price;
 }
 

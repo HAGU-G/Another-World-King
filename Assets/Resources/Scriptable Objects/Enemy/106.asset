@@ -15,7 +15,7 @@ MonoBehaviour:
   ignore: "\uD761\uD608 \uD0F1\uCEE4"
   id: 106
   division: 2
-  prefab: None
+  prefab: Mon_Bloody
   isTower: 0
   initHP: 150
   useStartHP: 0
@@ -24,10 +24,10 @@ MonoBehaviour:
   initAttackDamage: 20
   initAttackSpeed: 2
   initAttackRange: 1
-  initAttackEnemyCount: 1
+  initAttackEnemyCount: 0
   initAttackOrder: 1
   initAttackEnemyOrder: 01000000
-  initHeal: 0
+  initHeal: 20
   initMoveSpeed: 80
   cost: 0
   spawnTime: 0
@@ -35,5 +35,6 @@ MonoBehaviour:
   initDropExp: 400
   effect: MonAttack2
   image: "\uC774\uD6C4 \uACB0\uC815"
-  skill: Heal_Skill
+  skill: Drain_Skill
   desc: 
+  price: 0

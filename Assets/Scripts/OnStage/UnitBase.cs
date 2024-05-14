@@ -1,11 +1,10 @@
-using Newtonsoft.Json.Converters;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class UnitBase : MonoBehaviour
 {
     public UnitData unitData { get; set; }
+    private StageManager stageManager;
 
     //State
     public bool IsTower => unitData.isTower;
@@ -31,7 +30,7 @@ public class UnitBase : MonoBehaviour
         {
             float buffedStat = unitData.initHP;
             float persentage = 0f;
-            foreach (var buff in buffs)
+            foreach (var buff in skill)
             {
                 buffedStat += buff.Value.hp;
                 persentage += buff.Value.hp_P;
@@ -47,7 +46,7 @@ public class UnitBase : MonoBehaviour
         {
             float buffedStat = unitData.initAttackDamage;
             float persentage = 0f;
-            foreach (var buff in buffs)
+            foreach (var buff in skill)
             {
                 buffedStat += buff.Value.attackDamage;
                 persentage += buff.Value.attackDamage_P;
@@ -61,7 +60,7 @@ public class UnitBase : MonoBehaviour
         {
             float buffedStat = unitData.initAttackSpeed;
             float persentage = 0f;
-            foreach (var buff in buffs)
+            foreach (var buff in skill)
             {
                 buffedStat += buff.Value.attackSpeed;
                 persentage += buff.Value.attackSpeed_P;
@@ -76,7 +75,7 @@ public class UnitBase : MonoBehaviour
         {
             float buffedStat = unitData.initAttackRange;
             float persentage = 0f;
-            foreach (var buff in buffs)
+            foreach (var buff in skill)
             {
                 buffedStat += buff.Value.attackRange;
                 persentage += buff.Value.attackRange_P;
@@ -96,7 +95,7 @@ public class UnitBase : MonoBehaviour
         {
             float buffedStat = unitData.initMoveSpeed;
             float persentage = 0f;
-            foreach (var buff in buffs)
+            foreach (var buff in skill)
             {
                 buffedStat += buff.Value.moveSpeed;
                 persentage += buff.Value.moveSpeed_P;
@@ -110,7 +109,7 @@ public class UnitBase : MonoBehaviour
         {
             float buffedStat = unitData.initDropGold;
             float persentage = 0f;
-            foreach (var buff in buffs)
+            foreach (var buff in skill)
             {
                 buffedStat += buff.Value.dropGold;
                 persentage += buff.Value.dropGold_P;
@@ -124,7 +123,7 @@ public class UnitBase : MonoBehaviour
         {
             float buffedStat = unitData.initDropExp;
             float persentage = 0f;
-            foreach (var buff in buffs)
+            foreach (var buff in skill)
             {
                 buffedStat += buff.Value.dropExp;
                 persentage += buff.Value.dropExp_P;
@@ -144,22 +143,30 @@ public class UnitBase : MonoBehaviour
 
 
     //Buff
-    public Dictionary<int, BuffData> buffs { get; private set; } = new();
-    public void ApplyBuff(BuffData buff)
+    public Dictionary<string, SkillData> skill { get; private set; } = new();
+    public void ApplyBuff(SkillData buff)
     {
-        if (!buffs.ContainsKey(buff.id))
+        if (!skill.ContainsKey(buff.id))
         {
-            buffs.Add(buff.id, buff);
+            skill.Add(buff.id, buff);
         }
-        buffs[buff.id].Apply();
-        Debug.Log(buffs[buff.id].attackSpeed);
-        Debug.Log(buffs[buff.id].attackDamage);
+
+        if (skill[buff.id].Apply())
+            OnApplySkill(buff);
+    }
+    public void OnApplySkill(SkillData buff)
+    {
+        if (stageManager != null)
+        {
+            stageManager.GetGold(buff.onApplyGold);
+            stageManager.GetExp(buff.onApplyExp);
+        }
     }
     private void UpdateBuffDuration(float deltaTime)
     {
-        List<int> removes = new();
+        List<string> removes = new();
 
-        foreach (var buff in buffs)
+        foreach (var buff in skill)
         {
             if (buff.Value.UpdateDuration(deltaTime) == 0)
                 removes.Add(buff.Key);
@@ -169,7 +176,7 @@ public class UnitBase : MonoBehaviour
             return;
         foreach (var key in removes)
         {
-            buffs.Remove(key);
+            skill.Remove(key);
         }
         if (HP > MaxHP)
             HP = MaxHP;
@@ -177,9 +184,13 @@ public class UnitBase : MonoBehaviour
 
 
     //Behaviour
+    protected virtual void Start()
+    {
+        stageManager = GameObject.FindWithTag(Tags.player).GetComponent<StageManager>();
+    }
     protected virtual void Update()
     {
-        if(IsDead)
+        if (IsDead)
             return;
         UpdateBuffDuration(Time.deltaTime);
     }
@@ -187,7 +198,7 @@ public class UnitBase : MonoBehaviour
     public virtual void ResetUnit()
     {
         hp = unitData.useStartHP ? unitData.initHPStart : MaxHP;
-        buffs.Clear();
+        skill.Clear();
         IsDead = false;
     }
 

@@ -15,7 +15,7 @@ MonoBehaviour:
   ignore: "\uC804\uC0AC"
   id: 101
   division: 1
-  prefab: Mon_Kinght
+  prefab: Mon_Brave
   isTower: 0
   initHP: 80
   useStartHP: 0
@@ -24,7 +24,7 @@ MonoBehaviour:
   initAttackDamage: 50
   initAttackSpeed: 1.5
   initAttackRange: 1
-  initAttackEnemyCount: 1
+  initAttackEnemyCount: 0
   initAttackOrder: 1
   initAttackEnemyOrder: 01000000
   initHeal: 0
@@ -37,3 +37,4 @@ MonoBehaviour:
   image: MonWarrior.jpg
   skill: 0
   desc: 
+  price: 0

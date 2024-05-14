@@ -15,7 +15,7 @@ MonoBehaviour:
   ignore: "\uC2A4\uB098\uC774\uD37C"
   id: 205
   division: 3
-  prefab: None
+  prefab: Mon_Sniper
   isTower: 0
   initHP: 60
   useStartHP: 0
@@ -24,7 +24,7 @@ MonoBehaviour:
   initAttackDamage: 7
   initAttackSpeed: 0.5
   initAttackRange: 3
-  initAttackEnemyCount: 1
+  initAttackEnemyCount: 0
   initAttackOrder: 3
   initAttackEnemyOrder: 01000000
   initHeal: 0
@@ -37,3 +37,4 @@ MonoBehaviour:
   image: "\uC774\uD6C4 \uACB0\uC815"
   skill: 0
   desc: 
+  price: 0
