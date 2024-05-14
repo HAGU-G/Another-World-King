@@ -49,6 +49,7 @@ public static class Scenes
 {
     public static readonly string devMain = "DevMain";
     public static readonly string devStage = "DevStage";
+    public static readonly string devLoading = "DevLoading";
 }
 
 

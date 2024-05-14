@@ -14,6 +14,15 @@ public class UIButtonSummon : MonoBehaviour
 
     public void SetData(CharacterInfos characterInfos)
     {
+        if(characterInfos == null)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+        else
+        {
+            gameObject.SetActive(true);
+        }
         CharacterInfos = characterInfos;
         cost.text = CharacterInfos.unitData.cost.ToString();
         level.text = CharacterInfos.unitData.ignore;

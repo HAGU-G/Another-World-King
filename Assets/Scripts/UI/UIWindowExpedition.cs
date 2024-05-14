@@ -1,5 +1,6 @@
 using Unity.Loading;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class UIWindowExpedition : UIWindow
@@ -21,34 +22,6 @@ public class UIWindowExpedition : UIWindow
         for (int i = 0; i < expedition.Length; i++)
         {
             expedition[i].SetData(GameManager.Instance.Expedition[i]);
-        }
-
-        UnitData[] characters = Resources.LoadAll<UnitData>(string.Format(Paths.resourcesPlayer, string.Empty));
-        for (int i = 0; i < characters.Length; i++)
-        {
-#if !UNITY_EDITOR
-            if (!GameManager.Instance.purchasedID.Contains(characters[i].id))
-                continue;
-#endif
-
-            var characterInfos = new CharacterInfos();
-            characterInfos.SetData(characters[i]);
-      
-            var slot = Instantiate(prefabSlot, scrollRect.content);
-            slot.SetData(characterInfos);
-            slot.toggle.group = toggleGroup;
-            slot.toggle.onValueChanged.AddListener(x =>
-            {
-                if (x)
-                {
-                    select = slot;
-                    selectSlot = null;
-                }
-                else
-                {
-                    select = null;
-                }
-            });
         }
 
         for (int i = 0; i < expedition.Length; i++)
@@ -89,5 +62,43 @@ public class UIWindowExpedition : UIWindow
             }
         }
 
+    }
+
+    public override void Refresh()
+    {
+        base.Refresh();
+        for (int i = 0; i < scrollRect.content.childCount; i++)
+        {
+            select = null;
+            selectSlot = null;
+            Destroy(scrollRect.content.GetChild(i).gameObject);
+        }
+
+        UnitData[] characters = Resources.LoadAll<UnitData>(string.Format(Paths.resourcesPlayer, string.Empty));
+        for (int i = 0; i < characters.Length; i++)
+        {
+            if (!GameManager.Instance.purchasedID.Contains(characters[i].id)
+                || characters[i].id >= 2000)
+                continue;
+
+            var characterInfos = new CharacterInfos();
+            characterInfos.SetData(characters[i]);
+
+            var slot = Instantiate(prefabSlot, scrollRect.content);
+            slot.SetData(characterInfos);
+            slot.toggle.group = toggleGroup;
+            slot.toggle.onValueChanged.AddListener(x =>
+            {
+                if (x)
+                {
+                    select = slot;
+                    selectSlot = null;
+                }
+                else
+                {
+                    select = null;
+                }
+            });
+        }
     }
 }

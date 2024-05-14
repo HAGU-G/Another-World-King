@@ -8,7 +8,7 @@ using UnityEngine;
 public class UnitData_Csv
 {
     [Index(0)] public string List { get; set; }
-    [Index(1)] public string ID { get; set; }
+    [Index(1)] public int ID { get; set; }
     [Index(2)] public DIVISION Division { get; set; }
     [Index(3)] public int Hp { get; set; }
     [Index(4)] public int Attack { get; set; }

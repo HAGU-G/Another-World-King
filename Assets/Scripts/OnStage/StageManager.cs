@@ -30,7 +30,7 @@ public class Stage
             create = true;
         }
 
-        unitData.id = ID.ToString();
+        unitData.id = ID;
         unitData.ignore = List;
         unitData.isTower = true;
         unitData.initHP = Castle_Hp;
@@ -142,7 +142,7 @@ public class StageManager : MonoBehaviour
 
     public void Defeat()
     {
-        GameManager.Instance.ChangeScene(Scenes.devMain);
+        GameManager.Instance.LoadingScene(Scenes.devMain);
     }
 
     public void Victory()
@@ -176,8 +176,7 @@ public class StageManager : MonoBehaviour
                 _ => DataTableManager.Stages[GameManager.Instance.SelectedStageID].Stars_1_reward,
             };
         }
-        Debug.Log(flag);
         GameManager.Instance.StageClear(GameManager.Instance.SelectedStageID, star, flag);
-        GameManager.Instance.ChangeScene(Scenes.devMain);
+        GameManager.Instance.LoadingScene(Scenes.devMain);
     }
 }

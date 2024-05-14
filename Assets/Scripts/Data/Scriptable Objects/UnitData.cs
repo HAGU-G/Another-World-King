@@ -25,7 +25,7 @@ public class UnitData : ScriptableObject
     public string ignore; //Don't use in game
 
     //Init Stats
-    public string id;
+    public int id;
     public DIVISION division;
     public string prefab = Strings.nonePrefab;
 

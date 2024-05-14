@@ -248,7 +248,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slot: {fileID: 7500505471372170424}
-  cost: {fileID: 6375059712354676987}
+  price: {fileID: 6375059712354676987}
 --- !u!1001 &626523592523036710
 PrefabInstance:
   m_ObjectHideFlags: 0

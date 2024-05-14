@@ -1561,7 +1561,7 @@ GameObject:
   - component: {fileID: 4640621194735727368}
   - component: {fileID: 6053168730856726131}
   m_Layer: 6
-  m_Name: Cavalry1
+  m_Name: Cavalry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

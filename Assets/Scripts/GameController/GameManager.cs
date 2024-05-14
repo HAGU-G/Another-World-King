@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -30,7 +31,7 @@ public class GameManager : MonoBehaviour
                 flags = 0;
         }
     }
-    public List<string> purchasedID { get; private set; } = new();
+    public List<int> purchasedID { get; private set; } = new();
     public CharacterInfos[] Expedition { get; private set; } = new CharacterInfos[5];
     private int selectedStageID;
     public int SelectedStageID
@@ -44,12 +45,24 @@ public class GameManager : MonoBehaviour
         }
     }
     public Dictionary<int, int> StageClearInfo { get; private set; } = new();
-
+    public string nextScene;
 
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
         SelectedStageID = DataTableManager.MinStageID;
+
+        //TESTCODE
+        purchasedID.Add(1101);
+        purchasedID.Add(1102);
+        purchasedID.Add(1201);
+        purchasedID.Add(1202);
+        purchasedID.Add(1301);
+        SetExpeditions(1101, 0);
+        SetExpeditions(1102, 1);
+        SetExpeditions(1201, 2);
+
+        flags = int.MaxValue / 2;
     }
     private void Start()
     {
@@ -57,6 +70,11 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
     }
 
+    public void LoadingScene(string name)
+    {
+        nextScene = name;
+        SceneManager.LoadScene(Scenes.devLoading);
+    }
     public void ChangeScene(string name)
     {
         SceneManager.LoadScene(name);
@@ -80,6 +98,17 @@ public class GameManager : MonoBehaviour
 
         Expedition[index] = characterInfos;
     }
+
+    public void SetExpeditions(int id, int index)
+    {
+        UnitData character = Resources.Load<UnitData>(string.Format(Paths.resourcesPlayer, id));
+
+        var characterInfos = new CharacterInfos();
+        characterInfos.SetData(character);
+        SetExpedition(characterInfos, index);
+    }
+
+
     public CharacterInfos GetExpedition(int index)
     {
         return Expedition[index];
@@ -92,5 +121,22 @@ public class GameManager : MonoBehaviour
         else
             StageClearInfo.Add(index, star);
         flags += flag;
+    }
+
+    public bool AddPurchasedID(CharacterInfos characterInfos)
+    {
+        if (purchasedID.Contains(characterInfos.unitData.id))
+            return false;
+
+        if (flags >= characterInfos.unitData.price)
+        {
+            flags -= characterInfos.unitData.price;
+            purchasedID.Add(characterInfos.unitData.id);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
