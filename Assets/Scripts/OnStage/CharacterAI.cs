@@ -14,6 +14,7 @@ public enum UNIT_STATE
 public class CharacterAI : UnitBase
 {
     public Animator[] Animators { get; private set; }
+    private SpriteRenderer[] spriteRenderers;
     public Rigidbody2D rb;
     public BoxCollider2D attackCollider;
 
@@ -22,6 +23,7 @@ public class CharacterAI : UnitBase
     private List<UnitBase> targets = new();
 
     private float lastAttackTime;
+    private float alphaReduceTime;
 
     private UNIT_STATE unitState;
     private bool isBlocked;
@@ -35,7 +37,18 @@ public class CharacterAI : UnitBase
     {
         base.Update();
         if (IsDead)
+        {
+            if (spriteRenderers != null && spriteRenderers.Length > 0 && Time.time >= alphaReduceTime + 1f / 3f)
+            {
+                alphaReduceTime = Time.time;
+                foreach (var spriteRenderer in spriteRenderers)
+                {
+                    spriteRenderer.color = new(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, spriteRenderer.color.a - 1f / 9f);
+                }
+
+            }
             return;
+        }
         foreach (var buff in Buff)
         {
             if (buff.Value.skillData.sturn)
@@ -59,9 +72,7 @@ public class CharacterAI : UnitBase
         }
 
         if (Time.time >= lastAttackTime + AttackSpeed)
-        {
             SetUnitState(UNIT_STATE.ATTACK);
-        }
         else if (CombatType == COMBAT_TYPE.STOP_ON_HAVE_TARGET)
             SetUnitState(UNIT_STATE.IDLE);
 
@@ -139,6 +150,7 @@ public class CharacterAI : UnitBase
 
         isBlocked = false;
         Animators = GetComponentsInChildren<Animator>();
+        spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
         SetUnitState(UNIT_STATE.IDLE);
     }
 

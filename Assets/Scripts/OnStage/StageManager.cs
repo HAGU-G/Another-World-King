@@ -76,7 +76,7 @@ public class StageManager : MonoBehaviour
 
     private void Start()
     {
-        Gold = int.MaxValue / 2;
+        Gold = 700;
         for (int i = 0; i < uiOnStage.buttonSummons.Length; i++)
         {
             uiOnStage.buttonSummons[i].SetData(GameManager.Instance.GetExpedition(i));
