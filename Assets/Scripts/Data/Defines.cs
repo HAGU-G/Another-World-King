@@ -52,7 +52,7 @@ public static class Scenes
 
 public static class Strings
 {
-    public static readonly string nonePrefab = "None";
+    public static readonly string nonePrefab = "Brave";
     public static readonly string zero = "0";
 }
 
