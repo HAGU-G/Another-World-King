@@ -65,7 +65,8 @@ public class UnitBase : MonoBehaviour
                 buffedStat += buff.Value.skillData.attackSpeed * buff.Value.Count;
                 persentage += buff.Value.skillData.attackSpeed_P * buff.Value.Count;
             }
-            return buffedStat * (1f + persentage);
+            var result = buffedStat * (1f + persentage);
+            return result > 0f ? result : 0.001f;
         }
     }
     public float AttackRange
