@@ -1,15 +1,15 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-
 public enum UNIT_STATE
 {
     IDLE,
     MOVE,
     ATTACK,
+    ATTACK_END,
     DEAD,
     CANT_ACT,
 }
-
 [RequireComponent(typeof(Rigidbody2D))]
 public class CharacterAI : UnitBase
 {
@@ -30,7 +30,7 @@ public class CharacterAI : UnitBase
 
     protected virtual void Awake()
     {
-        OnDead += () => { SetUnitState(UNIT_STATE.DEAD); };
+        OnDead += () => { Dead(); };
     }
 
     protected override void Update()
@@ -53,28 +53,32 @@ public class CharacterAI : UnitBase
         {
             if (buff.Value.skillData.sturn)
             {
-                SetUnitState(UNIT_STATE.CANT_ACT);
+                CantAct();
                 return;
             }
         }
 
         if (GetOrder() > AttackOrder)
         {
-            SetUnitState(UNIT_STATE.MOVE);
+            Move();
             return;
         }
 
         TargetFiltering();
         if (targets.Count <= 0)
         {
-            SetUnitState(UNIT_STATE.MOVE);
+            Move();
             return;
         }
 
         if (Time.time >= lastAttackTime + AttackSpeed)
-            SetUnitState(UNIT_STATE.ATTACK);
+        {
+            Attack();
+        }
         else if (CombatType == COMBAT_TYPE.STOP_ON_HAVE_TARGET)
-            SetUnitState(UNIT_STATE.IDLE);
+        {
+            Idle();
+        }
 
     }
 
@@ -83,51 +87,75 @@ public class CharacterAI : UnitBase
         if (Animators == null || Animators.Length == 0)
             return;
 
-        foreach (var animator in Animators)
+        if (trigger == AnimatorTriggers.attack)
         {
-            animator.SetTrigger(trigger);
+            foreach (var animator in Animators)
+            {
+                float speed = 1f;
+                float clipLength = animator.runtimeAnimatorController.animationClips[4].length;
+                if (clipLength > AttackSpeed)
+                    speed = clipLength / AttackSpeed;
+                animator.speed = speed * unitData.initAttackSpeed / AttackSpeed;
+                animator.SetTrigger(trigger);
+            }
         }
+        else
+        {
+            foreach (var animator in Animators)
+            {
+                animator.speed = 1f;
+                animator.SetTrigger(trigger);
+            }
+        }
+
+
     }
 
-    public void SetUnitState(UNIT_STATE state)
+    public void Idle()
     {
-        if (unitState == state)
+        if (unitState == UNIT_STATE.IDLE || unitState == UNIT_STATE.ATTACK)
             return;
-        else if (state == UNIT_STATE.MOVE && isBlocked)
-            return;
+        unitState = UNIT_STATE.IDLE;
+        SetAnimation(AnimatorTriggers.idle);
+        Stop();
+    }
 
-        switch (state)
+    public void Stop()
+    {
+        rb.velocity = Vector3.zero;
+    }
+
+    public void Move()
+    {
+        if (unitState == UNIT_STATE.MOVE || unitState == UNIT_STATE.ATTACK)
+            return;
+        if (isBlocked)
         {
-            case UNIT_STATE.IDLE:
-                SetAnimation(AnimatorTriggers.idle);
-                rb.velocity = Vector3.zero;
-                break;
-            case UNIT_STATE.MOVE:
-                SetAnimation(AnimatorTriggers.move);
-                rb.velocity = transform.forward * MoveSpeed * -transform.localScale.x;
-                break;
-            case UNIT_STATE.ATTACK:
-                SetAnimation(AnimatorTriggers.attack);
-                lastAttackTime = Time.time;
-                rb.velocity = Vector3.zero;
-                AttackTargets();
-                break;
-            case UNIT_STATE.DEAD:
-                SetAnimation(AnimatorTriggers.dead);
-                foreach (var c in GetComponents<Collider2D>())
-                    c.enabled = false;
-                rb.velocity = Vector3.zero;
-                Destroy(gameObject, 3f);
-                break;
-            case UNIT_STATE.CANT_ACT:
-                SetAnimation(AnimatorTriggers.cantAct);
-                rb.velocity = Vector3.zero;
-                break;
-            default:
-                break;
+            Idle();
+            return;
         }
+        unitState = UNIT_STATE.MOVE;
+        SetAnimation(AnimatorTriggers.move);
+        rb.velocity = transform.forward * MoveSpeed * -transform.localScale.x;
+    }
 
-        unitState = state;
+    public void Dead()
+    {
+        if (unitState == UNIT_STATE.DEAD)
+            return;
+        unitState = UNIT_STATE.DEAD;
+        SetAnimation(AnimatorTriggers.dead);
+        foreach (var c in GetComponents<Collider2D>())
+            c.enabled = false;
+        Stop();
+        Destroy(gameObject, 3f);
+    }
+
+    public void CantAct()
+    {
+        unitState = UNIT_STATE.CANT_ACT;
+        SetAnimation(AnimatorTriggers.cantAct);
+        Stop();
     }
 
     public override void ResetUnit()
@@ -150,8 +178,15 @@ public class CharacterAI : UnitBase
 
         isBlocked = false;
         Animators = GetComponentsInChildren<Animator>();
+        if (Animators != null && Animators.Length > 0)
+        {
+            var eventListener = Animators[0].AddComponent<CharacterEvenListener>();
+            eventListener.onAttackHit += AttackEnd;
+            eventListener.onAttackEnd += Idle;
+            }
+
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
-        SetUnitState(UNIT_STATE.IDLE);
+        Idle();
     }
 
     public void SetTower(TowerAI tower)
@@ -194,7 +229,18 @@ public class CharacterAI : UnitBase
         }
     }
 
-    protected virtual void AttackTargets()
+    protected virtual void Attack()
+    {
+        if (unitState == UNIT_STATE.ATTACK)
+            return;
+
+        unitState = UNIT_STATE.ATTACK;
+        SetAnimation(AnimatorTriggers.attack);
+        lastAttackTime = Time.time;
+        Stop();
+    }
+
+    public void AttackEnd()
     {
         if (IsHealer)
         {
@@ -221,10 +267,8 @@ public class CharacterAI : UnitBase
             Healed(Heal);
         }
 
-        if (CombatType == COMBAT_TYPE.STOP_ON_ATTACK)
-            SetUnitState(UNIT_STATE.MOVE);
+        unitState = UNIT_STATE.ATTACK_END;
     }
-
 
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
@@ -263,7 +307,9 @@ public class CharacterAI : UnitBase
         {
             isBlocked = true;
             if (unitState == UNIT_STATE.MOVE)
-                SetUnitState(UNIT_STATE.IDLE);
+                Idle();
+            else
+                Stop();
         }
     }
     void OnCollisionExit2D(Collision2D collision)
