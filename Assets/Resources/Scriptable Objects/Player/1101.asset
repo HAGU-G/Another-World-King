@@ -17,12 +17,12 @@ MonoBehaviour:
   division: 1
   prefab: Brave
   isTower: 0
-  initHP: 1000
+  initHP: 80
   useStartHP: 0
   initHPStart: 0
   combatType: 0
-  initAttackDamage: 1000
-  initAttackSpeed: 0.1
+  initAttackDamage: 50
+  initAttackSpeed: 2
   initAttackRange: 1
   initAttackEnemyCount: 1
   initAttackOrder: 1
