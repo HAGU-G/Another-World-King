@@ -68,6 +68,7 @@ public class StageManager : MonoBehaviour
             // uiOnStage.textExp.text = exp.ToString();
         }
     }
+    private float goldInterval;
     #endregion
     #region Enemy
     public TowerAI enemyTower;
@@ -77,6 +78,7 @@ public class StageManager : MonoBehaviour
     private void Start()
     {
         Gold = 700;
+        goldInterval = Time.time;
         for (int i = 0; i < uiOnStage.buttonSummons.Length; i++)
         {
             uiOnStage.buttonSummons[i].SetData(GameManager.Instance.GetExpedition(i));
@@ -97,6 +99,15 @@ public class StageManager : MonoBehaviour
         enemyTower.isPlayer = false;
         enemyTower.ResetUnit();
         enemyTower.OnDead += Victory;
+    }
+
+    private void Update()
+    {
+        if(Time.time >= goldInterval + 2f)
+        {
+            goldInterval = Time.time;
+            Gold += 100;
+        }
     }
 
     #region Cost
