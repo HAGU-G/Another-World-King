@@ -24,17 +24,17 @@ MonoBehaviour:
   initAttackDamage: 20
   initAttackSpeed: 1
   initAttackRange: 1
-  initAttackEnemyCount: 0
+  initAttackEnemyCount: 1
   initAttackOrder: 1
   initAttackEnemyOrder: 01000000
+  skill: 0
   initHeal: 0
   initMoveSpeed: 80
+  price: 40
   cost: 300
   spawnTime: 15
   initDropGold: 0
   initDropExp: 0
   effect: Cannon1
   image: "\uB300\uD3EC.jpg"
-  skill: 0
   desc: Cannon_explan
-  price: 40

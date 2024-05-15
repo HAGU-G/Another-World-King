@@ -165,7 +165,7 @@ public class Skill_Csv
 {
     public string List { get; set; }
     public string ID { get; set; }
-    public int Target { get; set; }
+    public TARGET Target { get; set; }
     public int Gold_Supply { get; set; }
     public int Exp_Supply { get; set; }
     public int Flag_Supply { get; set; }
@@ -196,11 +196,17 @@ public class Skill_Csv
         skillData.attackSpeed = 0 + A_Speed_Decrease;
         skillData.attackSpeed -= A_Speed_Increase;
         skillData.nesting = A_Speed_Increase_Nesting;
-        if (Stun_Duration > 0)
-            skillData.duration = Stun_Duration;
-        else
+        skillData.duration = Stun_Duration;
+        skillData.sturn = Stun_Duration > 0;
+        if (skillData.sturn && skillData.nesting <= 0)
+        {
+            skillData.nesting = 1;
+            skillData.doResetDurationOnApply = true;
+        }
+        if (Stun_Duration == 0 && A_Speed_Increase_Nesting > 0)
             skillData.infinityDuration = true;
-
+        else
+            skillData.infinityDuration = false;
 
         if (create)
         {

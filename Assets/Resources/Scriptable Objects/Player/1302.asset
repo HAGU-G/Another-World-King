@@ -27,14 +27,14 @@ MonoBehaviour:
   initAttackEnemyCount: 0
   initAttackOrder: 3
   initAttackEnemyOrder: 01000000
+  skill: Heal3_Skill
   initHeal: 30
   initMoveSpeed: 80
+  price: 30
   cost: 150
   spawnTime: 5
   initDropGold: 0
   initDropExp: 0
   effect: Heal1
   image: "\uAC15\uD654 \uC131\uC9C1\uC790.jpg"
-  skill: Heal3_Skill
   desc: Cleric_explan
-  price: 30

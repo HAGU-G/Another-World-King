@@ -1,13 +1,13 @@
 List,ID,Target,Gold_Supply,Exp_Supply,Flag_Supply,Hp_Healing,Wide_Area_Range,A_Speed_Decrease,A_Speed_Increase,A_Speed_Increase_Nesting,Stun_Duration
-광부,Gold_Skill,1,30,0,0,0,0,0,0,0,0
-기수,Plag_Skill,1,0,0,10,0,0,0,0,0,0
-도사,Exp_Skill,1,0,100,0,0,0,0,0,0,0
-흡혈 탱커,Drain_Skill,1,0,0,0,20,0,0,0,0,0
+광부,Gold_Skill,3,30,0,0,0,0,0,0,0,0
+기수,Plag_Skill,3,0,0,10,0,0,0,0,0,0
+도사,Exp_Skill,3,0,100,0,0,0,0,0,0,0
+흡혈 탱커,Drain_Skill,3,0,0,0,20,0,0,0,0,0
 마법사,Magic1_Skill,1,0,0,0,0,2,0,0,0,0
 강화 마법사,Magic2_Skill,1,0,0,0,0,2,0,0,0,0
 성직자,Heal_Skill,2,0,0,0,30,1,0,0,0,0
 강화 성직자,Heal3_Skill,2,0,0,0,30,1,0,0,0,0
 광역 성직자,Heal2_Skill,2,0,0,0,20,2,0,0,0,0
-공속 슬로우,Slow_Skill,1,0,0,0,0,1,1,0,0,0
-광전사,Fast_Skill,1,0,0,0,0,0,0,0.5,3,0
+공속 슬로우,Slow_Skill,1,0,0,0,0,1,1,0,1,0
+광전사,Fast_Skill,3,0,0,0,0,0,0,0.5,3,0
 스턴,Stun_Skill,1,0,0,0,0,0,0,0,0,1

@@ -27,14 +27,14 @@ MonoBehaviour:
   initAttackEnemyCount: 2
   initAttackOrder: 4
   initAttackEnemyOrder: 0000000001000000
+  skill: Heal2_Skill
   initHeal: 20
   initMoveSpeed: 80
+  price: 0
   cost: 300
   spawnTime: 10
   initDropGold: 0
   initDropExp: 0
   effect: Heal2
   image: "\uAD11\uC5ED \uC131\uC9C1\uC790.jpg"
-  skill: Heal2_Skill
   desc: Priest_explan
-  price: 0

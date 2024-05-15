@@ -24,17 +24,17 @@ MonoBehaviour:
   initAttackDamage: 0
   initAttackSpeed: 3
   initAttackRange: 2
-  initAttackEnemyCount: 0
+  initAttackEnemyCount: 1
   initAttackOrder: 3
   initAttackEnemyOrder: 01000000
+  skill: Stun_Skill
   initHeal: 0
   initMoveSpeed: 80
+  price: 0
   cost: 300
   spawnTime: 15
   initDropGold: 0
   initDropExp: 0
   effect: buff2
   image: "\uC2A4\uD134.jpg"
-  skill: Stun_Skill
   desc: Shaman_explan
-  price: 0

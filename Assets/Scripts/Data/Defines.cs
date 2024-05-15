@@ -1,14 +1,10 @@
-﻿using Unity.VisualScripting;
-using UnityEditor.Search;
-
-public static class AnimatorTriggers
+﻿public static class AnimatorTriggers
 {
     public static readonly string idle = "Idle";
     public static readonly string move = "Move";
-    public static readonly string attackNormal = "Attack_Normal";
-    public static readonly string attackMagic = "Attack_Magic";
-    public static readonly string attackBow = "Attack_Bow";
+    public static readonly string attack = "Attack";
     public static readonly string dead = "Dead";
+    public static readonly string cantAct = "CantAct";
 }
 
 public static class Paths
@@ -57,7 +53,7 @@ public static class Scenes
 public static class Strings
 {
     public static readonly string nonePrefab = "None";
-    public static readonly string dataTableNone = "0";
+    public static readonly string zero = "0";
 }
 
 public static class Vectors

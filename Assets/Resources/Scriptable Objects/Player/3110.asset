@@ -24,17 +24,17 @@ MonoBehaviour:
   initAttackDamage: 50
   initAttackSpeed: 1
   initAttackRange: 1
-  initAttackEnemyCount: 0
+  initAttackEnemyCount: 1
   initAttackOrder: 1
   initAttackEnemyOrder: 01000000
+  skill: 0
   initHeal: 0
   initMoveSpeed: 80
+  price: 0
   cost: 400
   spawnTime: 15
   initDropGold: 0
   initDropExp: 0
   effect: Attack1
   image: "\uBAA9\uC228 2\uAC1C.jpg"
-  skill: 0
   desc: Cavalry_explan
-  price: 0

@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using Unity.Android.Types;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class TowerAI : UnitBase
@@ -22,7 +20,7 @@ public class TowerAI : UnitBase
         {
             foreach (var unit in units)
             {
-                if (unit!= null && unit.isPlayer == isPlayer)
+                if (unit != null && unit.isPlayer == isPlayer)
                     unit.Damaged(unit.MaxHP);
             };
         };
@@ -98,6 +96,7 @@ public class TowerAI : UnitBase
         var unit = Instantiate(characterRoot, transform.position, Quaternion.Euler(Vector3.up)).GetComponent<CharacterAI>();
         var dress = Instantiate(characterInfos.dress, unit.transform);
         unit.unitData = characterInfos.unitData;
+        unit.SetSkill(characterInfos.skillData);
         unit.ResetUnit();
         unit.SetTower(this);
         unit.OnDead += () => { units.Remove(unit); };

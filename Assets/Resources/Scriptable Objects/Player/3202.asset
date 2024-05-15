@@ -27,14 +27,14 @@ MonoBehaviour:
   initAttackEnemyCount: 2
   initAttackOrder: 2
   initAttackEnemyOrder: 0100000002000000
+  skill: Magic1_Skill
   initHeal: 0
   initMoveSpeed: 80
+  price: 0
   cost: 250
   spawnTime: 7
   initDropGold: 0
   initDropExp: 0
   effect: Magic1
   image: "\uB9C8\uBC95\uC0AC.jpg"
-  skill: Magic1_Skill
   desc: Magician_explan
-  price: 0

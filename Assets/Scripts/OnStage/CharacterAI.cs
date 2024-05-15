@@ -6,13 +6,14 @@ public enum UNIT_STATE
     IDLE,
     MOVE,
     ATTACK,
-    DEAD
+    DEAD,
+    CANT_ACT,
 }
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class CharacterAI : UnitBase
 {
-    public Animator Animator { get; set; }
+    public Animator[] Animators { get; private set; }
     public Rigidbody2D rb;
     public BoxCollider2D attackCollider;
 
@@ -22,7 +23,7 @@ public class CharacterAI : UnitBase
 
     private float lastAttackTime;
 
-    private UNIT_STATE unitState = UNIT_STATE.IDLE; //애니메이션으로 교체 예정
+    private UNIT_STATE unitState;
     private bool isBlocked;
 
     protected virtual void Awake()
@@ -35,6 +36,14 @@ public class CharacterAI : UnitBase
         base.Update();
         if (IsDead)
             return;
+        foreach (var buff in Buff)
+        {
+            if (buff.Value.skillData.sturn)
+            {
+                SetUnitState(UNIT_STATE.CANT_ACT);
+                return;
+            }
+        }
 
         if (GetOrder() > AttackOrder)
         {
@@ -50,15 +59,28 @@ public class CharacterAI : UnitBase
         }
 
         if (Time.time >= lastAttackTime + AttackSpeed)
+        {
             SetUnitState(UNIT_STATE.ATTACK);
+        }
         else if (CombatType == COMBAT_TYPE.STOP_ON_HAVE_TARGET)
             SetUnitState(UNIT_STATE.IDLE);
 
     }
 
+    public void SetAnimation(string trigger)
+    {
+        if (Animators == null || Animators.Length == 0)
+            return;
+
+        foreach (var animator in Animators)
+        {
+            animator.SetTrigger(trigger);
+        }
+    }
+
     public void SetUnitState(UNIT_STATE state)
     {
-        if (unitState == state || unitState == UNIT_STATE.DEAD)
+        if (unitState == state)
             return;
         else if (state == UNIT_STATE.MOVE && isBlocked)
             return;
@@ -66,45 +88,31 @@ public class CharacterAI : UnitBase
         switch (state)
         {
             case UNIT_STATE.IDLE:
-                if (Animator != null)
-                    Animator.SetTrigger(AnimatorTriggers.idle);
+                SetAnimation(AnimatorTriggers.idle);
                 rb.velocity = Vector3.zero;
                 break;
             case UNIT_STATE.MOVE:
-                if (Animator != null)
-                    Animator.SetTrigger(AnimatorTriggers.move);
+                SetAnimation(AnimatorTriggers.move);
                 rb.velocity = transform.forward * MoveSpeed * -transform.localScale.x;
                 break;
             case UNIT_STATE.ATTACK:
-                if (Animator != null)
-                {
-                    switch (unitData.division)
-                    {
-                        case DIVISION.MELEE:
-                        case DIVISION.TANKER:
-                            Animator.SetTrigger(AnimatorTriggers.attackNormal);
-                            break;
-                        case DIVISION.MARKSMAN:
-                            Animator.SetTrigger(AnimatorTriggers.attackBow);
-                            break;
-                        case DIVISION.HEALER:
-                        case DIVISION.MAGIC:
-                        case DIVISION.SPECIAL:
-                            Animator.SetTrigger(AnimatorTriggers.attackMagic);
-                            break;
-                    }
-                }
+                SetAnimation(AnimatorTriggers.attack);
                 lastAttackTime = Time.time;
                 rb.velocity = Vector3.zero;
                 AttackTargets();
                 break;
             case UNIT_STATE.DEAD:
-                if (Animator != null)
-                    Animator.SetTrigger(AnimatorTriggers.dead);
+                SetAnimation(AnimatorTriggers.dead);
                 foreach (var c in GetComponents<Collider2D>())
                     c.enabled = false;
                 rb.velocity = Vector3.zero;
                 Destroy(gameObject, 3f);
+                break;
+            case UNIT_STATE.CANT_ACT:
+                SetAnimation(AnimatorTriggers.cantAct);
+                rb.velocity = Vector3.zero;
+                break;
+            default:
                 break;
         }
 
@@ -130,7 +138,7 @@ public class CharacterAI : UnitBase
         targets.Clear();
 
         isBlocked = false;
-        Animator = GetComponentInChildren<Animator>();
+        Animators = GetComponentsInChildren<Animator>();
         SetUnitState(UNIT_STATE.IDLE);
     }
 
@@ -181,6 +189,8 @@ public class CharacterAI : UnitBase
             for (int i = 0; i < GetOrder() - 1; i++)
             {
                 Tower.units[i].Healed(Heal);
+                if (!Tower.units[i].IsDead && Skill != null && Skill.target == TARGET.TEAM)
+                    Tower.units[i].ApplyBuff(Skill);
             }
         }
         else
@@ -188,9 +198,16 @@ public class CharacterAI : UnitBase
             foreach (var target in targets)
             {
                 target.Damaged(AttackDamage);
+                if (!target.IsDead && Skill != null && Skill.target == TARGET.ENEMY)
+                    target.ApplyBuff(Skill);
             }
         }
 
+        if (Skill != null && Skill.target == TARGET.ONESELF)
+        {
+            ApplyBuff(Skill);
+            Healed(Heal);
+        }
 
         if (CombatType == COMBAT_TYPE.STOP_ON_ATTACK)
             SetUnitState(UNIT_STATE.MOVE);

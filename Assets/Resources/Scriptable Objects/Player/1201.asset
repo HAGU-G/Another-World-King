@@ -24,17 +24,17 @@ MonoBehaviour:
   initAttackDamage: 5
   initAttackSpeed: 0.5
   initAttackRange: 2
-  initAttackEnemyCount: 0
+  initAttackEnemyCount: 1
   initAttackOrder: 2
   initAttackEnemyOrder: 01000000
+  skill: 0
   initHeal: 0
   initMoveSpeed: 80
+  price: 0
   cost: 100
   spawnTime: 5
   initDropGold: 0
   initDropExp: 0
   effect: Arrow1
   image: "\uAD81\uC218.jpg"
-  skill: 0
   desc: Archer_explan
-  price: 0

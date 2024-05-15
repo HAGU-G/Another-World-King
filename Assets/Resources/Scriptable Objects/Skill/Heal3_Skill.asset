@@ -16,7 +16,7 @@ MonoBehaviour:
   id: Heal3_Skill
   target: 2
   nesting: 0
-  duration: 1
+  duration: 0
   infinityDuration: 1
   doResetDurationOnApply: 0
   hp: 0
@@ -37,3 +37,4 @@ MonoBehaviour:
   clearFlag_P: 0
   onApplyGold: 0
   onApplyExp: 0
+  onApplyDrain: 0

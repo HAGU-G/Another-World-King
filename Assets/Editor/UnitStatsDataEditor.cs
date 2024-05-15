@@ -56,6 +56,7 @@ public class UnitStatsDataEditor : Editor
         EditorGUILayout.Space(10, false);
         EditorGUILayout.BeginVertical();
         stats.combatType = (COMBAT_TYPE)EditorGUILayout.EnumPopup("전투 방식", stats.combatType);
+        stats.skill = EditorGUILayout.TextField("스킬", stats.skill);
         if (isHealer)
             stats.initHeal = Mathf.Clamp(EditorGUILayout.IntField("힐량", stats.initHeal), 0, int.MaxValue);
         else

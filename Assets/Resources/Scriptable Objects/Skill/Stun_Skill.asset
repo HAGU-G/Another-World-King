@@ -15,10 +15,10 @@ MonoBehaviour:
   ignore: "\uC2A4\uD134"
   id: Stun_Skill
   target: 1
-  nesting: 0
+  nesting: 1
   duration: 1
   infinityDuration: 0
-  doResetDurationOnApply: 0
+  doResetDurationOnApply: 1
   hp: 0
   hp_P: 0
   attackDamage: 0
@@ -37,3 +37,5 @@ MonoBehaviour:
   clearFlag_P: 0
   onApplyGold: 0
   onApplyExp: 0
+  onApplyDrain: 0
+  sturn: 1

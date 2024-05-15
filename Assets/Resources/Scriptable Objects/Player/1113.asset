@@ -17,24 +17,24 @@ MonoBehaviour:
   division: 1
   prefab: Berserker
   isTower: 0
-  initHP: 100
+  initHP: 1000
   useStartHP: 0
   initHPStart: 0
   combatType: 0
   initAttackDamage: 30
-  initAttackSpeed: 1.5
+  initAttackSpeed: 0.5
   initAttackRange: 1
   initAttackEnemyCount: 1
   initAttackOrder: 1
   initAttackEnemyOrder: 01000000
+  skill: Fast_Skill
   initHeal: 0
   initMoveSpeed: 80
+  price: 40
   cost: 250
   spawnTime: 25
   initDropGold: 0
   initDropExp: 0
   effect: Attack1
   image: "\uAD11\uC804\uC0AC.jpg"
-  skill: Fast_Skill
   desc: Berserker_explan
-  price: 40

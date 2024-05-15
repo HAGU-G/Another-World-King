@@ -24,17 +24,17 @@ MonoBehaviour:
   initAttackDamage: 30
   initAttackSpeed: 2
   initAttackRange: 1
-  initAttackEnemyCount: 0
+  initAttackEnemyCount: 1
   initAttackOrder: 1
   initAttackEnemyOrder: 01000000
+  skill: 0
   initHeal: 0
   initMoveSpeed: 80
+  price: 0
   cost: 250
   spawnTime: 7
   initDropGold: 0
   initDropExp: 0
   effect: Attack2
   image: "\uAC15\uD654 \uD0F1\uCEE4.jpg"
-  skill: 0
   desc: Guardian_explan
-  price: 0

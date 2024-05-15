@@ -27,14 +27,14 @@ MonoBehaviour:
   initAttackEnemyCount: 1
   initAttackOrder: 1
   initAttackEnemyOrder: 01000000
+  skill: Plag_Skill
   initHeal: 0
   initMoveSpeed: 80
+  price: 35
   cost: 100
   spawnTime: 3
   initDropGold: 0
   initDropExp: 0
   effect: Attack1
   image: "\uAE30\uC218.jpg"
-  skill: Plag_Skill
   desc: Banner_explan
-  price: 35

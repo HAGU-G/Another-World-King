@@ -36,7 +36,7 @@ public class SaveLoadScriptable
             var records = csvReader.GetRecords<Player_Csv>();
             foreach (var record in records)
             {
-                if (record.Skill != Strings.dataTableNone
+                if (record.Skill != Strings.zero
                     && skills.ContainsKey(record.Skill))
                 {
                     record.Heal = skills[record.Skill].Hp_Healing;
@@ -79,7 +79,7 @@ public class SaveLoadScriptable
             var records = csvReader.GetRecords<Enemy_Csv>();
             foreach (var record in records)
             {
-                if (record.Skill != Strings.dataTableNone
+                if (record.Skill != Strings.zero
                     && skills.ContainsKey(record.Skill))
                 {
                     record.Heal = skills[record.Skill].Hp_Healing;

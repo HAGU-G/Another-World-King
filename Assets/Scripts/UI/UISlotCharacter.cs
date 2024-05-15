@@ -2,7 +2,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections.Generic;
 
 public class UISlotCharacter : MonoBehaviour
 {

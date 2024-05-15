@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -39,9 +37,10 @@ public class GameManager : MonoBehaviour
         get => selectedStageID;
         set
         {
-            int max = (DataTableManager.MinStageID + StageClearInfo.Count) < DataTableManager.MaxStageID
-                ? (DataTableManager.MinStageID + StageClearInfo.Count) : DataTableManager.MaxStageID;
-            selectedStageID = Mathf.Clamp(value, DataTableManager.MinStageID, max);
+            //int max = (DataTableManager.MinStageID + StageClearInfo.Count) < DataTableManager.MaxStageID
+            //    ? (DataTableManager.MinStageID + StageClearInfo.Count) : DataTableManager.MaxStageID;
+            //selectedStageID = Mathf.Clamp(value, DataTableManager.MinStageID, max);
+            selectedStageID = Mathf.Clamp(value, DataTableManager.MinStageID, DataTableManager.MaxStageID);
         }
     }
     public Dictionary<int, int> StageClearInfo { get; private set; } = new();

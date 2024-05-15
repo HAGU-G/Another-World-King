@@ -24,17 +24,17 @@ MonoBehaviour:
   initAttackDamage: 7
   initAttackSpeed: 0.5
   initAttackRange: 10
-  initAttackEnemyCount: 0
+  initAttackEnemyCount: 1
   initAttackOrder: 10
   initAttackEnemyOrder: 01000000
+  skill: 0
   initHeal: 0
   initMoveSpeed: 80
+  price: 50
   cost: 500
   spawnTime: 30
   initDropGold: 0
   initDropExp: 0
   effect: tower1
   image: "\uD3EC\uD0D1.jpg"
-  skill: 0
   desc: Turret_explan
-  price: 50

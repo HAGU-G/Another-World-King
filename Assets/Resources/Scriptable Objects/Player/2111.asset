@@ -24,17 +24,17 @@ MonoBehaviour:
   initAttackDamage: 25
   initAttackSpeed: 1
   initAttackRange: 1
-  initAttackEnemyCount: 0
+  initAttackEnemyCount: 1
   initAttackOrder: 1
   initAttackEnemyOrder: 01000000
+  skill: Exp_Skill
   initHeal: 0
   initMoveSpeed: 80
+  price: 0
   cost: 100
   spawnTime: 10
   initDropGold: 0
   initDropExp: 0
   effect: Attack1
   image: "\uB3C4\uC0AC.jpg"
-  skill: Exp_Skill
   desc: Alchemist_explan
-  price: 0

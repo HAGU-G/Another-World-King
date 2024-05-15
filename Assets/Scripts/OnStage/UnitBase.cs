@@ -30,10 +30,10 @@ public class UnitBase : MonoBehaviour
         {
             float buffedStat = unitData.initHP;
             float persentage = 0f;
-            foreach (var buff in skill)
+            foreach (var buff in Buff)
             {
-                buffedStat += buff.Value.hp;
-                persentage += buff.Value.hp_P;
+                buffedStat += buff.Value.skillData.hp * buff.Value.Count;
+                persentage += buff.Value.skillData.hp_P * buff.Value.Count;
             }
             return Mathf.Clamp((int)Mathf.Ceil(buffedStat * (1f + persentage)), 1, int.MaxValue);
         }
@@ -46,10 +46,10 @@ public class UnitBase : MonoBehaviour
         {
             float buffedStat = unitData.initAttackDamage;
             float persentage = 0f;
-            foreach (var buff in skill)
+            foreach (var buff in Buff)
             {
-                buffedStat += buff.Value.attackDamage;
-                persentage += buff.Value.attackDamage_P;
+                buffedStat += buff.Value.skillData.attackDamage * buff.Value.Count;
+                persentage += buff.Value.skillData.attackDamage_P * buff.Value.Count;
             }
             return (int)Mathf.Ceil(buffedStat * (1f + persentage));
         }
@@ -60,12 +60,11 @@ public class UnitBase : MonoBehaviour
         {
             float buffedStat = unitData.initAttackSpeed;
             float persentage = 0f;
-            foreach (var buff in skill)
+            foreach (var buff in Buff)
             {
-                buffedStat += buff.Value.attackSpeed;
-                persentage += buff.Value.attackSpeed_P;
+                buffedStat += buff.Value.skillData.attackSpeed * buff.Value.Count;
+                persentage += buff.Value.skillData.attackSpeed_P * buff.Value.Count;
             }
-
             return buffedStat * (1f + persentage);
         }
     }
@@ -75,10 +74,10 @@ public class UnitBase : MonoBehaviour
         {
             float buffedStat = unitData.initAttackRange;
             float persentage = 0f;
-            foreach (var buff in skill)
+            foreach (var buff in Buff)
             {
-                buffedStat += buff.Value.attackRange;
-                persentage += buff.Value.attackRange_P;
+                buffedStat += buff.Value.skillData.attackRange * buff.Value.Count;
+                persentage += buff.Value.skillData.attackRange_P * buff.Value.Count;
             }
             return buffedStat * (1f + persentage);
         }
@@ -95,10 +94,10 @@ public class UnitBase : MonoBehaviour
         {
             float buffedStat = unitData.initMoveSpeed;
             float persentage = 0f;
-            foreach (var buff in skill)
+            foreach (var buff in Buff)
             {
-                buffedStat += buff.Value.moveSpeed;
-                persentage += buff.Value.moveSpeed_P;
+                buffedStat += buff.Value.skillData.moveSpeed * buff.Value.Count;
+                persentage += buff.Value.skillData.moveSpeed_P * buff.Value.Count;
             }
             return buffedStat * (1f + persentage);
         }
@@ -109,10 +108,10 @@ public class UnitBase : MonoBehaviour
         {
             float buffedStat = unitData.initDropGold;
             float persentage = 0f;
-            foreach (var buff in skill)
+            foreach (var buff in Buff)
             {
-                buffedStat += buff.Value.dropGold;
-                persentage += buff.Value.dropGold_P;
+                buffedStat += buff.Value.skillData.dropGold * buff.Value.Count;
+                persentage += buff.Value.skillData.dropGold_P * buff.Value.Count;
             }
             return buffedStat * (1f + persentage);
         }
@@ -123,10 +122,10 @@ public class UnitBase : MonoBehaviour
         {
             float buffedStat = unitData.initDropExp;
             float persentage = 0f;
-            foreach (var buff in skill)
+            foreach (var buff in Buff)
             {
-                buffedStat += buff.Value.dropExp;
-                persentage += buff.Value.dropExp_P;
+                buffedStat += buff.Value.skillData.dropExp * buff.Value.Count;
+                persentage += buff.Value.skillData.dropExp_P * buff.Value.Count;
             }
             return buffedStat * (1f + persentage);
         }
@@ -143,18 +142,23 @@ public class UnitBase : MonoBehaviour
 
 
     //Buff
-    public Dictionary<string, SkillData> skill { get; private set; } = new();
+    public SkillData Skill { get; private set; } = null;
+    public Dictionary<string, SkillBase> Buff { get; private set; } = new();
+    public void SetSkill(SkillData skill)
+    {
+        Skill = skill;
+    }
     public void ApplyBuff(SkillData buff)
     {
-        if (!skill.ContainsKey(buff.id))
+        if (!Buff.ContainsKey(buff.id))
         {
-            skill.Add(buff.id, buff);
+            Buff.Add(buff.id, new SkillBase(buff));
         }
 
-        if (skill[buff.id].Apply())
-            OnApplySkill(buff);
+        if (Buff[buff.id].Apply())
+            OnApplyBuff(buff);
     }
-    public void OnApplySkill(SkillData buff)
+    public void OnApplyBuff(SkillData buff)
     {
         if (stageManager != null)
         {
@@ -166,7 +170,7 @@ public class UnitBase : MonoBehaviour
     {
         List<string> removes = new();
 
-        foreach (var buff in skill)
+        foreach (var buff in Buff)
         {
             if (buff.Value.UpdateDuration(deltaTime) == 0)
                 removes.Add(buff.Key);
@@ -174,9 +178,10 @@ public class UnitBase : MonoBehaviour
 
         if (removes.Count == 0)
             return;
+
         foreach (var key in removes)
         {
-            skill.Remove(key);
+            Buff.Remove(key);
         }
         if (HP > MaxHP)
             HP = MaxHP;
@@ -198,7 +203,7 @@ public class UnitBase : MonoBehaviour
     public virtual void ResetUnit()
     {
         hp = unitData.useStartHP ? unitData.initHPStart : MaxHP;
-        skill.Clear();
+        Buff.Clear();
         IsDead = false;
     }
 

@@ -27,14 +27,14 @@ MonoBehaviour:
   initAttackEnemyCount: 1
   initAttackOrder: 1
   initAttackEnemyOrder: 01000000
+  skill: Drain_Skill
   initHeal: 20
   initMoveSpeed: 80
+  price: 0
   cost: 400
   spawnTime: 15
   initDropGold: 0
   initDropExp: 0
   effect: AtHeal1
   image: "\uD761\uD608 \uD0F1\uCEE4.jpg"
-  skill: Drain_Skill
   desc: Bloody_explan
-  price: 0

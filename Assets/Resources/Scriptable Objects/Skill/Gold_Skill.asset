@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ignore: "\uAD11\uBD80"
   id: Gold_Skill
-  target: 1
+  target: 3
   nesting: 0
-  duration: 1
+  duration: 0
   infinityDuration: 1
   doResetDurationOnApply: 0
   hp: 0
@@ -37,3 +37,4 @@ MonoBehaviour:
   clearFlag_P: 0
   onApplyGold: 30
   onApplyExp: 0
+  onApplyDrain: 0

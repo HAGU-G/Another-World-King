@@ -24,17 +24,17 @@ MonoBehaviour:
   initAttackDamage: 90
   initAttackSpeed: 2.5
   initAttackRange: 1
-  initAttackEnemyCount: 0
+  initAttackEnemyCount: 1
   initAttackOrder: 1
   initAttackEnemyOrder: 01000000
+  skill: 0
   initHeal: 0
   initMoveSpeed: 80
+  price: 0
   cost: 200
   spawnTime: 10
   initDropGold: 0
   initDropExp: 0
   effect: Attack4
   image: "\uD574\uBA38.jpg"
-  skill: 0
   desc: Olaf_explan
-  price: 0

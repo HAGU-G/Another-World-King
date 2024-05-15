@@ -1,5 +1,3 @@
-using CsvHelper.Configuration;
-using CsvHelper.Configuration.Attributes;
 using System.Collections.Generic;
 using UnityEngine;
 public enum COMBAT_TYPE
@@ -42,10 +40,12 @@ public class UnitData : ScriptableObject
     public int initAttackEnemyCount;
     public int initAttackOrder;
     public List<int> initAttackEnemyOrder = new() { 1 };
+    public string skill;
 
     public int initHeal = 0;
     public float initMoveSpeed = 80;
 
+    public int price;
     public int cost;
     public float spawnTime;
     public int initDropGold;
@@ -53,8 +53,6 @@ public class UnitData : ScriptableObject
 
     public string effect;
     public string image;
-    public string skill;
     public string desc;
-    public int price;
 }
 

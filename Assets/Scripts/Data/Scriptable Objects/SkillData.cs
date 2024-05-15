@@ -1,5 +1,12 @@
-using Unity.VisualScripting;
 using UnityEngine;
+
+public enum TARGET
+{
+    NONE,
+    ENEMY,
+    TEAM,
+    ONESELF,
+}
 
 [CreateAssetMenu(fileName = "스킬 ID", menuName = "데이터 생성/스킬")]
 public class SkillData : ScriptableObject
@@ -7,13 +14,11 @@ public class SkillData : ScriptableObject
     public string ignore;
 
     public string id;
-    public int target;
+    public TARGET target;
 
     public int nesting = 1;
-    public int Count { get; private set; }
-    public float duration = 1f;
+    public float duration;
     public bool infinityDuration;
-    public float CurrentDuration { get; private set; }
     public bool doResetDurationOnApply;
 
     public int hp;
@@ -38,33 +43,7 @@ public class SkillData : ScriptableObject
 
     public int onApplyGold;
     public int onApplyExp;
+    public int onApplyDrain;
 
-    public bool Apply()
-    {
-        bool applied = false;
-
-        if (Count < nesting)
-        {
-            Count++;
-            applied = true;
-        }
-
-        if (doResetDurationOnApply)
-        {
-            CurrentDuration = 0f;
-            applied = true;
-        }
-
-        return applied;
-    }
-
-    public int UpdateDuration(float deltaTime)
-    {
-        if ((CurrentDuration += deltaTime) >= duration)
-        {
-            CurrentDuration = 0f;
-            Count--;
-        }
-        return Count;
-    }
+    public bool sturn;
 }

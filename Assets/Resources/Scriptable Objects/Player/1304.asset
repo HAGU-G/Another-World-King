@@ -27,14 +27,14 @@ MonoBehaviour:
   initAttackEnemyCount: 1
   initAttackOrder: 3
   initAttackEnemyOrder: 01000000
+  skill: slow_Skill
   initHeal: 0
   initMoveSpeed: 80
+  price: 40
   cost: 300
   spawnTime: 15
   initDropGold: 0
   initDropExp: 0
   effect: slow1
   image: "\uC2AC\uB85C\uC6B0.jpg"
-  skill: slow_Skill
   desc: Witch_explan
-  price: 40

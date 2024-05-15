@@ -15,8 +15,8 @@ MonoBehaviour:
   ignore: "\uACF5\uC18D \uC2AC\uB85C\uC6B0"
   id: Slow_Skill
   target: 1
-  nesting: 0
-  duration: 1
+  nesting: 1
+  duration: 0
   infinityDuration: 1
   doResetDurationOnApply: 0
   hp: 0
@@ -37,3 +37,5 @@ MonoBehaviour:
   clearFlag_P: 0
   onApplyGold: 0
   onApplyExp: 0
+  onApplyDrain: 0
+  sturn: 0

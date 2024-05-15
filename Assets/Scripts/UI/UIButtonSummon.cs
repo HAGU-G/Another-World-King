@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,7 +11,7 @@ public class UIButtonSummon : MonoBehaviour
 
     public void SetData(CharacterInfos characterInfos)
     {
-        if(characterInfos == null)
+        if (characterInfos == null)
         {
             gameObject.SetActive(false);
             return;
