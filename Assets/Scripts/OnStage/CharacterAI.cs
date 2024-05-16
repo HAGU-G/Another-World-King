@@ -94,6 +94,7 @@ public class CharacterAI : UnitBase
                 float speed = 1f;
                 float clipLength = animator.runtimeAnimatorController.animationClips[4].length;
                 if (clipLength > AttackSpeed)
+
                     speed = clipLength / AttackSpeed;
                 animator.speed = speed * unitData.initAttackSpeed / AttackSpeed;
                 animator.SetTrigger(trigger);
@@ -134,6 +135,7 @@ public class CharacterAI : UnitBase
             Idle();
             return;
         }
+       
         unitState = UNIT_STATE.MOVE;
         SetAnimation(AnimatorTriggers.move);
         rb.velocity = transform.forward * MoveSpeed * -transform.localScale.x;
@@ -183,7 +185,7 @@ public class CharacterAI : UnitBase
             var eventListener = Animators[0].AddComponent<CharacterEvenListener>();
             eventListener.onAttackHit += AttackEnd;
             eventListener.onAttackEnd += Idle;
-            }
+        }
 
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
         Idle();
@@ -204,13 +206,8 @@ public class CharacterAI : UnitBase
 
     protected virtual void TargetFiltering()
     {
+        //TODO 오류 수정
         targets.Clear();
-
-        if (Tower.enemyTower.units.Count == 0 && enemyInRange.Contains(Tower.enemyTower))
-        {
-            targets.Add(Tower.enemyTower);
-            return;
-        }
 
         int count = 0;
         foreach (var attackEnemyOrder in AttackEnemyOrder)
@@ -223,10 +220,12 @@ public class CharacterAI : UnitBase
                     && enemyInRange.Contains(Tower.enemyTower.units[attackEnemyOrder - 1]))
                     targets.Add(Tower.enemyTower.units[attackEnemyOrder - 1]);
             }
-
             if (count >= AttackEnemyCount)
                 break;
         }
+
+        if (enemyInRange.Contains(Tower.enemyTower))
+            targets.Add(Tower.enemyTower);
     }
 
     protected virtual void Attack()
@@ -253,11 +252,16 @@ public class CharacterAI : UnitBase
         }
         else
         {
+            int count = 0;
             foreach (var target in targets)
             {
                 target.Damaged(AttackDamage);
                 if (!target.IsDead && Skill != null && Skill.target == TARGET.ENEMY)
                     target.ApplyBuff(Skill);
+
+                count++;
+                if (count >= AttackEnemyCount)
+                    break;
             }
         }
 
@@ -267,11 +271,25 @@ public class CharacterAI : UnitBase
             Healed(Heal);
         }
 
-        unitState = UNIT_STATE.ATTACK_END;
+        if (unitState != UNIT_STATE.CANT_ACT)
+            unitState = UNIT_STATE.ATTACK_END;
     }
 
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
+    {
+        var target = collision.GetComponent<UnitBase>();
+        if (target == null)
+            return;
+
+        if (isPlayer != target.isPlayer && !enemyInRange.Contains(target))
+        {
+            if (!target.IsTower && collision.isTrigger)
+                return;
+            enemyInRange.Add(target);
+        }
+    }
+    private void OnTriggerStay2D(Collider2D collision)
     {
         var target = collision.GetComponent<UnitBase>();
         if (target == null)
@@ -312,6 +330,26 @@ public class CharacterAI : UnitBase
                 Stop();
         }
     }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (isBlocked)
+            return;
+
+        var character = collision.gameObject.GetComponent<CharacterAI>();
+        if (character == null)
+            return;
+
+        if (Mathf.Sign(character.transform.position.x - transform.position.x) == (isPlayer ? 1f : -1f))
+        {
+            isBlocked = true;
+            if (unitState == UNIT_STATE.MOVE)
+                Idle();
+            else
+                Stop();
+        }
+    }
+
     void OnCollisionExit2D(Collision2D collision)
     {
         if (!isBlocked)

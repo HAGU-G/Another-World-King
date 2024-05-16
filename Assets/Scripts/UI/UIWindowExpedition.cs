@@ -35,10 +35,13 @@ public class UIWindowExpedition : UIWindow
 
         if (select != null)
         {
-            foreach (var slot in expedition)
+            for (int i = 0; i < expedition.Length; i++)
             {
-                if (slot.characterInfos == select.characterInfos)
-                    slot.SetData(null);
+                if (expedition[i].characterInfos != null && expedition[i].characterInfos.unitData.id == select.characterInfos.unitData.id)
+                {
+                    expedition[i].SetData(null);
+                    GameManager.Instance.SetExpedition(null, i);
+                }
             }
             expedition[index].SetData(select.characterInfos);
             select.toggle.isOn = false;
@@ -56,7 +59,7 @@ public class UIWindowExpedition : UIWindow
             {
                 expedition[index].SetData(null);
                 selectSlot = null;
-                GameManager.Instance.SetExpedition(expedition[index].characterInfos, index);
+                GameManager.Instance.SetExpedition(null, index);
             }
         }
 

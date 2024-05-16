@@ -24,17 +24,17 @@ MonoBehaviour:
   initAttackDamage: 20
   initAttackSpeed: 2
   initAttackRange: 1
-  initAttackEnemyCount: 0
+  initAttackEnemyCount: 1
   initAttackOrder: 1
   initAttackEnemyOrder: 01000000
+  skill: 0
   initHeal: 0
   initMoveSpeed: 80
+  price: 0
   cost: 0
   spawnTime: 0
   initDropGold: 150
   initDropExp: 300
   effect: MonAttack2
   image: "\uC774\uD6C4 \uACB0\uC815"
-  skill: 0
   desc: 
-  price: 0
