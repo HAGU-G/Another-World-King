@@ -9,6 +9,7 @@ public enum UNIT_STATE
     ATTACK_END,
     DEAD,
     CANT_ACT,
+    KNOCKBACK
 }
 [RequireComponent(typeof(Rigidbody2D))]
 public class CharacterAI : UnitBase
@@ -46,6 +47,23 @@ public class CharacterAI : UnitBase
                     spriteRenderer.color = new(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, spriteRenderer.color.a - 1f / 9f);
                 }
 
+            }
+            return;
+        }
+        if (unitState == UNIT_STATE.KNOCKBACK)
+        {
+            if (Time.time < alphaReduceTime + 1f / 10f)
+                return;
+            alphaReduceTime = Time.time;
+
+            if (Mathf.Sign(rb.velocity.x) == (isPlayer ? -1f : 1f))
+            { 
+                rb.velocity += Vector2.left * transform.localScale.x; 
+            }
+            else
+            {
+                rb.velocity = Vector2.zero;
+                Idle();
             }
             return;
         }
@@ -135,7 +153,7 @@ public class CharacterAI : UnitBase
             Idle();
             return;
         }
-       
+
         unitState = UNIT_STATE.MOVE;
         SetAnimation(AnimatorTriggers.move);
         rb.velocity = transform.forward * MoveSpeed * -transform.localScale.x;
@@ -241,6 +259,7 @@ public class CharacterAI : UnitBase
 
     public void AttackEnd()
     {
+        bool towerAttacked = false;
         if (IsHealer)
         {
             for (int i = 0; i < GetOrder() - 1; i++)
@@ -258,10 +277,12 @@ public class CharacterAI : UnitBase
                 target.Damaged(AttackDamage);
                 if (!target.IsDead && Skill != null && Skill.target == TARGET.ENEMY)
                     target.ApplyBuff(Skill);
-
+                if (target.IsTower)
+                    towerAttacked = true;
                 count++;
                 if (count >= AttackEnemyCount)
                     break;
+
             }
         }
 
@@ -270,6 +291,9 @@ public class CharacterAI : UnitBase
             ApplyBuff(Skill);
             Healed(Heal);
         }
+
+        if (towerAttacked)
+            Damaged(MaxHP);
 
         if (unitState != UNIT_STATE.CANT_ACT)
             unitState = UNIT_STATE.ATTACK_END;
@@ -361,5 +385,14 @@ public class CharacterAI : UnitBase
 
         if (Mathf.Sign(character.transform.position.x - transform.position.x) == (isPlayer ? 1f : -1f))
             isBlocked = false;
+    }
+
+    public void Knockback()
+    {
+        unitState = UNIT_STATE.KNOCKBACK;
+        SetAnimation(AnimatorTriggers.cantAct);
+        Stop();
+        rb.velocity = Vector2.left * -transform.localScale.x * 10f;
+        alphaReduceTime = Time.time;
     }
 }

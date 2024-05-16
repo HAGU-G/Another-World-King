@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class TowerAI : UnitBase
 {
@@ -13,6 +14,7 @@ public class TowerAI : UnitBase
     private float nextSpawnTime;
     private float waitTime;
     private bool isPatternEnd = true;
+    private int phase;
 
     private void Awake()
     {
@@ -24,6 +26,17 @@ public class TowerAI : UnitBase
                     unit.Damaged(unit.MaxHP);
             };
         };
+        OnDamaged += () =>
+        {
+            if (phase < 2 && HP <= MaxHP)
+            {
+                phase = 2;
+                foreach (var unit in enemyTower.units)
+                {
+                    unit.Knockback();
+                }
+            }
+        };
     }
     protected override void Start()
     {
@@ -34,7 +47,7 @@ public class TowerAI : UnitBase
     protected override void Update()
     {
         base.Update();
-        if (IsDead || isPlayer)
+        if (IsDead || isPlayer || !isPlayer)
             return;
 
         if (isPatternEnd && Time.time >= nextSpawnTime)
@@ -82,10 +95,13 @@ public class TowerAI : UnitBase
             transform.localScale = Vector3.one;
 
         isBlocked = false;
+        phase = 1;
     }
     public bool CanSpawnUnit()
     {
-        if (isBlocked)
+        if (isBlocked ||
+            (units != null && units.Count > 0
+            && Mathf.Sign(units[^1].transform.position.x - transform.position.x) == (isPlayer ? -1f : 1f)))
             return false;
         else
             return true;
