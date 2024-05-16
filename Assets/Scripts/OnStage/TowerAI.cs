@@ -28,7 +28,7 @@ public class TowerAI : UnitBase
         };
         OnDamaged += () =>
         {
-            if (phase < 2 && HP <= MaxHP)
+            if (phase < 2 && HP <= MaxHP * 0.5f)
             {
                 phase = 2;
                 foreach (var unit in enemyTower.units)
@@ -47,7 +47,7 @@ public class TowerAI : UnitBase
     protected override void Update()
     {
         base.Update();
-        if (IsDead || isPlayer || !isPlayer)
+        if (IsDead || isPlayer)
             return;
 
         if (isPatternEnd && Time.time >= nextSpawnTime)

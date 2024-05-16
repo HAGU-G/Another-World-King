@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 public enum UNIT_STATE
 {
     IDLE,
@@ -260,29 +261,48 @@ public class CharacterAI : UnitBase
     public void AttackEnd()
     {
         bool towerAttacked = false;
-        if (IsHealer)
+
+        if (targets.Count == 1 && targets[0].IsTower)
         {
-            for (int i = 0; i < GetOrder() - 1; i++)
-            {
-                Tower.units[i].Healed(Heal);
-                if (!Tower.units[i].IsDead && Skill != null && Skill.target == TARGET.TEAM)
-                    Tower.units[i].ApplyBuff(Skill);
-            }
+            targets[0].Damaged(AttackDamage);
+            if (!targets[0].IsDead && Skill != null && Skill.target == TARGET.ENEMY)
+                targets[0].ApplyBuff(Skill);
+            if (targets[0].IsTower)
+                towerAttacked = true;
         }
         else
         {
-            int count = 0;
-            foreach (var target in targets)
+            if (IsHealer)
             {
-                target.Damaged(AttackDamage);
-                if (!target.IsDead && Skill != null && Skill.target == TARGET.ENEMY)
-                    target.ApplyBuff(Skill);
-                if (target.IsTower)
-                    towerAttacked = true;
-                count++;
-                if (count >= AttackEnemyCount)
-                    break;
+                for (int i = 0; i < GetOrder() - 1; i++)
+                {
+                    Tower.units[i].Healed(Heal);
+                    if (!Tower.units[i].IsDead && Skill != null && Skill.target == TARGET.TEAM)
+                        Tower.units[i].ApplyBuff(Skill);
+                }
+            }
+            else
+            {
+                int count = 0;
+                bool unitAttacked = false;
+                foreach (var target in targets)
+                {
+                    if (unitAttacked && target.IsTower)
+                        continue;
 
+                    target.Damaged(AttackDamage);
+                    if (!target.IsDead && Skill != null && Skill.target == TARGET.ENEMY)
+                        target.ApplyBuff(Skill);
+
+                    if (!target.IsTower)
+                        unitAttacked = true;
+                    else
+                        towerAttacked = true;
+
+                    count++;
+                    if (count >= AttackEnemyCount)
+                        break;
+                }
             }
         }
 

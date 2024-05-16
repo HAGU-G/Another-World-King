@@ -17,11 +17,11 @@ MonoBehaviour:
   division: 2
   prefab: Knight
   isTower: 0
-  initHP: 150
+  initHP: 200
   useStartHP: 0
   initHPStart: 0
   combatType: 0
-  initAttackDamage: 20
+  initAttackDamage: 40
   initAttackSpeed: 2
   initAttackRange: 1
   initAttackEnemyCount: 1

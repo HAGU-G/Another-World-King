@@ -26,9 +26,9 @@ MonoBehaviour:
   initAttackRange: 3
   initAttackEnemyCount: 2
   initAttackOrder: 4
-  initAttackEnemyOrder: 0000000001000000
+  initAttackEnemyOrder: 0100000002000000
   skill: Heal2_Skill
-  initHeal: 20
+  initHeal: 30
   initMoveSpeed: 80
   price: 40
   cost: 300

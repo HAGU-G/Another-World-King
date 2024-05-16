@@ -17,11 +17,11 @@ MonoBehaviour:
   division: 2
   prefab: Guardian
   isTower: 0
-  initHP: 200
+  initHP: 250
   useStartHP: 0
   initHPStart: 0
   combatType: 0
-  initAttackDamage: 20
+  initAttackDamage: 40
   initAttackSpeed: 2
   initAttackRange: 1
   initAttackEnemyCount: 1

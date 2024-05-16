@@ -21,7 +21,7 @@ MonoBehaviour:
   useStartHP: 0
   initHPStart: 0
   combatType: 0
-  initAttackDamage: 40
+  initAttackDamage: 60
   initAttackSpeed: 2
   initAttackRange: 2
   initAttackEnemyCount: 2
