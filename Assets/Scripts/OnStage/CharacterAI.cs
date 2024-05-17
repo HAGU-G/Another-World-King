@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using static UnityEngine.GraphicsBuffer;
 public enum UNIT_STATE
 {
@@ -23,12 +24,12 @@ public class CharacterAI : UnitBase
     public TowerAI Tower { get; set; }
     private List<UnitBase> enemyInRange = new();
     private List<UnitBase> targets = new();
+    private List<UnitBase> blocks = new();
 
     private float lastAttackTime;
     private float alphaReduceTime;
 
     private UNIT_STATE unitState;
-    private bool isBlocked;
 
     protected virtual void Awake()
     {
@@ -63,7 +64,6 @@ public class CharacterAI : UnitBase
             }
             else
             {
-                rb.velocity = Vector2.zero;
                 Idle();
             }
             return;
@@ -84,21 +84,18 @@ public class CharacterAI : UnitBase
         }
 
         TargetFiltering();
-        if (targets.Count <= 0)
+        if (targets.Count == 0)
         {
             Move();
             return;
         }
 
         if (Time.time >= lastAttackTime + AttackSpeed)
-        {
             Attack();
-        }
-        else if (CombatType == COMBAT_TYPE.STOP_ON_HAVE_TARGET)
-        {
+        else if (blocks.Count > 0)
             Idle();
-        }
-
+        else
+            Move();
     }
 
     public void SetAnimation(string trigger)
@@ -113,9 +110,11 @@ public class CharacterAI : UnitBase
                 float speed = 1f;
                 float clipLength = animator.runtimeAnimatorController.animationClips[4].length;
                 if (clipLength > AttackSpeed)
-
                     speed = clipLength / AttackSpeed;
+
                 animator.speed = speed * unitData.initAttackSpeed / AttackSpeed;
+                animator.ResetTrigger(AnimatorTriggers.move);
+                animator.ResetTrigger(AnimatorTriggers.idle);
                 animator.SetTrigger(trigger);
             }
         }
@@ -149,7 +148,7 @@ public class CharacterAI : UnitBase
     {
         if (unitState == UNIT_STATE.MOVE || unitState == UNIT_STATE.ATTACK)
             return;
-        if (isBlocked)
+        if (blocks.Count > 0)
         {
             Idle();
             return;
@@ -197,13 +196,13 @@ public class CharacterAI : UnitBase
         enemyInRange.Clear();
         targets.Clear();
 
-        isBlocked = false;
+        blocks.Clear();
         Animators = GetComponentsInChildren<Animator>();
         if (Animators != null && Animators.Length > 0)
         {
             var eventListener = Animators[0].AddComponent<CharacterEvenListener>();
-            eventListener.onAttackHit += AttackEnd;
-            eventListener.onAttackEnd += Idle;
+            eventListener.onAttackHit += AttackHit;
+            eventListener.onAttackEnd += AttackEnd;
         }
 
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
@@ -253,26 +252,23 @@ public class CharacterAI : UnitBase
             return;
 
         unitState = UNIT_STATE.ATTACK;
-        SetAnimation(AnimatorTriggers.attack);
         lastAttackTime = Time.time;
-        Stop();
+        SetAnimation(AnimatorTriggers.attack);
+
+
     }
 
-    public void AttackEnd()
+    public void AttackHit()
     {
         bool towerAttacked = false;
-
-        if (targets.Count == 1 && targets[0].IsTower)
+        if (IsHealer)
         {
-            targets[0].Damaged(AttackDamage);
-            if (!targets[0].IsDead && Skill != null && Skill.target == TARGET.ENEMY)
-                targets[0].ApplyBuff(Skill);
-            if (targets[0].IsTower)
+            if (GetOrder() == 1 && targets != null && targets.Count == 1 && targets[0].IsTower)
+            {
+                targets[0].Damaged(100);
                 towerAttacked = true;
-        }
-        else
-        {
-            if (IsHealer)
+            }
+            else
             {
                 for (int i = 0; i < GetOrder() - 1; i++)
                 {
@@ -281,27 +277,29 @@ public class CharacterAI : UnitBase
                         Tower.units[i].ApplyBuff(Skill);
                 }
             }
-            else
+        }
+        else
+        {
+            int count = 0;
+            bool unitAttacked = false;
+            foreach (var target in targets)
             {
-                int count = 0;
-                bool unitAttacked = false;
-                foreach (var target in targets)
-                {
-                    if (unitAttacked && target.IsTower)
-                        continue;
+                if (unitAttacked && target.IsTower)
+                    continue;
 
-                    if (target.IsTower)
-                    {
-                        target.Damaged(100);
-                        towerAttacked = true;
-                    }
-                    else
-                    {
-                        target.Damaged(AttackDamage);
-                        unitAttacked = true;
-                        if (!target.IsDead && Skill != null && Skill.target == TARGET.ENEMY)
-                            target.ApplyBuff(Skill);
-                    }
+                if (target.IsTower)
+                {
+                    target.Damaged(100);
+                    towerAttacked = true;
+                }
+                else
+                {
+                    target.Damaged(AttackDamage);
+                    unitAttacked = true;
+                    if (!target.IsDead && Skill != null && Skill.target == TARGET.ENEMY)
+                        target.ApplyBuff(Skill);
+                }
+                {
                     count++;
                     if (count >= AttackEnemyCount)
                         break;
@@ -317,9 +315,17 @@ public class CharacterAI : UnitBase
 
         if (towerAttacked)
             Damaged(MaxHP);
+    }
 
-        if (unitState != UNIT_STATE.CANT_ACT)
+    public void AttackEnd()
+    {
+        if (unitState != UNIT_STATE.DEAD
+            && unitState != UNIT_STATE.CANT_ACT
+            && unitState != UNIT_STATE.KNOCKBACK)
+        {
             unitState = UNIT_STATE.ATTACK_END;
+            Move();
+        }
     }
 
 
@@ -361,53 +367,38 @@ public class CharacterAI : UnitBase
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (isBlocked)
-            return;
-
         var character = collision.gameObject.GetComponent<CharacterAI>();
         if (character == null)
             return;
 
         if (Mathf.Sign(character.transform.position.x - transform.position.x) == (isPlayer ? 1f : -1f))
         {
-            isBlocked = true;
-            if (unitState == UNIT_STATE.MOVE)
-                Idle();
-            else
-                Stop();
+            SetIsBlocked(true, character);
         }
     }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (isBlocked)
-            return;
-
         var character = collision.gameObject.GetComponent<CharacterAI>();
         if (character == null)
             return;
 
         if (Mathf.Sign(character.transform.position.x - transform.position.x) == (isPlayer ? 1f : -1f))
         {
-            isBlocked = true;
-            if (unitState == UNIT_STATE.MOVE)
-                Idle();
-            else
-                Stop();
+            SetIsBlocked(true, character);
         }
     }
 
     void OnCollisionExit2D(Collision2D collision)
     {
-        if (!isBlocked)
-            return;
-
         var character = collision.gameObject.GetComponent<CharacterAI>();
         if (character == null)
             return;
 
         if (Mathf.Sign(character.transform.position.x - transform.position.x) == (isPlayer ? 1f : -1f))
-            isBlocked = false;
+        {
+            SetIsBlocked(false, character);
+        }
     }
 
     public void Knockback()
@@ -417,5 +408,22 @@ public class CharacterAI : UnitBase
         Stop();
         rb.velocity = Vector2.left * -transform.localScale.x * 10f;
         alphaReduceTime = Time.time;
+    }
+
+    public void SetIsBlocked(bool value, UnitBase unitBase)
+    {
+        if (value)
+        {
+            if (!blocks.Contains(unitBase))
+                blocks.Add(unitBase);
+            if (unitState == UNIT_STATE.MOVE)
+                Idle();
+            else if (unitState != UNIT_STATE.KNOCKBACK)
+                Stop();
+        }
+        else
+        {
+            blocks.Remove(unitBase);
+        }
     }
 }

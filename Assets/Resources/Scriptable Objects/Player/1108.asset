@@ -21,10 +21,10 @@ MonoBehaviour:
   useStartHP: 0
   initHPStart: 0
   combatType: 0
-  initAttackDamage: 80
+  initAttackDamage: 100
   initAttackSpeed: 2.5
   initAttackRange: 1
-  initAttackEnemyCount: 1
+  initAttackEnemyCount: 0
   initAttackOrder: 1
   initAttackEnemyOrder: 01000000
   skill: 0

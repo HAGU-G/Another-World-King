@@ -17,14 +17,14 @@ MonoBehaviour:
   division: 2
   prefab: Mon_Knight
   isTower: 0
-  initHP: 150
+  initHP: 210
   useStartHP: 0
   initHPStart: 0
   combatType: 0
-  initAttackDamage: 20
+  initAttackDamage: 40
   initAttackSpeed: 2
   initAttackRange: 1
-  initAttackEnemyCount: 1
+  initAttackEnemyCount: 0
   initAttackOrder: 1
   initAttackEnemyOrder: 01000000
   skill: 0

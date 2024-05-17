@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ignore: "\uAC15\uD654 \uC131\uC9C1\uC790Lv1"
   id: 1302
-  division: 0
+  division: 4
   prefab: Cleric
   isTower: 0
   initHP: 60
@@ -24,7 +24,7 @@ MonoBehaviour:
   initAttackDamage: 0
   initAttackSpeed: 2.5
   initAttackRange: 2
-  initAttackEnemyCount: 1
+  initAttackEnemyCount: 0
   initAttackOrder: 3
   initAttackEnemyOrder: 01000000
   skill: Heal3_Skill

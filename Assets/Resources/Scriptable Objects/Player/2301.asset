@@ -28,7 +28,7 @@ MonoBehaviour:
   initAttackOrder: 3
   initAttackEnemyOrder: 01000000
   skill: Heal_Skill
-  initHeal: 30
+  initHeal: 50
   initMoveSpeed: 80
   price: 0
   cost: 150

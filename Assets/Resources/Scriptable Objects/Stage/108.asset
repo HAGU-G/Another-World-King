@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5390eeabe2e0148bd1783116bb6660, type: 3}
   m_Name: 108
   m_EditorClassIdentifier: 
-  ignore: 8
+  ignore: "7\uC2A4\uD14C\uC774\uC9C0"
   id: 108
   division: 0
-  prefab: None
+  prefab: Brave
   isTower: 1
-  initHP: 3000
+  initHP: 2000
   useStartHP: 0
   initHPStart: 0
   combatType: 0
@@ -27,13 +27,14 @@ MonoBehaviour:
   initAttackEnemyCount: 0
   initAttackOrder: 0
   initAttackEnemyOrder: 01000000
+  skill: 
   initHeal: 0
   initMoveSpeed: 80
+  price: 0
   cost: 0
   spawnTime: 0
   initDropGold: 0
   initDropExp: 0
   effect: 
   image: 
-  skill: 
   desc: 

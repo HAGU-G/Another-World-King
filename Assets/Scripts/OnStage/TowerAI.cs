@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
@@ -20,10 +21,10 @@ public class TowerAI : UnitBase
     {
         OnDead += () =>
         {
-            foreach (var unit in units)
+            for(int i = 0; i < units.Count; i++)
             {
-                if (unit != null && unit.isPlayer == isPlayer)
-                    unit.Damaged(unit.MaxHP);
+                if (units[i] != null && units[i].isPlayer == isPlayer)
+                    units[i].Damaged(units[i].MaxHP);
             };
         };
         OnDamaged += () =>
@@ -134,9 +135,16 @@ public class TowerAI : UnitBase
     {
         if (collision.isTrigger)
             return;
-        var unit = collision.GetComponent<UnitBase>();
-        if (unit != null && unit.isPlayer == isPlayer)
+
+        var unit = collision.GetComponent<CharacterAI>();
+        if (unit == null)
+            return;
+
+        if (unit.isPlayer == isPlayer)
             isBlocked = true;
+        else
+            unit.SetIsBlocked(true, this);
+        
 
     }
 
@@ -144,18 +152,30 @@ public class TowerAI : UnitBase
     {
         if (collision.isTrigger)
             return;
-        var unit = collision.GetComponent<UnitBase>();
-        if (unit != null && unit.isPlayer == isPlayer)
+
+        var unit = collision.GetComponent<CharacterAI>();
+        if (unit == null)
+            return;
+
+        if (unit.isPlayer == isPlayer)
             isBlocked = true;
+        else
+            unit.SetIsBlocked(true,this);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.isTrigger)
             return;
-        var unit = collision.GetComponent<UnitBase>();
-        if (unit != null && unit.isPlayer == isPlayer)
+
+        var unit = collision.GetComponent<CharacterAI>();
+        if (unit == null)
+            return;
+
+        if (unit.isPlayer == isPlayer)
             isBlocked = false;
+        else
+            unit.SetIsBlocked(false,this);
 
     }
 

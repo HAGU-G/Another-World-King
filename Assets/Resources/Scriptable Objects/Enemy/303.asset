@@ -27,14 +27,14 @@ MonoBehaviour:
   initAttackEnemyCount: 0
   initAttackOrder: 2
   initAttackEnemyOrder: 01000000
+  skill: Stun_Skill
   initHeal: 0
   initMoveSpeed: 80
+  price: 0
   cost: 0
   spawnTime: 0
   initDropGold: 150
   initDropExp: 300
   effect: MonStun
   image: "\uC774\uD6C4 \uACB0\uC815"
-  skill: Stun_Skill
   desc: 
-  price: 0

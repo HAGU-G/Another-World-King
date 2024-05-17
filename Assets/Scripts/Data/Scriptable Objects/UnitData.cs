@@ -34,6 +34,7 @@ public class UnitData : ScriptableObject
     public int initHPStart;
 
     public COMBAT_TYPE combatType;
+    public string typeCounter;
     public int initAttackDamage;
     public float initAttackSpeed;
     public float initAttackRange;

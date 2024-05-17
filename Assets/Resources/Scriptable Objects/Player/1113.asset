@@ -17,14 +17,14 @@ MonoBehaviour:
   division: 1
   prefab: Berserker
   isTower: 0
-  initHP: 1000
+  initHP: 100
   useStartHP: 0
   initHPStart: 0
   combatType: 0
   initAttackDamage: 30
   initAttackSpeed: 1
   initAttackRange: 1
-  initAttackEnemyCount: 1
+  initAttackEnemyCount: 0
   initAttackOrder: 1
   initAttackEnemyOrder: 01000000
   skill: Fast_Skill

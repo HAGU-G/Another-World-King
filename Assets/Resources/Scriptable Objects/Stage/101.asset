@@ -15,7 +15,7 @@ MonoBehaviour:
   ignore: "\uD29C\uD1A0\uB9AC\uC5BC"
   id: 101
   division: 0
-  prefab: None
+  prefab: Brave
   isTower: 1
   initHP: 1000
   useStartHP: 0
@@ -24,8 +24,8 @@ MonoBehaviour:
   initAttackDamage: 0
   initAttackSpeed: 0
   initAttackRange: 0
-  initAttackEnemyCount: 1
-  initAttackOrder: 1
+  initAttackEnemyCount: 0
+  initAttackOrder: 0
   initAttackEnemyOrder: 01000000
   skill: 
   initHeal: 0

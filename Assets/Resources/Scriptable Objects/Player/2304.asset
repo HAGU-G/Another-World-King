@@ -24,7 +24,7 @@ MonoBehaviour:
   initAttackDamage: 0
   initAttackSpeed: 3
   initAttackRange: 2
-  initAttackEnemyCount: 1
+  initAttackEnemyCount: 0
   initAttackOrder: 3
   initAttackEnemyOrder: 01000000
   skill: slow_Skill
