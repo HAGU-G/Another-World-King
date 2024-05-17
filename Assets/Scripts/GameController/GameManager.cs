@@ -56,14 +56,16 @@ public class GameManager : MonoBehaviour
         SelectedStageID = DataTableManager.MinStageID;
 
         //TESTCODE
-        purchasedID.Add(1101);
-        purchasedID.Add(1102);
-        purchasedID.Add(1201);
-        purchasedID.Add(1202);
-        purchasedID.Add(1301);
-        SetExpeditions(1101, 0);
-        SetExpeditions(1102, 1);
-        SetExpeditions(1201, 2);
+        if (!unlockedID.Contains(1101))
+            unlockedID.Add(1101);
+        if (!unlockedID.Contains(1102))
+            unlockedID.Add(1102);
+        if (!unlockedID.Contains(1201))
+            unlockedID.Add(1201);
+        if (!unlockedID.Contains(1301))
+            unlockedID.Add(1301);
+        if (!unlockedID.Contains(1202))
+            unlockedID.Add(1202);
 
         flags = int.MaxValue / 2;
     }
@@ -127,18 +129,6 @@ public class GameManager : MonoBehaviour
 
         switch (index)
         {
-            case 101:
-                if (!unlockedID.Contains(1101))
-                    unlockedID.Add(1101);
-                if (!unlockedID.Contains(1102))
-                    unlockedID.Add(1102);
-                if (!unlockedID.Contains(1201))
-                    unlockedID.Add(1201);
-                if (!unlockedID.Contains(1301))
-                    unlockedID.Add(1301);
-                if (!unlockedID.Contains(1202))
-                    unlockedID.Add(1202);
-                break;
             case 102:
                 if (!unlockedID.Contains(1103))
                     unlockedID.Add(1103);
