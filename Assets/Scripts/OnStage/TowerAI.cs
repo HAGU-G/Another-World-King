@@ -50,6 +50,9 @@ public class TowerAI : UnitBase
         if (IsDead || isPlayer)
             return;
 
+        if(Input.GetKeyDown(KeyCode.Delete))
+            Damaged(100);
+
         if (isPatternEnd && Time.time >= nextSpawnTime)
         {
             int stageID = GameManager.Instance.SelectedStageID;

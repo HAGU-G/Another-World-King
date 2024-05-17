@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
                 flags = 0;
         }
     }
+    public List<int> unlockedID { get; private set; } = new();
     public List<int> purchasedID { get; private set; } = new();
     public CharacterInfos[] Expedition { get; private set; } = new CharacterInfos[5];
     private int selectedStageID;
@@ -37,10 +38,13 @@ public class GameManager : MonoBehaviour
         get => selectedStageID;
         set
         {
-            //int max = (DataTableManager.MinStageID + StageClearInfo.Count) < DataTableManager.MaxStageID
-            //    ? (DataTableManager.MinStageID + StageClearInfo.Count) : DataTableManager.MaxStageID;
-            //selectedStageID = Mathf.Clamp(value, DataTableManager.MinStageID, max);
+#if UNITY_EDITOR
             selectedStageID = Mathf.Clamp(value, DataTableManager.MinStageID, DataTableManager.MaxStageID);
+#else
+            int max = (DataTableManager.MinStageID + StageClearInfo.Count) < DataTableManager.MaxStageID
+                ? (DataTableManager.MinStageID + StageClearInfo.Count) : DataTableManager.MaxStageID;
+            selectedStageID = Mathf.Clamp(value, DataTableManager.MinStageID, max);
+#endif
         }
     }
     public Dictionary<int, int> StageClearInfo { get; private set; } = new();
@@ -52,14 +56,16 @@ public class GameManager : MonoBehaviour
         SelectedStageID = DataTableManager.MinStageID;
 
         //TESTCODE
-        purchasedID.Add(1101);
-        purchasedID.Add(1102);
-        purchasedID.Add(1201);
-        purchasedID.Add(1202);
-        purchasedID.Add(1301);
-        SetExpeditions(1101, 0);
-        SetExpeditions(1102, 1);
-        SetExpeditions(1201, 2);
+        if (!unlockedID.Contains(1101))
+            unlockedID.Add(1101);
+        if (!unlockedID.Contains(1102))
+            unlockedID.Add(1102);
+        if (!unlockedID.Contains(1201))
+            unlockedID.Add(1201);
+        if (!unlockedID.Contains(1301))
+            unlockedID.Add(1301);
+        if (!unlockedID.Contains(1202))
+            unlockedID.Add(1202);
 
         flags = int.MaxValue / 2;
     }
@@ -120,6 +126,46 @@ public class GameManager : MonoBehaviour
         else
             StageClearInfo.Add(index, star);
         flags += flag;
+
+        switch (index)
+        {
+            case 102:
+                if (!unlockedID.Contains(1103))
+                    unlockedID.Add(1103);
+                if (!unlockedID.Contains(1104))
+                    unlockedID.Add(1104);
+                if (!unlockedID.Contains(1203))
+                    unlockedID.Add(1203);
+                if (!unlockedID.Contains(1302))
+                    unlockedID.Add(1302);
+                break;
+            case 103:
+                if (!unlockedID.Contains(1204))
+                    unlockedID.Add(1204);
+                if (!unlockedID.Contains(1303))
+                    unlockedID.Add(1303);
+                break;
+            case 104:
+                if (!unlockedID.Contains(1106))
+                    unlockedID.Add(1106);
+                if (!unlockedID.Contains(1304))
+                    unlockedID.Add(1304);
+                if (!unlockedID.Contains(1107))
+                    unlockedID.Add(1107);
+                if (!unlockedID.Contains(1113))
+                    unlockedID.Add(1113);
+                break;
+            case 105:
+                if (!unlockedID.Contains(1108))
+                    unlockedID.Add(1108);
+                if (!unlockedID.Contains(1109))
+                    unlockedID.Add(1109);
+                if (!unlockedID.Contains(1306))
+                    unlockedID.Add(1306);
+                if (!unlockedID.Contains(1111))
+                    unlockedID.Add(1111);
+                break;
+        }
     }
 
     public bool AddPurchasedID(CharacterInfos characterInfos)
