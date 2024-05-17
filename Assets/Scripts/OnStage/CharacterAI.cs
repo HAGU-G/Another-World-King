@@ -57,8 +57,8 @@ public class CharacterAI : UnitBase
             alphaReduceTime = Time.time;
 
             if (Mathf.Sign(rb.velocity.x) == (isPlayer ? -1f : 1f))
-            { 
-                rb.velocity += Vector2.left * transform.localScale.x; 
+            {
+                rb.velocity += Vector2.left * transform.localScale.x;
             }
             else
             {
@@ -274,15 +274,22 @@ public class CharacterAI : UnitBase
             int count = 0;
             foreach (var target in targets)
             {
-                target.Damaged(AttackDamage);
+                if (target.IsTower)
+                {
+                    target.Damaged(100);
+                    towerAttacked = true;
+                }
+                else
+                {
+                    target.Damaged(AttackDamage);
+                }
+
                 if (!target.IsDead && Skill != null && Skill.target == TARGET.ENEMY)
                     target.ApplyBuff(Skill);
-                if (target.IsTower)
-                    towerAttacked = true;
+
                 count++;
                 if (count >= AttackEnemyCount)
                     break;
-
             }
         }
 

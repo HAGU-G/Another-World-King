@@ -47,8 +47,11 @@ public class TowerAI : UnitBase
     protected override void Update()
     {
         base.Update();
-        if (IsDead || isPlayer || !isPlayer)
+        if (IsDead || isPlayer)
             return;
+
+        if(Input.GetKeyDown(KeyCode.Delete))
+            Damaged(100);
 
         if (isPatternEnd && Time.time >= nextSpawnTime)
         {
