@@ -274,7 +274,6 @@ public class CharacterAI : UnitBase
         {
             if (IsHealer)
             {
-<<<<<<< HEAD
                 for (int i = 0; i < GetOrder() - 1; i++)
                 {
                     Tower.units[i].Healed(Heal);
@@ -291,37 +290,22 @@ public class CharacterAI : UnitBase
                     if (unitAttacked && target.IsTower)
                         continue;
 
-                    target.Damaged(AttackDamage);
-                    if (!target.IsDead && Skill != null && Skill.target == TARGET.ENEMY)
-                        target.ApplyBuff(Skill);
-
-                    if (!target.IsTower)
-                        unitAttacked = true;
-                    else
+                    if (target.IsTower)
+                    {
+                        target.Damaged(100);
                         towerAttacked = true;
-
+                    }
+                    else
+                    {
+                        target.Damaged(AttackDamage);
+                        unitAttacked = true;
+                        if (!target.IsDead && Skill != null && Skill.target == TARGET.ENEMY)
+                            target.ApplyBuff(Skill);
+                    }
                     count++;
                     if (count >= AttackEnemyCount)
                         break;
                 }
-=======
-                if (target.IsTower)
-                {
-                    target.Damaged(100);
-                    towerAttacked = true;
-                }
-                else
-                {
-                    target.Damaged(AttackDamage);
-                }
-
-                if (!target.IsDead && Skill != null && Skill.target == TARGET.ENEMY)
-                    target.ApplyBuff(Skill);
-
-                count++;
-                if (count >= AttackEnemyCount)
-                    break;
->>>>>>> feature/Stage
             }
         }
 
