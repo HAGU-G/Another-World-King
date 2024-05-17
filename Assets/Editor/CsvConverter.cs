@@ -21,6 +21,7 @@ public class UnitData_Csv
     [Index(11)] public string Char_ID { get; set; }
     [Ignore] public int Heal { get; set; }
     [Ignore] public int EnemyCount { get; set; }
+    [Ignore] public string TypeCounter { get; set; }
 
 
     public void ToScriptable(bool isPlayer)
@@ -66,6 +67,7 @@ public class UnitData_Csv
         unitData.initAttackOrder = Chr_Position;
         unitData.initHeal = Heal;
         unitData.prefab = Char_ID;
+        unitData.typeCounter = TypeCounter; ;
         if (EnemyCount > 1)
         {
             unitData.initAttackEnemyCount = EnemyCount;
@@ -204,6 +206,70 @@ public class Skill_Csv
             skillData.doResetDurationOnApply = true;
         }
         if (Stun_Duration == 0 && A_Speed_Increase_Nesting > 0)
+            skillData.infinityDuration = true;
+        else
+            skillData.infinityDuration = false;
+
+        if (create)
+        {
+            AssetDatabase.CreateAsset(skillData,
+            string.Concat(
+                Paths.folderResources,
+                string.Format(Paths.resourcesSkill, skillData.id),
+                Paths._asset));
+        }
+    }
+}
+
+public class Counter_Csv
+{
+    public string List { get; set; }
+    public string ID { get; set; }
+    public DIVISION Target { get; set; }
+    public float Attack_Increase { get; set; }
+    public float A_Speed_Decrease { get; set; }
+    public int Heal_Increase { get; set; }
+    public float Stun_Increased { get; set; }
+
+    public void ToScriptable()
+    {
+        SkillData skillData;
+        skillData = Resources.Load<SkillData>(string.Format(Paths.resourcesSkill, ID));
+        bool create = false;
+        if (skillData == null)
+        {
+            skillData = ScriptableObject.CreateInstance<SkillData>();
+            create = true;
+        }
+
+        switch (ID)
+        {
+            case "104":
+                skillData.target = TARGET.TEAM;
+                break;
+            case "105":
+                skillData.target = TARGET.ENEMY;
+                break;
+            default:
+                skillData.target = TARGET.ONESELF;
+                break;
+        }
+
+        skillData.ignore = List;
+        skillData.id = ID;
+        if (Attack_Increase > 0f)
+            skillData.attackDamage_P = Attack_Increase - 1f;
+        skillData.attackSpeed = 0 + A_Speed_Decrease;
+        skillData.duration = Stun_Increased * 2f;
+        skillData.sturn = skillData.duration > 0;
+        skillData.heal = Heal_Increase;
+
+        if (skillData.sturn && skillData.nesting <= 0)
+        {
+            skillData.nesting = 1;
+            skillData.doResetDurationOnApply = true;
+        }
+        if (skillData.duration == 0 && skillData.nesting > 0)
             skillData.infinityDuration = true;
         else
             skillData.infinityDuration = false;

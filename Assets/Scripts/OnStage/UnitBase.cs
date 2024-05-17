@@ -144,8 +144,13 @@ public class UnitBase : MonoBehaviour
 
     //Buff
     public SkillData Skill { get; private set; } = null;
+    public SkillData CounterSkill { get; private set; } = null;
     public Dictionary<string, SkillBase> Buff { get; private set; } = new();
     public void SetSkill(SkillData skill)
+    {
+        Skill = skill;
+    }
+    public void SetCounterSkill(SkillData skill)
     {
         Skill = skill;
     }

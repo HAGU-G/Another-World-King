@@ -11,6 +11,7 @@ public class SaveLoadScriptable
     [MenuItem("데이터테이블/불러오기/모두", priority = 0)]
     public static void LoadAll()
     {
+        LoadCounters();
         LoadPlayerCharacters();
         LoadEnemyCharacters();
         LoadStages();
@@ -32,7 +33,6 @@ public class SaveLoadScriptable
         using (var reader = new StringReader(textAsset.text))
         using (var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture))
         {
-
             var records = csvReader.GetRecords<Player_Csv>();
             foreach (var record in records)
             {
@@ -42,6 +42,27 @@ public class SaveLoadScriptable
                     record.Heal = skills[record.Skill].Hp_Healing;
                     record.EnemyCount = skills[record.Skill].Wide_Area_Range;
                 }
+                switch (record.Division)
+                {
+                    case DIVISION.MELEE:
+                        record.TypeCounter = "101";
+                        break;
+                    case DIVISION.TANKER:
+                        break;
+                    case DIVISION.MARKSMAN:
+                        record.TypeCounter = "102";
+                        break;
+                    case DIVISION.HEALER:
+                        record.TypeCounter = "104";
+                        break;
+                    case DIVISION.MAGIC:
+                        record.TypeCounter = "103";
+                        break;
+                    case DIVISION.SPECIAL:
+                        record.TypeCounter = "105";
+                        break;
+                }
+
                 record.ToScriptable(true);
             }
         }
@@ -126,6 +147,7 @@ public class SaveLoadScriptable
         }
     }
 
+    [MenuItem("데이터테이블/불러오기/스킬")]
     private static Dictionary<string, Skill_Csv> LoadSkills()
     {
         var textAsset = Resources.Load<TextAsset>(Paths.resourcesSkillTable);
@@ -135,6 +157,26 @@ public class SaveLoadScriptable
         {
             var records = csvReader.GetRecords<Skill_Csv>();
             var skills = new Dictionary<string, Skill_Csv>();
+            foreach (var record in records)
+            {
+                if (!skills.ContainsKey(record.ID))
+                    skills.Add(record.ID, record);
+                record.ToScriptable();
+            }
+            return skills;
+        }
+    }
+
+    [MenuItem("데이터테이블/불러오기/상성")]
+    private static Dictionary<string, Counter_Csv> LoadCounters()
+    {
+        var textAsset = Resources.Load<TextAsset>(Paths.resourcesCounterTable);
+
+        using (var reader = new StringReader(textAsset.text))
+        using (var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture))
+        {
+            var records = csvReader.GetRecords<Counter_Csv>();
+            var skills = new Dictionary<string, Counter_Csv>();
             foreach (var record in records)
             {
                 if (!skills.ContainsKey(record.ID))

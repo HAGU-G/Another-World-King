@@ -34,6 +34,10 @@ public class CharacterAI : UnitBase
     protected virtual void Awake()
     {
         OnDead += () => { Dead(); };
+#if UNITY_EDITOR
+        var d = Instantiate(Resources.Load(Paths.resourcesDebugStat), transform);
+        OnDead += () => { Destroy(d); };
+#endif
     }
 
     protected override void Update()
@@ -270,6 +274,8 @@ public class CharacterAI : UnitBase
             }
             else
             {
+                if (targets != null && targets.Count == 1 && targets[0].unitData.division == CounterSkill.targetDivision)
+                    ApplyBuff(CounterSkill);
                 for (int i = 0; i < GetOrder() - 1; i++)
                 {
                     Tower.units[i].Healed(Heal);

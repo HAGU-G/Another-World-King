@@ -117,6 +117,7 @@ public class TowerAI : UnitBase
         var dress = Instantiate(characterInfos.dress, unit.transform);
         unit.unitData = characterInfos.unitData;
         unit.SetSkill(characterInfos.skillData);
+        unit.SetCounterSkill(characterInfos.counterSkillData);
         unit.ResetUnit();
         unit.SetTower(this);
         unit.OnDead += () => { units.Remove(unit); };

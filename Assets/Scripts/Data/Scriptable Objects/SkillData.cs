@@ -15,6 +15,7 @@ public class SkillData : ScriptableObject
 
     public string id;
     public TARGET target;
+    public DIVISION targetDivision;
 
     public int nesting = 1;
     public float duration;
@@ -30,6 +31,8 @@ public class SkillData : ScriptableObject
     public float attackSpeed_P;
     public float attackRange;
     public float attackRange_P;
+
+    public int heal;
 
     public float moveSpeed;
     public float moveSpeed_P;

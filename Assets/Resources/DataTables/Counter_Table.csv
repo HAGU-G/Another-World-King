@@ -1,0 +1,6 @@
+List,ID,Target,Attack_Increase,A_Speed_Decrease,Heal_Increase,Stun_Increased
+전사 상성,101,2,2,0,0,0
+궁수 상성,102,1,1.5,0,0,0
+마법사 상성,103,3,1.5,0,0,0
+힐러 상성,104,5,0,0,2,0
+특수 상성,105,5,0,0.5,0,1
