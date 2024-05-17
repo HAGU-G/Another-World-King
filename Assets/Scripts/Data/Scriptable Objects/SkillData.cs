@@ -1,21 +1,24 @@
 using UnityEngine;
 
-public enum TARGET
-{
-    NONE,
-    ENEMY,
-    TEAM,
-    ONESELF,
-}
+
 
 [CreateAssetMenu(fileName = "스킬 ID", menuName = "데이터 생성/스킬")]
 public class SkillData : ScriptableObject
 {
+    public enum TARGET
+    {
+        NONE,
+        ENEMY,
+        TEAM,
+        ONESELF,
+    }
+
     public string ignore;
 
     public string id;
+    public bool isCounterData;
     public TARGET target;
-    public DIVISION targetDivision;
+    public UnitData.DIVISION targetDivision;
 
     public int nesting = 1;
     public float duration;
@@ -33,6 +36,7 @@ public class SkillData : ScriptableObject
     public float attackRange_P;
 
     public int heal;
+    public float heal_P;
 
     public float moveSpeed;
     public float moveSpeed_P;

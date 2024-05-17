@@ -9,7 +9,7 @@ public class UISlotCharacter : MonoBehaviour
     public Toggle toggle;
     public TextMeshProUGUI textName;
     public RawImage rawImage;
-    public CharacterInfos characterInfos = new();
+    public CharacterInfos characterInfos;
 
     public void SetData(CharacterInfos characterInfos)
     {

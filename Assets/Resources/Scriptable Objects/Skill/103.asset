@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ignore: "\uB9C8\uBC95\uC0AC \uC0C1\uC131"
   id: 103
+  isCounterData: 1
   target: 3
-  targetDivision: 0
+  targetDivision: 3
   nesting: 1
   duration: 0
   infinityDuration: 1
@@ -28,6 +29,8 @@ MonoBehaviour:
   attackSpeed_P: 0
   attackRange: 0
   attackRange_P: 0
+  heal: 0
+  heal_P: 0
   moveSpeed: 0
   moveSpeed_P: 0
   dropGold: 0

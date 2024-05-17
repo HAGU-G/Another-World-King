@@ -148,22 +148,14 @@ public class GameManager : MonoBehaviour
             case 104:
                 if (!unlockedID.Contains(1106))
                     unlockedID.Add(1106);
-                if (!unlockedID.Contains(1304))
-                    unlockedID.Add(1304);
                 if (!unlockedID.Contains(1107))
                     unlockedID.Add(1107);
-                if (!unlockedID.Contains(1113))
-                    unlockedID.Add(1113);
                 break;
             case 105:
                 if (!unlockedID.Contains(1108))
                     unlockedID.Add(1108);
                 if (!unlockedID.Contains(1109))
                     unlockedID.Add(1109);
-                if (!unlockedID.Contains(1306))
-                    unlockedID.Add(1306);
-                if (!unlockedID.Contains(1111))
-                    unlockedID.Add(1111);
                 break;
         }
     }

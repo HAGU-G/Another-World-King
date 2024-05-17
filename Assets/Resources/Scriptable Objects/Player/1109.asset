@@ -12,29 +12,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5390eeabe2e0148bd1783116bb6660, type: 3}
   m_Name: 1109
   m_EditorClassIdentifier: 
-  ignore: "\uD3ED\uBC1CLv1"
+  ignore: "\uAD11\uC804\uC0AC"
   id: 1109
   division: 1
-  prefab: Bomber
-  isTower: 0
-  initHP: 80
+  prefab: Berserker
+  initHP: 200
   useStartHP: 0
   initHPStart: 0
-  combatType: 0
-  initAttackDamage: 999
-  initAttackSpeed: 3
+  typeCounter: 101
+  initAttackDamage: 40
+  initAttackSpeed: 2
   initAttackRange: 1
   initAttackEnemyCount: 0
   initAttackOrder: 1
   initAttackEnemyOrder: 01000000
-  skill: 0
+  skill: Fast_Skill
   initHeal: 0
   initMoveSpeed: 80
   price: 40
-  cost: 300
-  spawnTime: 15
+  cost: 250
+  spawnTime: 25
   initDropGold: 0
   initDropExp: 0
-  effect: Bomb1
-  image: "\uD3ED\uBC1C.jpg"
-  desc: Bomber_explan
+  effect: Attack1
+  image: "\uAD11\uC804\uC0AC.jpg"
+  desc: Berserker_explan
+  isTower: 0
+  stars_3_CastleHp: 0
+  stars_3_reward: 0
+  stars_2_CastleHp: 0
+  stars_2_reward: 0
+  stars_1_reward: 0
+  repeat_Reward: 0

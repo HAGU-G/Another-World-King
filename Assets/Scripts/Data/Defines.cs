@@ -23,6 +23,8 @@ public static class Paths
     public static readonly string resourcesStageTable = "DataTables/Stage_Table";
 
 #if UNITY_EDITOR
+    public static readonly string folderScriptableObjects = "Assets/Resources/Scriptable Objects";
+
     public static readonly string resourcesDebugStat = "Prefabs/Debug/DebugStat";
 
     public static readonly string resourcesMonTable = "DataTables/Mon_Table";

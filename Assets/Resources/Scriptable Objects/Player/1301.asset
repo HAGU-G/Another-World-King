@@ -12,23 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5390eeabe2e0148bd1783116bb6660, type: 3}
   m_Name: 1301
   m_EditorClassIdentifier: 
-  ignore: "\uC131\uC9C1\uC790Lv1"
+  ignore: "\uC131\uC9C1\uC790"
   id: 1301
   division: 4
-  prefab: Bishop
-  isTower: 0
-  initHP: 60
+  prefab: Priest
+  initHP: 100
   useStartHP: 0
   initHPStart: 0
-  combatType: 0
+  typeCounter: 104
   initAttackDamage: 0
-  initAttackSpeed: 2.5
-  initAttackRange: 2
+  initAttackSpeed: 1.5
+  initAttackRange: 3
   initAttackEnemyCount: 0
   initAttackOrder: 3
   initAttackEnemyOrder: 01000000
   skill: Heal_Skill
-  initHeal: 50
+  initHeal: 80
   initMoveSpeed: 80
   price: 0
   cost: 150
@@ -37,4 +36,11 @@ MonoBehaviour:
   initDropExp: 0
   effect: Heal1
   image: "\uC131\uC9C1\uC790.jpg"
-  desc: Bishop_explan
+  desc: Priest_explan
+  isTower: 0
+  stars_3_CastleHp: 0
+  stars_3_reward: 0
+  stars_2_CastleHp: 0
+  stars_2_reward: 0
+  stars_1_reward: 0
+  repeat_Reward: 0

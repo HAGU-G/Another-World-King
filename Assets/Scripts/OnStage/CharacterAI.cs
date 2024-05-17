@@ -2,20 +2,24 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
+using static CharacterAI;
 using static UnityEngine.GraphicsBuffer;
-public enum UNIT_STATE
-{
-    IDLE,
-    MOVE,
-    ATTACK,
-    ATTACK_END,
-    DEAD,
-    CANT_ACT,
-    KNOCKBACK
-}
+using static UnityEngine.UI.CanvasScaler;
+
 [RequireComponent(typeof(Rigidbody2D))]
 public class CharacterAI : UnitBase
 {
+    public enum UNIT_STATE
+    {
+        IDLE,
+        MOVE,
+        ATTACK,
+        ATTACK_END,
+        DEAD,
+        CANT_ACT,
+        KNOCKBACK
+    }
+
     public Animator[] Animators { get; private set; }
     private SpriteRenderer[] spriteRenderers;
     public Rigidbody2D rb;
@@ -28,8 +32,9 @@ public class CharacterAI : UnitBase
 
     private float lastAttackTime;
     private float alphaReduceTime;
+    private bool counterBuffed;
 
-    private UNIT_STATE unitState;
+    public UNIT_STATE UnitState { get; private set; }
 
     protected virtual void Awake()
     {
@@ -56,7 +61,7 @@ public class CharacterAI : UnitBase
             }
             return;
         }
-        if (unitState == UNIT_STATE.KNOCKBACK)
+        if (UnitState == UNIT_STATE.KNOCKBACK)
         {
             if (Time.time < alphaReduceTime + 1f / 10f)
                 return;
@@ -119,6 +124,7 @@ public class CharacterAI : UnitBase
                 animator.speed = speed * unitData.initAttackSpeed / AttackSpeed;
                 animator.ResetTrigger(AnimatorTriggers.move);
                 animator.ResetTrigger(AnimatorTriggers.idle);
+                animator.ResetTrigger(AnimatorTriggers.cantAct);
                 animator.SetTrigger(trigger);
             }
         }
@@ -127,6 +133,21 @@ public class CharacterAI : UnitBase
             foreach (var animator in Animators)
             {
                 animator.speed = 1f;
+                switch (trigger)
+                {
+                    case string s when s == AnimatorTriggers.move:
+                        animator.ResetTrigger(AnimatorTriggers.idle);
+                        animator.ResetTrigger(AnimatorTriggers.cantAct);
+                        break;
+                    case string s when s == AnimatorTriggers.idle:
+                        animator.ResetTrigger(AnimatorTriggers.move);
+                        animator.ResetTrigger(AnimatorTriggers.cantAct);
+                        break;
+                    case string s when s == AnimatorTriggers.cantAct:
+                        animator.ResetTrigger(AnimatorTriggers.move);
+                        animator.ResetTrigger(AnimatorTriggers.idle);
+                        break;
+                }
                 animator.SetTrigger(trigger);
             }
         }
@@ -136,9 +157,9 @@ public class CharacterAI : UnitBase
 
     public void Idle()
     {
-        if (unitState == UNIT_STATE.IDLE || unitState == UNIT_STATE.ATTACK)
+        if (UnitState == UNIT_STATE.IDLE || UnitState == UNIT_STATE.ATTACK)
             return;
-        unitState = UNIT_STATE.IDLE;
+        UnitState = UNIT_STATE.IDLE;
         SetAnimation(AnimatorTriggers.idle);
         Stop();
     }
@@ -150,7 +171,7 @@ public class CharacterAI : UnitBase
 
     public void Move()
     {
-        if (unitState == UNIT_STATE.MOVE || unitState == UNIT_STATE.ATTACK)
+        if (UnitState == UNIT_STATE.MOVE || UnitState == UNIT_STATE.ATTACK)
             return;
         if (blocks.Count > 0)
         {
@@ -158,16 +179,16 @@ public class CharacterAI : UnitBase
             return;
         }
 
-        unitState = UNIT_STATE.MOVE;
+        UnitState = UNIT_STATE.MOVE;
         SetAnimation(AnimatorTriggers.move);
         rb.velocity = transform.forward * MoveSpeed * -transform.localScale.x;
     }
 
     public void Dead()
     {
-        if (unitState == UNIT_STATE.DEAD)
+        if (UnitState == UNIT_STATE.DEAD)
             return;
-        unitState = UNIT_STATE.DEAD;
+        UnitState = UNIT_STATE.DEAD;
         SetAnimation(AnimatorTriggers.dead);
         foreach (var c in GetComponents<Collider2D>())
             c.enabled = false;
@@ -177,9 +198,22 @@ public class CharacterAI : UnitBase
 
     public void CantAct()
     {
-        unitState = UNIT_STATE.CANT_ACT;
+        UnitState = UNIT_STATE.CANT_ACT;
         SetAnimation(AnimatorTriggers.cantAct);
         Stop();
+        if (CounterSkill != null)
+        {
+            ClearBuff(CounterSkill);
+            counterBuffed = false;
+        }
+    }
+
+    public void SetUnitData(CharacterInfos characterInfos)
+    {
+        Instantiate(characterInfos.dress, transform);
+        unitData = characterInfos.unitData;
+        SetSkill(characterInfos.skillData);
+        SetCounterSkill(characterInfos.counterSkillData);
     }
 
     public override void ResetUnit()
@@ -228,7 +262,6 @@ public class CharacterAI : UnitBase
 
     protected virtual void TargetFiltering()
     {
-        //TODO 오류 수정
         targets.Clear();
 
         int count = 0;
@@ -252,19 +285,27 @@ public class CharacterAI : UnitBase
 
     protected virtual void Attack()
     {
-        if (unitState == UNIT_STATE.ATTACK)
+        if (UnitState == UNIT_STATE.ATTACK)
             return;
 
-        unitState = UNIT_STATE.ATTACK;
+        UnitState = UNIT_STATE.ATTACK;
         lastAttackTime = Time.time;
         SetAnimation(AnimatorTriggers.attack);
 
-
+        if (targets != null
+            && CounterSkill != null
+            && CounterSkill.target == SkillData.TARGET.ONESELF
+            && targets.Find(x => x.unitData.division == CounterSkill.targetDivision) != null)
+        {
+            ApplyBuff(CounterSkill);
+            counterBuffed = true;
+        }
     }
 
     public void AttackHit()
     {
         bool towerAttacked = false;
+
         if (IsHealer)
         {
             if (GetOrder() == 1 && targets != null && targets.Count == 1 && targets[0].IsTower)
@@ -274,12 +315,10 @@ public class CharacterAI : UnitBase
             }
             else
             {
-                if (targets != null && targets.Count == 1 && targets[0].unitData.division == CounterSkill.targetDivision)
-                    ApplyBuff(CounterSkill);
                 for (int i = 0; i < GetOrder() - 1; i++)
                 {
                     Tower.units[i].Healed(Heal);
-                    if (!Tower.units[i].IsDead && Skill != null && Skill.target == TARGET.TEAM)
+                    if (!Tower.units[i].IsDead && Skill != null && Skill.target == SkillData.TARGET.TEAM)
                         Tower.units[i].ApplyBuff(Skill);
                 }
             }
@@ -300,20 +339,30 @@ public class CharacterAI : UnitBase
                 }
                 else
                 {
+                    if (counterBuffed && target.unitData.division != CounterSkill.targetDivision)
+                        ClearBuff(CounterSkill);
+
                     target.Damaged(AttackDamage);
                     unitAttacked = true;
-                    if (!target.IsDead && Skill != null && Skill.target == TARGET.ENEMY)
+
+                    if (!target.IsDead && Skill != null && Skill.target == SkillData.TARGET.ENEMY)
                         target.ApplyBuff(Skill);
+                    if (!target.IsDead
+                        && CounterSkill != null
+                        && CounterSkill.target == SkillData.TARGET.ENEMY
+                        && target.unitData.division == CounterSkill.targetDivision)
+                        target.ApplyBuff(CounterSkill);
+
+                    if (counterBuffed && target.unitData.division != CounterSkill.targetDivision)
+                        ApplyBuff(CounterSkill);
                 }
-                {
-                    count++;
-                    if (count >= AttackEnemyCount)
-                        break;
-                }
+                count++;
+                if (count >= AttackEnemyCount)
+                    break;
             }
         }
 
-        if (Skill != null && Skill.target == TARGET.ONESELF)
+        if (Skill != null && Skill.target == SkillData.TARGET.ONESELF)
         {
             ApplyBuff(Skill);
             Healed(Heal);
@@ -325,12 +374,17 @@ public class CharacterAI : UnitBase
 
     public void AttackEnd()
     {
-        if (unitState != UNIT_STATE.DEAD
-            && unitState != UNIT_STATE.CANT_ACT
-            && unitState != UNIT_STATE.KNOCKBACK)
+        if (UnitState != UNIT_STATE.DEAD
+            && UnitState != UNIT_STATE.CANT_ACT
+            && UnitState != UNIT_STATE.KNOCKBACK)
         {
-            unitState = UNIT_STATE.ATTACK_END;
+            UnitState = UNIT_STATE.ATTACK_END;
             Move();
+        }
+        if (CounterSkill != null)
+        {
+            ClearBuff(CounterSkill);
+            counterBuffed = false;
         }
     }
 
@@ -377,9 +431,15 @@ public class CharacterAI : UnitBase
         if (character == null)
             return;
 
-        if (Mathf.Sign(character.transform.position.x - transform.position.x) == (isPlayer ? 1f : -1f))
+        var sign = Mathf.Sign(character.transform.position.x - transform.position.x);
+        if (sign == (isPlayer ? 1f : -1f) || character.GetOrder() <= GetOrder())
         {
             SetIsBlocked(true, character);
+        }
+        else if (UnitState == UNIT_STATE.KNOCKBACK
+            && character.isPlayer == isPlayer)
+        {
+            Stop();
         }
     }
 
@@ -389,9 +449,15 @@ public class CharacterAI : UnitBase
         if (character == null)
             return;
 
-        if (Mathf.Sign(character.transform.position.x - transform.position.x) == (isPlayer ? 1f : -1f))
+        var sign = Mathf.Sign(character.transform.position.x - transform.position.x);
+        if (sign == (isPlayer ? 1f : -1f) && character.GetOrder() <= GetOrder())
         {
             SetIsBlocked(true, character);
+        }
+        else if (UnitState == UNIT_STATE.KNOCKBACK
+            && character.isPlayer == isPlayer)
+        {
+            Stop();
         }
     }
 
@@ -401,7 +467,7 @@ public class CharacterAI : UnitBase
         if (character == null)
             return;
 
-        if (Mathf.Sign(character.transform.position.x - transform.position.x) == (isPlayer ? 1f : -1f))
+        if (Mathf.Sign(character.transform.position.x - transform.position.x) == (isPlayer ? 1f : -1f) && character.GetOrder() <= GetOrder())
         {
             SetIsBlocked(false, character);
         }
@@ -409,11 +475,16 @@ public class CharacterAI : UnitBase
 
     public void Knockback()
     {
-        unitState = UNIT_STATE.KNOCKBACK;
+        UnitState = UNIT_STATE.KNOCKBACK;
         SetAnimation(AnimatorTriggers.cantAct);
         Stop();
         rb.velocity = Vector2.left * -transform.localScale.x * 10f;
         alphaReduceTime = Time.time;
+        if (CounterSkill != null)
+        {
+            ClearBuff(CounterSkill);
+            counterBuffed = false;
+        }
     }
 
     public void SetIsBlocked(bool value, UnitBase unitBase)
@@ -422,9 +493,9 @@ public class CharacterAI : UnitBase
         {
             if (!blocks.Contains(unitBase))
                 blocks.Add(unitBase);
-            if (unitState == UNIT_STATE.MOVE)
+            if (UnitState == UNIT_STATE.MOVE)
                 Idle();
-            else if (unitState != UNIT_STATE.KNOCKBACK)
+            else if (UnitState != UNIT_STATE.KNOCKBACK)
                 Stop();
         }
         else

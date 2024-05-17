@@ -1,19 +1,12 @@
 List,ID,Division,Hp,Attack,A_Speed,A_Range,Char_Positon,Effect,Image,Skill,Char_ID,Dead_Gold,Dead_Exp
-전사,101,1,90,50,2,1,1,MonAttack1,MonWarrior.jpg,0,Mon_Brave,50,200
-탱커,102,2,210,40,2,1,1,MonAttack2,이후 결정,0,Mon_Knight,100,350
-강화 전사,103,1,100,60,2,1,1,MonAttack1,이후 결정,0,Mon_Warrior,70,250
-강화 탱커,105,2,250,40,2,1,1,MonAttack2,이후 결정,0,Mon_Guardian,150,300
-흡혈 탱커,106,2,150,20,2,1,1,MonAttack2,이후 결정,Drain_Skill,Mon_Bloody,200,400
-기마병,107,1,150,30,2,1,1,MonAttack1,이후 결정,0,Mon_Cavalry,200,500
-해머,108,1,150,80,2.5,1,1,MonAttack1,이후 결정,0,Mon_Olaf,100,300
-폭발,109,1,100,999,3,1,1,MonBom,이후 결정,0,Mon_Bomber,100,350
-광전사,110,1,100,30,1.5,1,1,MonAttack1,이후 결정,Fast_Skill,Mon_Berserker,200,300
-궁수,201,3,60,10,0.3,2,2,MonArrow,이후 결정,0,Mon_Archer,100,300
-마법사,202,5,60,40,2,2,2,MonMagic,이후 결정,Magic1_Skill,Mon_Magician,100,350
-강화 궁수,203,3,60,15,0.3,2,2,MonArrow,이후 결정,0,Mon_Hunter,100,350
-강화 마법사,204,5,60,50,2,2,2,MonMagic,이후 결정,Magic2_Skill,Mon_Sorcerer,150,400
-스나이퍼,205,3,60,7,0.5,3,3,MonArrow,이후 결정,0,Mon_Sniper,200,450
-대포,206,3,100,20,1,1,1,MonCannon,이후 결정,0,Mon_Cannon,150,350
-성직자,301,4,60,0,3,2,2,MonHeal,이후 결정,Heal_Skill,Mon_Bishop,100,300
-강화 성직자,302,4,60,0,3,2,2,MonHeal,이후 결정,Heal3_Skill,Mon_Cleric,100,350
-스턴,303,6,60,0,3,2,2,MonStun,이후 결정,Stun_Skill,Mon_Shaman,150,300
+전사,101,1,150,50,2,1,1,MonAttack1,MonWarrior.jpg,0,Mon_Brave,50,200
+탱커,102,2,400,20,2,1,1,MonAttack2,이후 결정,0,Mon_Knight,100,350
+흡혈 탱커,103,2,300,30,1.5,1,1,MonAttack2,이후 결정,Drain_Skill,Mon_Bloody,200,400
+해머,104,1,150,100,2,2,1,MonAttack1,이후 결정,0,Mon_Olaf,100,300
+폭발,105,1,100,999,3,1,1,MonBom,이후 결정,0,Mon_Bomber,100,350
+광전사,106,1,200,40,2,1,1,MonAttack1,이후 결정,Fast_Skill,Mon_Berserker,200,300
+궁수,201,3,100,40,0.5,2,2,MonArrow,이후 결정,0,Mon_Archer,100,300
+마법사,202,5,100,80,2,2,2,MonMagic,이후 결정,Magic1_Skill,Mon_Magician,100,350
+스나이퍼,203,3,100,50,0.5,4,3,MonArrow,이후 결정,0,Mon_Sniper,200,450
+대포,204,3,200,100,1,1,1,MonCannon,이후 결정,0,Mon_Cannon,150,350
+스턴,301,6,100,10,3,3,2,MonStun,이후 결정,Stun_Skill,Mon_Shaman,150,300

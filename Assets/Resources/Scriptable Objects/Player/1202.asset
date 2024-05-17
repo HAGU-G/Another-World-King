@@ -12,16 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5390eeabe2e0148bd1783116bb6660, type: 3}
   m_Name: 1202
   m_EditorClassIdentifier: 
-  ignore: "\uB9C8\uBC95\uC0ACLv1"
+  ignore: "\uB9C8\uBC95\uC0AC"
   id: 1202
   division: 5
-  prefab: Magician
-  isTower: 0
-  initHP: 60
+  prefab: Sorcerer
+  initHP: 100
   useStartHP: 0
   initHPStart: 0
-  combatType: 0
-  initAttackDamage: 50
+  typeCounter: 103
+  initAttackDamage: 80
   initAttackSpeed: 2
   initAttackRange: 2
   initAttackEnemyCount: 2
@@ -37,4 +36,11 @@ MonoBehaviour:
   initDropExp: 0
   effect: Magic1
   image: "\uB9C8\uBC95\uC0AC.jpg"
-  desc: Magician_explan
+  desc: Sorcerer_explan
+  isTower: 0
+  stars_3_CastleHp: 0
+  stars_3_reward: 0
+  stars_2_CastleHp: 0
+  stars_2_reward: 0
+  stars_1_reward: 0
+  repeat_Reward: 0

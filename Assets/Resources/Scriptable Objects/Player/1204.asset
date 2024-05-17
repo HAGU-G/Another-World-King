@@ -12,29 +12,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5390eeabe2e0148bd1783116bb6660, type: 3}
   m_Name: 1204
   m_EditorClassIdentifier: 
-  ignore: "\uAC15\uD654 \uB9C8\uBC95\uC0ACLv1"
+  ignore: "\uD3EC\uD0D1"
   id: 1204
   division: 5
-  prefab: Sorcerer
-  isTower: 0
-  initHP: 60
+  prefab: Turret
+  initHP: 100
   useStartHP: 0
   initHPStart: 0
-  combatType: 0
-  initAttackDamage: 60
-  initAttackSpeed: 2
-  initAttackRange: 2
-  initAttackEnemyCount: 2
-  initAttackOrder: 2
-  initAttackEnemyOrder: 0100000002000000
-  skill: Magic2_Skill
+  typeCounter: 103
+  initAttackDamage: 20
+  initAttackSpeed: 0.5
+  initAttackRange: 10
+  initAttackEnemyCount: 0
+  initAttackOrder: 10
+  initAttackEnemyOrder: 01000000
+  skill: 0
   initHeal: 0
   initMoveSpeed: 80
-  price: 40
-  cost: 250
-  spawnTime: 7
+  price: 50
+  cost: 500
+  spawnTime: 30
   initDropGold: 0
   initDropExp: 0
-  effect: Magic1
-  image: "\uAC15\uD654 \uB9C8\uBC95\uC0AC.jpg"
-  desc: Sorcerer_explan
+  effect: tower1
+  image: "\uD3EC\uD0D1.jpg"
+  desc: Turret_explan
+  isTower: 0
+  stars_3_CastleHp: 0
+  stars_3_reward: 0
+  stars_2_CastleHp: 0
+  stars_2_reward: 0
+  stars_1_reward: 0
+  repeat_Reward: 0

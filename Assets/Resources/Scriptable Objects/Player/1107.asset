@@ -12,29 +12,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5390eeabe2e0148bd1783116bb6660, type: 3}
   m_Name: 1107
   m_EditorClassIdentifier: 
-  ignore: "\uAE30\uC218Lv1"
+  ignore: "\uC5F0\uAE08\uC220\uC0AC"
   id: 1107
   division: 1
-  prefab: Banner
-  isTower: 0
-  initHP: 80
+  prefab: Alchemist
+  initHP: 200
   useStartHP: 0
   initHPStart: 0
-  combatType: 0
+  typeCounter: 101
   initAttackDamage: 40
-  initAttackSpeed: 2
+  initAttackSpeed: 1
   initAttackRange: 1
   initAttackEnemyCount: 0
   initAttackOrder: 1
   initAttackEnemyOrder: 01000000
-  skill: Plag_Skill
+  skill: Exp_Skill
   initHeal: 0
   initMoveSpeed: 80
-  price: 35
+  price: 40
   cost: 100
-  spawnTime: 3
+  spawnTime: 10
   initDropGold: 0
   initDropExp: 0
   effect: Attack1
-  image: "\uAE30\uC218.jpg"
-  desc: Banner_explan
+  image: "\uB3C4\uC0AC.jpg"
+  desc: Alchemist_explan
+  isTower: 0
+  stars_3_CastleHp: 0
+  stars_3_reward: 0
+  stars_2_CastleHp: 0
+  stars_2_reward: 0
+  stars_1_reward: 0
+  repeat_Reward: 0

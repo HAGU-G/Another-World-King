@@ -12,29 +12,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5390eeabe2e0148bd1783116bb6660, type: 3}
   m_Name: 301
   m_EditorClassIdentifier: 
-  ignore: "\uC131\uC9C1\uC790"
+  ignore: "\uC2A4\uD134"
   id: 301
-  division: 4
-  prefab: Mon_Bishop
-  isTower: 0
-  initHP: 60
+  division: 6
+  prefab: Mon_Shaman
+  initHP: 100
   useStartHP: 0
   initHPStart: 0
-  combatType: 0
-  initAttackDamage: 0
+  typeCounter: 105
+  initAttackDamage: 10
   initAttackSpeed: 3
-  initAttackRange: 2
+  initAttackRange: 3
   initAttackEnemyCount: 0
   initAttackOrder: 2
   initAttackEnemyOrder: 01000000
-  skill: Heal_Skill
-  initHeal: 50
+  skill: Stun_Skill
+  initHeal: 0
   initMoveSpeed: 80
   price: 0
   cost: 0
   spawnTime: 0
-  initDropGold: 100
+  initDropGold: 150
   initDropExp: 300
-  effect: MonHeal
+  effect: MonStun
   image: "\uC774\uD6C4 \uACB0\uC815"
   desc: 
+  isTower: 0
+  stars_3_CastleHp: 0
+  stars_3_reward: 0
+  stars_2_CastleHp: 0
+  stars_2_reward: 0
+  stars_1_reward: 0
+  repeat_Reward: 0

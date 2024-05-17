@@ -12,17 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5390eeabe2e0148bd1783116bb6660, type: 3}
   m_Name: 105
   m_EditorClassIdentifier: 
-  ignore: "\uAC15\uD654 \uD0F1\uCEE4"
+  ignore: "\uD3ED\uBC1C"
   id: 105
-  division: 2
-  prefab: Mon_Guardian
-  isTower: 0
-  initHP: 250
+  division: 1
+  prefab: Mon_Bomber
+  initHP: 100
   useStartHP: 0
   initHPStart: 0
-  combatType: 0
-  initAttackDamage: 40
-  initAttackSpeed: 2
+  typeCounter: 101
+  initAttackDamage: 999
+  initAttackSpeed: 3
   initAttackRange: 1
   initAttackEnemyCount: 0
   initAttackOrder: 1
@@ -33,8 +32,15 @@ MonoBehaviour:
   price: 0
   cost: 0
   spawnTime: 0
-  initDropGold: 150
-  initDropExp: 300
-  effect: MonAttack2
+  initDropGold: 100
+  initDropExp: 350
+  effect: MonBom
   image: "\uC774\uD6C4 \uACB0\uC815"
   desc: 
+  isTower: 0
+  stars_3_CastleHp: 0
+  stars_3_reward: 0
+  stars_2_CastleHp: 0
+  stars_2_reward: 0
+  stars_1_reward: 0
+  repeat_Reward: 0

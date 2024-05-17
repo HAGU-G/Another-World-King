@@ -6,7 +6,7 @@ public class UISlotExpedition : MonoBehaviour
 {
     public Button button;
     public TextMeshProUGUI textName;
-    public CharacterInfos characterInfos = new();
+    public CharacterInfos characterInfos;
 
     public void SetData(CharacterInfos characterInfos)
     {

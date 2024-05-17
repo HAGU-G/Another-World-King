@@ -114,10 +114,7 @@ public class TowerAI : UnitBase
     public void SpawnUnit(CharacterInfos characterInfos)
     {
         var unit = Instantiate(characterRoot, transform.position, Quaternion.Euler(Vector3.up)).GetComponent<CharacterAI>();
-        var dress = Instantiate(characterInfos.dress, unit.transform);
-        unit.unitData = characterInfos.unitData;
-        unit.SetSkill(characterInfos.skillData);
-        unit.SetCounterSkill(characterInfos.counterSkillData);
+        unit.SetUnitData(characterInfos);
         unit.ResetUnit();
         unit.SetTower(this);
         unit.OnDead += () => { units.Remove(unit); };

@@ -12,29 +12,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5390eeabe2e0148bd1783116bb6660, type: 3}
   m_Name: 103
   m_EditorClassIdentifier: 
-  ignore: "\uAC15\uD654 \uC804\uC0AC"
+  ignore: "\uD761\uD608 \uD0F1\uCEE4"
   id: 103
-  division: 1
-  prefab: Mon_Warrior
-  isTower: 0
-  initHP: 100
+  division: 2
+  prefab: Mon_Bloody
+  initHP: 300
   useStartHP: 0
   initHPStart: 0
-  combatType: 0
-  initAttackDamage: 60
-  initAttackSpeed: 2
+  typeCounter: 
+  initAttackDamage: 30
+  initAttackSpeed: 1.5
   initAttackRange: 1
   initAttackEnemyCount: 0
   initAttackOrder: 1
   initAttackEnemyOrder: 01000000
-  skill: 0
-  initHeal: 0
+  skill: Drain_Skill
+  initHeal: 70
   initMoveSpeed: 80
   price: 0
   cost: 0
   spawnTime: 0
-  initDropGold: 70
-  initDropExp: 250
-  effect: MonAttack1
+  initDropGold: 200
+  initDropExp: 400
+  effect: MonAttack2
   image: "\uC774\uD6C4 \uACB0\uC815"
   desc: 
+  isTower: 0
+  stars_3_CastleHp: 0
+  stars_3_reward: 0
+  stars_2_CastleHp: 0
+  stars_2_reward: 0
+  stars_1_reward: 0
+  repeat_Reward: 0

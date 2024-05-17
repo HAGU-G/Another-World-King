@@ -1,25 +1,22 @@
 using System.Collections.Generic;
 using UnityEngine;
-public enum COMBAT_TYPE
-{
-    STOP_ON_HAVE_TARGET,
-    STOP_ON_ATTACK
-}
-public enum DIVISION
-{
-    NONE,
-    MELEE,
-    TANKER,
-    MARKSMAN,
-    HEALER,
-    MAGIC,
-    SPECIAL,
-}
+
 
 
 [CreateAssetMenu(fileName = "캐릭터 ID", menuName = "데이터 생성/캐릭터 정보")]
 public class UnitData : ScriptableObject
 {
+    public enum DIVISION
+    {
+        NONE,
+        MELEE,
+        TANKER,
+        MARKSMAN,
+        HEALER,
+        MAGIC,
+        SPECIAL,
+    }
+
     public string ignore; //Don't use in game
 
     //Init Stats
@@ -27,13 +24,10 @@ public class UnitData : ScriptableObject
     public DIVISION division;
     public string prefab = Strings.nonePrefab;
 
-    public bool isTower = false;
-
     public int initHP;
     public bool useStartHP = false;
     public int initHPStart;
 
-    public COMBAT_TYPE combatType;
     public string typeCounter;
     public int initAttackDamage;
     public float initAttackSpeed;
@@ -55,5 +49,13 @@ public class UnitData : ScriptableObject
     public string effect;
     public string image;
     public string desc;
+
+    public bool isTower = false;
+    public int stars_3_CastleHp;
+    public int stars_3_reward;
+    public int stars_2_CastleHp;
+    public int stars_2_reward;
+    public int stars_1_reward;
+    public int repeat_Reward;
 }
 

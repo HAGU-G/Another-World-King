@@ -86,7 +86,6 @@ public class UnitBase : MonoBehaviour
     public List<int> AttackEnemyOrder => unitData.initAttackEnemyOrder;
     public int AttackOrder => unitData.initAttackOrder;
     public int AttackEnemyCount => unitData.initAttackEnemyCount;
-    public COMBAT_TYPE CombatType => unitData.combatType;
 
     //etc
     public float MoveSpeed
@@ -131,12 +130,19 @@ public class UnitBase : MonoBehaviour
             return buffedStat * (1f + persentage);
         }
     }
-    public bool IsHealer => unitData.division == DIVISION.HEALER;
+    public bool IsHealer => unitData.division == UnitData.DIVISION.HEALER;
     public int Heal
     {
         get
         {
-            return unitData.initHeal;
+            float buffedStat = unitData.initHeal;
+            float persentage = 0f;
+            foreach (var buff in Buff)
+            {
+                buffedStat += buff.Value.skillData.heal * buff.Value.Count;
+                persentage += buff.Value.skillData.heal_P * buff.Value.Count;
+            }
+            return (int)Mathf.Ceil(buffedStat * (1f + persentage));
         }
     }
 
@@ -152,7 +158,7 @@ public class UnitBase : MonoBehaviour
     }
     public void SetCounterSkill(SkillData skill)
     {
-        Skill = skill;
+        CounterSkill = skill;
     }
     public void ApplyBuff(SkillData buff)
     {
@@ -160,9 +166,15 @@ public class UnitBase : MonoBehaviour
         {
             Buff.Add(buff.id, new SkillBase(buff));
         }
-
         if (Buff[buff.id].Apply())
             OnApplyBuff(buff);
+    }
+    public void ClearBuff(SkillData buff)
+    {
+        if(Buff.ContainsKey(buff.id))
+        {
+            Buff.Remove(buff.id);
+        }
     }
     public void OnApplyBuff(SkillData buff)
     {
@@ -208,8 +220,8 @@ public class UnitBase : MonoBehaviour
 
     public virtual void ResetUnit()
     {
-        hp = unitData.useStartHP ? unitData.initHPStart : MaxHP;
         Buff.Clear();
+        hp = unitData.useStartHP ? unitData.initHPStart : MaxHP;
         IsDead = false;
     }
 

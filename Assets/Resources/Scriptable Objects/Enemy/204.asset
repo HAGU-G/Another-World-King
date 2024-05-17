@@ -12,29 +12,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5390eeabe2e0148bd1783116bb6660, type: 3}
   m_Name: 204
   m_EditorClassIdentifier: 
-  ignore: "\uAC15\uD654 \uB9C8\uBC95\uC0AC"
+  ignore: "\uB300\uD3EC"
   id: 204
-  division: 5
-  prefab: Mon_Sorcerer
-  isTower: 0
-  initHP: 60
+  division: 3
+  prefab: Mon_Cannon
+  initHP: 200
   useStartHP: 0
   initHPStart: 0
-  combatType: 0
-  initAttackDamage: 50
-  initAttackSpeed: 2
-  initAttackRange: 2
-  initAttackEnemyCount: 2
-  initAttackOrder: 2
-  initAttackEnemyOrder: 0100000002000000
-  skill: Magic2_Skill
+  typeCounter: 102
+  initAttackDamage: 100
+  initAttackSpeed: 1
+  initAttackRange: 1
+  initAttackEnemyCount: 0
+  initAttackOrder: 1
+  initAttackEnemyOrder: 01000000
+  skill: 0
   initHeal: 0
   initMoveSpeed: 80
   price: 0
   cost: 0
   spawnTime: 0
   initDropGold: 150
-  initDropExp: 400
-  effect: MonMagic
+  initDropExp: 350
+  effect: MonCannon
   image: "\uC774\uD6C4 \uACB0\uC815"
   desc: 
+  isTower: 0
+  stars_3_CastleHp: 0
+  stars_3_reward: 0
+  stars_2_CastleHp: 0
+  stars_2_reward: 0
+  stars_1_reward: 0
+  repeat_Reward: 0

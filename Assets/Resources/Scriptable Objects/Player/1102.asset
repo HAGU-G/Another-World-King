@@ -12,19 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5390eeabe2e0148bd1783116bb6660, type: 3}
   m_Name: 1102
   m_EditorClassIdentifier: 
-  ignore: "\uD0F1\uCEE4Lv1"
+  ignore: "\uD0F1\uCEE4"
   id: 1102
   division: 2
-  prefab: Knight
-  isTower: 0
-  initHP: 200
+  prefab: Guardian
+  initHP: 400
   useStartHP: 0
   initHPStart: 0
-  combatType: 0
-  initAttackDamage: 40
+  typeCounter: 
+  initAttackDamage: 20
   initAttackSpeed: 2
   initAttackRange: 1
-  initAttackEnemyCount: 0
+  initAttackEnemyCount: 1
   initAttackOrder: 1
   initAttackEnemyOrder: 01000000
   skill: 0
@@ -37,4 +36,11 @@ MonoBehaviour:
   initDropExp: 0
   effect: Attack2
   image: "\uD0F1\uCEE4.jpg"
-  desc: Knight_explan
+  desc: Guardian_explan
+  isTower: 0
+  stars_3_CastleHp: 0
+  stars_3_reward: 0
+  stars_2_CastleHp: 0
+  stars_2_reward: 0
+  stars_1_reward: 0
+  repeat_Reward: 0

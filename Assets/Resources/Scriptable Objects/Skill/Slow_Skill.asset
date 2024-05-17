@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bba57ae605bac947a76553ac4f17e7d, type: 3}
   m_Name: Slow_Skill
   m_EditorClassIdentifier: 
-  ignore: "\uACF5\uC18D \uC2AC\uB85C\uC6B0"
+  ignore: "\uC704\uCE58"
   id: Slow_Skill
+  isCounterData: 0
   target: 1
-  nesting: 1
+  targetDivision: 0
+  nesting: 2
   duration: 0
   infinityDuration: 1
   doResetDurationOnApply: 0
@@ -27,6 +29,8 @@ MonoBehaviour:
   attackSpeed_P: 0
   attackRange: 0
   attackRange_P: 0
+  heal: 0
+  heal_P: 0
   moveSpeed: 0
   moveSpeed_P: 0
   dropGold: 0

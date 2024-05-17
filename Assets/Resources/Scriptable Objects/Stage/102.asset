@@ -16,11 +16,10 @@ MonoBehaviour:
   id: 102
   division: 0
   prefab: Brave
-  isTower: 1
   initHP: 1500
   useStartHP: 0
   initHPStart: 0
-  combatType: 0
+  typeCounter: 
   initAttackDamage: 0
   initAttackSpeed: 0
   initAttackRange: 0
@@ -38,3 +37,10 @@ MonoBehaviour:
   effect: 
   image: 
   desc: 
+  isTower: 1
+  stars_3_CastleHp: 1050
+  stars_3_reward: 40
+  stars_2_CastleHp: 750
+  stars_2_reward: 0
+  stars_1_reward: 0
+  repeat_Reward: 1

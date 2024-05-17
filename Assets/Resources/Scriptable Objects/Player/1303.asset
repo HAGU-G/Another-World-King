@@ -12,29 +12,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5390eeabe2e0148bd1783116bb6660, type: 3}
   m_Name: 1303
   m_EditorClassIdentifier: 
-  ignore: "\uAD11\uC5ED \uC131\uC9C1\uC790Lv1"
+  ignore: "\uC2A4\uD134"
   id: 1303
-  division: 4
-  prefab: Priest
-  isTower: 0
-  initHP: 60
+  division: 6
+  prefab: Shaman
+  initHP: 100
   useStartHP: 0
   initHPStart: 0
-  combatType: 0
-  initAttackDamage: 0
-  initAttackSpeed: 2.5
+  typeCounter: 105
+  initAttackDamage: 10
+  initAttackSpeed: 3
   initAttackRange: 3
-  initAttackEnemyCount: 2
-  initAttackOrder: 4
-  initAttackEnemyOrder: 0100000002000000
-  skill: Heal2_Skill
-  initHeal: 30
+  initAttackEnemyCount: 1
+  initAttackOrder: 2
+  initAttackEnemyOrder: 01000000
+  skill: Stun_Skill
+  initHeal: 0
   initMoveSpeed: 80
   price: 40
   cost: 300
-  spawnTime: 10
+  spawnTime: 15
   initDropGold: 0
   initDropExp: 0
-  effect: Heal2
-  image: "\uAD11\uC5ED \uC131\uC9C1\uC790.jpg"
-  desc: Priest_explan
+  effect: buff2
+  image: "\uC2A4\uD134.jpg"
+  desc: Shaman_explan
+  isTower: 0
+  stars_3_CastleHp: 0
+  stars_3_reward: 0
+  stars_2_CastleHp: 0
+  stars_2_reward: 0
+  stars_1_reward: 0
+  repeat_Reward: 0

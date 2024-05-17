@@ -45,9 +45,9 @@ public class UnitStatsDataEditor : Editor
 
         //전투
         EditorGUILayout.Space(10);
-        stats.division = (DIVISION)EditorGUILayout.EnumPopup("구분", stats.division);
+        stats.division = (UnitData.DIVISION)EditorGUILayout.EnumPopup("구분", stats.division);
         bool isHealer;
-        if (stats.division == DIVISION.HEALER)
+        if (stats.division == UnitData.DIVISION.HEALER)
             isHealer = true;
         else
             isHealer = false;
@@ -55,7 +55,6 @@ public class UnitStatsDataEditor : Editor
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.Space(10, false);
         EditorGUILayout.BeginVertical();
-        stats.combatType = (COMBAT_TYPE)EditorGUILayout.EnumPopup("전투 방식", stats.combatType);
         stats.skill = EditorGUILayout.TextField("스킬", stats.skill);
         if (isHealer)
             stats.initHeal = Mathf.Clamp(EditorGUILayout.IntField("힐량", stats.initHeal), 0, int.MaxValue);

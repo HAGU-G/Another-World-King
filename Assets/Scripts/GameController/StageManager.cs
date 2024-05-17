@@ -1,3 +1,7 @@
+using CsvHelper;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using UnityEditor;
 using UnityEngine;
 
@@ -14,6 +18,19 @@ public class Stage
     public int Repeat_Reward { get; set; }
 
 #if UNITY_EDITOR
+    public Stage() { }
+    public Stage(UnitData stage)
+    {
+        List = stage.ignore;
+        ID = stage.id;
+        Castle_Hp = stage.initHP;
+        Stars_3_CastleHp = stage.stars_3_CastleHp;
+        Stars_3_reward = stage.stars_3_reward;
+        Stars_2_CastleHp = stage.stars_2_CastleHp;
+        Stars_2_reward = stage.stars_2_reward;
+        Stars_1_reward = stage.stars_1_reward;
+        Repeat_Reward = stage.repeat_Reward;
+    }
     public void ToScriptable()
     {
         UnitData unitData;
@@ -30,6 +47,12 @@ public class Stage
         unitData.ignore = List;
         unitData.isTower = true;
         unitData.initHP = Castle_Hp;
+        unitData.stars_3_CastleHp = Stars_3_CastleHp;
+        unitData.stars_3_reward = Stars_3_reward;
+        unitData.stars_2_CastleHp = Stars_2_CastleHp;
+        unitData.stars_2_reward = Stars_2_reward;
+        unitData.stars_1_reward = Stars_1_reward;
+        unitData.repeat_Reward = Repeat_Reward;
 
         if (create)
         {
@@ -85,17 +108,21 @@ public class StageManager : MonoBehaviour
             int index = i;
             uiOnStage.buttonSummons[i].button.onClick.AddListener(() =>
             {
-                if (playerTower.CanSpawnUnit() && UseGold(uiOnStage.buttonSummons[index].CharacterInfos.unitData.cost))
+                if (uiOnStage.buttonSummons[index].cooldown.value <= uiOnStage.buttonSummons[index].cooldown.minValue
+                && playerTower.CanSpawnUnit()
+                && UseGold(uiOnStage.buttonSummons[index].CharacterInfos.unitData.cost))
+                {
                     playerTower.SpawnUnit(uiOnStage.buttonSummons[index].CharacterInfos);
+                    uiOnStage.buttonSummons[index].Summoned();
+                }
             });
         }
 
-        playerTower.unitData = Resources.Load<UnitData>(string.Format(Paths.resourcesStage, GameManager.Instance.SelectedStageID));
+        enemyTower.unitData = playerTower.unitData = Resources.Load<UnitData>(string.Format(Paths.resourcesStage, GameManager.Instance.SelectedStageID));
         playerTower.isPlayer = true;
         playerTower.ResetUnit();
         playerTower.OnDead += Defeat;
 
-        enemyTower.unitData = Resources.Load<UnitData>(string.Format(Paths.resourcesStage, GameManager.Instance.SelectedStageID));
         enemyTower.isPlayer = false;
         enemyTower.ResetUnit();
         enemyTower.OnDead += Victory;
@@ -103,7 +130,7 @@ public class StageManager : MonoBehaviour
 
     private void Update()
     {
-        if(Time.time >= goldInterval + 2f)
+        if (Time.time >= goldInterval + 2f)
         {
             goldInterval = Time.time;
             Gold += 100;
@@ -155,14 +182,15 @@ public class StageManager : MonoBehaviour
     public void Victory()
     {
         int star;
-        int flag;
+        int prevStar = 0;
+        int flag = 0;
 
         switch (playerTower.HP)
         {
-            case int hp when hp >= DataTableManager.Stages[GameManager.Instance.SelectedStageID].Stars_3_CastleHp:
+            case int hp when hp >= playerTower.unitData.stars_3_CastleHp:
                 star = 3;
                 break;
-            case int hp when hp >= DataTableManager.Stages[GameManager.Instance.SelectedStageID].Stars_2_CastleHp:
+            case int hp when hp >= playerTower.unitData.stars_2_CastleHp:
                 star = 2;
                 break;
             default:
@@ -170,20 +198,22 @@ public class StageManager : MonoBehaviour
                 break;
         };
 
-        if (GameManager.Instance.StageClearInfo.ContainsKey(GameManager.Instance.SelectedStageID))
+        if (GameManager.Instance.StageClearInfo.ContainsKey(playerTower.unitData.id))
         {
-            flag = DataTableManager.Stages[GameManager.Instance.SelectedStageID].Repeat_Reward;
+            prevStar = GameManager.Instance.StageClearInfo[playerTower.unitData.id];
         }
-        else
+
+        for (int i = prevStar + 1; i <= star; i++)
         {
-            flag = star switch
+            flag += i switch
             {
-                3 => DataTableManager.Stages[GameManager.Instance.SelectedStageID].Stars_3_reward,
-                2 => DataTableManager.Stages[GameManager.Instance.SelectedStageID].Stars_2_reward,
-                _ => DataTableManager.Stages[GameManager.Instance.SelectedStageID].Stars_1_reward,
+                3 => playerTower.unitData.stars_3_reward - playerTower.unitData.stars_2_reward,
+                2 => playerTower.unitData.stars_2_reward - playerTower.unitData.stars_1_reward,
+                _ => playerTower.unitData.stars_1_reward
             };
         }
-        GameManager.Instance.StageClear(GameManager.Instance.SelectedStageID, star, flag);
+
+        GameManager.Instance.StageClear(GameManager.Instance.SelectedStageID, star, prevStar == 3 ? playerTower.unitData.repeat_Reward : flag);
         GameManager.Instance.LoadingScene(Scenes.devMain);
     }
 }

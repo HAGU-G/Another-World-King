@@ -8,7 +8,6 @@ public static class DataTableManager
 {
     public static Dictionary<string, Pattern> Patterns { get; private set; } = new();
     public static Dictionary<int, MonsterAppare> MonsterAppares { get; private set; } = new();
-    public static Dictionary<int, Stage> Stages { get; private set; } = new();
     public static int MinStageID { get; private set; } = int.MaxValue;
     public static int MaxStageID { get; private set; } = int.MinValue;
 
@@ -58,17 +57,11 @@ public static class DataTableManager
         }
 
         //Stages
-        textAsset = Resources.Load<TextAsset>(Paths.resourcesStageTable);
-        using (var reader = new StringReader(textAsset.text))
-        using (var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture))
+        var asset = Resources.LoadAll<UnitData>(string.Format(Paths.resourcesStage, string.Empty));
+        foreach (var stage in asset)
         {
-            var records = csvReader.GetRecords<Stage>();
-            foreach (var record in records)
-            {
-                Stages.Add(record.ID, record);
-                MaxStageID = record.ID > MaxStageID ? record.ID : MaxStageID;
-                MinStageID = record.ID < MinStageID ? record.ID : MinStageID;
-            }
+            MaxStageID = stage.id > MaxStageID ? stage.id : MaxStageID;
+            MinStageID = stage.id < MinStageID ? stage.id : MinStageID;
         }
     }
 }

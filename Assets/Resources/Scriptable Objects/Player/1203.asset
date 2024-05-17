@@ -12,29 +12,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5390eeabe2e0148bd1783116bb6660, type: 3}
   m_Name: 1203
   m_EditorClassIdentifier: 
-  ignore: "\uAC15\uD654 \uAD81\uC218Lv1"
+  ignore: "\uB300\uD3EC"
   id: 1203
   division: 3
-  prefab: Hunter
-  isTower: 0
-  initHP: 60
+  prefab: Cannon
+  initHP: 200
   useStartHP: 0
   initHPStart: 0
-  combatType: 0
-  initAttackDamage: 15
-  initAttackSpeed: 0.3
-  initAttackRange: 2
+  typeCounter: 102
+  initAttackDamage: 100
+  initAttackSpeed: 1
+  initAttackRange: 1
   initAttackEnemyCount: 0
-  initAttackOrder: 2
+  initAttackOrder: 1
   initAttackEnemyOrder: 01000000
   skill: 0
   initHeal: 0
   initMoveSpeed: 80
-  price: 30
-  cost: 100
-  spawnTime: 5
+  price: 40
+  cost: 300
+  spawnTime: 15
   initDropGold: 0
   initDropExp: 0
-  effect: Arrow1
-  image: "\uAC15\uD654 \uAD81\uC218.jpg"
-  desc: Hunter_explan
+  effect: Cannon1
+  image: "\uB300\uD3EC.jpg"
+  desc: Cannon_explan
+  isTower: 0
+  stars_3_CastleHp: 0
+  stars_3_reward: 0
+  stars_2_CastleHp: 0
+  stars_2_reward: 0
+  stars_1_reward: 0
+  repeat_Reward: 0
