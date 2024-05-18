@@ -315,6 +315,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4118780280986687192, guid: 424c3ca75c844734f94aa737d52684d5, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4250476592371463329, guid: 424c3ca75c844734f94aa737d52684d5, type: 3}
       propertyPath: m_Name
       value: SlotCharacter
