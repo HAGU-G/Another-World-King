@@ -28,6 +28,6 @@ public class UIWindowMain : UIWindow
     public override void Refresh()
     {
         flags.text = GameManager.Instance.Flags.ToString();
-        currentStage.text = (GameManager.Instance.SelectedStageID - 100).ToString();
+        currentStage.text = DataTableManager.GetString(DataTableManager.Stages[GameManager.Instance.SelectedStageID].String_ID);
     }
 }

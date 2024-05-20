@@ -10,6 +10,9 @@ public static class DataTableManager
     public static Dictionary<int, MonsterAppare> MonsterAppares { get; private set; } = new();
     public static Dictionary<int, List<int>> StageUnlockID { get; private set; } = new();
     public static Dictionary<int, Upgrade> Upgrades { get; private set; } = new();
+
+    private static Dictionary<string, string> stringTable = new();
+    public static Dictionary<int, Stage> Stages { get; private set; } = new();
     public static int MinStageID { get; private set; } = int.MaxValue;
     public static int MaxStageID { get; private set; } = int.MinValue;
 
@@ -65,6 +68,7 @@ public static class DataTableManager
             MaxStageID = stage.id > MaxStageID ? stage.id : MaxStageID;
             MinStageID = stage.id < MinStageID ? stage.id : MinStageID;
         }
+        MinStageID++;
 
         //StageUnlockID
         textAsset = Resources.Load<TextAsset>(Paths.resourcesStageTable);
@@ -81,6 +85,7 @@ public static class DataTableManager
                     record.Reward_Char3,
                     record.Reward_Char4
                 };
+                Stages.Add(record.ID, record);
                 StageUnlockID.Add(record.ID, ids);
             }
         }
@@ -93,9 +98,30 @@ public static class DataTableManager
             var records = csvReader.GetRecords<Upgrade>();
             foreach (var record in records)
             {
-               
                 Upgrades.Add(record.ID, record);
             }
         }
+
+        //StringTable
+        textAsset = Resources.Load<TextAsset>(Paths.resourcesStringTable);
+        using (var reader = new StringReader(textAsset.text))
+        using (var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture))
+        {
+            var desc = new { List = string.Empty, String_ID = string.Empty, String_Info = string.Empty };
+            var records = csvReader.GetRecords(desc);
+            foreach (var record in records)
+            {
+                stringTable.Add(record.String_ID, record.String_Info);
+            }
+        }
+    }
+
+
+    public static string GetString(string id)
+    {
+        if (stringTable.ContainsKey(id))
+            return stringTable[id];
+        else
+            return string.Empty;
     }
 }

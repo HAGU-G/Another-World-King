@@ -1,4 +1,4 @@
-List,Char_ID,Char_Info,,Char_ID
+List,String_ID,String_Info,,Char_ID
 전사,Warrior,워리어,,
 탱커,Guardian,가디언,,
 광부,Mine,마인,,
@@ -34,3 +34,10 @@ List,Char_ID,Char_Info,,Char_ID
 성직자,Priest_explan,여신의 명령을 직접 대행하는 고위 성직자. 마족을 세상에서 멸족시키기 위한 여신의 명령을 수행하기 위해 노력한다.,,
 공속 슬로우,Witch_explan,세상이 거부하는 저주 마법을 극한까지 외운 마법사. 세상은 자신을 거부했지만 자신은 세상을 구하기 위해 전쟁에 나선다.,,
 스턴,Shaman_explan,마법을 이용해서 물리력을 행사하는 마법사. 물리 마법을 이용해서 상대를 기절시킨다.,,
+스테이지1,Stage_1,페르시아 왕국,,
+스테이지2,Stage_2,평화로운 숲 길,,
+스테이지3,Stage_3,별 빛 해변,,
+스테이지4,Stage_4,축축한 습지,,
+스테이지5,Stage_5,불길한 사막,,
+스테이지6,Stage_6,마왕의 영역,,
+스테이지7,Stage_7,최후의 결전,,

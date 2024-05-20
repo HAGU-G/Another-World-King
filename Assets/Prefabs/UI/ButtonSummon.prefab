@@ -139,7 +139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cost: {fileID: 6126124988335884515}
-  level: {fileID: 4929896652242417780}
+  characterName: {fileID: 4929896652242417780}
   button: {fileID: 7779149641638129677}
   cooldown: {fileID: 6040256043185575955}
   outline: {fileID: 8493009547401341924}
@@ -340,7 +340,7 @@ GameObject:
   - component: {fileID: 1003649475989510040}
   - component: {fileID: 4929896652242417780}
   m_Layer: 5
-  m_Name: Level
+  m_Name: CharName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

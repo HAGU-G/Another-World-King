@@ -17,7 +17,7 @@ public class UnitData_Csv
     [Index(8)] public string Effect { get; set; }
     [Index(9)] public string Image { get; set; }
     [Index(10)] public string Skill { get; set; }
-    [Index(11)] public string Char_ID { get; set; }
+    [Index(11)] public string String_ID { get; set; }
     [Ignore] public int Heal { get; set; }
     [Ignore] public int EnemyCount { get; set; }
     [Ignore] public string TypeCounter { get; set; }
@@ -52,7 +52,7 @@ public class UnitData_Csv
         unitData.image = Image;
         unitData.initAttackOrder = Chr_Position;
         unitData.initHeal = Heal;
-        unitData.prefab = Char_ID;
+        unitData.prefab = String_ID;
         unitData.typeCounter = TypeCounter; ;
         if (EnemyCount > 1)
         {
@@ -79,7 +79,7 @@ public class UnitData_Csv
         Chr_Position = unitData.initAttackOrder;
         Heal = unitData.initHeal;
         EnemyCount = unitData.initAttackEnemyCount;
-        Char_ID = unitData.prefab;
+        String_ID = unitData.prefab;
     }
 
     public UnitData_Csv() { }

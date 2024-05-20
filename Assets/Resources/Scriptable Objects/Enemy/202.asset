@@ -15,7 +15,7 @@ MonoBehaviour:
   ignore: "\uB9C8\uBC95\uC0AC"
   id: 202
   division: 5
-  prefab: Mon_Magician
+  prefab: Mon_Sorcerer
   initHP: 100
   useStartHP: 0
   initHPStart: 0

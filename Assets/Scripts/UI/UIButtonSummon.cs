@@ -5,14 +5,13 @@ using UnityEngine.UI;
 public class UIButtonSummon : MonoBehaviour
 {
     public TextMeshProUGUI cost;
-    public TextMeshProUGUI level;
+    public TextMeshProUGUI characterName;
     public Button button;
     public CharacterInfos CharacterInfos { get; private set; } = new();
     public Slider cooldown;
     public Outline outline;
     public int UpgradeExpDamage { get; private set; }
     public int UpgradeExpHP { get; private set; }
-
     public bool IsUpgraded { get; set; }
 
     public void SetData(CharacterInfos characterInfos)
@@ -28,7 +27,7 @@ public class UIButtonSummon : MonoBehaviour
         }
         CharacterInfos.SetData(characterInfos.unitData);
         cost.text = CharacterInfos.unitData.cost.ToString();
-        level.text = CharacterInfos.unitData.ignore;
+        characterName.text = DataTableManager.GetString(CharacterInfos.unitData.prefab);
         cooldown.maxValue = CharacterInfos.unitData.spawnTime;
         cooldown.value = 0f;
 

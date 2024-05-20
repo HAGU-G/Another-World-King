@@ -15,7 +15,7 @@ MonoBehaviour:
   ignore: "\uD0F1\uCEE4"
   id: 102
   division: 2
-  prefab: Mon_Knight
+  prefab: Mon_Guardian
   initHP: 400
   useStartHP: 0
   initHPStart: 0

@@ -16,6 +16,7 @@ public class Stage
     public int Reward_Char2 { get; set; }
     public int Reward_Char3 { get; set; }
     public int Reward_Char4 { get; set; }
+    public string String_ID {  get; set; }
 
 
 #if UNITY_EDITOR
@@ -31,6 +32,7 @@ public class Stage
         Stars_2_reward = stage.stars_2_reward;
         Stars_1_reward = stage.stars_1_reward;
         Repeat_Reward = stage.repeat_Reward;
+        String_ID = stage.prefab;
     }
     public void ToScriptable()
     {
@@ -54,6 +56,7 @@ public class Stage
         unitData.stars_2_reward = Stars_2_reward;
         unitData.stars_1_reward = Stars_1_reward;
         unitData.repeat_Reward = Repeat_Reward;
+        unitData.prefab = String_ID;
 
         if (create)
         {
@@ -115,8 +118,8 @@ public class StageManager : MonoBehaviour
 
     private void Start()
     {
-        Gold = startGold;
-        Exp = startExp;
+        Gold = startGold +100000;
+        Exp = startExp + 100000;
         goldInterval = Time.time;
         SetSummonButton();
         SetUpgradeToggle();

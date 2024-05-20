@@ -1,5 +1,5 @@
 List,ID,Division,Pattern_1,Waiting_Time_1,Weight_1,Pattern_2,Waiting_Time_2,Weight_2,Pattern_3,Waiting_Time_3,Weight_3,Pattern_4,Waiting_Time_4,Weight_4
-튜토리얼1_1,101,1,Pattern1,2,5,Pattern2,5,3,Pattern7,5,2,0,0,0
+튜토리얼1_1,101,1,Pattern1,4,5,Pattern2,5,3,Pattern7,5,2,0,0,0
 스테이지1_1,102,1,Pattern1,2,5,Pattern2,5,3,Pattern7,5,2,0,0,0
 스테이지1_2,202,2,Pattern1,2,4,Pattern2,5,4,Pattern7,5,3,0,0,0
 스테이지1_3,302,3,Pattern1,2,3,Pattern16,5,3,Pattern12,5,2,Pattern8,5,2

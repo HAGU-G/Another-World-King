@@ -22,6 +22,7 @@ public static class Paths
     public static readonly string resourcesMonAppareTable = "DataTables/MonAppare_Table";
     public static readonly string resourcesStageTable = "DataTables/Stage_Table";
     public static readonly string resourcesUpgradeTable = "DataTables/Upgrade_Table";
+    public static readonly string resourcesStringTable = "DataTables/String_Table";
 
 
 #if UNITY_EDITOR
