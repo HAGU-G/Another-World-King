@@ -118,8 +118,8 @@ public class StageManager : MonoBehaviour
 
     private void Start()
     {
-        Gold = startGold +100000;
-        Exp = startExp + 100000;
+        Gold = startGold;
+        Exp = startExp;
         goldInterval = Time.time;
         SetSummonButton();
         SetUpgradeToggle();
