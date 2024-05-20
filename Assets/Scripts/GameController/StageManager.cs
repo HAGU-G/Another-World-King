@@ -73,14 +73,14 @@ public class Stage
 public class StageManager : MonoBehaviour
 {
     public UIOnStage uiOnStage;
-    #region Player
-    public TowerAI playerTower;
-    private int gold;
-    private int exp;
     public int startGold;
     public int startExp;
     public int getGoldPerSeconds;
     public int getExpPerSeconds;
+    #region Player
+    public TowerAI playerTower;
+    private int gold;
+    private int exp;
 
     public int Gold
     {

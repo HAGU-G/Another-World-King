@@ -31,7 +31,7 @@ public class CharacterAI : UnitBase
     private float lastAttackTime;
     private float alphaReduceTime;
     private bool isCounterBuffed;
-    private bool isSelfDestruct;
+    public bool IsSelfDestruct { get; private set; }
 
     public UNIT_STATE UnitState { get; private set; }
 
@@ -99,7 +99,7 @@ public class CharacterAI : UnitBase
         }
 
         //ÀÚÆø
-        if (isSelfDestruct)
+        if (IsSelfDestruct)
         {
             if (blocks.Find(x => x.IsTower) != null)
                 Attack();
@@ -297,7 +297,7 @@ public class CharacterAI : UnitBase
         if (enemyInRange.Contains(Tower.enemyTower))
             targets.Add(Tower.enemyTower);
 
-        isSelfDestruct = (targets.Count == 1 && targets[0].IsTower);
+        IsSelfDestruct = (targets.Count == 1 && targets[0].IsTower);
     }
 
     protected virtual void Attack()
@@ -323,6 +323,7 @@ public class CharacterAI : UnitBase
     {
         bool towerAttacked = false;
 
+        TargetFiltering();
         if (IsHealer)
         {
             if (GetOrder() == 1 && targets != null && targets.Count == 1 && targets[0].IsTower)
