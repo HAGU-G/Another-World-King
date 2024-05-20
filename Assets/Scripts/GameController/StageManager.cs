@@ -16,6 +16,11 @@ public class Stage
     public int Stars_2_reward { get; set; }
     public int Stars_1_reward { get; set; }
     public int Repeat_Reward { get; set; }
+    public int Reward_Char1 { get; set; }
+    public int Reward_Char2 { get; set; }
+    public int Reward_Char3 { get; set; }
+    public int Reward_Char4 { get; set; }
+
 
 #if UNITY_EDITOR
     public Stage() { }

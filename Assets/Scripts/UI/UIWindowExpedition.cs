@@ -78,10 +78,11 @@ public class UIWindowExpedition : UIWindow
         UnitData[] characters = Resources.LoadAll<UnitData>(string.Format(Paths.resourcesPlayer, string.Empty));
         for (int i = 0; i < characters.Length; i++)
         {
+#if !UNITY_EDITOR
             if (!GameManager.Instance.purchasedID.Contains(characters[i].id)
                 || characters[i].id >= 2000)
                 continue;
-
+#endif
             var characterInfos = new CharacterInfos();
             characterInfos.SetData(characters[i]);
 

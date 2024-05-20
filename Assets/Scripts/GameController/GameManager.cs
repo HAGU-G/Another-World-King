@@ -56,16 +56,6 @@ public class GameManager : MonoBehaviour
         SelectedStageID = DataTableManager.MinStageID;
 
         //TESTCODE
-        if (!unlockedID.Contains(1101))
-            unlockedID.Add(1101);
-        if (!unlockedID.Contains(1102))
-            unlockedID.Add(1102);
-        if (!unlockedID.Contains(1201))
-            unlockedID.Add(1201);
-        if (!unlockedID.Contains(1301))
-            unlockedID.Add(1301);
-        if (!unlockedID.Contains(1202))
-            unlockedID.Add(1202);
 
         flags = int.MaxValue / 2;
     }
@@ -119,44 +109,21 @@ public class GameManager : MonoBehaviour
         return Expedition[index];
     }
 
-    public void StageClear(int index, int star, int flag)
+    public void StageClear(int stageID, int star, int flag)
     {
-        if (StageClearInfo.ContainsKey(index))
-            StageClearInfo[index] = StageClearInfo[index] < star ? star : StageClearInfo[index];
+        if (StageClearInfo.ContainsKey(stageID))
+            StageClearInfo[stageID] = StageClearInfo[stageID] < star ? star : StageClearInfo[stageID];
         else
-            StageClearInfo.Add(index, star);
+            StageClearInfo.Add(stageID, star);
         flags += flag;
 
-        switch (index)
+        if (DataTableManager.StageUnlockID.ContainsKey(stageID))
         {
-            case 102:
-                if (!unlockedID.Contains(1103))
-                    unlockedID.Add(1103);
-                if (!unlockedID.Contains(1104))
-                    unlockedID.Add(1104);
-                if (!unlockedID.Contains(1203))
-                    unlockedID.Add(1203);
-                if (!unlockedID.Contains(1302))
-                    unlockedID.Add(1302);
-                break;
-            case 103:
-                if (!unlockedID.Contains(1204))
-                    unlockedID.Add(1204);
-                if (!unlockedID.Contains(1303))
-                    unlockedID.Add(1303);
-                break;
-            case 104:
-                if (!unlockedID.Contains(1106))
-                    unlockedID.Add(1106);
-                if (!unlockedID.Contains(1107))
-                    unlockedID.Add(1107);
-                break;
-            case 105:
-                if (!unlockedID.Contains(1108))
-                    unlockedID.Add(1108);
-                if (!unlockedID.Contains(1109))
-                    unlockedID.Add(1109);
-                break;
+            foreach (var charID in DataTableManager.StageUnlockID[stageID])
+            {
+                if (!unlockedID.Contains(charID))
+                    unlockedID.Add(charID);
+            }
         }
     }
 

@@ -437,7 +437,8 @@ public class CharacterAI : UnitBase
             SetIsBlocked(true, character);
         }
         else if (UnitState == UNIT_STATE.KNOCKBACK
-            && character.isPlayer == isPlayer)
+            && character.isPlayer == isPlayer
+            && character.UnitState != UnitState)
         {
             Stop();
         }
@@ -455,7 +456,8 @@ public class CharacterAI : UnitBase
             SetIsBlocked(true, character);
         }
         else if (UnitState == UNIT_STATE.KNOCKBACK
-            && character.isPlayer == isPlayer)
+            && character.isPlayer == isPlayer
+            && character.UnitState != UnitState)
         {
             Stop();
         }
@@ -477,7 +479,6 @@ public class CharacterAI : UnitBase
     {
         UnitState = UNIT_STATE.KNOCKBACK;
         SetAnimation(AnimatorTriggers.cantAct);
-        Stop();
         rb.velocity = Vector2.left * -transform.localScale.x * 10f;
         alphaReduceTime = Time.time;
         if (CounterSkill != null)

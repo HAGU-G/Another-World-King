@@ -23,7 +23,7 @@ MonoBehaviour:
   initAttackDamage: 999
   initAttackSpeed: 3
   initAttackRange: 1
-  initAttackEnemyCount: 0
+  initAttackEnemyCount: 1
   initAttackOrder: 1
   initAttackEnemyOrder: 01000000
   skill: 0
