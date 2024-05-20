@@ -16,6 +16,8 @@ MonoBehaviour:
   id: Fast_Skill
   isCounterData: 0
   target: 1
+  applyDivision: 0
+  applyCharID: 0
   targetDivision: 0
   nesting: 3
   duration: 0

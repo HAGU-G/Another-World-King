@@ -19,11 +19,11 @@ MonoBehaviour:
   initHP: 100
   useStartHP: 0
   initHPStart: 0
-  typeCounter: 105
+  typeCounter: 106
   initAttackDamage: 10
   initAttackSpeed: 3
   initAttackRange: 3
-  initAttackEnemyCount: 1
+  initAttackEnemyCount: 0
   initAttackOrder: 2
   initAttackEnemyOrder: 01000000
   skill: Stun_Skill

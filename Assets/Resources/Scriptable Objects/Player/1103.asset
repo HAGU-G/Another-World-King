@@ -23,7 +23,7 @@ MonoBehaviour:
   initAttackDamage: 20
   initAttackSpeed: 1
   initAttackRange: 1
-  initAttackEnemyCount: 1
+  initAttackEnemyCount: 0
   initAttackOrder: 1
   initAttackEnemyOrder: 01000000
   skill: Gold_Skill

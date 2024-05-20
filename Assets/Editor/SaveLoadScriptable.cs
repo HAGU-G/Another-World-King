@@ -24,9 +24,10 @@ public class SaveLoadScriptable
 
     [MenuItem("데이터테이블/불러오기/아군 캐릭터, 스킬")]
     public static void LoadPlayerCharacters() => LoadPlayerCharacters(false);
-    public static Dictionary<string, Skill_Csv> LoadPlayerCharacters(bool loadAll)
+    public static (Dictionary<string, Skill_Csv>, Dictionary<string, Counter_Csv>) LoadPlayerCharacters(bool loadAll)
     {
         var skills = LoadSkills();
+        var counters = LoadCounters();
         var textAsset = Resources.Load<TextAsset>(Paths.resourcesCharTable);
 
         AssetDatabase.DeleteAsset(
@@ -37,6 +38,7 @@ public class SaveLoadScriptable
         AssetDatabase.Refresh();
         AssetDatabase.CreateFolder(Paths.folderScriptableObjects, "Player");
         AssetDatabase.Refresh();
+
 
         int count = 0;
         using (var reader = new StringReader(textAsset.text))
@@ -52,32 +54,23 @@ public class SaveLoadScriptable
                     record.Heal = skills[record.Skill].Hp_Healing;
                     record.EnemyCount = skills[record.Skill].Wide_Area_Range;
                 }
-                switch ((UnitData.DIVISION)record.Division)
+                foreach (var counter in counters)
                 {
-                    case UnitData.DIVISION.MELEE:
-                        record.TypeCounter = "101";
-                        break;
-                    case UnitData.DIVISION.TANKER:
-                        break;
-                    case UnitData.DIVISION.MARKSMAN:
-                        record.TypeCounter = "102";
-                        break;
-                    case UnitData.DIVISION.HEALER:
-                        record.TypeCounter = "104";
-                        break;
-                    case UnitData.DIVISION.MAGIC:
-                        record.TypeCounter = "103";
-                        break;
-                    case UnitData.DIVISION.SPECIAL:
-                        record.TypeCounter = "105";
-                        break;
+                    if (counter.Value.Char_ID != 0 && record.ID == counter.Value.Char_ID)
+                    {
+                        record.TypeCounter = counter.Value.ID;
+                    }
+                    else if (counter.Value.Division != 0 && record.Division == counter.Value.Division)
+                    {
+                        record.TypeCounter = counter.Value.ID;
+                    }
                 }
 
                 record.ToScriptable(true);
             }
         }
         Debug.Log($"아군 캐릭터 {count}개 로드 완료.");
-        return loadAll ? skills : null;
+        return loadAll ? (skills, counters) : (null, null);
     }
 
 
@@ -104,11 +97,14 @@ public class SaveLoadScriptable
     }
 
     [MenuItem("데이터테이블/불러오기/적 캐릭터, 스킬")]
-    public static void LoadEnemyCharacters() => LoadEnemyCharacters(null);
-    public static void LoadEnemyCharacters(Dictionary<string, Skill_Csv> skills = null)
+    public static void LoadEnemyCharacters() => LoadEnemyCharacters((null, null));
+    public static void LoadEnemyCharacters((Dictionary<string, Skill_Csv>, Dictionary<string, Counter_Csv>) datas)
     {
-        if (skills == null)
-            skills = LoadSkills();
+        if (datas.Item1 == null)
+            datas.Item1 = LoadSkills();
+        if (datas.Item2 == null)
+            datas.Item2 = LoadCounters();
+
         var textAsset = Resources.Load<TextAsset>(Paths.resourcesMonTable);
 
         AssetDatabase.DeleteAsset(
@@ -129,30 +125,21 @@ public class SaveLoadScriptable
             {
                 count++;
                 if (record.Skill != Strings.zero
-                    && skills.ContainsKey(record.Skill))
+                    && datas.Item1.ContainsKey(record.Skill))
                 {
-                    record.Heal = skills[record.Skill].Hp_Healing;
-                    record.EnemyCount = skills[record.Skill].Wide_Area_Range;
+                    record.Heal = datas.Item1[record.Skill].Hp_Healing;
+                    record.EnemyCount = datas.Item1[record.Skill].Wide_Area_Range;
                 }
-                switch ((UnitData.DIVISION)record.Division)
+                foreach (var counter in datas.Item2)
                 {
-                    case UnitData.DIVISION.MELEE:
-                        record.TypeCounter = "101";
-                        break;
-                    case UnitData.DIVISION.TANKER:
-                        break;
-                    case UnitData.DIVISION.MARKSMAN:
-                        record.TypeCounter = "102";
-                        break;
-                    case UnitData.DIVISION.HEALER:
-                        record.TypeCounter = "104";
-                        break;
-                    case UnitData.DIVISION.MAGIC:
-                        record.TypeCounter = "103";
-                        break;
-                    case UnitData.DIVISION.SPECIAL:
-                        record.TypeCounter = "105";
-                        break;
+                    if (counter.Value.Char_ID != 0 && record.ID == counter.Value.Char_ID)
+                    {
+                        record.TypeCounter = counter.Value.ID;
+                    }
+                    else if (counter.Value.Division != 0 && record.Division == counter.Value.Division)
+                    {
+                        record.TypeCounter = counter.Value.ID;
+                    }
                 }
                 record.ToScriptable(false);
             }
@@ -264,22 +251,6 @@ public class SaveLoadScriptable
             }
         }
         Debug.Log($"스킬 {count}개 로드 완료.");
-
-        //상성
-        textAsset = Resources.Load<TextAsset>(Paths.resourcesCounterTable);
-
-        count = 0;
-        using (var reader = new StringReader(textAsset.text))
-        using (var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture))
-        {
-            var records = csvReader.GetRecords<Counter_Csv>();
-            foreach (var record in records)
-            {
-                count++;
-                record.ToScriptable();
-            }
-        }
-        Debug.Log($"상성 {count}개 로드 완료.");
         return skills;
     }
 
@@ -324,4 +295,42 @@ public class SaveLoadScriptable
         Debug.Log($"상성 {count}개 저장 완료.");
         AssetDatabase.Refresh();
     }
+
+    public static Dictionary<string, Counter_Csv> LoadCounters()
+    {
+        var textAsset = Resources.Load<TextAsset>(Paths.resourcesCounterTable);
+
+        AssetDatabase.DeleteAsset(
+            string.Concat(
+                Paths.folderResources,
+                string.Format(Paths.resourcesCounter, string.Empty)
+                ));
+        AssetDatabase.Refresh();
+        AssetDatabase.CreateFolder(Paths.folderScriptableObjects, "Counter");
+        AssetDatabase.Refresh();
+
+        int count = 0;
+        var counters = new Dictionary<string, Counter_Csv>();
+        using (var reader = new StringReader(textAsset.text))
+        using (var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture))
+        {
+            var records = csvReader.GetRecords<Counter_Csv>();
+            foreach (var record in records)
+            {
+                count++;
+                if (!counters.ContainsKey(record.ID))
+                    counters.Add(record.ID, record);
+                record.ToScriptable();
+            }
+        }
+        Debug.Log($"스킬 {count}개 로드 완료.");
+        return counters;
+    }
+
+    public static void SaveCounters()
+    {
+
+    }
+
+
 }

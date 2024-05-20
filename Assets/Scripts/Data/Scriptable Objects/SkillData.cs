@@ -18,6 +18,9 @@ public class SkillData : ScriptableObject
     public string id;
     public bool isCounterData;
     public TARGET target;
+
+    public UnitData.DIVISION applyDivision;
+    public int applyCharID;
     public UnitData.DIVISION targetDivision;
 
     public int nesting = 1;

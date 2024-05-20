@@ -25,6 +25,8 @@ public static class Paths
 #if UNITY_EDITOR
     public static readonly string folderScriptableObjects = "Assets/Resources/Scriptable Objects";
 
+    public static readonly string resourcesCounter = "Scriptable Objects/Counter/{0}";
+
     public static readonly string resourcesDebugStat = "Prefabs/Debug/DebugStat";
 
     public static readonly string resourcesMonTable = "DataTables/Mon_Table";

@@ -1,10 +1,6 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
-using static CharacterAI;
-using static UnityEngine.GraphicsBuffer;
-using static UnityEngine.UI.CanvasScaler;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class CharacterAI : UnitBase
@@ -32,7 +28,8 @@ public class CharacterAI : UnitBase
 
     private float lastAttackTime;
     private float alphaReduceTime;
-    private bool counterBuffed;
+    private bool isCounterBuffed;
+    private bool isSelfDestruct;
 
     public UNIT_STATE UnitState { get; private set; }
 
@@ -99,12 +96,24 @@ public class CharacterAI : UnitBase
             return;
         }
 
+        //ÀÚÆø
+        if (isSelfDestruct)
+        {
+            if (blocks.Find(x => x.IsTower) != null)
+                Attack();
+            else
+                Move();
+            return;
+        }
+
+        //°ø°Ý
         if (Time.time >= lastAttackTime + AttackSpeed)
             Attack();
         else if (blocks.Count > 0)
             Idle();
         else
             Move();
+
     }
 
     public void SetAnimation(string trigger)
@@ -204,7 +213,7 @@ public class CharacterAI : UnitBase
         if (CounterSkill != null)
         {
             ClearBuff(CounterSkill);
-            counterBuffed = false;
+            isCounterBuffed = false;
         }
     }
 
@@ -281,6 +290,8 @@ public class CharacterAI : UnitBase
 
         if (enemyInRange.Contains(Tower.enemyTower))
             targets.Add(Tower.enemyTower);
+
+        isSelfDestruct = (targets.Count == 1 && targets[0].IsTower);
     }
 
     protected virtual void Attack()
@@ -298,7 +309,7 @@ public class CharacterAI : UnitBase
             && targets.Find(x => x.unitData.division == CounterSkill.targetDivision) != null)
         {
             ApplyBuff(CounterSkill);
-            counterBuffed = true;
+            isCounterBuffed = true;
         }
     }
 
@@ -339,7 +350,7 @@ public class CharacterAI : UnitBase
                 }
                 else
                 {
-                    if (counterBuffed && target.unitData.division != CounterSkill.targetDivision)
+                    if (isCounterBuffed && target.unitData.division != CounterSkill.targetDivision)
                         ClearBuff(CounterSkill);
 
                     target.Damaged(AttackDamage);
@@ -353,7 +364,7 @@ public class CharacterAI : UnitBase
                         && target.unitData.division == CounterSkill.targetDivision)
                         target.ApplyBuff(CounterSkill);
 
-                    if (counterBuffed && target.unitData.division != CounterSkill.targetDivision)
+                    if (isCounterBuffed && target.unitData.division != CounterSkill.targetDivision)
                         ApplyBuff(CounterSkill);
                 }
                 count++;
@@ -384,7 +395,7 @@ public class CharacterAI : UnitBase
         if (CounterSkill != null)
         {
             ClearBuff(CounterSkill);
-            counterBuffed = false;
+            isCounterBuffed = false;
         }
     }
 
@@ -484,7 +495,7 @@ public class CharacterAI : UnitBase
         if (CounterSkill != null)
         {
             ClearBuff(CounterSkill);
-            counterBuffed = false;
+            isCounterBuffed = false;
         }
     }
 

@@ -1,6 +1,7 @@
-List,ID,Target,Attack_Increase,A_Speed_Decrease,Heal_Increase,Stun_Increased
-전사 상성,101,2,2,0,0,0
-궁수 상성,102,1,1.5,0,0,0
-마법사 상성,103,3,1.5,0,0,0
-힐러 상성,104,5,0,0,2,0
-특수 상성,105,5,0,0.5,0,1
+List,ID,Char_ID,Division,Target,Attack_Increase,Heal_Increase,Stun_Increase,A_Speed_Decrease
+전사 상성,101,0,1,2,2,0,0,0
+궁수 상성,102,0,3,1,1.5,0,0,0
+마법사 상성,103,0,5,3,1.5,0,0,0
+힐러 상성,104,0,4,5,0,2,0,0
+위치 상성,105,1302,0,5,0,0,0,0.5
+스턴 상성,106,1303,0,5,0,0,1,0

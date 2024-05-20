@@ -23,7 +23,7 @@ MonoBehaviour:
   initAttackDamage: 30
   initAttackSpeed: 1.5
   initAttackRange: 1
-  initAttackEnemyCount: 1
+  initAttackEnemyCount: 0
   initAttackOrder: 1
   initAttackEnemyOrder: 01000000
   skill: Plag_Skill

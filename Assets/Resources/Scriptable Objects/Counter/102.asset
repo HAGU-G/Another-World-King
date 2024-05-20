@@ -10,22 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1bba57ae605bac947a76553ac4f17e7d, type: 3}
-  m_Name: 105
+  m_Name: 102
   m_EditorClassIdentifier: 
-  ignore: "\uD2B9\uC218 \uC0C1\uC131"
-  id: 105
+  ignore: "\uAD81\uC218 \uC0C1\uC131"
+  id: 102
   isCounterData: 1
-  target: 1
-  targetDivision: 5
+  target: 3
+  applyDivision: 3
+  applyCharID: 0
+  targetDivision: 1
   nesting: 1
-  duration: 2
-  infinityDuration: 0
+  duration: 0
+  infinityDuration: 1
   doResetDurationOnApply: 0
   hp: 0
   hp_P: 0
   attackDamage: 0
-  attackDamage_P: 0
-  attackSpeed: 0.5
+  attackDamage_P: 0.5
+  attackSpeed: 0
   attackSpeed_P: 0
   attackRange: 0
   attackRange_P: 0
@@ -42,4 +44,4 @@ MonoBehaviour:
   onApplyGold: 0
   onApplyExp: 0
   onApplyDrain: 0
-  sturn: 1
+  sturn: 0

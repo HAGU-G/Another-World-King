@@ -41,6 +41,6 @@ MonoBehaviour:
   stars_3_CastleHp: 1050
   stars_3_reward: 60
   stars_2_CastleHp: 750
-  stars_2_reward: 0
-  stars_1_reward: 0
+  stars_2_reward: 50
+  stars_1_reward: 30
   repeat_Reward: 5

@@ -39,8 +39,8 @@ MonoBehaviour:
   desc: 
   isTower: 1
   stars_3_CastleHp: 1400
-  stars_3_reward: 80
+  stars_3_reward: 70
   stars_2_CastleHp: 1000
-  stars_2_reward: 0
-  stars_1_reward: 0
+  stars_2_reward: 60
+  stars_1_reward: 40
   repeat_Reward: 10

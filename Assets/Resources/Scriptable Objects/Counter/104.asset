@@ -16,6 +16,8 @@ MonoBehaviour:
   id: 104
   isCounterData: 1
   target: 3
+  applyDivision: 4
+  applyCharID: 0
   targetDivision: 5
   nesting: 1
   duration: 0

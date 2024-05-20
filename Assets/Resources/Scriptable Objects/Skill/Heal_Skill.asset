@@ -16,6 +16,8 @@ MonoBehaviour:
   id: Heal_Skill
   isCounterData: 0
   target: 2
+  applyDivision: 0
+  applyCharID: 0
   targetDivision: 0
   nesting: 0
   duration: 0
