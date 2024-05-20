@@ -69,5 +69,10 @@ public static class Strings
 
 public static class Vectors
 {
-    public static readonly UnityEngine.Vector3 filpX = new(-1, 1, 1);
+    public static readonly UnityEngine.Vector3 filpX = new(-1f, 1f, 1f);
+}
+
+public static class Colors
+{
+    public static readonly UnityEngine.Color transparent = new(1f, 1f, 1f, 0f);
 }

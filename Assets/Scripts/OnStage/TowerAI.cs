@@ -67,7 +67,6 @@ public class TowerAI : UnitBase
             {
                 stageID -= 100;
             }
-            Debug.Log(stageID);
             PatternSet patternSet = DataTableManager.MonsterAppares[stageID].GetPattern();
 
             var patterns = DataTableManager.Patterns[patternSet.pattern];

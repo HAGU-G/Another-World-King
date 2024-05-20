@@ -29,8 +29,8 @@ public class GameManager : MonoBehaviour
                 flags = 0;
         }
     }
-    public List<int> unlockedID { get; private set; } = new();
-    public List<int> purchasedID { get; private set; } = new();
+    public List<int> UnlockedID { get; private set; } = new();
+    public List<int> PurchasedID { get; private set; } = new();
     public CharacterInfos[] Expedition { get; private set; } = new CharacterInfos[5];
     private int selectedStageID;
     public int SelectedStageID
@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
         Expedition[index] = characterInfos;
     }
 
-    public void SetExpeditions(int id, int index)
+    public void SetExpedition(int id, int index)
     {
         UnitData character = Resources.Load<UnitData>(string.Format(Paths.resourcesPlayer, id));
 
@@ -121,21 +121,21 @@ public class GameManager : MonoBehaviour
         {
             foreach (var charID in DataTableManager.StageUnlockID[stageID])
             {
-                if (!unlockedID.Contains(charID))
-                    unlockedID.Add(charID);
+                if (!UnlockedID.Contains(charID))
+                    UnlockedID.Add(charID);
             }
         }
     }
 
     public bool AddPurchasedID(CharacterInfos characterInfos)
     {
-        if (purchasedID.Contains(characterInfos.unitData.id))
+        if (PurchasedID.Contains(characterInfos.unitData.id))
             return false;
 
         if (flags >= characterInfos.unitData.price)
         {
             flags -= characterInfos.unitData.price;
-            purchasedID.Add(characterInfos.unitData.id);
+            PurchasedID.Add(characterInfos.unitData.id);
             return true;
         }
         else
