@@ -21,7 +21,7 @@ public class TowerAI : UnitBase
     {
         OnDead += () =>
         {
-            for(int i = 0; i < units.Count; i++)
+            for (int i = 0; i < units.Count; i++)
             {
                 if (units[i] != null && units[i].isPlayer == isPlayer)
                     units[i].Damaged(units[i].MaxHP);
@@ -51,7 +51,7 @@ public class TowerAI : UnitBase
         if (IsDead || isPlayer)
             return;
 
-        if(Input.GetKeyDown(KeyCode.Delete))
+        if (Input.GetKeyDown(KeyCode.Delete))
             Damaged(100);
 
         if (isPatternEnd && Time.time >= nextSpawnTime)
@@ -62,7 +62,12 @@ public class TowerAI : UnitBase
             else if (HP <= MaxHP * 0.5f)
                 stageID += 100;
 
-            var patternSet = DataTableManager.MonsterAppares[stageID].GetPattern();
+            while (stageID >= 200 && !DataTableManager.MonsterAppares.ContainsKey(stageID))
+            {
+                stageID -= 100;
+            }
+            PatternSet patternSet = DataTableManager.MonsterAppares[stageID].GetPattern();
+
             var patterns = DataTableManager.Patterns[patternSet.pattern];
             if (patterns.Monster_1 != 0)
                 waitingUnits.Add(patterns.Monster_1);
@@ -142,7 +147,7 @@ public class TowerAI : UnitBase
             isBlocked = true;
         else
             unit.SetIsBlocked(true, this);
-        
+
 
     }
 
@@ -158,7 +163,7 @@ public class TowerAI : UnitBase
         if (unit.isPlayer == isPlayer)
             isBlocked = true;
         else
-            unit.SetIsBlocked(true,this);
+            unit.SetIsBlocked(true, this);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -173,7 +178,7 @@ public class TowerAI : UnitBase
         if (unit.isPlayer == isPlayer)
             isBlocked = false;
         else
-            unit.SetIsBlocked(false,this);
+            unit.SetIsBlocked(false, this);
 
     }
 

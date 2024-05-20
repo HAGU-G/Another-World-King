@@ -1,5 +1,6 @@
 using CsvHelper.Configuration.Attributes;
 using System.Diagnostics.PerformanceData;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
@@ -229,34 +230,34 @@ public class Counter_Csv
 {
     public string List { get; set; }
     public string ID { get; set; }
+    public int Char_ID { get; set; }
+    public int Division { get; set; }
     public int Target { get; set; }
     public float Attack_Increase { get; set; }
-    public float A_Speed_Decrease { get; set; }
     public float Heal_Increase { get; set; }
-    public float Stun_Increased { get; set; }
+    public float Stun_Increase { get; set; }
+    public float A_Speed_Decrease { get; set; }
 
     public void ToScriptable()
     {
         SkillData skillData = ScriptableObject.CreateInstance<SkillData>();
 
-        switch (ID)
-        {
-            case "105":
-                skillData.target = SkillData.TARGET.ENEMY;
-                break;
-            default:
-                skillData.target = SkillData.TARGET.ONESELF;
-                break;
-        }
+        if (A_Speed_Decrease > 0f)
+            skillData.target = SkillData.TARGET.ENEMY;
+        else
+            skillData.target = SkillData.TARGET.ONESELF;
+
 
         skillData.ignore = List;
         skillData.id = ID;
+        skillData.applyCharID = Char_ID;
+        skillData.applyDivision = (UnitData.DIVISION)Division;
         skillData.isCounterData = true;
         skillData.targetDivision = (UnitData.DIVISION)Target;
         if (Attack_Increase > 0f)
             skillData.attackDamage_P = Attack_Increase - 1f;
         skillData.attackSpeed = 0 + A_Speed_Decrease;
-        skillData.duration = Stun_Increased > 0f ? Stun_Increased + 1f : 0f;
+        skillData.duration = Stun_Increase > 0f ? Stun_Increase + 1f : 0f;
         skillData.sturn = skillData.duration > 0;
         skillData.heal_P = Heal_Increase;
 
@@ -274,7 +275,7 @@ public class Counter_Csv
         AssetDatabase.CreateAsset(skillData,
         string.Concat(
             Paths.folderResources,
-            string.Format(Paths.resourcesSkill, skillData.id),
+            string.Format(Paths.resourcesCounter, skillData.id),
             Paths._asset));
     }
 
@@ -287,6 +288,6 @@ public class Counter_Csv
         Attack_Increase = skillData.attackDamage_P + 1f;
         A_Speed_Decrease = skillData.attackSpeed;
         Heal_Increase = skillData.heal_P;
-        Stun_Increased = skillData.duration - 1f;
+        Stun_Increase = skillData.duration - 1f;
     }
 }

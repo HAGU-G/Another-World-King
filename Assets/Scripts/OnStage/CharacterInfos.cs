@@ -18,6 +18,6 @@ public class CharacterInfos
         if (unitData.skill != Strings.zero)
             skillData = Resources.Load<SkillData>(string.Format(Paths.resourcesSkill, unitData.skill));
         if (unitData.typeCounter != string.Empty)
-            counterSkillData = Resources.Load<SkillData>(string.Format(Paths.resourcesSkill, unitData.typeCounter));
+            counterSkillData = Resources.Load<SkillData>(string.Format(Paths.resourcesCounter, unitData.typeCounter));
     }
 }

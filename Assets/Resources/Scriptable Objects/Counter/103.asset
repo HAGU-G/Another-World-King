@@ -10,13 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1bba57ae605bac947a76553ac4f17e7d, type: 3}
-  m_Name: 101
+  m_Name: 103
   m_EditorClassIdentifier: 
-  ignore: "\uC804\uC0AC \uC0C1\uC131"
-  id: 101
+  ignore: "\uB9C8\uBC95\uC0AC \uC0C1\uC131"
+  id: 103
   isCounterData: 1
   target: 3
-  targetDivision: 2
+  applyDivision: 5
+  applyCharID: 0
+  targetDivision: 3
   nesting: 1
   duration: 0
   infinityDuration: 1
@@ -24,7 +26,7 @@ MonoBehaviour:
   hp: 0
   hp_P: 0
   attackDamage: 0
-  attackDamage_P: 1
+  attackDamage_P: 0.5
   attackSpeed: 0
   attackSpeed_P: 0
   attackRange: 0
