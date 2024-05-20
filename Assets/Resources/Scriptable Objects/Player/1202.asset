@@ -29,7 +29,7 @@ MonoBehaviour:
   skill: Magic1_Skill
   initHeal: 0
   initMoveSpeed: 80
-  price: 0
+  price: 20
   cost: 250
   spawnTime: 7
   initDropGold: 0
@@ -44,3 +44,5 @@ MonoBehaviour:
   stars_2_reward: 0
   stars_1_reward: 0
   repeat_Reward: 0
+  upgradeDamageID: 104
+  upgradeHPID: 204

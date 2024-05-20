@@ -21,6 +21,8 @@ public static class Paths
     public static readonly string resourcesPatternTable = "DataTables/Pattern_Table";
     public static readonly string resourcesMonAppareTable = "DataTables/MonAppare_Table";
     public static readonly string resourcesStageTable = "DataTables/Stage_Table";
+    public static readonly string resourcesUpgradeTable = "DataTables/Upgrade_Table";
+
 
 #if UNITY_EDITOR
     public static readonly string folderScriptableObjects = "Assets/Resources/Scriptable Objects";

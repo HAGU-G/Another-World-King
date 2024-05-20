@@ -1,7 +1,3 @@
-using CsvHelper;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
 using UnityEditor;
 using UnityEngine;
 
@@ -78,6 +74,11 @@ public class StageManager : MonoBehaviour
     public TowerAI playerTower;
     private int gold;
     private int exp;
+    public int startGold;
+    public int startExp;
+    public int getGoldPerSeconds;
+    public int getExpPerSeconds;
+
     public int Gold
     {
         get => gold;
@@ -93,7 +94,15 @@ public class StageManager : MonoBehaviour
         private set
         {
             exp = value;
-            // uiOnStage.textExp.text = exp.ToString();
+            uiOnStage.textExp.text = exp.ToString();
+            foreach (var button in uiOnStage.buttonSummons)
+            {
+                button.outline.enabled = isUpgrading
+                && !button.IsUpgraded
+                && ((uiOnStage.toggleUpgardeDamage.isOn && exp >= button.UpgradeExpDamage)
+                || (uiOnStage.toggleUpgardeHP.isOn && exp >= button.UpgradeExpHP));
+
+            }
         }
     }
     private float goldInterval;
@@ -102,26 +111,15 @@ public class StageManager : MonoBehaviour
     public TowerAI enemyTower;
     #endregion
 
+    private bool isUpgrading;
 
     private void Start()
     {
-        Gold = 700;
+        Gold = startGold;
+        Exp = startExp;
         goldInterval = Time.time;
-        for (int i = 0; i < uiOnStage.buttonSummons.Length; i++)
-        {
-            uiOnStage.buttonSummons[i].SetData(GameManager.Instance.GetExpedition(i));
-            int index = i;
-            uiOnStage.buttonSummons[i].button.onClick.AddListener(() =>
-            {
-                if (uiOnStage.buttonSummons[index].cooldown.value <= uiOnStage.buttonSummons[index].cooldown.minValue
-                && playerTower.CanSpawnUnit()
-                && UseGold(uiOnStage.buttonSummons[index].CharacterInfos.unitData.cost))
-                {
-                    playerTower.SpawnUnit(uiOnStage.buttonSummons[index].CharacterInfos);
-                    uiOnStage.buttonSummons[index].Summoned();
-                }
-            });
-        }
+        SetSummonButton();
+        SetUpgradeToggle();
 
         enemyTower.unitData = playerTower.unitData = Resources.Load<UnitData>(string.Format(Paths.resourcesStage, GameManager.Instance.SelectedStageID));
         playerTower.isPlayer = true;
@@ -138,7 +136,8 @@ public class StageManager : MonoBehaviour
         if (Time.time >= goldInterval + 2f)
         {
             goldInterval = Time.time;
-            Gold += 100;
+            Gold += getGoldPerSeconds;
+            Exp += getExpPerSeconds;
         }
     }
 
@@ -220,5 +219,77 @@ public class StageManager : MonoBehaviour
 
         GameManager.Instance.StageClear(GameManager.Instance.SelectedStageID, star, prevStar == 3 ? playerTower.unitData.repeat_Reward : flag);
         GameManager.Instance.LoadingScene(Scenes.devMain);
+    }
+
+
+    public void SetSummonButton()
+    {
+        for (int i = 0; i < uiOnStage.buttonSummons.Length; i++)
+        {
+            uiOnStage.buttonSummons[i].SetData(GameManager.Instance.GetExpedition(i));
+            int index = i;
+            uiOnStage.buttonSummons[i].button.onClick.AddListener(() =>
+            {
+                if (isUpgrading)
+                {
+                    if (uiOnStage.buttonSummons[index].IsUpgraded == true)
+                        return;
+
+                    if (uiOnStage.toggleUpgardeDamage.isOn
+                    && uiOnStage.buttonSummons[index].outline.enabled)
+                    {
+                        uiOnStage.buttonSummons[index].UpgradeDamage();
+                        uiOnStage.toggleUpgardeDamage.isOn = false;
+                        Exp -= uiOnStage.buttonSummons[index].UpgradeExpDamage;
+                    }
+
+                    if (uiOnStage.toggleUpgardeHP.isOn
+                     && uiOnStage.buttonSummons[index].outline.enabled)
+                    {
+                        uiOnStage.buttonSummons[index].UpgradeHP();
+                        uiOnStage.toggleUpgardeHP.isOn = false;
+                        Exp -= uiOnStage.buttonSummons[index].UpgradeExpHP;
+                    }
+
+                    uiOnStage.buttonSummons[index].IsUpgraded = true;
+                    return;
+                }
+
+                if (uiOnStage.buttonSummons[index].cooldown.value <= uiOnStage.buttonSummons[index].cooldown.minValue
+                && playerTower.CanSpawnUnit()
+                && UseGold(uiOnStage.buttonSummons[index].CharacterInfos.unitData.cost))
+                {
+                    playerTower.SpawnUnit(uiOnStage.buttonSummons[index].CharacterInfos);
+                    uiOnStage.buttonSummons[index].Summoned();
+                }
+            });
+        }
+    }
+
+    public void SetUpgradeToggle()
+    {
+        uiOnStage.toggleUpgardeDamage.onValueChanged.AddListener(x =>
+        {
+            isUpgrading = x;
+
+            foreach (var button in uiOnStage.buttonSummons)
+            {
+
+                button.outline.enabled = x && !button.IsUpgraded && exp >= button.UpgradeExpDamage;
+                button.outline.effectColor = Color.red;
+            }
+
+        });
+        uiOnStage.toggleUpgardeHP.onValueChanged.AddListener(x =>
+        {
+            isUpgrading = x;
+
+            foreach (var button in uiOnStage.buttonSummons)
+            {
+                button.outline.enabled = x && !button.IsUpgraded && exp >= button.UpgradeExpHP;
+                button.outline.effectColor = Color.blue;
+            }
+        });
+
     }
 }

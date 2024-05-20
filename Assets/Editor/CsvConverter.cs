@@ -95,6 +95,8 @@ public class Player_Csv : UnitData_Csv
     [Index(13)] public float Spawn_Time { get; set; }
     [Index(14)] public string Char_Info { get; set; }
     [Index(15)] public int Shop_Value { get; set; }
+    [Index(16)] public int Upgrade_ID_AT { get; set; }
+    [Index(17)] public int Upgrade_ID_DF { get; set; }
 
     public Player_Csv() : base() { }
     public Player_Csv(UnitData initStats) : base(initStats) { }
@@ -106,6 +108,8 @@ public class Player_Csv : UnitData_Csv
         unitData.spawnTime = Spawn_Time;
         unitData.desc = Char_Info;
         unitData.price = Shop_Value;
+        unitData.upgradeDamageID = Upgrade_ID_AT;
+        unitData.upgradeHPID = Upgrade_ID_DF;
     }
 
     protected override void SaveData(UnitData unitData)
@@ -115,6 +119,8 @@ public class Player_Csv : UnitData_Csv
         Spawn_Time = unitData.spawnTime;
         Char_Info = unitData.desc;
         Shop_Value = unitData.price;
+        Upgrade_ID_AT = unitData.upgradeDamageID;
+        Upgrade_ID_DF = unitData.upgradeHPID;
     }
 }
 

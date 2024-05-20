@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+
+
 [RequireComponent(typeof(Rigidbody2D))]
 public class CharacterAI : UnitBase
 {
@@ -223,6 +225,10 @@ public class CharacterAI : UnitBase
         unitData = characterInfos.unitData;
         SetSkill(characterInfos.skillData);
         SetCounterSkill(characterInfos.counterSkillData);
+
+        upgrade = characterInfos.upgrade;
+        upgradeDamage = characterInfos.upgradeDamage;
+        upgradeHP = characterInfos.upgradeHP;
     }
 
     public override void ResetUnit()

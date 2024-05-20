@@ -9,6 +9,7 @@ public static class DataTableManager
     public static Dictionary<string, Pattern> Patterns { get; private set; } = new();
     public static Dictionary<int, MonsterAppare> MonsterAppares { get; private set; } = new();
     public static Dictionary<int, List<int>> StageUnlockID { get; private set; } = new();
+    public static Dictionary<int, Upgrade> Upgrades { get; private set; } = new();
     public static int MinStageID { get; private set; } = int.MaxValue;
     public static int MaxStageID { get; private set; } = int.MinValue;
 
@@ -81,6 +82,19 @@ public static class DataTableManager
                     record.Reward_Char4
                 };
                 StageUnlockID.Add(record.ID, ids);
+            }
+        }
+
+        //Upgrade
+        textAsset = Resources.Load<TextAsset>(Paths.resourcesUpgradeTable);
+        using (var reader = new StringReader(textAsset.text))
+        using (var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture))
+        {
+            var records = csvReader.GetRecords<Upgrade>();
+            foreach (var record in records)
+            {
+               
+                Upgrades.Add(record.ID, record);
             }
         }
     }

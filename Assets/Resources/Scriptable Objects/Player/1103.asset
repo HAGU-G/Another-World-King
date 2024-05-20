@@ -29,7 +29,7 @@ MonoBehaviour:
   skill: Gold_Skill
   initHeal: 0
   initMoveSpeed: 80
-  price: 35
+  price: 30
   cost: 100
   spawnTime: 10
   initDropGold: 0
@@ -44,3 +44,5 @@ MonoBehaviour:
   stars_2_reward: 0
   stars_1_reward: 0
   repeat_Reward: 0
+  upgradeDamageID: 105
+  upgradeHPID: 205

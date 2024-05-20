@@ -7,6 +7,11 @@ public class CharacterInfos
     public SkillData skillData;
     public SkillData counterSkillData;
 
+    public UnitBase.UPGRADE upgrade;
+
+    public int upgradeDamage;
+    public int upgradeHP;
+
     public void SetData(UnitData unitData)
     {
         this.unitData = unitData;
@@ -20,4 +25,5 @@ public class CharacterInfos
         if (unitData.typeCounter != string.Empty)
             counterSkillData = Resources.Load<SkillData>(string.Format(Paths.resourcesCounter, unitData.typeCounter));
     }
+
 }
