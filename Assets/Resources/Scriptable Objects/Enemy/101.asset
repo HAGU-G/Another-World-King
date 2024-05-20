@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5390eeabe2e0148bd1783116bb6660, type: 3}
   m_Name: 101
   m_EditorClassIdentifier: 
-  ignore: "\uC804\uC0AC"
+  ignore: "\uFFFD\uFFFD\uFFFD\uFFFD"
   id: 101
   division: 1
-  prefab: Mon_Brave
+  prefab: Mon_Warrior
   initHP: 150
   useStartHP: 0
   initHPStart: 0
@@ -23,7 +23,7 @@ MonoBehaviour:
   initAttackDamage: 50
   initAttackSpeed: 2
   initAttackRange: 1
-  initAttackEnemyCount: 1
+  initAttackEnemyCount: 0
   initAttackOrder: 1
   initAttackEnemyOrder: 01000000
   skill: 0

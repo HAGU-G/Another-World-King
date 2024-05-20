@@ -29,7 +29,7 @@ MonoBehaviour:
   skill: Heal_Skill
   initHeal: 80
   initMoveSpeed: 80
-  price: 0
+  price: 20
   cost: 150
   spawnTime: 5
   initDropGold: 0

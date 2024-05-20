@@ -23,13 +23,13 @@ MonoBehaviour:
   initAttackDamage: 20
   initAttackSpeed: 1
   initAttackRange: 1
-  initAttackEnemyCount: 1
+  initAttackEnemyCount: 0
   initAttackOrder: 1
   initAttackEnemyOrder: 01000000
   skill: Gold_Skill
   initHeal: 0
   initMoveSpeed: 80
-  price: 35
+  price: 30
   cost: 100
   spawnTime: 10
   initDropGold: 0

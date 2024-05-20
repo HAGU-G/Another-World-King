@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ignore: "\uD3EC\uD0D1"
   id: 1204
-  division: 5
+  division: 1
   prefab: Turret
   initHP: 100
   useStartHP: 0
   initHPStart: 0
-  typeCounter: 103
+  typeCounter: 101
   initAttackDamage: 20
   initAttackSpeed: 0.5
   initAttackRange: 10
@@ -29,7 +29,7 @@ MonoBehaviour:
   skill: 0
   initHeal: 0
   initMoveSpeed: 80
-  price: 50
+  price: 45
   cost: 500
   spawnTime: 30
   initDropGold: 0
