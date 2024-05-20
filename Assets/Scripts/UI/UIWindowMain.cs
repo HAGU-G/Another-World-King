@@ -43,4 +43,10 @@ public class UIWindowMain : UIWindow
             count--;
         }
     }
+
+
+    public void GameSave() => SaveManager.GameSave();
+    public void GameLoad() => SaveManager.GameLoad();
+    public void GameReset() => SaveManager.GameReset();
+
 }

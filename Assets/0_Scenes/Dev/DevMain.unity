@@ -722,16 +722,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: 2583c066a66b1644ab1868f9fef9960f, type: 3}
-        m_TargetAssemblyTypeName: UnityEngine.Object, UnityEngine
-        m_MethodName: set_name
-        m_Mode: 5
+      - m_Target: {fileID: 1322828161}
+        m_TargetAssemblyTypeName: UIWindowMain, Assembly-CSharp
+        m_MethodName: GameReset
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Reset
+          m_StringArgument: SaveManager.GameReset
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &152711926
@@ -2513,16 +2513,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: 2583c066a66b1644ab1868f9fef9960f, type: 3}
-        m_TargetAssemblyTypeName: UnityEngine.Object, UnityEngine
-        m_MethodName: set_name
-        m_Mode: 5
+      - m_Target: {fileID: 1322828161}
+        m_TargetAssemblyTypeName: UIWindowMain, Assembly-CSharp
+        m_MethodName: GameSave
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Save
+          m_StringArgument: GameSave
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &780668425
@@ -6306,16 +6306,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: 2583c066a66b1644ab1868f9fef9960f, type: 3}
-        m_TargetAssemblyTypeName: UnityEngine.Object, UnityEngine
-        m_MethodName: set_name
-        m_Mode: 5
+      - m_Target: {fileID: 1322828161}
+        m_TargetAssemblyTypeName: UIWindowMain, Assembly-CSharp
+        m_MethodName: GameLoad
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Load
+          m_StringArgument: GameLoad
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1885102700

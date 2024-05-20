@@ -11,7 +11,7 @@ public static class SaveManager
 
     private static Save saveData;
 
-    public static void Save()
+    public static void GameSave()
     {
         if (saveData == null)
             saveData = new SaveVersionClass();
@@ -70,7 +70,7 @@ public static class SaveManager
         }
     }
 
-    public static void Load()
+    public static void GameLoad()
     {
         saveData = new SaveVersionClass();
 
@@ -114,7 +114,7 @@ public static class SaveManager
         }
     }
 
-    public static void Reset()
+    public static void GameReset()
     {
         saveData = null;
 
