@@ -1337,10 +1337,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiOnStage: {fileID: 1979521734}
-  startGold: 0
-  startExp: 0
-  getGoldPerSeconds: 0
-  getExpPerSeconds: 0
+  startGold: 1000
+  startExp: 1000
+  getGoldPerSeconds: 1000
+  getExpPerSeconds: 1000
   playerTower: {fileID: 1370779872}
   enemyTower: {fileID: 1893667659}
 --- !u!224 &789359362 stripped

@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,14 +11,19 @@ public class UIWindowShop : UIWindow
     public ToggleGroup toggleGroup;
     public Button buttonBack;
     public Button purchase;
+    public Button cancel;
     public TextMeshProUGUI flags;
 
+    public UIShopPopup popup;
+
     private CharacterInfos select;
-    private GameObject selectSlot;
+    private UISlotCharacterInShop selectSlot;
 
     private void Start()
     {
-        buttonBack.onClick.AddListener(() => { uiMain.Open(); Close(); });
+        ClosePopup();
+        buttonBack.onClick.AddListener(() => { uiMain.Open(); Close(); ClosePopup(); });
+        cancel.onClick.AddListener(ClosePopup);
         UnitData[] characters = Resources.LoadAll<UnitData>(string.Format(Paths.resourcesPlayer, string.Empty));
         for (int i = 0; i < characters.Length; i++)
         {
@@ -36,12 +42,15 @@ public class UIWindowShop : UIWindow
                 if (x)
                 {
                     select = slot.slot.characterInfos;
-                    selectSlot = slot.gameObject;
+                    selectSlot = slot;
+                    popup.Popup(true);
+                    popup.SetData(selectSlot.slot.rawImage.uvRect, selectSlot.slot.characterInfos);
                 }
-                else if (selectSlot == slot.gameObject)
+                else if (selectSlot == slot)
                 {
                     select = null;
                     selectSlot = null;
+                    popup.Popup(false);
                 }
             });
         }
@@ -64,5 +73,13 @@ public class UIWindowShop : UIWindow
     {
         base.Refresh();
         flags.text = GameManager.Instance.Flags.ToString();
+    }
+
+    public void ClosePopup()
+    {
+        if (selectSlot != null)
+            selectSlot.slot.toggle.isOn = false;
+        else
+            popup.Popup(false);
     }
 }
