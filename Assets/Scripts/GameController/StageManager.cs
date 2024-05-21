@@ -183,7 +183,7 @@ public class StageManager : MonoBehaviour
 
     public void Defeat()
     {
-        GameManager.Instance.LoadingScene(Scenes.devMain);
+        uiOnStage.windowStagePause.Defeat();
     }
 
     public void Victory()
@@ -220,8 +220,9 @@ public class StageManager : MonoBehaviour
             };
         }
 
-        GameManager.Instance.StageClear(GameManager.Instance.SelectedStageID, star, prevStar == 3 ? playerTower.unitData.repeat_Reward : flag);
-        GameManager.Instance.LoadingScene(Scenes.devMain);
+        var getFlag = prevStar == 3 ? playerTower.unitData.repeat_Reward : flag;
+        GameManager.Instance.StageClear(GameManager.Instance.SelectedStageID, star, getFlag);
+        uiOnStage.windowStagePause.Victory(star, getFlag);
     }
 
 

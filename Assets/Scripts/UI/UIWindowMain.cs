@@ -11,7 +11,7 @@ public class UIWindowMain : UIWindow
     public Button buttonNextStage;
     public Button buttonPrevStage;
     public Button buttonPlay;
-    public Image[] stars;
+    public Toggle[] stars;
 
     public TextMeshProUGUI currentStage;
     public TextMeshProUGUI flags;
@@ -36,10 +36,7 @@ public class UIWindowMain : UIWindow
             count = GameManager.Instance.StageClearInfo[GameManager.Instance.SelectedStageID];
         foreach (var star in stars)
         {
-            if (count > 0)
-                star.color = UnityEngine.Color.white;
-            else
-                star.color = Colors.transparent;
+            star.isOn = count > 0;
             count--;
         }
     }

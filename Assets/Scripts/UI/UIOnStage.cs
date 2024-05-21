@@ -11,4 +11,10 @@ public class UIOnStage : MonoBehaviour
 
     public Toggle toggleUpgardeDamage;
     public Toggle toggleUpgardeHP;
+    public UIWindowStagePause windowStagePause;
+
+    private void Start()
+    {
+        windowStagePause.Close();
+    }
 }
