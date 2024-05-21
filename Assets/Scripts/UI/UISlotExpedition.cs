@@ -9,10 +9,6 @@ public class UISlotExpedition : MonoBehaviour
     public CharacterInfos characterInfos;
     public UISlotCharacter slot;
 
-    private void Awake()
-    {
-        slot.toggle.isOn = true;
-    }
     public void SetData(CharacterInfos characterInfos)
     {
         if (characterInfos == null)

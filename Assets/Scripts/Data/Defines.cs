@@ -61,10 +61,12 @@ public static class Scenes
 
 
 
-public static class Strings
+public static class Defines
 {
     public static readonly string nonePrefab = "Brave";
     public static readonly string zero = "0";
+    public static readonly string upgradeDamage = "공격력 강화";
+    public static readonly string upgradeHP = "체력 강화";
 }
 
 public static class Vectors

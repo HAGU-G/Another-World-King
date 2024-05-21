@@ -48,7 +48,7 @@ public class SaveLoadScriptable
             foreach (var record in records)
             {
                 count++;
-                if (record.Skill != Strings.zero
+                if (record.Skill != Defines.zero
                     && skills.ContainsKey(record.Skill))
                 {
                     record.Heal = skills[record.Skill].Hp_Healing;
@@ -124,7 +124,7 @@ public class SaveLoadScriptable
             foreach (var record in records)
             {
                 count++;
-                if (record.Skill != Strings.zero
+                if (record.Skill != Defines.zero
                     && datas.Item1.ContainsKey(record.Skill))
                 {
                     record.Heal = datas.Item1[record.Skill].Hp_Healing;
