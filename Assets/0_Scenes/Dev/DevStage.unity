@@ -985,6 +985,8 @@ MonoBehaviour:
   lockX: 0
   lockY: 1
   lockZ: 1
+  xLeftBound: 3
+  xRightBound: 3
 --- !u!1001 &523454145
 PrefabInstance:
   m_ObjectHideFlags: 0
