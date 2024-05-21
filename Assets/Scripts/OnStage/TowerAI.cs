@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
@@ -126,8 +127,11 @@ public class TowerAI : UnitBase
         if (!isPlayer)
             unit.OnDead += () =>
             {
-                stage.GetExp(unit.unitData.initDropExp);
-                stage.GetGold(unit.unitData.initDropGold);
+                if (!unit.IsSelfDestruct)
+                {
+                    stage.GetExp(unit.unitData.initDropExp);
+                    stage.GetGold(unit.unitData.initDropGold);
+                }
             };
         units.Add(unit);
     }

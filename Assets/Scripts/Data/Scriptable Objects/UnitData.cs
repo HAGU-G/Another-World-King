@@ -57,5 +57,8 @@ public class UnitData : ScriptableObject
     public int stars_2_reward;
     public int stars_1_reward;
     public int repeat_Reward;
+
+    public int upgradeDamageID;
+    public int upgradeHPID;
 }
 

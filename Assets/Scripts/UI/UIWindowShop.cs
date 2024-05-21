@@ -21,8 +21,8 @@ public class UIWindowShop : UIWindow
         UnitData[] characters = Resources.LoadAll<UnitData>(string.Format(Paths.resourcesPlayer, string.Empty));
         for (int i = 0; i < characters.Length; i++)
         {
-            if (GameManager.Instance.purchasedID.Contains(characters[i].id)
-                || !GameManager.Instance.unlockedID.Contains(characters[i].id))
+            if (GameManager.Instance.PurchasedID.Contains(characters[i].id)
+                || !GameManager.Instance.UnlockedID.Contains(characters[i].id))
                 continue;
 
             var characterInfos = new CharacterInfos();

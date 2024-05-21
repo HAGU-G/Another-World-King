@@ -21,6 +21,9 @@ public static class Paths
     public static readonly string resourcesPatternTable = "DataTables/Pattern_Table";
     public static readonly string resourcesMonAppareTable = "DataTables/MonAppare_Table";
     public static readonly string resourcesStageTable = "DataTables/Stage_Table";
+    public static readonly string resourcesUpgradeTable = "DataTables/Upgrade_Table";
+    public static readonly string resourcesStringTable = "DataTables/String_Table";
+
 
 #if UNITY_EDITOR
     public static readonly string folderScriptableObjects = "Assets/Resources/Scriptable Objects";
@@ -66,5 +69,10 @@ public static class Strings
 
 public static class Vectors
 {
-    public static readonly UnityEngine.Vector3 filpX = new(-1, 1, 1);
+    public static readonly UnityEngine.Vector3 filpX = new(-1f, 1f, 1f);
+}
+
+public static class Colors
+{
+    public static readonly UnityEngine.Color transparent = new(1f, 1f, 1f, 0f);
 }

@@ -15,7 +15,7 @@ MonoBehaviour:
   ignore: "2\uC2A4\uD14C\uC774\uC9C0"
   id: 103
   division: 0
-  prefab: Brave
+  prefab: Stage_2
   initHP: 1500
   useStartHP: 0
   initHPStart: 0
@@ -44,3 +44,5 @@ MonoBehaviour:
   stars_2_reward: 40
   stars_1_reward: 25
   repeat_Reward: 3
+  upgradeDamageID: 0
+  upgradeHPID: 0

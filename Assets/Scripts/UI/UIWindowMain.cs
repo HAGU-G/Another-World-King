@@ -11,6 +11,7 @@ public class UIWindowMain : UIWindow
     public Button buttonNextStage;
     public Button buttonPrevStage;
     public Button buttonPlay;
+    public Image[] stars;
 
     public TextMeshProUGUI currentStage;
     public TextMeshProUGUI flags;
@@ -28,6 +29,24 @@ public class UIWindowMain : UIWindow
     public override void Refresh()
     {
         flags.text = GameManager.Instance.Flags.ToString();
-        currentStage.text = (GameManager.Instance.SelectedStageID - 100).ToString();
+        currentStage.text = DataTableManager.GetString(DataTableManager.Stages[GameManager.Instance.SelectedStageID].String_ID);
+
+        int count = 0;
+        if (GameManager.Instance.StageClearInfo.ContainsKey(GameManager.Instance.SelectedStageID))
+            count = GameManager.Instance.StageClearInfo[GameManager.Instance.SelectedStageID];
+        foreach (var star in stars)
+        {
+            if (count > 0)
+                star.color = UnityEngine.Color.white;
+            else
+                star.color = Colors.transparent;
+            count--;
+        }
     }
+
+
+    public void GameSave() => SaveManager.GameSave();
+    public void GameLoad() => SaveManager.GameLoad();
+    public void GameReset() => SaveManager.GameReset();
+
 }

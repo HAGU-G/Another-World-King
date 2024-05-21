@@ -134,6 +134,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayer: 0
+  upgrade: 0
+  upgradeDamage: 0
+  upgradeHP: 0
   enemyTower: {fileID: 0}
   characterRoot: {fileID: 7057274257859823147, guid: f9025effca4be164faa0dc838d7b9b0e, type: 3}
   waitingUnits: 
@@ -282,7 +285,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 737460856565116905, guid: 55493e6be71689f4f843ef175bd0b030, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.100000024
+      value: 1.263
       objectReference: {fileID: 0}
     - target: {fileID: 737460856565116905, guid: 55493e6be71689f4f843ef175bd0b030, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

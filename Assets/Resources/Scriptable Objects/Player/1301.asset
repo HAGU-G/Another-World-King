@@ -44,3 +44,5 @@ MonoBehaviour:
   stars_2_reward: 0
   stars_1_reward: 0
   repeat_Reward: 0
+  upgradeDamageID: 0
+  upgradeHPID: 215

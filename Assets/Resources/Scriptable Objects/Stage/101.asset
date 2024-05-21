@@ -15,7 +15,7 @@ MonoBehaviour:
   ignore: "\uD29C\uD1A0\uB9AC\uC5BC"
   id: 101
   division: 0
-  prefab: Brave
+  prefab: 0
   initHP: 1000
   useStartHP: 0
   initHPStart: 0
@@ -44,3 +44,5 @@ MonoBehaviour:
   stars_2_reward: 0
   stars_1_reward: 0
   repeat_Reward: 0
+  upgradeDamageID: 0
+  upgradeHPID: 0

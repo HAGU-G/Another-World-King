@@ -3,6 +3,13 @@ using UnityEngine;
 
 public class UnitBase : MonoBehaviour
 {
+    public enum UPGRADE
+    {
+        NONE,
+        DAMAGE,
+        HP
+    }
+
     public UnitData unitData { get; set; }
     private StageManager stageManager;
 
@@ -35,6 +42,8 @@ public class UnitBase : MonoBehaviour
                 buffedStat += buff.Value.skillData.hp * buff.Value.Count;
                 persentage += buff.Value.skillData.hp_P * buff.Value.Count;
             }
+            if (upgrade == UPGRADE.HP)
+                buffedStat += upgradeHP;
             return Mathf.Clamp((int)Mathf.Ceil(buffedStat * (1f + persentage)), 1, int.MaxValue);
         }
     }
@@ -51,6 +60,8 @@ public class UnitBase : MonoBehaviour
                 buffedStat += buff.Value.skillData.attackDamage * buff.Value.Count;
                 persentage += buff.Value.skillData.attackDamage_P * buff.Value.Count;
             }
+            if (upgrade == UPGRADE.DAMAGE)
+                buffedStat += upgradeDamage;
             return (int)Mathf.Ceil(buffedStat * (1f + persentage));
         }
     }
@@ -171,7 +182,7 @@ public class UnitBase : MonoBehaviour
     }
     public void ClearBuff(SkillData buff)
     {
-        if(Buff.ContainsKey(buff.id))
+        if (Buff.ContainsKey(buff.id))
         {
             Buff.Remove(buff.id);
         }
@@ -205,6 +216,10 @@ public class UnitBase : MonoBehaviour
             HP = MaxHP;
     }
 
+    //Upgrade
+    public UPGRADE upgrade;
+    public int upgradeDamage;
+    public int upgradeHP;
 
     //Behaviour
     protected virtual void Start()

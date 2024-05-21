@@ -20,8 +20,8 @@ MonoBehaviour:
   useStartHP: 0
   initHPStart: 0
   typeCounter: 101
-  initAttackDamage: 50
-  initAttackSpeed: 2
+  initAttackDamage: 70
+  initAttackSpeed: 1.5
   initAttackRange: 1
   initAttackEnemyCount: 0
   initAttackOrder: 1
@@ -44,3 +44,5 @@ MonoBehaviour:
   stars_2_reward: 0
   stars_1_reward: 0
   repeat_Reward: 0
+  upgradeDamageID: 101
+  upgradeHPID: 201

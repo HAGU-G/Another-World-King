@@ -18,7 +18,7 @@ public class UISlotExpedition : MonoBehaviour
         else
         {
             this.characterInfos = characterInfos;
-            textName.text = characterInfos.unitData.ignore;
+            textName.text = DataTableManager.GetString(characterInfos.unitData.prefab);
         }
     }
 }

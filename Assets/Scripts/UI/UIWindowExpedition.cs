@@ -17,10 +17,6 @@ public class UIWindowExpedition : UIWindow
     private void Start()
     {
         buttonBack.onClick.AddListener(() => { uiMain.Open(); Close(); });
-        for (int i = 0; i < expedition.Length; i++)
-        {
-            expedition[i].SetData(GameManager.Instance.Expedition[i]);
-        }
 
         for (int i = 0; i < expedition.Length; i++)
         {
@@ -101,6 +97,10 @@ public class UIWindowExpedition : UIWindow
                     select = null;
                 }
             });
+        }
+        for (int i = 0; i < expedition.Length; i++)
+        {
+            expedition[i].SetData(GameManager.Instance.Expedition[i]);
         }
     }
 }
