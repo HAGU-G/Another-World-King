@@ -3394,7 +3394,7 @@ GameObject:
   - component: {fileID: 4689956015879691504}
   - component: {fileID: 4689956015879691507}
   m_Layer: 6
-  m_Name: Mon_Socerer
+  m_Name: Mon_Sorcerer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

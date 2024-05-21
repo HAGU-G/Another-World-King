@@ -63,8 +63,9 @@ public class UIWindowShop : UIWindow
 
         if (GameManager.Instance.AddPurchasedID(select))
         {
-            Destroy(selectSlot);
+            Destroy(selectSlot.gameObject);
             select = null;
+            ClosePopup();
             Refresh();
         }
     }
@@ -73,6 +74,7 @@ public class UIWindowShop : UIWindow
     {
         base.Refresh();
         flags.text = GameManager.Instance.Flags.ToString();
+        
     }
 
     public void ClosePopup()
