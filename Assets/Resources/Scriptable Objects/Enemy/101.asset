@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5390eeabe2e0148bd1783116bb6660, type: 3}
   m_Name: 101
   m_EditorClassIdentifier: 
-  ignore: "\uC804\uC0AC"
+  ignore: "\uFFFD\uFFFD\uFFFD\uFFFD"
   id: 101
   division: 1
   prefab: Mon_Warrior
@@ -20,8 +20,8 @@ MonoBehaviour:
   useStartHP: 0
   initHPStart: 0
   typeCounter: 101
-  initAttackDamage: 70
-  initAttackSpeed: 1.5
+  initAttackDamage: 50
+  initAttackSpeed: 2
   initAttackRange: 1
   initAttackEnemyCount: 0
   initAttackOrder: 1

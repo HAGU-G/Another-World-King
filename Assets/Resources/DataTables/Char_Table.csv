@@ -1,4 +1,4 @@
-List,ID,Division,Hp,Attack,A_Speed,A_Range,Chr_Position,Effect,Image,Skill,Char_ID,Spawn_Price,Spawn_Time,Char_Info,Shop_Value,Upgrade_ID_AT,Upgrade_ID_DF
+List,ID,Division,Hp,Attack,A_Speed,A_Range,Chr_Position,Effect,Image,Skill,String_ID,Spawn_Price,Spawn_Time,Char_Info,Shop_Value,Upgrade_ID_AT,Upgrade_ID_DF
 전사,1101,1,150,70,1.5,1,1,Attack1,전사.jpg,0,Warrior,100,3,Warrior_explan,0,101,201
 탱커,1102,2,400,20,2,1,1,Attack2,탱커.jpg,0,Guardian,250,7,Guardian_explan,0,102,202
 광부,1103,1,200,20,1,1,1,Attack3,광부.jpg,Gold_Skill,Mine,100,10,Mine_explan,30,105,205
