@@ -1,18 +1,18 @@
-﻿List,ID,Division,Hp,Attack,A_Speed,A_Range,Chr_Position,Effect,Image,Skill,Char_ID,Spawn_Price,Spawn_Time,Char_Info,Shop_Value
-전사,1101,1,150,50,2,1,1,Attack1,전사.jpg,0,Warrior,100,3,Warrior_explan,0
-탱커,1102,2,400,20,2,1,1,Attack2,탱커.jpg,0,Guardian,250,7,Guardian_explan,0
-광부,1103,1,200,20,1,1,1,Attack3,광부.jpg,Gold_Skill,Mine,100,10,Mine_explan,30
-기수,1104,1,150,30,1.5,1,1,Attack1,기수.jpg,Plag_Skill,Banner,100,3,Banner_explan,40
-해머,1105,1,150,100,2,2,1,Attack4,해머.jpg,0,Olaf,200,10,Olaf_explan,40
-폭발,1106,1,100,999,3,1,1,Bomb1,폭발.jpg,0,Bomber,300,15,Bomber_explan,40
-연금술사,1107,1,200,40,1,1,1,Attack1,도사.jpg,Exp_Skill,Alchemist,100,10,Alchemist_explan,30
-흡혈 탱커,1108,2,300,30,1.5,1,1,AtHeal1,흡혈 탱커.jpg,Drain_Skill,Bloody,400,15,Bloody_explan,50
-광전사,1109,1,200,40,2,1,1,Attack1,광전사.jpg,Fast_Skill,Berserker,250,25,Berserker_explan,50
-궁수,1201,3,100,40,0.5,2,2,Arrow1,궁수.jpg,0,Archer,100,5,Archer_explan,0
-마법사,1202,5,100,80,2,2,2,Magic1,마법사.jpg,Magic1_Skill,Sorcerer,250,7,Sorcerer_explan,20
-대포,1203,3,200,100,1,1,1,Cannon1,대포.jpg,0,Cannon,300,15,Cannon_explan,45
-포탑,1204,1,100,20,0.5,10,10,tower1,포탑.jpg,0,Turret,500,30,Turret_explan,45
-스나이퍼,1205,3,100,50,0.5,4,3,Arrow1,스나이퍼.jpg,0,Sniper,400,15,Sniper_explan,60
-성직자,1301,4,100,0,1.5,3,3,Heal1,성직자.jpg,Heal_Skill,Priest,150,5,Priest_explan,20
-위치,1302,6,100,0,3,3,2,slow1,슬로우.jpg,slow_Skill,Witch,300,15,Witch_explan,25
-스턴,1303,6,100,10,3,3,2,buff2,스턴.jpg,Stun_Skill,Shaman,300,15,Shaman_explan,45
+List,ID,Division,Hp,Attack,A_Speed,A_Range,Chr_Position,Effect,Image,Skill,String_ID,Spawn_Price,Spawn_Time,Char_Info,Shop_Value,Upgrade_ID_AT,Upgrade_ID_DF
+전사,1101,1,150,70,1.5,1,1,Attack1,전사.jpg,0,Warrior,100,3,Warrior_explan,0,101,201
+탱커,1102,2,400,20,2,1,1,Attack2,탱커.jpg,0,Guardian,250,7,Guardian_explan,0,102,202
+광부,1103,1,200,20,1,1,1,Attack3,광부.jpg,Gold_Skill,Mine,100,10,Mine_explan,30,105,205
+기수,1104,1,150,30,1.5,1,1,Attack1,기수.jpg,Plag_Skill,Banner,100,3,Banner_explan,40,106,206
+해머,1105,1,150,100,2,2,1,Attack4,해머.jpg,0,Olaf,200,10,Olaf_explan,40,107,207
+폭발,1106,1,100,999,3,1,1,Bomb1,폭발.jpg,0,Bomber,300,15,Bomber_explan,40,108,208
+연금술사,1107,1,200,40,1,1,1,Attack1,도사.jpg,Exp_Skill,Alchemist,100,10,Alchemist_explan,30,109,209
+흡혈 탱커,1108,2,300,30,1.5,1,1,AtHeal1,흡혈 탱커.jpg,Drain_Skill,Bloody,400,15,Bloody_explan,50,110,210
+광전사,1109,1,200,40,2,1,1,Attack1,광전사.jpg,Fast_Skill,Berserker,250,25,Berserker_explan,50,111,211
+궁수,1201,3,100,30,0.5,2,2,Arrow1,궁수.jpg,0,Archer,100,10,Archer_explan,0,103,203
+마법사,1202,5,100,80,2,2,2,Magic1,마법사.jpg,Magic1_Skill,Sorcerer,250,7,Sorcerer_explan,20,104,204
+대포,1203,3,200,100,1,1,1,Cannon1,대포.jpg,0,Cannon,300,15,Cannon_explan,45,112,212
+포탑,1204,1,100,20,0.5,10,10,tower1,포탑.jpg,0,Turret,500,30,Turret_explan,45,113,213
+스나이퍼,1205,3,100,50,0.5,4,3,Arrow1,스나이퍼.jpg,0,Sniper,400,15,Sniper_explan,60,114,214
+성직자,1301,4,100,0,1.5,3,3,Heal1,성직자.jpg,Heal_Skill,Priest,150,5,Priest_explan,20,0,215
+위치,1302,6,100,0,3,3,2,slow1,슬로우.jpg,slow_Skill,Witch,300,15,Witch_explan,25,115,216
+스턴,1303,6,100,10,3,3,2,buff2,스턴.jpg,Stun_Skill,Shaman,300,15,Shaman_explan,45,0,217
