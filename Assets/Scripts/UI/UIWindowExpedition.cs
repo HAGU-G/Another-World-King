@@ -10,12 +10,16 @@ public class UIWindowExpedition : UIWindow
     public Button buttonBack;
 
     public UISlotExpedition[] expedition;
+    public UIPopupExpedition popup;
+    public Button popupClose;
 
     private UISlotCharacter select;
     private UISlotExpedition selectSlot;
 
     private void Start()
     {
+        ClosePopup();
+        popupClose.onClick.AddListener(ClosePopup);
         buttonBack.onClick.AddListener(() => { uiMain.Open(); Close(); });
 
         for (int i = 0; i < expedition.Length; i++)
@@ -24,6 +28,14 @@ public class UIWindowExpedition : UIWindow
             expedition[i].button.onClick.AddListener(() => { SelectSlotExpedition(index); });
         }
 
+    }
+
+    public void ClosePopup()
+    {
+        if (select != null)
+            select.toggle.isOn = false;
+        else
+            popup.Popup(false);
     }
 
     public void SelectSlotExpedition(int index)
@@ -64,6 +76,7 @@ public class UIWindowExpedition : UIWindow
     public override void Refresh()
     {
         base.Refresh();
+        ClosePopup();
         for (int i = 0; i < scrollRect.content.childCount; i++)
         {
             select = null;
@@ -75,8 +88,7 @@ public class UIWindowExpedition : UIWindow
         for (int i = 0; i < characters.Length; i++)
         {
 #if !UNITY_EDITOR
-            if (!GameManager.Instance.purchasedID.Contains(characters[i].id)
-                || characters[i].id >= 2000)
+            if (!GameManager.Instance.purchasedID.Contains(characters[i].id))
                 continue;
 #endif
             var characterInfos = new CharacterInfos();
@@ -91,11 +103,13 @@ public class UIWindowExpedition : UIWindow
                 {
                     select = slot;
                     selectSlot = null;
+                    popup.SetData(slot.characterInfos.unitData, slot.GetComponent<RectTransform>());
                 }
                 else
                 {
                     select = null;
                 }
+                popup.Popup(x);
             });
         }
         for (int i = 0; i < expedition.Length; i++)

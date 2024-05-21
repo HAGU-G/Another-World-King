@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIShopPopup : MonoBehaviour
+public class UIPopupShop : MonoBehaviour
 {
     public RawImage rawImage;
     public TextMeshProUGUI textCost;
