@@ -47,7 +47,7 @@ public static class DataTableManager
                 for (int i = 0; i < patternCount; i++)
                 {
                     var pattern = csvReader.GetField<string>(startPatternIndex + 0 + i * 3);
-                    if (pattern == Strings.zero)
+                    if (pattern == Defines.zero)
                         continue;
 
                     var ps = new PatternSet();

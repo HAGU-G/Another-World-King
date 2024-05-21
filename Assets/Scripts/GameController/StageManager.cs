@@ -183,7 +183,7 @@ public class StageManager : MonoBehaviour
 
     public void Defeat()
     {
-        GameManager.Instance.LoadingScene(Scenes.devMain);
+        uiOnStage.windowStagePause.Defeat();
     }
 
     public void Victory()
@@ -220,8 +220,9 @@ public class StageManager : MonoBehaviour
             };
         }
 
-        GameManager.Instance.StageClear(GameManager.Instance.SelectedStageID, star, prevStar == 3 ? playerTower.unitData.repeat_Reward : flag);
-        GameManager.Instance.LoadingScene(Scenes.devMain);
+        var getFlag = prevStar == 3 ? playerTower.unitData.repeat_Reward : flag;
+        GameManager.Instance.StageClear(GameManager.Instance.SelectedStageID, star, getFlag);
+        uiOnStage.windowStagePause.Victory(star, getFlag);
     }
 
 
@@ -273,24 +274,59 @@ public class StageManager : MonoBehaviour
     {
         uiOnStage.toggleUpgardeDamage.onValueChanged.AddListener(x =>
         {
+            if (x)
+            {
+                bool canUpgrade = false;
+                foreach (var buttonsummon in uiOnStage.buttonSummons)
+                {
+                    if (buttonsummon.gameObject.activeSelf && exp >= buttonsummon.UpgradeExpDamage)
+                    {
+                        canUpgrade = true;
+                    }
+                }
+
+                if (!canUpgrade)
+                {
+                    uiOnStage.toggleUpgardeDamage.isOn = false;
+                    return;
+                }
+            }
+
             isUpgrading = x;
 
             foreach (var button in uiOnStage.buttonSummons)
             {
 
                 button.outline.enabled = x && !button.IsUpgraded && exp >= button.UpgradeExpDamage;
-                button.outline.effectColor = Color.red;
+                button.outline.color = Color.red;
             }
 
         });
         uiOnStage.toggleUpgardeHP.onValueChanged.AddListener(x =>
         {
+            if (x)
+            {
+                bool canUpgrade = false;
+                foreach (var buttonsummon in uiOnStage.buttonSummons)
+                {
+                    if (buttonsummon.gameObject.activeSelf && exp >= buttonsummon.UpgradeExpHP)
+                    {
+                        canUpgrade = true;
+                    }
+                }
+
+                if (!canUpgrade)
+                {
+                    uiOnStage.toggleUpgardeHP.isOn = false;
+                    return;
+                }
+            }
             isUpgrading = x;
 
             foreach (var button in uiOnStage.buttonSummons)
             {
                 button.outline.enabled = x && !button.IsUpgraded && exp >= button.UpgradeExpHP;
-                button.outline.effectColor = Color.blue;
+                button.outline.color = Color.blue;
             }
         });
 

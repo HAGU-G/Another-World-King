@@ -22,7 +22,7 @@ public class UnitData : ScriptableObject
     //Init Stats
     public int id;
     public DIVISION division;
-    public string prefab = Strings.nonePrefab;
+    public string prefab = Defines.nonePrefab;
 
     public int initHP;
     public bool useStartHP = false;

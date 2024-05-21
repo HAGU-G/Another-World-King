@@ -14,7 +14,7 @@ public class UIWindowShop : UIWindow
     public Button cancel;
     public TextMeshProUGUI flags;
 
-    public UIShopPopup popup;
+    public UIPopupShop popup;
 
     private CharacterInfos select;
     private UISlotCharacterInShop selectSlot;
@@ -43,15 +43,14 @@ public class UIWindowShop : UIWindow
                 {
                     select = slot.slot.characterInfos;
                     selectSlot = slot;
-                    popup.Popup(true);
                     popup.SetData(selectSlot.slot.rawImage.uvRect, selectSlot.slot.characterInfos);
                 }
                 else if (selectSlot == slot)
                 {
                     select = null;
                     selectSlot = null;
-                    popup.Popup(false);
                 }
+                popup.Popup(x);
             });
         }
     }
