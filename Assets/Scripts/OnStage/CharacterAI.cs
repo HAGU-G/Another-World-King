@@ -114,7 +114,7 @@ public class CharacterAI : UnitBase
         if (Time.time >= lastAttackTime + AttackSpeed)
             Attack();
         else if (blocks.Count > 0)
-            Idle();
+        { Idle(); blocks.RemoveAll(x => x == null || x.IsDead); }
         else
             Move();
 
@@ -188,6 +188,7 @@ public class CharacterAI : UnitBase
             return;
         if (blocks.Count > 0)
         {
+            blocks.RemoveAll(x => x == null || x.IsDead);
             Idle();
             return;
         }
@@ -369,11 +370,44 @@ public class CharacterAI : UnitBase
                     if (isCounterBuffed && target.unitData.division != CounterSkill.targetDivision)
                         ClearBuff(CounterSkill);
 
-                    if (unitData.division == UnitData.DIVISION.CANNON)
+                    //if (unitData.division == UnitData.DIVISION.CANNON)
+                    //{
+                    //    Tower.enemyTower.Damaged(AttackDamage);
+                    //    PlayHitEffect(Tower.enemyTower.transform.position);
+                    //    unitAttacked = true;
+                    //}
+                    //else
+                    if (unitData.division == UnitData.DIVISION.ARCHER
+                        || unitData.division == UnitData.DIVISION.CANNON)
                     {
-                        Tower.enemyTower.Damaged(AttackDamage);
-                        PlayHitEffect(Tower.enemyTower.transform.position);
                         unitAttacked = true;
+
+                        int atk;
+                        int counterAtk;
+                        if (CounterSkill != null)
+                        {
+                            ClearBuff(CounterSkill);
+                            atk = AttackDamage;
+                            ApplyBuff(CounterSkill);
+                            counterAtk = AttackDamage;
+                            if (isCounterBuffed && target.unitData.division != CounterSkill.targetDivision)
+                                ClearBuff(CounterSkill);
+                        }
+                        else
+                        {
+                            atk = AttackDamage;
+                            counterAtk = AttackDamage;
+                        }
+
+                        PlayAttackEffect();
+                        var projectile = Instantiate(Resources.Load<Projectile>(string.Format(Paths.resourcesProjectiles, unitData.projectile)));
+                        projectile.transform.position = transform.position;
+                        projectile.Project(
+                            this,
+                            unitData.division == UnitData.DIVISION.CANNON ? Tower.enemyTower.transform.position : target.transform.position, 
+                            atk,
+                            CounterSkill != null ? CounterSkill.targetDivision : UnitData.DIVISION.NONE,
+                            CounterSkill != null ? counterAtk : atk);
                     }
                     else
                     {
@@ -389,7 +423,7 @@ public class CharacterAI : UnitBase
                             && target.unitData.division == CounterSkill.targetDivision)
                             target.ApplyBuff(CounterSkill);
                     }
-                   
+
                     if (isCounterBuffed && target.unitData.division != CounterSkill.targetDivision)
                         ApplyBuff(CounterSkill);
                 }

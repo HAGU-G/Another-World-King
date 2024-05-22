@@ -11,7 +11,7 @@ public class UnitData : ScriptableObject
         NONE,
         MELEE,
         TANKER,
-        MARKSMAN,
+        ARCHER,
         HEALER,
         MAGIC,
         SPECIAL,

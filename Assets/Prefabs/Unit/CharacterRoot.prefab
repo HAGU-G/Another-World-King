@@ -66,7 +66,7 @@ Rigidbody2D:
     serializedVersion: 2
     m_Bits: 0
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!61 &2474548720209105569
@@ -183,9 +183,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 905586177221da8419c68494c2998456, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initStats: {fileID: 0}
   isPlayer: 0
-  animator: {fileID: 0}
+  upgrade: 0
+  upgradeDamage: 0
+  upgradeHP: 0
   rb: {fileID: 3325342423257663449}
   attackCollider: {fileID: 7700066144859409963}
 --- !u!114 &3825334742286290610

@@ -36,7 +36,7 @@ MonoBehaviour:
   initDropExp: 450
   effectAttack: 0
   effectAttackHit: 0
-  projectile: 0
+  projectile: Projectile_Sniper
   desc: 
   isTower: 0
   stars_3_CastleHp: 0
