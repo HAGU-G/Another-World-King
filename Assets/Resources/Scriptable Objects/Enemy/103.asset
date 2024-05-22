@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5390eeabe2e0148bd1783116bb6660, type: 3}
   m_Name: 103
   m_EditorClassIdentifier: 
-  ignore: "\uFFFD\uFFFD\uFFFD\uFFFD \uFFFD\uFFFD\u013F"
+  ignore: "\uD761\uD608 \uD0F1\uCEE4"
   id: 103
   division: 2
   prefab: Mon_Bloody
@@ -20,7 +20,7 @@ MonoBehaviour:
   useStartHP: 0
   initHPStart: 0
   typeCounter: 
-  initAttackDamage: 30
+  initAttackDamage: 50
   initAttackSpeed: 1.5
   initAttackRange: 1
   initAttackEnemyCount: 0
@@ -34,8 +34,9 @@ MonoBehaviour:
   spawnTime: 0
   initDropGold: 200
   initDropExp: 400
-  effect: MonAttack2
-  image: "\uFFFD\uFFFD\uFFFD\uFFFD \uFFFD\uFFFD\uFFFD\uFFFD"
+  effectAttack: 0
+  effectAttackHit: 0
+  projectile: 0
   desc: 
   isTower: 0
   stars_3_CastleHp: 0

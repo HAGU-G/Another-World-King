@@ -14,7 +14,9 @@ public static class Paths
     public static readonly string resourcesStage = "Scriptable Objects/Stage/{0}";
     public static readonly string resourcesEnemy = "Scriptable Objects/Enemy/{0}";
     public static readonly string resourcesSkill = "Scriptable Objects/Skill/{0}";
+    public static readonly string resourcesCounter = "Scriptable Objects/Counter/{0}";
     public static readonly string resourcesPrefabs = "Prefabs/{0}";
+    public static readonly string resourcesEffects = "Prefabs/Effects/{0}";
 
     public static readonly string resourcesGameManager = "Prefabs/GameController/GameManager";
 
@@ -28,7 +30,6 @@ public static class Paths
 #if UNITY_EDITOR
     public static readonly string folderScriptableObjects = "Assets/Resources/Scriptable Objects";
 
-    public static readonly string resourcesCounter = "Scriptable Objects/Counter/{0}";
 
     public static readonly string resourcesDebugStat = "Prefabs/Debug/DebugStat";
 

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5390eeabe2e0148bd1783116bb6660, type: 3}
   m_Name: 301
   m_EditorClassIdentifier: 
-  ignore: "\uFFFD\uFFFD\uFFFD\uFFFD"
+  ignore: "\uC2A4\uD134"
   id: 301
   division: 6
   prefab: Mon_Shaman
@@ -20,8 +20,8 @@ MonoBehaviour:
   useStartHP: 0
   initHPStart: 0
   typeCounter: 
-  initAttackDamage: 10
-  initAttackSpeed: 3
+  initAttackDamage: 20
+  initAttackSpeed: 1.5
   initAttackRange: 3
   initAttackEnemyCount: 0
   initAttackOrder: 2
@@ -34,8 +34,9 @@ MonoBehaviour:
   spawnTime: 0
   initDropGold: 150
   initDropExp: 300
-  effect: MonStun
-  image: "\uFFFD\uFFFD\uFFFD\uFFFD \uFFFD\uFFFD\uFFFD\uFFFD"
+  effectAttack: 0
+  effectAttackHit: 0
+  projectile: 0
   desc: 
   isTower: 0
   stars_3_CastleHp: 0

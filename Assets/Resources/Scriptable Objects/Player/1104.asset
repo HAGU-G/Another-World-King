@@ -34,8 +34,9 @@ MonoBehaviour:
   spawnTime: 3
   initDropGold: 0
   initDropExp: 0
-  effect: Attack1
-  image: "\uAE30\uC218.jpg"
+  effectAttack: 0
+  effectAttackHit: 0
+  projectile: 0
   desc: Banner_explan
   isTower: 0
   stars_3_CastleHp: 0

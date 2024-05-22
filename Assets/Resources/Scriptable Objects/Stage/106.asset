@@ -34,8 +34,9 @@ MonoBehaviour:
   spawnTime: 0
   initDropGold: 0
   initDropExp: 0
-  effect: 
-  image: 
+  effectAttack: 
+  effectAttackHit: 
+  projectile: 
   desc: 
   isTower: 1
   stars_3_CastleHp: 1400

@@ -16,7 +16,7 @@ TagManager:
   - Water
   - UI
   - Slot
-  - 
+  - Effect
   - Background
   - Tower
   - Unit
@@ -53,6 +53,9 @@ TagManager:
     locked: 0
   - name: Unit
     uniqueID: 2058779609
+    locked: 0
+  - name: Effect
+    uniqueID: 1101108073
     locked: 0
   - name: HUD
     uniqueID: 3256880021

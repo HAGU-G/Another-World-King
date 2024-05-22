@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5390eeabe2e0148bd1783116bb6660, type: 3}
   m_Name: 101
   m_EditorClassIdentifier: 
-  ignore: "\uFFFD\uFFFD\uFFFD\uFFFD"
+  ignore: "\uC804\uC0AC"
   id: 101
   division: 1
   prefab: Mon_Warrior
@@ -20,8 +20,8 @@ MonoBehaviour:
   useStartHP: 0
   initHPStart: 0
   typeCounter: 101
-  initAttackDamage: 50
-  initAttackSpeed: 2
+  initAttackDamage: 70
+  initAttackSpeed: 1.5
   initAttackRange: 1
   initAttackEnemyCount: 0
   initAttackOrder: 1
@@ -34,8 +34,9 @@ MonoBehaviour:
   spawnTime: 0
   initDropGold: 50
   initDropExp: 200
-  effect: MonAttack1
-  image: MonWarrior.jpg
+  effectAttack: 0
+  effectAttackHit: 0
+  projectile: 0
   desc: 
   isTower: 0
   stars_3_CastleHp: 0

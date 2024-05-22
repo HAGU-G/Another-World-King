@@ -88,7 +88,7 @@ public class UIWindowExpedition : UIWindow
         for (int i = 0; i < characters.Length; i++)
         {
 #if !UNITY_EDITOR
-            if (!GameManager.Instance.purchasedID.Contains(characters[i].id))
+            if (!GameManager.Instance.PurchasedID.Contains(characters[i].id))
                 continue;
 #endif
             var characterInfos = new CharacterInfos();

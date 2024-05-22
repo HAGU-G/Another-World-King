@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5390eeabe2e0148bd1783116bb6660, type: 3}
   m_Name: 106
   m_EditorClassIdentifier: 
-  ignore: "\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD"
+  ignore: "\uAD11\uC804\uC0AC"
   id: 106
   division: 1
   prefab: Mon_Berserker
@@ -34,8 +34,9 @@ MonoBehaviour:
   spawnTime: 0
   initDropGold: 200
   initDropExp: 300
-  effect: MonAttack1
-  image: "\uFFFD\uFFFD\uFFFD\uFFFD \uFFFD\uFFFD\uFFFD\uFFFD"
+  effectAttack: 0
+  effectAttackHit: 0
+  projectile: 0
   desc: 
   isTower: 0
   stars_3_CastleHp: 0

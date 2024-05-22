@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class Upgrade
 {
     public string List { get; set; }

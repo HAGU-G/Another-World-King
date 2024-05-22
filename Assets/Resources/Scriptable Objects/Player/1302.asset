@@ -20,8 +20,8 @@ MonoBehaviour:
   useStartHP: 0
   initHPStart: 0
   typeCounter: 105
-  initAttackDamage: 0
-  initAttackSpeed: 3
+  initAttackDamage: 20
+  initAttackSpeed: 1.5
   initAttackRange: 3
   initAttackEnemyCount: 0
   initAttackOrder: 2
@@ -34,8 +34,9 @@ MonoBehaviour:
   spawnTime: 15
   initDropGold: 0
   initDropExp: 0
-  effect: slow1
-  image: "\uC2AC\uB85C\uC6B0.jpg"
+  effectAttack: 0
+  effectAttackHit: Hit_Witch
+  projectile: 0
   desc: Witch_explan
   isTower: 0
   stars_3_CastleHp: 0

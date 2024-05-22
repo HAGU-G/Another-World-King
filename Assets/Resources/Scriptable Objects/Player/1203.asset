@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ignore: "\uB300\uD3EC"
   id: 1203
-  division: 3
+  division: 7
   prefab: Cannon
   initHP: 200
   useStartHP: 0
@@ -34,8 +34,9 @@ MonoBehaviour:
   spawnTime: 15
   initDropGold: 0
   initDropExp: 0
-  effect: Cannon1
-  image: "\uB300\uD3EC.jpg"
+  effectAttack: 0
+  effectAttackHit: Hit_Cannon
+  projectile: Projectile_Cannon
   desc: Cannon_explan
   isTower: 0
   stars_3_CastleHp: 0

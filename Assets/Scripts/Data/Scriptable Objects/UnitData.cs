@@ -15,6 +15,7 @@ public class UnitData : ScriptableObject
         HEALER,
         MAGIC,
         SPECIAL,
+        CANNON
     }
 
     public string ignore; //Don't use in game
@@ -46,8 +47,9 @@ public class UnitData : ScriptableObject
     public int initDropGold;
     public int initDropExp;
 
-    public string effect;
-    public string image;
+    public string effectAttack;
+    public string effectAttackHit;
+    public string projectile;
     public string desc;
 
     public bool isTower = false;

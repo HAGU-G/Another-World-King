@@ -30,12 +30,13 @@ MonoBehaviour:
   initHeal: 0
   initMoveSpeed: 80
   price: 0
-  cost: 100
-  spawnTime: 3
+  cost: 150
+  spawnTime: 5
   initDropGold: 0
   initDropExp: 0
-  effect: Attack1
-  image: "\uC804\uC0AC.jpg"
+  effectAttack: Attack_Warrior
+  effectAttackHit: 0
+  projectile: 0
   desc: Warrior_explan
   isTower: 0
   stars_3_CastleHp: 0

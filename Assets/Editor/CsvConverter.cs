@@ -14,10 +14,11 @@ public class UnitData_Csv
     [Index(5)] public float A_Speed { get; set; }
     [Index(6)] public float A_Range { get; set; }
     [Index(7)] public int Chr_Position { get; set; }
-    [Index(8)] public string Effect { get; set; }
-    [Index(9)] public string Image { get; set; }
-    [Index(10)] public string Skill { get; set; }
-    [Index(11)] public string String_ID { get; set; }
+    [Index(8)] public string My_Effect { get; set; }
+    [Index(9)] public string Target_Effect { get; set; }
+    [Index(10)] public string A_Effect_Image { get; set; }
+    [Index(11)] public string Skill { get; set; }
+    [Index(12)] public string String_ID { get; set; }
     [Ignore] public int Heal { get; set; }
     [Ignore] public int EnemyCount { get; set; }
     [Ignore] public string TypeCounter { get; set; }
@@ -48,8 +49,9 @@ public class UnitData_Csv
         unitData.initAttackSpeed = A_Speed;
         unitData.initAttackRange = A_Range;
         unitData.skill = Skill;
-        unitData.effect = Effect;
-        unitData.image = Image;
+        unitData.effectAttack = My_Effect;
+        unitData.effectAttackHit = Target_Effect;
+        unitData.projectile = A_Effect_Image;
         unitData.initAttackOrder = Chr_Position;
         unitData.initHeal = Heal;
         unitData.prefab = String_ID;
@@ -74,8 +76,9 @@ public class UnitData_Csv
         A_Speed = unitData.initAttackSpeed;
         A_Range = unitData.initAttackRange;
         Skill = unitData.skill;
-        Effect = unitData.effect;
-        Image = unitData.image;
+        My_Effect = unitData.effectAttack;
+        Target_Effect = unitData.effectAttackHit;
+        A_Effect_Image = unitData.projectile;
         Chr_Position = unitData.initAttackOrder;
         Heal = unitData.initHeal;
         EnemyCount = unitData.initAttackEnemyCount;
@@ -91,12 +94,12 @@ public class UnitData_Csv
 
 public class Player_Csv : UnitData_Csv
 {
-    [Index(12)] public int Spawn_Price { get; set; }
-    [Index(13)] public float Spawn_Time { get; set; }
-    [Index(14)] public string Char_Info { get; set; }
-    [Index(15)] public int Shop_Value { get; set; }
-    [Index(16)] public int Upgrade_ID_AT { get; set; }
-    [Index(17)] public int Upgrade_ID_DF { get; set; }
+    [Index(13)] public int Spawn_Price { get; set; }
+    [Index(14)] public float Spawn_Time { get; set; }
+    [Index(15)] public string Char_Info { get; set; }
+    [Index(16)] public int Shop_Value { get; set; }
+    [Index(17)] public int Upgrade_ID_AT { get; set; }
+    [Index(18)] public int Upgrade_ID_DF { get; set; }
 
     public Player_Csv() : base() { }
     public Player_Csv(UnitData initStats) : base(initStats) { }
@@ -126,8 +129,8 @@ public class Player_Csv : UnitData_Csv
 
 public class Enemy_Csv : UnitData_Csv
 {
-    [Index(12)] public int Dead_Gold { get; set; }
-    [Index(13)] public int Dead_Exp { get; set; }
+    [Index(13)] public int Dead_Gold { get; set; }
+    [Index(14)] public int Dead_Exp { get; set; }
     public Enemy_Csv() : base() { }
     public Enemy_Csv(UnitData unitData) : base(unitData) { }
 

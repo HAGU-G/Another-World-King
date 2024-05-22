@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -256,6 +257,7 @@ public class CharacterAI : UnitBase
             var eventListener = Animators[0].AddComponent<CharacterEvenListener>();
             eventListener.onAttackHit += AttackHit;
             eventListener.onAttackEnd += AttackEnd;
+            eventListener.onPlayAttackEffect += PlayAttackEffect;
         }
 
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
@@ -336,6 +338,7 @@ public class CharacterAI : UnitBase
                 for (int i = 0; i < GetOrder() - 1; i++)
                 {
                     Tower.units[i].Healed(Heal);
+                    PlayHitEffect(Tower.units[i].transform.position);
                     if (!Tower.units[i].IsDead && Skill != null && Skill.target == SkillData.TARGET.TEAM)
                         Tower.units[i].ApplyBuff(Skill);
                 }
@@ -352,7 +355,7 @@ public class CharacterAI : UnitBase
 
                 if (target.IsTower)
                 {
-                    target.Damaged(100);
+                    target.Damaged(StageManager.Instance.castleDamage);
                     towerAttacked = true;
                 }
                 else
@@ -360,17 +363,27 @@ public class CharacterAI : UnitBase
                     if (isCounterBuffed && target.unitData.division != CounterSkill.targetDivision)
                         ClearBuff(CounterSkill);
 
-                    target.Damaged(AttackDamage);
-                    unitAttacked = true;
+                    if (unitData.division == UnitData.DIVISION.CANNON)
+                    {
+                        Tower.enemyTower.Damaged(AttackDamage);
+                        PlayHitEffect(Tower.enemyTower.transform.position);
+                        unitAttacked = true;
+                    }
+                    else
+                    {
+                        target.Damaged(AttackDamage);
+                        PlayHitEffect(target.transform.position);
+                        unitAttacked = true;
 
-                    if (!target.IsDead && Skill != null && Skill.target == SkillData.TARGET.ENEMY)
-                        target.ApplyBuff(Skill);
-                    if (!target.IsDead
-                        && CounterSkill != null
-                        && CounterSkill.target == SkillData.TARGET.ENEMY
-                        && target.unitData.division == CounterSkill.targetDivision)
-                        target.ApplyBuff(CounterSkill);
-
+                        if (!target.IsDead && Skill != null && Skill.target == SkillData.TARGET.ENEMY)
+                            target.ApplyBuff(Skill);
+                        if (!target.IsDead
+                            && CounterSkill != null
+                            && CounterSkill.target == SkillData.TARGET.ENEMY
+                            && target.unitData.division == CounterSkill.targetDivision)
+                            target.ApplyBuff(CounterSkill);
+                    }
+                   
                     if (isCounterBuffed && target.unitData.division != CounterSkill.targetDivision)
                         ApplyBuff(CounterSkill);
                 }
@@ -520,6 +533,32 @@ public class CharacterAI : UnitBase
         else
         {
             blocks.Remove(unitBase);
+        }
+    }
+
+    public void PlayAttackEffect()
+    {
+        if (unitData.effectAttack == Defines.zero)
+            return;
+
+        if (EffectManager.Instance.EffectPool.ContainsKey(unitData.effectAttack))
+        {
+            var effect = EffectManager.Instance.EffectPool[unitData.effectAttack].Get();
+            effect.gameObject.transform.position = transform.position;
+            effect.transform.localScale = isPlayer ? Vectors.filpX : Vector3.one;
+        }
+    }
+
+    public void PlayHitEffect(Vector3 enemyPos)
+    {
+        if (unitData.effectAttackHit == Defines.zero)
+            return;
+
+        if (EffectManager.Instance.EffectPool.ContainsKey(unitData.effectAttackHit))
+        {
+            var effect = EffectManager.Instance.EffectPool[unitData.effectAttackHit].Get();
+            effect.gameObject.transform.position = enemyPos;
+            effect.transform.localScale = isPlayer ? Vectors.filpX : Vector3.one;
         }
     }
 }

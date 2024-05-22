@@ -77,6 +77,7 @@ public class StageManager : MonoBehaviour
     public int startExp;
     public int getGoldPerSeconds;
     public int getExpPerSeconds;
+    public int castleDamage;
     #region Player
     public TowerAI playerTower;
     private int gold;
@@ -115,6 +116,7 @@ public class StageManager : MonoBehaviour
     #endregion
 
     private bool isUpgrading;
+    public static StageManager Instance => GameObject.FindWithTag(Tags.player)?.GetComponent<StageManager>();
 
     private void Start()
     {

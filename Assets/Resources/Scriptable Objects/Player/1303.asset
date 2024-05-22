@@ -20,8 +20,8 @@ MonoBehaviour:
   useStartHP: 0
   initHPStart: 0
   typeCounter: 106
-  initAttackDamage: 10
-  initAttackSpeed: 3
+  initAttackDamage: 20
+  initAttackSpeed: 1.5
   initAttackRange: 3
   initAttackEnemyCount: 0
   initAttackOrder: 2
@@ -34,8 +34,9 @@ MonoBehaviour:
   spawnTime: 15
   initDropGold: 0
   initDropExp: 0
-  effect: buff2
-  image: "\uC2A4\uD134.jpg"
+  effectAttack: 0
+  effectAttackHit: Hit_Shaman
+  projectile: 0
   desc: Shaman_explan
   isTower: 0
   stars_3_CastleHp: 0
