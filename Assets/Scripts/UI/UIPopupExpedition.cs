@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Android;
 
 public class UIPopupExpedition : MonoBehaviour
 {
@@ -12,13 +13,14 @@ public class UIPopupExpedition : MonoBehaviour
         var corners = new Vector3[4];
         var myCorners = new Vector3[4];
         slot.GetWorldCorners(corners);
+        rectTransform.GetWorldCorners(myCorners);
 
-        if (Camera.main.WorldToScreenPoint(corners[3]).x + rectTransform.sizeDelta.x <= Screen.width)
+        if (corners[3].x + myCorners[3].x - myCorners[0].x <= Screen.width)
         {
             rectTransform.pivot = new(0f, rectTransform.pivot.y);
             transform.position = (corners[2] + corners[3]) / 2f;
         }
-        else if (Camera.main.WorldToScreenPoint(corners[0]).x - rectTransform.sizeDelta.x >= 0)
+        else if (corners[0].x - (myCorners[3].x - myCorners[0].x) >= 0)
         {
             rectTransform.pivot = new(1f, rectTransform.pivot.y);
             transform.position = (corners[0] + corners[1]) / 2f;

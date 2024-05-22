@@ -157,6 +157,8 @@ public class GameManager : MonoBehaviour
     }
     public static void PlayMusic(AudioClip clip)
     {
-        Instance.musicPlayer.PlayOneShot(clip);
+        Instance.musicPlayer.Stop();
+        Instance.musicPlayer.clip = clip;
+        Instance.musicPlayer.Play();
     }
 }

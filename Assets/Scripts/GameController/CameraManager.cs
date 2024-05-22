@@ -16,11 +16,11 @@ public class CameraManager : MonoBehaviour
     public float xLeftBound;
     public float xRightBound;
 
-    private Camera targetCamera;
+    private float constant;
 
     private void Awake()
     {
-        targetCamera = GetComponent<Camera>();
+        constant = 1 + (((float)Screen.width / Screen.height - 1f) - (2532f / 1170f - 1f)) / (2532f / 1170f - 1f) / 2f;
     }
 
     public void Update()
@@ -42,8 +42,8 @@ public class CameraManager : MonoBehaviour
     public void SetCameraPosition(Vector3 position)
     {
         background.MoveValue = lockX ? transform.position.x : Mathf.Clamp(position.x,
-            (pos1.position.x < pos2.position.x ? pos1.position.x : pos2.position.x) + xLeftBound,
-            (pos1.position.x > pos2.position.x ? pos1.position.x : pos2.position.x) - xRightBound);
+            (pos1.position.x < pos2.position.x ? pos1.position.x : pos2.position.x) + xLeftBound * constant,
+            (pos1.position.x > pos2.position.x ? pos1.position.x : pos2.position.x) - xRightBound * constant);
         transform.position = new(
             background.MoveValue,
             lockY ? transform.position.y : Mathf.Clamp(position.y,

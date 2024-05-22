@@ -18,6 +18,7 @@ public static class Paths
     public static readonly string resourcesPrefabs = "Prefabs/{0}";
     public static readonly string resourcesEffects = "Prefabs/Effects/{0}";
     public static readonly string resourcesBackgrounds = "Prefabs/Backgrounds/{0}";
+    public static readonly string resourcesImages = "Prefabs/Images/{0}";
 
     public static readonly string resourcesGameManager = "Prefabs/GameController/GameManager";
 

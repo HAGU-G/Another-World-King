@@ -87,6 +87,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5849885509496591018}
     m_Modifications:
+    - target: {fileID: -429871177506762301, guid: 424c3ca75c844734f94aa737d52684d5, type: 3}
+      propertyPath: m_FlexibleHeight
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -429871177506762301, guid: 424c3ca75c844734f94aa737d52684d5, type: 3}
+      propertyPath: m_LayoutPriority
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4250476592371463329, guid: 424c3ca75c844734f94aa737d52684d5, type: 3}
       propertyPath: m_Name
       value: SlotCharacter
@@ -267,6 +275,10 @@ PrefabInstance:
     - target: {fileID: 1677390458836456712, guid: 0e35e098d58a9b8478d9012665c4c66d, type: 3}
       propertyPath: m_fontSize
       value: 12.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677390458836456712, guid: 0e35e098d58a9b8478d9012665c4c66d, type: 3}
+      propertyPath: m_fontSizeMax
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 2057682697214486251, guid: 0e35e098d58a9b8478d9012665c4c66d, type: 3}
       propertyPath: m_AnchorMax.y
@@ -466,7 +478,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7930330188865123809, guid: 0e35e098d58a9b8478d9012665c4c66d, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -23.9143
+      value: -29.1903
       objectReference: {fileID: 0}
     - target: {fileID: 7930330188865123809, guid: 0e35e098d58a9b8478d9012665c4c66d, type: 3}
       propertyPath: m_SizeDelta.y
@@ -544,7 +556,7 @@ MonoBehaviour:
   m_PreferredWidth: -1
   m_PreferredHeight: 32
   m_FlexibleWidth: -1
-  m_FlexibleHeight: -1
+  m_FlexibleHeight: 1
   m_LayoutPriority: 1
 --- !u!114 &8096588386712691970 stripped
 MonoBehaviour:

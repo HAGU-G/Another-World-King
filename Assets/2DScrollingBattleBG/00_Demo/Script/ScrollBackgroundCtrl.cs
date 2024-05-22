@@ -31,6 +31,7 @@ namespace ScrollBGTest
         float SkyMoveValue;
         public float SkyScrollSpeed;
 
+        public AudioClip bgm;
 
         void Start()
         {
@@ -41,6 +42,9 @@ namespace ScrollBGTest
             //Get MeshRenderers
             for (int i = 0; i < Background.Length; i++)
                 Ren[i] = Background[i].GetComponent<MeshRenderer>();
+
+            if (bgm != null)
+                GameManager.PlayMusic(bgm);
         }
 
 
@@ -59,6 +63,9 @@ namespace ScrollBGTest
 
             SkyRen.material.mainTextureOffset = new Vector2(SkyMoveValue += (Time.unscaledDeltaTime * -SkyScrollSpeed), 0);
         }
+
     }
+
+
 
 }

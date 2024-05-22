@@ -77,6 +77,11 @@ public class UIWindowExpedition : UIWindow
     {
         base.Refresh();
         ClosePopup();
+
+        var grid = scrollRect.content.GetComponent<GridLayoutGroup>();
+        var cellSizeX = (scrollRect.viewport.rect.width - grid.padding.right - grid.padding.left - grid.spacing.x * (grid.constraintCount - 1)) / grid.constraintCount;
+        grid.cellSize = new(cellSizeX, cellSizeX);
+
         for (int i = 0; i < scrollRect.content.childCount; i++)
         {
             select = null;

@@ -71,8 +71,9 @@ MonoBehaviour:
   - {fileID: 0}
   SkyRen: {fileID: 8868303121847629041}
   MoveValue: 0
-  MoveSpeed: 0.5
-  SkyScrollSpeed: 0.01
+  MoveSpeed: 0
+  SkyScrollSpeed: 0
+  bgm: {fileID: 8300000, guid: 89d0be1c9fbb4af41bf9199e65f44a24, type: 3}
 --- !u!210 &8713214615588336102
 SortingGroup:
   m_ObjectHideFlags: 0
