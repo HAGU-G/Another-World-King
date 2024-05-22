@@ -1,8 +1,10 @@
+using ScrollBGTest;
 using UnityEngine;
 
 [RequireComponent(typeof(Camera))]
 public class CameraManager : MonoBehaviour
 {
+    public ScrollBackgroundCtrl background;
     public Transform pos1;
     public Transform pos2;
     public TouchManager touchManager;
@@ -39,10 +41,11 @@ public class CameraManager : MonoBehaviour
     }
     public void SetCameraPosition(Vector3 position)
     {
-        transform.position = new(
-            lockX ? transform.position.x : Mathf.Clamp(position.x,
+        background.MoveValue = lockX ? transform.position.x : Mathf.Clamp(position.x,
             (pos1.position.x < pos2.position.x ? pos1.position.x : pos2.position.x) + xLeftBound,
-            (pos1.position.x > pos2.position.x ? pos1.position.x : pos2.position.x) - xRightBound),
+            (pos1.position.x > pos2.position.x ? pos1.position.x : pos2.position.x) - xRightBound);
+        transform.position = new(
+            background.MoveValue,
             lockY ? transform.position.y : Mathf.Clamp(position.y,
             pos1.position.y < pos2.position.y ? pos1.position.y : pos2.position.y,
             pos1.position.y > pos2.position.y ? pos1.position.y : pos2.position.y),

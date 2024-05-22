@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using ScrollBGTest;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEditor;
 using UnityEngine;
@@ -74,6 +75,7 @@ public class Stage
 
 public class StageManager : MonoBehaviour
 {
+    public CameraManager stageCamera;
     public UIOnStage uiOnStage;
     public AudioClip audioWin;
     public AudioClip audioLose;
@@ -131,6 +133,7 @@ public class StageManager : MonoBehaviour
         SetSummonButton();
         SetUpgradeToggle();
 
+        stageCamera.background = Instantiate(Resources.Load<ScrollBackgroundCtrl>(string.Format(Paths.resourcesBackgrounds, DataTableManager.Stages[GameManager.Instance.SelectedStageID].String_ID)), stageCamera.transform);
         enemyTower.unitData = playerTower.unitData = Resources.Load<UnitData>(string.Format(Paths.resourcesStage, GameManager.Instance.SelectedStageID));
         playerTower.isPlayer = true;
         playerTower.ResetUnit();

@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8868303119862581870}
   - component: {fileID: 8868303119862581871}
-  m_Layer: 0
-  m_Name: Lava
+  - component: {fileID: -1394899848663405880}
+  m_Layer: 8
+  m_Name: Stage_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24,9 +25,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8868303119862581872}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: -0.4, z: 0}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8868303121847629042}
   - {fileID: 8868303121488170737}
@@ -35,7 +38,6 @@ Transform:
   - {fileID: 8868303120128820994}
   - {fileID: 8868303119872391742}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8868303119862581871
 MonoBehaviour:
@@ -56,11 +58,11 @@ MonoBehaviour:
   - {fileID: 8868303120128820994}
   - {fileID: 8868303119872391742}
   ScrollSpeed:
-  - 0.1
-  - 0.15
-  - 0.25
-  - 0.4
-  - 0.6
+  - 0.022375
+  - 0.0335625
+  - 0.0559375
+  - 0.0895
+  - 0.13425
   Ren:
   - {fileID: 0}
   - {fileID: 0}
@@ -71,6 +73,18 @@ MonoBehaviour:
   MoveValue: 0
   MoveSpeed: 0.5
   SkyScrollSpeed: 0.01
+--- !u!210 &-1394899848663405880
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8868303119862581872}
+  m_Enabled: 1
+  m_SortingLayerID: -1515987309
+  m_SortingLayer: -1
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1 &8868303119872391743
 GameObject:
   m_ObjectHideFlags: 0
@@ -82,7 +96,7 @@ GameObject:
   - component: {fileID: 8868303119872391742}
   - component: {fileID: 8868303119872391740}
   - component: {fileID: 8868303119872391741}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,12 +110,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8868303119872391743}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8868303119862581870}
-  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8868303119872391740
 MeshFilter:
@@ -131,7 +146,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9891d1116d2f18946a335035360e2380, type: 2}
+  - {fileID: 2100000, guid: c3b6f5a52fc39e94a88d8bc64215ab84, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -164,7 +179,7 @@ GameObject:
   - component: {fileID: 8868303120128820994}
   - component: {fileID: 8868303120128820992}
   - component: {fileID: 8868303120128820993}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,12 +193,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8868303120128820995}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8868303119862581870}
-  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8868303120128820992
 MeshFilter:
@@ -213,7 +229,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c719e536da3af47489548e3801166ef3, type: 2}
+  - {fileID: 2100000, guid: 7f7d11cbd0972ae45a10902e23454d1f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -246,7 +262,7 @@ GameObject:
   - component: {fileID: 8868303121142756028}
   - component: {fileID: 8868303121142756026}
   - component: {fileID: 8868303121142756027}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FarA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,12 +276,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8868303121142756029}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 3}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8868303119862581870}
-  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8868303121142756026
 MeshFilter:
@@ -295,7 +312,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2c6f2b4fb329583448216273d8508440, type: 2}
+  - {fileID: 2100000, guid: b88a478752a3c2743ba32f7dc3da979c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -328,7 +345,7 @@ GameObject:
   - component: {fileID: 8868303121488170737}
   - component: {fileID: 8868303121488170735}
   - component: {fileID: 8868303121488170736}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FarC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -342,12 +359,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8868303121488170738}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8868303119862581870}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8868303121488170735
 MeshFilter:
@@ -377,7 +395,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 47fe20a0bc13730489062a706cc9e5c9, type: 2}
+  - {fileID: 2100000, guid: 5a8c4b012b8449943ae2fb2cee02d490, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -410,7 +428,7 @@ GameObject:
   - component: {fileID: 8868303121847629042}
   - component: {fileID: 8868303121847629040}
   - component: {fileID: 8868303121847629041}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sky
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -424,12 +442,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8868303121847629043}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 6}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8868303119862581870}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8868303121847629040
 MeshFilter:
@@ -459,7 +478,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1975d26b1233e16439231d521727cb22, type: 2}
+  - {fileID: 2100000, guid: c659fd60a60fc044a93d356f54e37f61, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -492,7 +511,7 @@ GameObject:
   - component: {fileID: 8868303121917823380}
   - component: {fileID: 8868303121917823378}
   - component: {fileID: 8868303121917823379}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FarB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -506,12 +525,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8868303121917823381}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 4}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8868303119862581870}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8868303121917823378
 MeshFilter:
@@ -541,7 +561,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1f87fbae94c7e504c9fbd3c2496f8184, type: 2}
+  - {fileID: 2100000, guid: b1bb6208bf4d92a4c94813a3785f05e3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
