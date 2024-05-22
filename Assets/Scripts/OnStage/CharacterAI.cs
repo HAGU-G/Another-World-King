@@ -23,6 +23,7 @@ public class CharacterAI : UnitBase
     private SpriteRenderer[] spriteRenderers;
     public Rigidbody2D rb;
     public BoxCollider2D attackCollider;
+    private CharacterSound characterSound;
 
     public TowerAI Tower { get; set; }
     private List<UnitBase> enemyInRange = new();
@@ -254,12 +255,14 @@ public class CharacterAI : UnitBase
         Animators = GetComponentsInChildren<Animator>();
         if (Animators != null && Animators.Length > 0)
         {
-            var eventListener = Animators[0].AddComponent<CharacterEvenListener>();
+            var eventListener = Animators[0].AddComponent<CharacterAnimationEventListner>();
+            eventListener.Init();
             eventListener.onAttackHit += AttackHit;
             eventListener.onAttackEnd += AttackEnd;
             eventListener.onPlayAttackEffect += PlayAttackEffect;
+            eventListener.onKillSelf += () => { Damaged(MaxHP); };
         }
-
+        characterSound = GetComponentInChildren<CharacterSound>();
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
         Idle();
     }
@@ -339,6 +342,7 @@ public class CharacterAI : UnitBase
                 {
                     Tower.units[i].Healed(Heal);
                     PlayHitEffect(Tower.units[i].transform.position);
+                    characterSound.PlayAttackHitSound();
                     if (!Tower.units[i].IsDead && Skill != null && Skill.target == SkillData.TARGET.TEAM)
                         Tower.units[i].ApplyBuff(Skill);
                 }
@@ -346,6 +350,7 @@ public class CharacterAI : UnitBase
         }
         else
         {
+            characterSound.PlayAttackHitSound();
             int count = 0;
             bool unitAttacked = false;
             foreach (var target in targets)
@@ -356,6 +361,7 @@ public class CharacterAI : UnitBase
                 if (target.IsTower)
                 {
                     target.Damaged(StageManager.Instance.castleDamage);
+                    PlayHitEffect(target.transform.position);
                     towerAttacked = true;
                 }
                 else

@@ -9,7 +9,7 @@ public class UILoadScene : MonoBehaviour
     void Start()
     {
         test = Resources.LoadAsync("");
-        test.completed += (x) => { GameManager.Instance.ChangeScene(GameManager.Instance.nextScene); };
+        test.completed += (x) => { GameManager.Instance.ChangeScene(GameManager.Instance.NextScene); };
     }
 
     private void Update()

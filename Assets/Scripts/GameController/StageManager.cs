@@ -1,3 +1,5 @@
+using JetBrains.Annotations;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEditor;
 using UnityEngine;
 
@@ -73,6 +75,9 @@ public class Stage
 public class StageManager : MonoBehaviour
 {
     public UIOnStage uiOnStage;
+    public AudioClip audioWin;
+    public AudioClip audioLose;
+    public AudioSource audioSource;
     public int startGold;
     public int startExp;
     public int getGoldPerSeconds;
@@ -185,6 +190,7 @@ public class StageManager : MonoBehaviour
 
     public void Defeat()
     {
+        audioSource.PlayOneShot(audioLose);
         uiOnStage.windowStagePause.Defeat();
     }
 
@@ -222,9 +228,19 @@ public class StageManager : MonoBehaviour
             };
         }
 
-        var getFlag = prevStar == 3 ? playerTower.unitData.repeat_Reward : flag;
-        GameManager.Instance.StageClear(GameManager.Instance.SelectedStageID, star, getFlag);
-        uiOnStage.windowStagePause.Victory(star, getFlag);
+        var getFlags = prevStar == 3 ? playerTower.unitData.repeat_Reward : flag;
+        float getFlags_P = 0f;
+        foreach (var character in GameManager.Instance.Expedition)
+        {
+            if (character != null && character.skillData != null)
+            {
+                getFlags += character.skillData.clearFlag;
+                getFlags_P += character.skillData.clearFlag_P;
+            }
+        }
+        GameManager.Instance.StageClear(GameManager.Instance.SelectedStageID, star, getFlags);
+        audioSource.PlayOneShot(audioWin);
+        uiOnStage.windowStagePause.Victory(star, getFlags);
     }
 
 

@@ -6,7 +6,6 @@ public class GameManager : MonoBehaviour
 {
     #region INSTANCE
     private static GameManager instance;
-
     public static GameManager Instance
     {
         get
@@ -18,6 +17,10 @@ public class GameManager : MonoBehaviour
         }
     }
     #endregion
+
+    public AudioSource musicPlayer;
+    public AudioSource uiSoundPlayer;
+
     private int flags;
     public int Flags
     {
@@ -48,7 +51,7 @@ public class GameManager : MonoBehaviour
         }
     }
     public Dictionary<int, int> StageClearInfo { get; private set; } = new();
-    public string nextScene;
+    public string NextScene { get; set; }
 
     private void Awake()
     {
@@ -67,7 +70,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadingScene(string name)
     {
-        nextScene = name;
+        NextScene = name;
         SceneManager.LoadScene(Scenes.devLoading);
     }
     public void ChangeScene(string name)
@@ -115,6 +118,9 @@ public class GameManager : MonoBehaviour
             StageClearInfo[stageID] = StageClearInfo[stageID] < star ? star : StageClearInfo[stageID];
         else
             StageClearInfo.Add(stageID, star);
+
+
+        
         flags += flag;
 
         if (DataTableManager.StageUnlockID.ContainsKey(stageID))
@@ -142,5 +148,15 @@ public class GameManager : MonoBehaviour
         {
             return false;
         }
+    }
+
+
+    public static void PlayUISound(AudioClip clip)
+    {
+        Instance.uiSoundPlayer.PlayOneShot(clip);
+    }
+    public static void PlayMusic(AudioClip clip)
+    {
+        Instance.musicPlayer.PlayOneShot(clip);
     }
 }
