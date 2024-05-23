@@ -33,7 +33,7 @@ MonoBehaviour:
   cost: 0
   spawnTime: 0
   initDropGold: 50
-  initDropExp: 200
+  initDropExp: 5000
   effectAttack: Attack_Warrior
   effectAttackHit: 0
   projectile: 0

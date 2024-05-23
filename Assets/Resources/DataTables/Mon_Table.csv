@@ -1,5 +1,5 @@
 List,ID,Division,Hp,Attack,A_Speed,A_Range,Chr_Position,My_Effect,Target_Effect,A_Effect_Image,Skill,String_ID,Dead_Gold,Dead_Exp
-튜토리얼 전사,100,1,80,20,1.5,1,1,Attack_Warrior,0,0,0,Mon_Warrior,50,200
+튜토리얼 전사,100,1,80,20,1.5,1,1,Attack_Warrior,0,0,0,Mon_Warrior,50,5000
 전사,101,1,150,70,1.5,1,1,Attack_Warrior,0,0,0,Mon_Warrior,50,200
 탱커,102,2,400,40,2,1,1,Attack_Warrior,Hit_Guardian,0,0,Mon_Guardian,100,350
 흡혈 탱커,103,2,300,50,1.5,1,1,Attack_Bloody,0,0,Drain_Skill,Mon_Bloody,200,400
