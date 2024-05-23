@@ -170,7 +170,7 @@ public class Tutorial : MonoBehaviour
         yield return StartCoroutine(CoWaitClick());
         Time.timeScale = 0f;
 
-        ViewMessage("하단 우측의 “공격력 강화” 버튼이 보이시는지요? 이 버튼으로 우리 병사들을 더 강인하게 업그레이드 할 수 있습니다. 전하의 지혜를 사용해 원하시는 병사를 선택하고, 체력 혹은 경험치를 업그레이드 할 수 있습니다. 마침 적을 죽여서 EXP를 얻었으니, 한번 병사를 강화를 해 보시는 걸 추천 드립니다.");
+        ViewMessage("하단 우측의 \"공격력 강화\" 버튼이 보이시는지요? 이 버튼으로 우리 병사들을 더 강인하게 업그레이드 할 수 있습니다. 전하의 지혜를 사용해 원하시는 병사를 선택하고, 체력 혹은 경험치를 업그레이드 할 수 있습니다. 마침 적을 죽여서 EXP를 얻었으니, 한번 병사를 강화를 해 보시는 걸 추천 드립니다.");
         HighlightOn("Upgrade");
         while (!StageManager.Instance.uiOnStage.toggleUpgardeDamage.isOn
             && !StageManager.Instance.uiOnStage.toggleUpgardeHP.isOn)
@@ -187,7 +187,7 @@ public class Tutorial : MonoBehaviour
             b.button.onClick.RemoveListener(ConditionSatisfied);
         }
 
-        ViewMessage("잘 하셨습니다! “강화”버튼을 누르면 병사의 능력치 가 강화가 됩니다. 단, 강화를 할 때 EXP가 소모되니 이점을 참고 하시고 신중하게 병사를 강화하시기 바랍니다.");
+        ViewMessage("잘 하셨습니다! \"강화\"버튼을 누르면 병사의 능력치 가 강화가 됩니다. 단, 강화를 할 때 EXP가 소모되니 이점을 참고 하시고 신중하게 병사를 강화하시기 바랍니다.");
         yield return StartCoroutine(CoWaitClick());
         HighlightOff();
 
