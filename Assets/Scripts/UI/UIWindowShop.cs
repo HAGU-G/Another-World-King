@@ -25,6 +25,13 @@ public class UIWindowShop : UIWindow
         cancel.onClick.AddListener(ClosePopup);
 
     }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            uiMain.Open(); Close();
+        }
+    }
 
     public void Purchase()
     {

@@ -28,6 +28,7 @@ public class TouchManager : MonoBehaviour
         Tap = false;
         Touch = false;
 
+#if UNITY_ANDROID_API
         int touchCount = Input.touchCount;
         if (touchCount > 0)
         {
@@ -70,6 +71,37 @@ public class TouchManager : MonoBehaviour
                 if (firstID == touch.fingerId)
                     PrevPos = touch.position;
             }
+        }
+#if UNITY_EDITOR
+        MouseInput();
+#endif
+#else
+        MouseInput();
+#endif
+    }
+
+    private void MouseInput()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Pos = PrevPos = Input.mousePosition;
+            Touch = true;
+        }
+        if (Input.GetMouseButton(0))
+        {
+            Touch = true;
+            Pos = Input.mousePosition;
+            DeltaPos = Pos - PrevPos;
+            Moved = DeltaPos != Vector2.zero;
+            if (!firstIDMoved)
+                firstIDMoved = Moved;
+            WorldDeltaPos = Camera.main.ScreenToWorldPoint(Pos) - Camera.main.ScreenToWorldPoint(PrevPos);
+            PrevPos = Input.mousePosition;
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            Tap = !firstIDMoved;
+            firstIDMoved = false;
         }
     }
 }

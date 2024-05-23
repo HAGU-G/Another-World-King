@@ -21,6 +21,9 @@ public class Tutorial : MonoBehaviour
 
     private void Awake()
     {
+#if UNITY_ANDROID_API
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
+#endif
         SaveManager.GameLoad();
     }
     private void Start()
@@ -55,7 +58,14 @@ public class Tutorial : MonoBehaviour
     public void StartTutorial()
     {
         isWatching = true;
-        
+
+        if (GameManager.Instance.DoneTutorial)
+        {
+            GameManager.Instance.SelectedStageID++;
+            GameManager.Instance.LoadingScene(Scenes.main);
+            return;
+        }
+
         StartCoroutine(Co_Story());
     }
 
@@ -149,13 +159,6 @@ public class Tutorial : MonoBehaviour
         {
             story.sprite = s;
             yield return StartCoroutine(CoWaitClick());
-        }
-
-        if (GameManager.Instance.DoneTutorial)
-        {
-            GameManager.Instance.SelectedStageID++;
-            GameManager.Instance.LoadingScene(Scenes.main);
-            yield break;
         }
         LoadTutorialStage();
     }

@@ -53,9 +53,11 @@ public class UIWindowMain : UIWindow
         }
     }
 
-
-    public void GameSave() => SaveManager.GameSave();
-    public void GameLoad() => SaveManager.GameLoad();
-    public void GameReset() => SaveManager.GameReset();
-
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+    }
 }

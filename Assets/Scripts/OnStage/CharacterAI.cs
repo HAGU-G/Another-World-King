@@ -331,10 +331,17 @@ public class CharacterAI : UnitBase
         TargetFiltering();
         if (IsHealer)
         {
-            if (GetOrder() == 1 && targets != null && targets.Count == 1 && targets[0].IsTower)
+            if (GetOrder() == 1 && targets != null && targets.Count == 1)
             {
-                targets[0].Damaged(100);
-                towerAttacked = true;
+                if (targets[0].IsTower)
+                {
+                    targets[0].Damaged(StageManager.Instance.castleDamage);
+                    towerAttacked = true;
+                }
+                else
+                {
+                    targets[0].Damaged(AttackDamage);
+                }
             }
             else
             {
@@ -369,13 +376,6 @@ public class CharacterAI : UnitBase
                     if (isCounterBuffed && target.unitData.division != CounterSkill.targetDivision)
                         ClearBuff(CounterSkill);
 
-                    //if (unitData.division == UnitData.DIVISION.CANNON)
-                    //{
-                    //    Tower.enemyTower.Damaged(AttackDamage);
-                    //    PlayHitEffect(Tower.enemyTower.transform.position);
-                    //    unitAttacked = true;
-                    //}
-                    //else
                     if (unitData.division == UnitData.DIVISION.ARCHER
                         || unitData.division == UnitData.DIVISION.CANNON)
                     {

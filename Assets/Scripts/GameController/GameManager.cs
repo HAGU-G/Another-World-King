@@ -73,6 +73,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadingScene(string name)
     {
+        SaveManager.GameSave();
         NextScene = name;
         SceneManager.LoadScene(Scenes.loading);
     }
@@ -134,6 +135,7 @@ public class GameManager : MonoBehaviour
                     UnlockedID.Add(charID);
             }
         }
+        SaveManager.GameSave();
     }
 
     public bool AddPurchasedID(CharacterInfos characterInfos)
@@ -145,6 +147,7 @@ public class GameManager : MonoBehaviour
         {
             flags -= characterInfos.unitData.price;
             PurchasedID.Add(characterInfos.unitData.id);
+            SaveManager.GameSave();
             return true;
         }
         else

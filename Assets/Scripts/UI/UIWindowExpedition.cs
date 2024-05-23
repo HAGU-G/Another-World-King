@@ -30,7 +30,13 @@ public class UIWindowExpedition : UIWindow
         }
 
     }
-
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            uiMain.Open(); Close();
+        }
+    }
     public void ClosePopup()
     {
         if (select != null)
@@ -78,7 +84,7 @@ public class UIWindowExpedition : UIWindow
     {
         base.Refresh();
         ClosePopup();
-
+        counterInfo.SetActive(false);
         var grid = scrollRect.content.GetComponent<GridLayoutGroup>();
         var cellSizeX = (scrollRect.viewport.rect.width - grid.padding.right - grid.padding.left - grid.spacing.x * (grid.constraintCount - 1)) / grid.constraintCount;
         grid.cellSize = new(cellSizeX, cellSizeX);

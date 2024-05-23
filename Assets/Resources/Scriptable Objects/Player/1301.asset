@@ -20,7 +20,7 @@ MonoBehaviour:
   useStartHP: 0
   initHPStart: 0
   typeCounter: 104
-  initAttackDamage: 0
+  initAttackDamage: 20
   initAttackSpeed: 1.5
   initAttackRange: 3
   initAttackEnemyCount: 0

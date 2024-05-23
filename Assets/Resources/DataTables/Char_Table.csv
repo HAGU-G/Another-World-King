@@ -1,6 +1,6 @@
-List,ID,Division,Hp,Attack,A_Speed,A_Range,Chr_Position,My_Effect,Target_Effect,A_Effect_Image,Skill,String_ID,Spawn_Price,Spawn_Time,Char_Info,Shop_Value,Upgrade_ID_AT,Upgrade_ID_DF
-전사,1101,1,150,70,1.5,1,1,Attack_Warrior,0,0,0,Warrior,150,5,Warrior_explan,0,101,201
-탱커,1102,2,400,40,2,1,1,Attack_Warrior,Hit_Guardian,0,0,Guardian,250,7,Guardian_explan,0,102,202
+﻿List,ID,Division,Hp,Attack,A_Speed,A_Range,Chr_Position,My_Effect,Target_Effect,A_Effect_Image,Skill,String_ID,Spawn_Price,Spawn_Time,Char_Info,Shop_Value,Upgrade_ID_AT,Upgrade_ID_DF
+전사,1101,1,150,60,1.5,1,1,Attack_Warrior,0,0,0,Warrior,150,5,Warrior_explan,0,101,201
+탱커,1102,2,400,20,2,1,1,Attack_Warrior,Hit_Guardian,0,0,Guardian,250,7,Guardian_explan,0,102,202
 광부,1103,1,200,20,1,1,1,Attack_Mine,0,0,Gold_Skill,Mine,100,10,Mine_explan,30,105,205
 기수,1104,1,150,30,1.5,1,1,0,0,0,Plag_Skill,Banner,100,3,Banner_explan,40,106,206
 해머,1105,1,150,100,2,2,1,0,Hit_Olaf,0,0,Olaf,200,10,Olaf_explan,40,107,207
@@ -8,10 +8,10 @@ List,ID,Division,Hp,Attack,A_Speed,A_Range,Chr_Position,My_Effect,Target_Effect,
 연금술사,1107,1,200,40,1,1,1,Attack_Alchemist,0,0,Exp_Skill,Alchemist,100,10,Alchemist_explan,30,109,209
 흡혈 탱커,1108,2,300,50,1.5,1,1,Attack_Bloody,0,0,Drain_Skill,Bloody,400,15,Bloody_explan,50,110,210
 광전사,1109,1,200,40,2,1,1,0,Hit_Berserker,0,Fast_Skill,Berserker,200,15,Berserker_explan,50,111,211
-궁수,1201,3,70,25,0.5,2,2,Attack_Archer,Hit_Archer,Projectile_Archer,0,Archer,100,10,Archer_explan,0,103,203
+궁수,1201,3,70,30,0.5,2,2,Attack_Archer,Hit_Archer,Projectile_Archer,0,Archer,100,10,Archer_explan,0,103,203
 마법사,1202,5,100,80,2,2,2,0,Hit_Sorcerer,0,Magic1_Skill,Sorcerer,250,7,Sorcerer_explan,20,104,204
 대포,1203,7,100,100,1,1,1,0,Hit_Cannon,Projectile_Cannon,0,Cannon,300,25,Cannon_explan,45,112,212
-스나이퍼,1205,3,100,25,0.5,4,3,Attack_Archer,Hit_Archer,Projectile_Sniper,0,Sniper,400,15,Sniper_explan,60,114,214
-성직자,1301,4,100,0,1.5,3,3,0,Hit_Priest,0,Heal_Skill,Priest,150,5,Priest_explan,20,0,215
+스나이퍼,1205,3,100,30,0.5,4,3,Attack_Archer,Hit_Archer,Projectile_Sniper,0,Sniper,400,15,Sniper_explan,60,114,214
+성직자,1301,4,100,20,1.5,3,3,0,Hit_Priest,0,Heal_Skill,Priest,150,5,Priest_explan,20,0,215
 위치,1302,6,100,20,1.5,3,2,0,Hit_Witch,0,slow_Skill,Witch,300,15,Witch_explan,25,115,216
-스턴,1303,6,100,20,1.5,3,2,0,Hit_Shaman,0,Stun_Skill,Shaman,300,15,Shaman_explan,45,0,217
+스턴,1303,6,100,20,2,3,2,0,Hit_Shaman,0,Stun_Skill,Shaman,300,15,Shaman_explan,45,0,217
