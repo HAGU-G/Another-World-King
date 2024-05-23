@@ -40,10 +40,10 @@ MonoBehaviour:
   desc: 
   isTower: 1
   stars_3_CastleHp: 1050
-  stars_3_reward: 30
+  stars_3_reward: 50
   stars_2_CastleHp: 750
-  stars_2_reward: 25
-  stars_1_reward: 15
+  stars_2_reward: 40
+  stars_1_reward: 30
   repeat_Reward: 1
   upgradeDamageID: 0
   upgradeHPID: 0

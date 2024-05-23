@@ -54,10 +54,10 @@ public class TowerAI : UnitBase
         base.Update();
         if (IsDead || isPlayer)
             return;
-
+#if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.Delete))
             Damaged(100);
-
+#endif
         if (isStopSpawn)
             return;
 

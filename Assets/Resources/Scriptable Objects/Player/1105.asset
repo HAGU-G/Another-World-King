@@ -35,7 +35,7 @@ MonoBehaviour:
   initDropGold: 0
   initDropExp: 0
   effectAttack: 0
-  effectAttackHit: 0
+  effectAttackHit: Hit_Olaf
   projectile: 0
   desc: Olaf_explan
   isTower: 0

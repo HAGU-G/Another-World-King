@@ -15,7 +15,7 @@ MonoBehaviour:
   ignore: "\uAD11\uC804\uC0AC"
   id: Fast_Skill
   isCounterData: 0
-  target: 1
+  target: 3
   applyDivision: 0
   applyCharID: 0
   targetDivision: 0

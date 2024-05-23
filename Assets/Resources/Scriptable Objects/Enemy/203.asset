@@ -34,8 +34,8 @@ MonoBehaviour:
   spawnTime: 0
   initDropGold: 200
   initDropExp: 450
-  effectAttack: 0
-  effectAttackHit: 0
+  effectAttack: Attack_Archer
+  effectAttackHit: Hit_Archer
   projectile: Projectile_Sniper
   desc: 
   isTower: 0

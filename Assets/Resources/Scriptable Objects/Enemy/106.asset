@@ -35,7 +35,7 @@ MonoBehaviour:
   initDropGold: 200
   initDropExp: 300
   effectAttack: 0
-  effectAttackHit: 0
+  effectAttackHit: Hit_Berserker
   projectile: 0
   desc: 
   isTower: 0

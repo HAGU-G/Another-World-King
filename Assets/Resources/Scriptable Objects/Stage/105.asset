@@ -16,7 +16,7 @@ MonoBehaviour:
   id: 105
   division: 0
   prefab: Stage_4
-  initHP: 1500
+  initHP: 2000
   useStartHP: 0
   initHPStart: 0
   typeCounter: 
@@ -39,11 +39,11 @@ MonoBehaviour:
   projectile: 
   desc: 
   isTower: 1
-  stars_3_CastleHp: 1050
+  stars_3_CastleHp: 1400
   stars_3_reward: 70
-  stars_2_CastleHp: 750
+  stars_2_CastleHp: 1000
   stars_2_reward: 60
-  stars_1_reward: 40
+  stars_1_reward: 50
   repeat_Reward: 7
   upgradeDamageID: 0
   upgradeHPID: 0

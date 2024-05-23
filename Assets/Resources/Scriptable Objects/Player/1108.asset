@@ -27,7 +27,7 @@ MonoBehaviour:
   initAttackOrder: 1
   initAttackEnemyOrder: 01000000
   skill: Drain_Skill
-  initHeal: 70
+  initHeal: 25
   initMoveSpeed: 80
   price: 50
   cost: 400

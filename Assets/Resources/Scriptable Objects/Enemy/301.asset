@@ -35,7 +35,7 @@ MonoBehaviour:
   initDropGold: 150
   initDropExp: 300
   effectAttack: 0
-  effectAttackHit: 0
+  effectAttackHit: Hit_Shaman
   projectile: 0
   desc: 
   isTower: 0

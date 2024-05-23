@@ -16,10 +16,10 @@ MonoBehaviour:
   id: 1203
   division: 7
   prefab: Cannon
-  initHP: 200
+  initHP: 100
   useStartHP: 0
   initHPStart: 0
-  typeCounter: 102
+  typeCounter: 
   initAttackDamage: 100
   initAttackSpeed: 1
   initAttackRange: 1
@@ -31,7 +31,7 @@ MonoBehaviour:
   initMoveSpeed: 80
   price: 45
   cost: 300
-  spawnTime: 15
+  spawnTime: 25
   initDropGold: 0
   initDropExp: 0
   effectAttack: 0

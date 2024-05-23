@@ -43,7 +43,7 @@ MonoBehaviour:
   stars_3_reward: 70
   stars_2_CastleHp: 1000
   stars_2_reward: 60
-  stars_1_reward: 40
+  stars_1_reward: 50
   repeat_Reward: 10
   upgradeDamageID: 0
   upgradeHPID: 0

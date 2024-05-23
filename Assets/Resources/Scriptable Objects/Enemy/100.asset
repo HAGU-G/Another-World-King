@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9e5390eeabe2e0148bd1783116bb6660, type: 3}
-  m_Name: 201
+  m_Name: 100
   m_EditorClassIdentifier: 
-  ignore: "\uAD81\uC218"
-  id: 201
-  division: 3
-  prefab: Mon_Archer
-  initHP: 100
+  ignore: "\uD29C\uD1A0\uB9AC\uC5BC \uC804\uC0AC"
+  id: 100
+  division: 1
+  prefab: Mon_Warrior
+  initHP: 80
   useStartHP: 0
   initHPStart: 0
-  typeCounter: 102
-  initAttackDamage: 30
-  initAttackSpeed: 0.5
-  initAttackRange: 2
+  typeCounter: 101
+  initAttackDamage: 20
+  initAttackSpeed: 1.5
+  initAttackRange: 1
   initAttackEnemyCount: 0
-  initAttackOrder: 2
+  initAttackOrder: 1
   initAttackEnemyOrder: 01000000
   skill: 0
   initHeal: 0
@@ -32,11 +32,11 @@ MonoBehaviour:
   price: 0
   cost: 0
   spawnTime: 0
-  initDropGold: 100
-  initDropExp: 300
-  effectAttack: Attack_Archer
-  effectAttackHit: Hit_Archer
-  projectile: Projectile_Archer
+  initDropGold: 50
+  initDropExp: 200
+  effectAttack: Attack_Warrior
+  effectAttackHit: 0
+  projectile: 0
   desc: 
   isTower: 0
   stars_3_CastleHp: 0

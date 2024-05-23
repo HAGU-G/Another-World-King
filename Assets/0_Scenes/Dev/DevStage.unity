@@ -1910,10 +1910,10 @@ MonoBehaviour:
   audioWin: {fileID: 8300000, guid: 7f59d028578614e4cbf64a455f42296b, type: 3}
   audioLose: {fileID: 8300000, guid: eb06fe6cf9b421b449f9c525fa96338a, type: 3}
   audioSource: {fileID: 686351162}
-  startGold: 1000
-  startExp: 1000
-  getGoldPerSeconds: 1000
-  getExpPerSeconds: 1000
+  startGold: 250
+  startExp: 0
+  getGoldPer2Seconds: 30
+  getExpPer2Seconds: 0
   castleDamage: 100
   playerTower: {fileID: 1370779872}
   enemyTower: {fileID: 1893667659}

@@ -30,8 +30,8 @@ MonoBehaviour:
   initHeal: 0
   initMoveSpeed: 80
   price: 50
-  cost: 250
-  spawnTime: 25
+  cost: 200
+  spawnTime: 15
   initDropGold: 0
   initDropExp: 0
   effectAttack: 0

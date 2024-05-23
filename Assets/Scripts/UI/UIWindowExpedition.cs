@@ -12,6 +12,7 @@ public class UIWindowExpedition : UIWindow
     public UISlotExpedition[] expedition;
     public UIPopupExpedition popup;
     public Button popupClose;
+    public GameObject counterInfo;
 
     private UISlotCharacter select;
     private UISlotExpedition selectSlot;
@@ -121,5 +122,10 @@ public class UIWindowExpedition : UIWindow
         {
             expedition[i].SetData(GameManager.Instance.Expedition[i]);
         }
+    }
+
+    public void ShowCounterInfo()
+    {
+        counterInfo.SetActive(!counterInfo.activeSelf);
     }
 }

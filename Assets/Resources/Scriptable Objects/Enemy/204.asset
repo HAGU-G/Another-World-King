@@ -35,7 +35,7 @@ MonoBehaviour:
   initDropGold: 150
   initDropExp: 350
   effectAttack: 0
-  effectAttackHit: 0
+  effectAttackHit: Hit_Cannon
   projectile: Projectile_Cannon
   desc: 
   isTower: 0

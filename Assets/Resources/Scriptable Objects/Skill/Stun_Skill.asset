@@ -20,7 +20,7 @@ MonoBehaviour:
   applyCharID: 0
   targetDivision: 0
   nesting: 1
-  duration: 1
+  duration: 2
   infinityDuration: 0
   doResetDurationOnApply: 1
   hp: 0

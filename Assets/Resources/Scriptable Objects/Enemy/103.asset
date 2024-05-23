@@ -27,14 +27,14 @@ MonoBehaviour:
   initAttackOrder: 1
   initAttackEnemyOrder: 01000000
   skill: Drain_Skill
-  initHeal: 70
+  initHeal: 25
   initMoveSpeed: 80
   price: 0
   cost: 0
   spawnTime: 0
   initDropGold: 200
   initDropExp: 400
-  effectAttack: 0
+  effectAttack: Attack_Bloody
   effectAttackHit: 0
   projectile: 0
   desc: 

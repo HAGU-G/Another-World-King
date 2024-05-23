@@ -80,8 +80,8 @@ public class StageManager : MonoBehaviour
     public AudioSource audioSource;
     public int startGold;
     public int startExp;
-    public int getGoldPerSeconds;
-    public int getExpPerSeconds;
+    public int getGoldPer2Seconds;
+    public int getExpPer2Seconds;
     public int castleDamage;
     #region Player
     public TowerAI playerTower;
@@ -147,8 +147,8 @@ public class StageManager : MonoBehaviour
         if (Time.time >= goldInterval + 2f)
         {
             goldInterval = Time.time;
-            Gold += getGoldPerSeconds;
-            Exp += getExpPerSeconds;
+            Gold += getGoldPer2Seconds;
+            Exp += getExpPer2Seconds;
         }
     }
 

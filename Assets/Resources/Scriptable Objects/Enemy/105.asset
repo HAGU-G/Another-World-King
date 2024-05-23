@@ -34,7 +34,7 @@ MonoBehaviour:
   spawnTime: 0
   initDropGold: 100
   initDropExp: 350
-  effectAttack: 0
+  effectAttack: Attack_Bomber
   effectAttackHit: 0
   projectile: 0
   desc: 
