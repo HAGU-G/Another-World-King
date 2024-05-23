@@ -127,6 +127,7 @@ public class Tutorial : MonoBehaviour
         StageManager.Instance.enemyTower.SetStopSpawn(true);
         StageManager.Instance.playerTower.SetInvincibility(true);
         StageManager.Instance.enemyTower.SetInvincibility(true);
+        StageManager.Instance.castleDamage = 100000;
         Time.timeScale = 0f;
 
         //튜토리얼 시작
@@ -167,7 +168,9 @@ public class Tutorial : MonoBehaviour
         targetEvent -= ConditionSatisfied;
         Time.timeScale = 0f;
 
+        StageManager.Instance.GetExp(3000);
         ViewMessage("아군이 적을 쓰러뜨렸습니다. 적을 쓰러뜨리면 전리품으로 \"골드\"와 \"EXP\"를 얻을 수 있습니다. EXP를 어디에 사용하는지 궁금하시겠지요? 설명 드리겠습니다.");
+        StageManager.Instance.enemyTower.SetStopSpawn(true);
         yield return StartCoroutine(CoWaitClick());
 
         ViewMessage("하단 우측의 \"공격력 강화\" 버튼이 보이시는지요? 이 버튼으로 우리 병사들을 더 강인하게 업그레이드 할 수 있습니다. 전하의 지혜를 사용해 원하시는 병사를 선택하고, 체력 혹은 경험치를 업그레이드 할 수 있습니다. 마침 적을 죽여서 EXP를 얻었으니, 한번 병사를 강화를 해 보시는 걸 추천 드립니다.");
@@ -211,16 +214,13 @@ public class Tutorial : MonoBehaviour
         CloseMessage();
         Time.timeScale = 1f;
 
-        while (StageManager.Instance.playerTower.HP > StageManager.Instance.playerTower.MaxHP / 2f
-            && StageManager.Instance.enemyTower.HP > StageManager.Instance.enemyTower.MaxHP / 2f)
+        while (StageManager.Instance.enemyTower.HP > StageManager.Instance.enemyTower.MaxHP / 2f)
             yield return null;
         ViewMessage(" 지금 아군 병사가 전부 밀려 난 게 보이십니까? 적 성의 체력이 50% 미만이 되면 적 성의 마법사들이 한 번 마법을 사용하여 아군 병사가 전부 멀리 밀려납니다. 참고하시기 바랍니다.");
         yield return StartCoroutine(CoWaitClick());
-        Time.timeScale = 0f;
 
         ViewMessage("전하. 모의전투가 끝이 났습니다. 이제부터는 마왕군이 침략하고 있는 왕국을 구하기 위해서 출정을 떠날 차례입니다.\r\n희망이 없는 상황이지만..저는 총명했던 전하의 능력을 믿습니다. 꼭 왕국을 구원하고 이 나라의 백성들을 구하는 영웅이 되시옵소서.\r\n");
         yield return StartCoroutine(CoWaitClick());
-        Time.timeScale = 1f;
         GameManager.Instance.DoneTutorial = true;
         StageManager.Instance.Victory();
         GameManager.Instance.SelectedStageID++;
