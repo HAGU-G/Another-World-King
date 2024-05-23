@@ -35,6 +35,7 @@ public class Tutorial : MonoBehaviour
     {
         if (GameManager.Instance.DoneTutorial)
         {
+            GameManager.Instance.SelectedStageID++;
             GameManager.Instance.LoadingScene(Scenes.main);
             return;
         }
@@ -168,7 +169,6 @@ public class Tutorial : MonoBehaviour
 
         ViewMessage("아군이 적을 쓰러뜨렸습니다. 적을 쓰러뜨리면 전리품으로 \"골드\"와 \"EXP\"를 얻을 수 있습니다. EXP를 어디에 사용하는지 궁금하시겠지요? 설명 드리겠습니다.");
         yield return StartCoroutine(CoWaitClick());
-        Time.timeScale = 0f;
 
         ViewMessage("하단 우측의 \"공격력 강화\" 버튼이 보이시는지요? 이 버튼으로 우리 병사들을 더 강인하게 업그레이드 할 수 있습니다. 전하의 지혜를 사용해 원하시는 병사를 선택하고, 체력 혹은 경험치를 업그레이드 할 수 있습니다. 마침 적을 죽여서 EXP를 얻었으니, 한번 병사를 강화를 해 보시는 걸 추천 드립니다.");
         HighlightOn("Upgrade");
