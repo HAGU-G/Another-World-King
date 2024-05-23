@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public TouchManager touchManager;
     #region INSTANCE
     private static GameManager instance;
     public static GameManager Instance

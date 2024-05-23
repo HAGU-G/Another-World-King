@@ -8,6 +8,7 @@ TagManager:
   - Unit
   - Window
   - UIController
+  - TouchController
   layers:
   - Default
   - TransparentFX

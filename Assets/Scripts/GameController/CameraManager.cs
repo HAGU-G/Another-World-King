@@ -7,7 +7,6 @@ public class CameraManager : MonoBehaviour
     public ScrollBackgroundCtrl background;
     public Transform pos1;
     public Transform pos2;
-    public TouchManager touchManager;
 
     public bool lockX;
     public bool lockY;
@@ -18,6 +17,7 @@ public class CameraManager : MonoBehaviour
 
     private float constant;
 
+
     private void Awake()
     {
         constant = 1 + (((float)Screen.width / Screen.height - 1f) - (2532f / 1170f - 1f)) / (2532f / 1170f - 1f) / 2f;
@@ -25,9 +25,9 @@ public class CameraManager : MonoBehaviour
 
     public void Update()
     {
-        if (touchManager.Moved)
+        if (GameManager.Instance.touchManager.Moved && GameManager.Instance.touchManager.receiver.Received)
         {
-            MoveCamera(touchManager.WorldDeltaPos, Vector3.right);
+            MoveCamera(GameManager.Instance.touchManager.WorldDeltaPos*1.3f, Vector3.right);
         }
     }
 

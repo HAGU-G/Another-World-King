@@ -54,6 +54,7 @@ public static class Tags
     public static readonly string window = "Window";
     public static readonly string player = "Player";
     public static readonly string uiManager = "UIController";
+    public static readonly string touchManager = "TouchController";
 }
 
 public static class Scenes

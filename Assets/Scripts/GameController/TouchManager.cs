@@ -2,14 +2,21 @@ using UnityEngine;
 
 public class TouchManager : MonoBehaviour
 {
+    public RayReceiver receiver;
+
+    public bool Tap { get; private set; }
     public bool Touch { get; private set; }
     public bool Moved { get; private set; }
     public Vector2 Pos { get; private set; }
     public Vector3 WorldPos => Camera.main.WorldToScreenPoint(Pos);
     public Vector2 DeltaPos { get; private set; }
     public Vector3 WorldDeltaPos { get; private set; }
+    public Vector2 PrevPos { get; private set; }
+
+    private bool firstIDMoved;
 
     private float dpi;
+    private int firstID;
 
     private void Awake()
     {
@@ -18,7 +25,7 @@ public class TouchManager : MonoBehaviour
 
     private void Update()
     {
-        bool isTouched = Touch;
+        Tap = false;
         Touch = false;
 
         int touchCount = Input.touchCount;
@@ -26,31 +33,43 @@ public class TouchManager : MonoBehaviour
         {
             Touch = true;
 
-            float x = 0;
-            float y = 0;
             foreach (var touch in Input.touches)
             {
-                x += touch.position.x;
-                y += touch.position.y;
+                if (firstID == touch.fingerId)
+                    Pos = touch.position;
+                switch (touch.phase)
+                {
+                    case TouchPhase.Began:
+                        if (firstID == 0)
+                        { 
+                            firstID = touch.fingerId;
+                            Pos = touch.position;
+                            PrevPos = touch.position;
+                        }
+                        break;
+                    case TouchPhase.Moved:
+                    case TouchPhase.Stationary:
+                        if (firstID != touch.fingerId)
+                            break;
+                        DeltaPos = touch.deltaPosition;
+                        Moved = DeltaPos != Vector2.zero;
+                        if (!firstIDMoved)
+                            firstIDMoved = Moved;
+                        WorldDeltaPos = Camera.main.ScreenToWorldPoint(Pos) - Camera.main.ScreenToWorldPoint(PrevPos);
+                        break;
+                    case TouchPhase.Ended:
+                    case TouchPhase.Canceled:
+                        if (firstID != touch.fingerId)
+                            break;
+                        Tap = !firstIDMoved;
+                        firstID = 0;
+                        Moved = false;
+                        firstIDMoved = false;
+                        break;
+                }
+                if (firstID == touch.fingerId)
+                    PrevPos = touch.position;
             }
-            x /= touchCount;
-            y /= touchCount;
-            UpdatePos(new Vector2(x, y));
         }
-        else if (Input.GetMouseButton(0))
-        {
-            Touch = true;
-
-            UpdatePos(Input.mousePosition);
-        }
-
-        Moved = Touch && isTouched && DeltaPos != Vector2.zero;
-    }
-
-    private void UpdatePos(Vector2 newPos)
-    {
-        DeltaPos = newPos - Pos;
-        WorldDeltaPos = Camera.main.ScreenToWorldPoint(newPos) - Camera.main.ScreenToWorldPoint(Pos);
-        Pos = newPos;
     }
 }

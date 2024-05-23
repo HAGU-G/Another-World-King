@@ -594,6 +594,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5318956488596336028, guid: 6f4375bb7685b2b409f2307ea6212003, type: 3}
+      propertyPath: slotCamera
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2097801888176962275, guid: 6f4375bb7685b2b409f2307ea6212003, type: 3}
       propertyPath: m_Enabled
       value: 1

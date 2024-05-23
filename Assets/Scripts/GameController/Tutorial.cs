@@ -6,16 +6,37 @@ using UnityEngine.UI;
 
 public class Tutorial : MonoBehaviour
 {
+    public AudioClip bgmTitle;
+    public AudioClip bgmStory;
     public Canvas canvas;
     public GameObject textMessageBox;
     public TextMeshProUGUI textMessage;
-    public Button wait;
     public RectTransform highlight;
     private System.Action targetEvent;
+    public Image story;
+    public Sprite[] stories;
+
+    private bool wait;
+    private bool isWatching;
 
     private void Awake()
     {
         SaveManager.GameLoad();
+    }
+    private void Start()
+    {
+        GameManager.PlayMusic(bgmTitle);
+    }
+
+    private void Update()
+    {
+        if (GameManager.Instance.touchManager.Tap)
+        {
+            if (!isWatching)
+                StartTutorial();
+            else
+                Next();
+        }
     }
 
     private bool isConditionSatisfied;
@@ -33,14 +54,52 @@ public class Tutorial : MonoBehaviour
 
     public void StartTutorial()
     {
-        if (GameManager.Instance.DoneTutorial)
-        {
-            GameManager.Instance.SelectedStageID++;
-            GameManager.Instance.LoadingScene(Scenes.main);
-            return;
-        }
+        isWatching = true;
+        
+        StartCoroutine(Co_Story());
+    }
 
+    private void ViewMessage(string message)
+    {
+        textMessageBox.SetActive(true);
+        textMessage.text = message;
+    }
 
+    private void CloseMessage()
+    {
+        textMessageBox.SetActive(false);
+    }
+
+    private IEnumerator CoWaitClick()
+    {
+        wait = true;
+        while (wait)
+            yield return null;
+    }
+
+    private void Next()
+    {
+        wait = false;
+    }
+
+    private void HighlightOn(string name)
+    {
+        HighlightOn(GameObject.Find(name).GetComponent<RectTransform>());
+    }
+    private void HighlightOn(RectTransform rect)
+    {
+        highlight.gameObject.SetActive(true);
+        highlight.pivot = rect.pivot;
+        highlight.sizeDelta = new Vector2(rect.sizeDelta.x, rect.sizeDelta.y);
+        highlight.position = rect.position;
+    }
+    private void HighlightOff()
+    {
+        highlight.gameObject.SetActive(false);
+    }
+
+    private void LoadTutorialStage()
+    {
         //초기 캐릭터 지급
         int[] defaultCharacter =
             {
@@ -69,65 +128,45 @@ public class Tutorial : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         GameManager.Instance.SelectedStageID = 101;
         GameManager.Instance.LoadingScene(Scenes.stage);
-        SceneManager.sceneLoaded += Tutorial_01;
+        SceneManager.sceneLoaded += TutorialStart;
     }
 
-    private void ViewMessage(string message)
-    {
-        textMessageBox.SetActive(true);
-        textMessage.text = message;
-    }
-
-    private void CloseMessage()
-    {
-        textMessageBox.SetActive(false);
-    }
-
-    private IEnumerator CoWaitClick()
-    {
-        wait.gameObject.SetActive(true);
-        while (wait.gameObject.activeSelf)
-            yield return null;
-    }
-
-    private void Next()
-    {
-        wait.gameObject.SetActive(false);
-    }
-
-    private void HighlightOn(string name)
-    {
-        HighlightOn(GameObject.Find(name).GetComponent<RectTransform>());
-    }
-    private void HighlightOn(RectTransform rect)
-    {
-        highlight.gameObject.SetActive(true);
-        highlight.pivot = rect.pivot;
-        highlight.sizeDelta = new Vector2(rect.sizeDelta.x, rect.sizeDelta.y);
-        highlight.position = rect.position;
-    }
-    private void HighlightOff()
-    {
-        highlight.gameObject.SetActive(false);
-    }
-
-    private void Tutorial_01(Scene scene, LoadSceneMode mode)
+    private void TutorialStart(Scene scene, LoadSceneMode mode)
     {
         if (scene.name != Scenes.stage)
             return;
 
-        SceneManager.sceneLoaded -= Tutorial_01;
-        StartCoroutine(Co_01());
+        SceneManager.sceneLoaded -= TutorialStart;
+        StartCoroutine(Co_Tutorial());
     }
 
+    private IEnumerator Co_Story()
+    {
+        GameManager.PlayMusic(bgmStory);
+        Camera.main.backgroundColor = Color.black;
+        story.gameObject.SetActive(true);
+        foreach (var s in stories)
+        {
+            story.sprite = s;
+            yield return StartCoroutine(CoWaitClick());
+        }
 
-    private IEnumerator Co_01()
+        if (GameManager.Instance.DoneTutorial)
+        {
+            GameManager.Instance.SelectedStageID++;
+            GameManager.Instance.LoadingScene(Scenes.main);
+            yield break;
+        }
+        LoadTutorialStage();
+    }
+    private IEnumerator Co_Tutorial()
     {
         //적 소환 정지, 플레이어 무적
         StageManager.Instance.enemyTower.SetStopSpawn(true);
         StageManager.Instance.playerTower.SetInvincibility(true);
         StageManager.Instance.enemyTower.SetInvincibility(true);
         StageManager.Instance.castleDamage = 100000;
+        StageManager.Instance.uiOnStage.pause.gameObject.SetActive(false);
         Time.timeScale = 0f;
 
         //튜토리얼 시작

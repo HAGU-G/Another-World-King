@@ -31,7 +31,8 @@ Transform:
   m_LocalPosition: {x: 216.85277, y: 148.97813, z: 0.66139615}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8382456982875466045}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5105234359393741140
@@ -46,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15a003f75dd3ca14282a7342ccee2c3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  touchManager: {fileID: 7242640245955142419}
   musicPlayer: {fileID: 4668832217883842299}
   uiSoundPlayer: {fileID: 2243444843356108475}
 --- !u!82 &4668832217883842299
@@ -240,3 +242,80 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1001 &3954962781910560421
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2965450828898215755}
+    m_Modifications:
+    - target: {fileID: 4794723166436515042, guid: 9b61cd5d63f4dad43b9a07f2c868a1bb, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807207243170940824, guid: 9b61cd5d63f4dad43b9a07f2c868a1bb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807207243170940824, guid: 9b61cd5d63f4dad43b9a07f2c868a1bb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807207243170940824, guid: 9b61cd5d63f4dad43b9a07f2c868a1bb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807207243170940824, guid: 9b61cd5d63f4dad43b9a07f2c868a1bb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807207243170940824, guid: 9b61cd5d63f4dad43b9a07f2c868a1bb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807207243170940824, guid: 9b61cd5d63f4dad43b9a07f2c868a1bb, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807207243170940824, guid: 9b61cd5d63f4dad43b9a07f2c868a1bb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807207243170940824, guid: 9b61cd5d63f4dad43b9a07f2c868a1bb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807207243170940824, guid: 9b61cd5d63f4dad43b9a07f2c868a1bb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807207243170940824, guid: 9b61cd5d63f4dad43b9a07f2c868a1bb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6521855583926397367, guid: 9b61cd5d63f4dad43b9a07f2c868a1bb, type: 3}
+      propertyPath: m_Name
+      value: TouchManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9b61cd5d63f4dad43b9a07f2c868a1bb, type: 3}
+--- !u!114 &7242640245955142419 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5936271370545647030, guid: 9b61cd5d63f4dad43b9a07f2c868a1bb, type: 3}
+  m_PrefabInstance: {fileID: 3954962781910560421}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 641bd53ef80460c4fb448b2b12a1f538, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &8382456982875466045 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4807207243170940824, guid: 9b61cd5d63f4dad43b9a07f2c868a1bb, type: 3}
+  m_PrefabInstance: {fileID: 3954962781910560421}
+  m_PrefabAsset: {fileID: 0}

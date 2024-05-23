@@ -13,9 +13,10 @@ public class UISlotCharacter : MonoBehaviour
     {
         this.characterInfos = characterInfos;
         textName.text = DataTableManager.GetString(characterInfos.unitData.prefab);
-        
-        if(characterInfos.dress != null)
+
+        if (characterInfos.dress != null)
+        {
             rawImage.uvRect = GameObject.FindWithTag(Tags.uiManager).GetComponent<UIManager>().AddSlotRenderers(characterInfos.dress);
-        
+        }
     }
 }
