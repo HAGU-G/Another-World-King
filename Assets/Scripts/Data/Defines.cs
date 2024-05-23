@@ -74,6 +74,8 @@ public static class Defines
     public static readonly string victory = "Victory";
     public static readonly string defeat = "Defeat";
     public static readonly string pause = "일시정지";
+
+    public static readonly string playerfrabsTutorial = "Tutorial";
 }
 
 public static class Vectors

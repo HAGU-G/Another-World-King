@@ -59,8 +59,9 @@ public class GameManager : MonoBehaviour
         SelectedStageID = DataTableManager.MinStageID;
 
         //TESTCODE
-
-        flags = int.MaxValue / 2;
+#if UNITY_EDITOR
+        flags = 1000;
+#endif
     }
     private void Start()
     {
