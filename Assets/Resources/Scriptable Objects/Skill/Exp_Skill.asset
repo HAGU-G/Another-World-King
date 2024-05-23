@@ -12,12 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bba57ae605bac947a76553ac4f17e7d, type: 3}
   m_Name: Exp_Skill
   m_EditorClassIdentifier: 
-  ignore: "\uB3C4\uC0AC"
+  ignore: "\uC5F0\uAE08\uC220\uC0AC"
   id: Exp_Skill
+  isCounterData: 0
   target: 3
+  applyDivision: 0
+  applyCharID: 0
+  targetDivision: 0
   nesting: 0
   duration: 0
-  infinityDuration: 1
+  infinityDuration: 0
   doResetDurationOnApply: 0
   hp: 0
   hp_P: 0
@@ -27,6 +31,8 @@ MonoBehaviour:
   attackSpeed_P: 0
   attackRange: 0
   attackRange_P: 0
+  heal: 0
+  heal_P: 0
   moveSpeed: 0
   moveSpeed_P: 0
   dropGold: 0
@@ -38,3 +44,4 @@ MonoBehaviour:
   onApplyGold: 0
   onApplyExp: 100
   onApplyDrain: 0
+  sturn: 0

@@ -12,29 +12,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5390eeabe2e0148bd1783116bb6660, type: 3}
   m_Name: 1302
   m_EditorClassIdentifier: 
-  ignore: "\uAC15\uD654 \uC131\uC9C1\uC790Lv1"
+  ignore: "\uC704\uCE58"
   id: 1302
-  division: 4
-  prefab: Cleric
-  isTower: 0
-  initHP: 60
+  division: 6
+  prefab: Witch
+  initHP: 100
   useStartHP: 0
   initHPStart: 0
-  combatType: 0
-  initAttackDamage: 0
-  initAttackSpeed: 2.5
-  initAttackRange: 2
+  typeCounter: 105
+  initAttackDamage: 20
+  initAttackSpeed: 1.5
+  initAttackRange: 3
   initAttackEnemyCount: 0
-  initAttackOrder: 3
+  initAttackOrder: 2
   initAttackEnemyOrder: 01000000
-  skill: Heal3_Skill
-  initHeal: 30
+  skill: slow_Skill
+  initHeal: 0
   initMoveSpeed: 80
-  price: 30
-  cost: 150
-  spawnTime: 5
+  price: 25
+  cost: 300
+  spawnTime: 15
   initDropGold: 0
   initDropExp: 0
-  effect: Heal1
-  image: "\uAC15\uD654 \uC131\uC9C1\uC790.jpg"
-  desc: Cleric_explan
+  effectAttack: 0
+  effectAttackHit: Hit_Witch
+  projectile: 0
+  desc: Witch_explan
+  isTower: 0
+  stars_3_CastleHp: 0
+  stars_3_reward: 0
+  stars_2_CastleHp: 0
+  stars_2_reward: 0
+  stars_1_reward: 0
+  repeat_Reward: 0
+  upgradeDamageID: 115
+  upgradeHPID: 216

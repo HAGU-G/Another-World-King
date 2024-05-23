@@ -14,9 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ignore: "\uC2A4\uD134"
   id: Stun_Skill
+  isCounterData: 0
   target: 1
+  applyDivision: 0
+  applyCharID: 0
+  targetDivision: 0
   nesting: 1
-  duration: 1
+  duration: 2
   infinityDuration: 0
   doResetDurationOnApply: 1
   hp: 0
@@ -27,6 +31,8 @@ MonoBehaviour:
   attackSpeed_P: 0
   attackRange: 0
   attackRange_P: 0
+  heal: 0
+  heal_P: 0
   moveSpeed: 0
   moveSpeed_P: 0
   dropGold: 0

@@ -12,29 +12,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5390eeabe2e0148bd1783116bb6660, type: 3}
   m_Name: 1103
   m_EditorClassIdentifier: 
-  ignore: "\uAC15\uD654 \uC804\uC0ACLv1"
+  ignore: "\uAD11\uBD80"
   id: 1103
   division: 1
-  prefab: Warrior
-  isTower: 0
-  initHP: 100
+  prefab: Mine
+  initHP: 200
   useStartHP: 0
   initHPStart: 0
-  combatType: 0
-  initAttackDamage: 60
-  initAttackSpeed: 2
+  typeCounter: 101
+  initAttackDamage: 20
+  initAttackSpeed: 1
   initAttackRange: 1
-  initAttackEnemyCount: 1
+  initAttackEnemyCount: 0
   initAttackOrder: 1
   initAttackEnemyOrder: 01000000
-  skill: 0
+  skill: Gold_Skill
   initHeal: 0
   initMoveSpeed: 80
   price: 30
   cost: 100
-  spawnTime: 3
+  spawnTime: 10
   initDropGold: 0
   initDropExp: 0
-  effect: Attack1
-  image: "\uAC15\uD654 \uC804\uC0AC.jpg"
-  desc: Warrior_explan
+  effectAttack: Attack_Mine
+  effectAttackHit: 0
+  projectile: 0
+  desc: Mine_explan
+  isTower: 0
+  stars_3_CastleHp: 0
+  stars_3_reward: 0
+  stars_2_CastleHp: 0
+  stars_2_reward: 0
+  stars_1_reward: 0
+  repeat_Reward: 0
+  upgradeDamageID: 105
+  upgradeHPID: 205

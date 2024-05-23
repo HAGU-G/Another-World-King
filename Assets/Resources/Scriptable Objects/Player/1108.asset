@@ -12,29 +12,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5390eeabe2e0148bd1783116bb6660, type: 3}
   m_Name: 1108
   m_EditorClassIdentifier: 
-  ignore: "\uD574\uBA38Lv1"
+  ignore: "\uD761\uD608 \uD0F1\uCEE4"
   id: 1108
-  division: 1
-  prefab: Olaf
-  isTower: 0
-  initHP: 150
+  division: 2
+  prefab: Bloody
+  initHP: 300
   useStartHP: 0
   initHPStart: 0
-  combatType: 0
-  initAttackDamage: 80
-  initAttackSpeed: 2.5
+  typeCounter: 
+  initAttackDamage: 50
+  initAttackSpeed: 1.5
   initAttackRange: 1
-  initAttackEnemyCount: 1
+  initAttackEnemyCount: 0
   initAttackOrder: 1
   initAttackEnemyOrder: 01000000
-  skill: 0
-  initHeal: 0
+  skill: Drain_Skill
+  initHeal: 25
   initMoveSpeed: 80
-  price: 30
-  cost: 200
-  spawnTime: 10
+  price: 50
+  cost: 400
+  spawnTime: 15
   initDropGold: 0
   initDropExp: 0
-  effect: Attack4
-  image: "\uD574\uBA38.jpg"
-  desc: Olaf_explan
+  effectAttack: Attack_Bloody
+  effectAttackHit: 0
+  projectile: 0
+  desc: Bloody_explan
+  isTower: 0
+  stars_3_CastleHp: 0
+  stars_3_reward: 0
+  stars_2_CastleHp: 0
+  stars_2_reward: 0
+  stars_1_reward: 0
+  repeat_Reward: 0
+  upgradeDamageID: 110
+  upgradeHPID: 210

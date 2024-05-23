@@ -12,29 +12,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5390eeabe2e0148bd1783116bb6660, type: 3}
   m_Name: 1104
   m_EditorClassIdentifier: 
-  ignore: "\uAC15\uD654 \uD0F1\uCEE4Lv1"
+  ignore: "\uAE30\uC218"
   id: 1104
-  division: 2
-  prefab: Guardian
-  isTower: 0
-  initHP: 200
+  division: 1
+  prefab: Banner
+  initHP: 150
   useStartHP: 0
   initHPStart: 0
-  combatType: 0
-  initAttackDamage: 20
-  initAttackSpeed: 2
+  typeCounter: 101
+  initAttackDamage: 30
+  initAttackSpeed: 1.5
   initAttackRange: 1
-  initAttackEnemyCount: 1
+  initAttackEnemyCount: 0
   initAttackOrder: 1
   initAttackEnemyOrder: 01000000
-  skill: 0
+  skill: Plag_Skill
   initHeal: 0
   initMoveSpeed: 80
-  price: 30
-  cost: 250
-  spawnTime: 7
+  price: 40
+  cost: 100
+  spawnTime: 3
   initDropGold: 0
   initDropExp: 0
-  effect: Attack2
-  image: "\uAC15\uD654 \uD0F1\uCEE4.jpg"
-  desc: Guardian_explan
+  effectAttack: 0
+  effectAttackHit: 0
+  projectile: 0
+  desc: Banner_explan
+  isTower: 0
+  stars_3_CastleHp: 0
+  stars_3_reward: 0
+  stars_2_CastleHp: 0
+  stars_2_reward: 0
+  stars_1_reward: 0
+  repeat_Reward: 0
+  upgradeDamageID: 106
+  upgradeHPID: 206

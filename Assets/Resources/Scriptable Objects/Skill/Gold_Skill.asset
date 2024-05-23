@@ -14,10 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ignore: "\uAD11\uBD80"
   id: Gold_Skill
+  isCounterData: 0
   target: 3
+  applyDivision: 0
+  applyCharID: 0
+  targetDivision: 0
   nesting: 0
   duration: 0
-  infinityDuration: 1
+  infinityDuration: 0
   doResetDurationOnApply: 0
   hp: 0
   hp_P: 0
@@ -27,6 +31,8 @@ MonoBehaviour:
   attackSpeed_P: 0
   attackRange: 0
   attackRange_P: 0
+  heal: 0
+  heal_P: 0
   moveSpeed: 0
   moveSpeed_P: 0
   dropGold: 0
@@ -38,3 +44,4 @@ MonoBehaviour:
   onApplyGold: 30
   onApplyExp: 0
   onApplyDrain: 0
+  sturn: 0

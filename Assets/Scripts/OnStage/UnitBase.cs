@@ -3,12 +3,20 @@ using UnityEngine;
 
 public class UnitBase : MonoBehaviour
 {
+    public enum UPGRADE
+    {
+        NONE,
+        DAMAGE,
+        HP
+    }
+
     public UnitData unitData { get; set; }
     private StageManager stageManager;
 
     //State
     public bool IsTower => unitData.isTower;
     public bool isPlayer;
+    private bool isInvincibility;
     private bool isDead;
     public bool IsDead
     {
@@ -35,11 +43,13 @@ public class UnitBase : MonoBehaviour
                 buffedStat += buff.Value.skillData.hp * buff.Value.Count;
                 persentage += buff.Value.skillData.hp_P * buff.Value.Count;
             }
+            if (upgrade == UPGRADE.HP)
+                buffedStat += upgradeHP;
             return Mathf.Clamp((int)Mathf.Ceil(buffedStat * (1f + persentage)), 1, int.MaxValue);
         }
     }
     private int hp;
-    public int HP { get => hp; set => hp = Mathf.Clamp(value, 0, MaxHP); }
+    public int HP { get => hp; set => hp = Mathf.Clamp(value, isInvincibility ? 1 : 0, MaxHP); }
     public int AttackDamage
     {
         get
@@ -51,6 +61,8 @@ public class UnitBase : MonoBehaviour
                 buffedStat += buff.Value.skillData.attackDamage * buff.Value.Count;
                 persentage += buff.Value.skillData.attackDamage_P * buff.Value.Count;
             }
+            if (upgrade == UPGRADE.DAMAGE)
+                buffedStat += upgradeDamage;
             return (int)Mathf.Ceil(buffedStat * (1f + persentage));
         }
     }
@@ -86,7 +98,6 @@ public class UnitBase : MonoBehaviour
     public List<int> AttackEnemyOrder => unitData.initAttackEnemyOrder;
     public int AttackOrder => unitData.initAttackOrder;
     public int AttackEnemyCount => unitData.initAttackEnemyCount;
-    public COMBAT_TYPE CombatType => unitData.combatType;
 
     //etc
     public float MoveSpeed
@@ -131,12 +142,19 @@ public class UnitBase : MonoBehaviour
             return buffedStat * (1f + persentage);
         }
     }
-    public bool IsHealer => unitData.division == DIVISION.HEALER;
+    public bool IsHealer => unitData.division == UnitData.DIVISION.HEALER;
     public int Heal
     {
         get
         {
-            return unitData.initHeal;
+            float buffedStat = unitData.initHeal;
+            float persentage = 0f;
+            foreach (var buff in Buff)
+            {
+                buffedStat += buff.Value.skillData.heal * buff.Value.Count;
+                persentage += buff.Value.skillData.heal_P * buff.Value.Count;
+            }
+            return (int)Mathf.Ceil(buffedStat * (1f + persentage));
         }
     }
 
@@ -144,10 +162,15 @@ public class UnitBase : MonoBehaviour
 
     //Buff
     public SkillData Skill { get; private set; } = null;
+    public SkillData CounterSkill { get; private set; } = null;
     public Dictionary<string, SkillBase> Buff { get; private set; } = new();
     public void SetSkill(SkillData skill)
     {
         Skill = skill;
+    }
+    public void SetCounterSkill(SkillData skill)
+    {
+        CounterSkill = skill;
     }
     public void ApplyBuff(SkillData buff)
     {
@@ -155,9 +178,15 @@ public class UnitBase : MonoBehaviour
         {
             Buff.Add(buff.id, new SkillBase(buff));
         }
-
         if (Buff[buff.id].Apply())
             OnApplyBuff(buff);
+    }
+    public void ClearBuff(SkillData buff)
+    {
+        if (Buff.ContainsKey(buff.id))
+        {
+            Buff.Remove(buff.id);
+        }
     }
     public void OnApplyBuff(SkillData buff)
     {
@@ -188,6 +217,10 @@ public class UnitBase : MonoBehaviour
             HP = MaxHP;
     }
 
+    //Upgrade
+    public UPGRADE upgrade;
+    public int upgradeDamage;
+    public int upgradeHP;
 
     //Behaviour
     protected virtual void Start()
@@ -203,8 +236,8 @@ public class UnitBase : MonoBehaviour
 
     public virtual void ResetUnit()
     {
-        hp = unitData.useStartHP ? unitData.initHPStart : MaxHP;
         Buff.Clear();
+        hp = unitData.useStartHP ? unitData.initHPStart : MaxHP;
         IsDead = false;
     }
 
@@ -225,5 +258,9 @@ public class UnitBase : MonoBehaviour
     {
         if (!IsDead)
             HP += heal;
+    }
+    public void SetInvincibility(bool value)
+    {
+        isInvincibility = value;
     }
 }

@@ -6,7 +6,8 @@ public class UISlotExpedition : MonoBehaviour
 {
     public Button button;
     public TextMeshProUGUI textName;
-    public CharacterInfos characterInfos = new();
+    public CharacterInfos characterInfos;
+    public UISlotCharacter slot;
 
     public void SetData(CharacterInfos characterInfos)
     {
@@ -14,11 +15,14 @@ public class UISlotExpedition : MonoBehaviour
         {
             this.characterInfos = null;
             textName.text = string.Empty;
+            slot.gameObject.SetActive(false);
         }
         else
         {
+            slot.gameObject.SetActive(true);
+            slot.SetData(characterInfos);
             this.characterInfos = characterInfos;
-            textName.text = characterInfos.unitData.ignore;
+            textName.text = DataTableManager.GetString(characterInfos.unitData.prefab);
         }
     }
 }

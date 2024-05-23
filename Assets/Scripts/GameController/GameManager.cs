@@ -4,9 +4,9 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public TouchManager touchManager;
     #region INSTANCE
     private static GameManager instance;
-
     public static GameManager Instance
     {
         get
@@ -18,6 +18,11 @@ public class GameManager : MonoBehaviour
         }
     }
     #endregion
+
+    public AudioSource musicPlayer;
+    public AudioSource uiSoundPlayer;
+    public bool DoneTutorial { get; set; }
+
     private int flags;
     public int Flags
     {
@@ -29,7 +34,8 @@ public class GameManager : MonoBehaviour
                 flags = 0;
         }
     }
-    public List<int> purchasedID { get; private set; } = new();
+    public List<int> UnlockedID { get; private set; } = new();
+    public List<int> PurchasedID { get; private set; } = new();
     public CharacterInfos[] Expedition { get; private set; } = new CharacterInfos[5];
     private int selectedStageID;
     public int SelectedStageID
@@ -37,14 +43,17 @@ public class GameManager : MonoBehaviour
         get => selectedStageID;
         set
         {
-            //int max = (DataTableManager.MinStageID + StageClearInfo.Count) < DataTableManager.MaxStageID
-            //    ? (DataTableManager.MinStageID + StageClearInfo.Count) : DataTableManager.MaxStageID;
-            //selectedStageID = Mathf.Clamp(value, DataTableManager.MinStageID, max);
+#if UNITY_EDITOR
             selectedStageID = Mathf.Clamp(value, DataTableManager.MinStageID, DataTableManager.MaxStageID);
+#else
+            int max = (DataTableManager.MinStageID + StageClearInfo.Count) < DataTableManager.MaxStageID
+                ? (DataTableManager.MinStageID + StageClearInfo.Count) : DataTableManager.MaxStageID;
+            selectedStageID = Mathf.Clamp(value, DataTableManager.MinStageID + (DoneTutorial ? 1 : 0), max);
+#endif
         }
     }
     public Dictionary<int, int> StageClearInfo { get; private set; } = new();
-    public string nextScene;
+    public string NextScene { get; set; }
 
     private void Awake()
     {
@@ -52,16 +61,9 @@ public class GameManager : MonoBehaviour
         SelectedStageID = DataTableManager.MinStageID;
 
         //TESTCODE
-        purchasedID.Add(1101);
-        purchasedID.Add(1102);
-        purchasedID.Add(1201);
-        purchasedID.Add(1202);
-        purchasedID.Add(1301);
-        SetExpeditions(1101, 0);
-        SetExpeditions(1102, 1);
-        SetExpeditions(1201, 2);
-
-        flags = int.MaxValue / 2;
+#if UNITY_EDITOR
+        flags = 1000;
+#endif
     }
     private void Start()
     {
@@ -71,8 +73,9 @@ public class GameManager : MonoBehaviour
 
     public void LoadingScene(string name)
     {
-        nextScene = name;
-        SceneManager.LoadScene(Scenes.devLoading);
+        SaveManager.GameSave();
+        NextScene = name;
+        SceneManager.LoadScene(Scenes.loading);
     }
     public void ChangeScene(string name)
     {
@@ -98,7 +101,7 @@ public class GameManager : MonoBehaviour
         Expedition[index] = characterInfos;
     }
 
-    public void SetExpeditions(int id, int index)
+    public void SetExpedition(int id, int index)
     {
         UnitData character = Resources.Load<UnitData>(string.Format(Paths.resourcesPlayer, id));
 
@@ -113,29 +116,55 @@ public class GameManager : MonoBehaviour
         return Expedition[index];
     }
 
-    public void StageClear(int index, int star, int flag)
+    public void StageClear(int stageID, int star, int flag)
     {
-        if (StageClearInfo.ContainsKey(index))
-            StageClearInfo[index] = StageClearInfo[index] < star ? star : StageClearInfo[index];
+        if (StageClearInfo.ContainsKey(stageID))
+            StageClearInfo[stageID] = StageClearInfo[stageID] < star ? star : StageClearInfo[stageID];
         else
-            StageClearInfo.Add(index, star);
+            StageClearInfo.Add(stageID, star);
+
+
+
         flags += flag;
+
+        if (DataTableManager.StageUnlockID.ContainsKey(stageID))
+        {
+            foreach (var charID in DataTableManager.StageUnlockID[stageID])
+            {
+                if (!UnlockedID.Contains(charID))
+                    UnlockedID.Add(charID);
+            }
+        }
+        SaveManager.GameSave();
     }
 
     public bool AddPurchasedID(CharacterInfos characterInfos)
     {
-        if (purchasedID.Contains(characterInfos.unitData.id))
+        if (PurchasedID.Contains(characterInfos.unitData.id))
             return false;
 
         if (flags >= characterInfos.unitData.price)
         {
             flags -= characterInfos.unitData.price;
-            purchasedID.Add(characterInfos.unitData.id);
+            PurchasedID.Add(characterInfos.unitData.id);
+            SaveManager.GameSave();
             return true;
         }
         else
         {
             return false;
         }
+    }
+
+
+    public static void PlayUISound(AudioClip clip)
+    {
+        Instance.uiSoundPlayer.PlayOneShot(clip);
+    }
+    public static void PlayMusic(AudioClip clip)
+    {
+        Instance.musicPlayer.Stop();
+        Instance.musicPlayer.clip = clip;
+        Instance.musicPlayer.Play();
     }
 }

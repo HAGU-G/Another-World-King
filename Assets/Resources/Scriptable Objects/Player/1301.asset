@@ -12,29 +12,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5390eeabe2e0148bd1783116bb6660, type: 3}
   m_Name: 1301
   m_EditorClassIdentifier: 
-  ignore: "\uC131\uC9C1\uC790Lv1"
+  ignore: "\uC131\uC9C1\uC790"
   id: 1301
   division: 4
-  prefab: Bishop
-  isTower: 0
-  initHP: 60
+  prefab: Priest
+  initHP: 100
   useStartHP: 0
   initHPStart: 0
-  combatType: 0
-  initAttackDamage: 0
-  initAttackSpeed: 2.5
-  initAttackRange: 2
+  typeCounter: 104
+  initAttackDamage: 20
+  initAttackSpeed: 1.5
+  initAttackRange: 3
   initAttackEnemyCount: 0
   initAttackOrder: 3
   initAttackEnemyOrder: 01000000
   skill: Heal_Skill
-  initHeal: 30
+  initHeal: 60
   initMoveSpeed: 80
-  price: 0
+  price: 20
   cost: 150
   spawnTime: 5
   initDropGold: 0
   initDropExp: 0
-  effect: Heal1
-  image: "\uC131\uC9C1\uC790.jpg"
-  desc: Bishop_explan
+  effectAttack: 0
+  effectAttackHit: Hit_Priest
+  projectile: 0
+  desc: Priest_explan
+  isTower: 0
+  stars_3_CastleHp: 0
+  stars_3_reward: 0
+  stars_2_CastleHp: 0
+  stars_2_reward: 0
+  stars_1_reward: 0
+  repeat_Reward: 0
+  upgradeDamageID: 0
+  upgradeHPID: 215

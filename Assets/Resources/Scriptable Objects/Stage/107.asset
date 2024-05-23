@@ -12,28 +12,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5390eeabe2e0148bd1783116bb6660, type: 3}
   m_Name: 107
   m_EditorClassIdentifier: 
-  ignore: 7
+  ignore: "6\uC2A4\uD14C\uC774\uC9C0"
   id: 107
   division: 0
-  prefab: None
-  isTower: 1
-  initHP: 3000
+  prefab: Stage_6
+  initHP: 2000
   useStartHP: 0
   initHPStart: 0
-  combatType: 0
+  typeCounter: 
   initAttackDamage: 0
   initAttackSpeed: 0
   initAttackRange: 0
   initAttackEnemyCount: 0
   initAttackOrder: 0
   initAttackEnemyOrder: 01000000
+  skill: 
   initHeal: 0
   initMoveSpeed: 80
+  price: 0
   cost: 0
   spawnTime: 0
   initDropGold: 0
   initDropExp: 0
-  effect: 
-  image: 
-  skill: 
+  effectAttack: 
+  effectAttackHit: 
+  projectile: 
   desc: 
+  isTower: 1
+  stars_3_CastleHp: 1400
+  stars_3_reward: 75
+  stars_2_CastleHp: 1000
+  stars_2_reward: 65
+  stars_1_reward: 55
+  repeat_Reward: 10
+  upgradeDamageID: 0
+  upgradeHPID: 0

@@ -12,19 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5390eeabe2e0148bd1783116bb6660, type: 3}
   m_Name: 1201
   m_EditorClassIdentifier: 
-  ignore: "\uAD81\uC218Lv1"
+  ignore: "\uAD81\uC218"
   id: 1201
   division: 3
   prefab: Archer
-  isTower: 0
-  initHP: 60
+  initHP: 70
   useStartHP: 0
   initHPStart: 0
-  combatType: 0
-  initAttackDamage: 5
+  typeCounter: 102
+  initAttackDamage: 30
   initAttackSpeed: 0.5
   initAttackRange: 2
-  initAttackEnemyCount: 1
+  initAttackEnemyCount: 0
   initAttackOrder: 2
   initAttackEnemyOrder: 01000000
   skill: 0
@@ -32,9 +31,19 @@ MonoBehaviour:
   initMoveSpeed: 80
   price: 0
   cost: 100
-  spawnTime: 5
+  spawnTime: 10
   initDropGold: 0
   initDropExp: 0
-  effect: Arrow1
-  image: "\uAD81\uC218.jpg"
+  effectAttack: Attack_Archer
+  effectAttackHit: Hit_Archer
+  projectile: Projectile_Archer
   desc: Archer_explan
+  isTower: 0
+  stars_3_CastleHp: 0
+  stars_3_reward: 0
+  stars_2_CastleHp: 0
+  stars_2_reward: 0
+  stars_1_reward: 0
+  repeat_Reward: 0
+  upgradeDamageID: 103
+  upgradeHPID: 203

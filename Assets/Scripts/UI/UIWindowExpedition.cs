@@ -10,17 +10,18 @@ public class UIWindowExpedition : UIWindow
     public Button buttonBack;
 
     public UISlotExpedition[] expedition;
+    public UIPopupExpedition popup;
+    public Button popupClose;
+    public GameObject counterInfo;
 
     private UISlotCharacter select;
     private UISlotExpedition selectSlot;
 
     private void Start()
     {
+        ClosePopup();
+        popupClose.onClick.AddListener(ClosePopup);
         buttonBack.onClick.AddListener(() => { uiMain.Open(); Close(); });
-        for (int i = 0; i < expedition.Length; i++)
-        {
-            expedition[i].SetData(GameManager.Instance.Expedition[i]);
-        }
 
         for (int i = 0; i < expedition.Length; i++)
         {
@@ -29,16 +30,33 @@ public class UIWindowExpedition : UIWindow
         }
 
     }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            uiMain.Open(); Close();
+        }
+    }
+    public void ClosePopup()
+    {
+        if (select != null)
+            select.toggle.isOn = false;
+        else
+            popup.Popup(false);
+    }
 
     public void SelectSlotExpedition(int index)
     {
 
         if (select != null)
         {
-            foreach (var slot in expedition)
+            for (int i = 0; i < expedition.Length; i++)
             {
-                if (slot.characterInfos == select.characterInfos)
-                    slot.SetData(null);
+                if (expedition[i].characterInfos != null && expedition[i].characterInfos.unitData.id == select.characterInfos.unitData.id)
+                {
+                    expedition[i].SetData(null);
+                    GameManager.Instance.SetExpedition(null, i);
+                }
             }
             expedition[index].SetData(select.characterInfos);
             select.toggle.isOn = false;
@@ -56,7 +74,7 @@ public class UIWindowExpedition : UIWindow
             {
                 expedition[index].SetData(null);
                 selectSlot = null;
-                GameManager.Instance.SetExpedition(expedition[index].characterInfos, index);
+                GameManager.Instance.SetExpedition(null, index);
             }
         }
 
@@ -65,6 +83,12 @@ public class UIWindowExpedition : UIWindow
     public override void Refresh()
     {
         base.Refresh();
+        ClosePopup();
+        counterInfo.SetActive(false);
+        var grid = scrollRect.content.GetComponent<GridLayoutGroup>();
+        var cellSizeX = (scrollRect.viewport.rect.width - grid.padding.right - grid.padding.left - grid.spacing.x * (grid.constraintCount - 1)) / grid.constraintCount;
+        grid.cellSize = new(cellSizeX, cellSizeX);
+
         for (int i = 0; i < scrollRect.content.childCount; i++)
         {
             select = null;
@@ -75,10 +99,10 @@ public class UIWindowExpedition : UIWindow
         UnitData[] characters = Resources.LoadAll<UnitData>(string.Format(Paths.resourcesPlayer, string.Empty));
         for (int i = 0; i < characters.Length; i++)
         {
-            if (!GameManager.Instance.purchasedID.Contains(characters[i].id)
-                || characters[i].id >= 2000)
+#if !UNITY_EDITOR
+            if (!GameManager.Instance.PurchasedID.Contains(characters[i].id))
                 continue;
-
+#endif
             var characterInfos = new CharacterInfos();
             characterInfos.SetData(characters[i]);
 
@@ -91,12 +115,23 @@ public class UIWindowExpedition : UIWindow
                 {
                     select = slot;
                     selectSlot = null;
+                    popup.SetData(slot.characterInfos.unitData, slot.GetComponent<RectTransform>());
                 }
                 else
                 {
                     select = null;
                 }
+                popup.Popup(x);
             });
         }
+        for (int i = 0; i < expedition.Length; i++)
+        {
+            expedition[i].SetData(GameManager.Instance.Expedition[i]);
+        }
+    }
+
+    public void ShowCounterInfo()
+    {
+        counterInfo.SetActive(!counterInfo.activeSelf);
     }
 }

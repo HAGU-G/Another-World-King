@@ -1,6 +1,5 @@
-
 using CsvHelper.Configuration.Attributes;
-using JetBrains.Annotations;
+using System.Diagnostics.PerformanceData;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -9,38 +8,27 @@ public class UnitData_Csv
 {
     [Index(0)] public string List { get; set; }
     [Index(1)] public int ID { get; set; }
-    [Index(2)] public DIVISION Division { get; set; }
+    [Index(2)] public int Division { get; set; }
     [Index(3)] public int Hp { get; set; }
     [Index(4)] public int Attack { get; set; }
     [Index(5)] public float A_Speed { get; set; }
     [Index(6)] public float A_Range { get; set; }
     [Index(7)] public int Chr_Position { get; set; }
-    [Index(8)] public string Effect { get; set; }
-    [Index(9)] public string Image { get; set; }
-    [Index(10)] public string Skill { get; set; }
-    [Index(11)] public string Char_ID { get; set; }
+    [Index(8)] public string My_Effect { get; set; }
+    [Index(9)] public string Target_Effect { get; set; }
+    [Index(10)] public string A_Effect_Image { get; set; }
+    [Index(11)] public string Skill { get; set; }
+    [Index(12)] public string String_ID { get; set; }
     [Ignore] public int Heal { get; set; }
     [Ignore] public int EnemyCount { get; set; }
+    [Ignore] public string TypeCounter { get; set; }
 
 
     public void ToScriptable(bool isPlayer)
     {
-        UnitData unitData;
-        if (isPlayer)
-            unitData = Resources.Load<UnitData>(string.Format(Paths.resourcesPlayer, ID));
-        else
-            unitData = Resources.Load<UnitData>(string.Format(Paths.resourcesEnemy, ID));
-        bool create = false;
-        if (unitData == null)
-        {
-            unitData = ScriptableObject.CreateInstance<UnitData>();
-            create = true;
-        }
-
+        UnitData unitData = ScriptableObject.CreateInstance<UnitData>();
         LoadData(unitData);
-
-        if (create)
-            CreateData(unitData);
+        CreateData(unitData);
     }
     protected virtual void CreateData(UnitData unitData)
     {
@@ -55,17 +43,19 @@ public class UnitData_Csv
     {
         unitData.ignore = List;
         unitData.id = ID;
-        unitData.division = Division;
+        unitData.division = (UnitData.DIVISION)Division;
         unitData.initHP = Hp;
         unitData.initAttackDamage = Attack;
         unitData.initAttackSpeed = A_Speed;
         unitData.initAttackRange = A_Range;
         unitData.skill = Skill;
-        unitData.effect = Effect;
-        unitData.image = Image;
+        unitData.effectAttack = My_Effect;
+        unitData.effectAttackHit = Target_Effect;
+        unitData.projectile = A_Effect_Image;
         unitData.initAttackOrder = Chr_Position;
         unitData.initHeal = Heal;
-        unitData.prefab = Char_ID;
+        unitData.prefab = String_ID;
+        unitData.typeCounter = TypeCounter; ;
         if (EnemyCount > 1)
         {
             unitData.initAttackEnemyCount = EnemyCount;
@@ -80,18 +70,19 @@ public class UnitData_Csv
     {
         List = unitData.ignore;
         ID = unitData.id;
-        Division = unitData.division;
+        Division = (int)unitData.division;
         Hp = unitData.initHP;
         Attack = unitData.initAttackDamage;
         A_Speed = unitData.initAttackSpeed;
         A_Range = unitData.initAttackRange;
         Skill = unitData.skill;
-        Effect = unitData.effect;
-        Image = unitData.image;
+        My_Effect = unitData.effectAttack;
+        Target_Effect = unitData.effectAttackHit;
+        A_Effect_Image = unitData.projectile;
         Chr_Position = unitData.initAttackOrder;
         Heal = unitData.initHeal;
         EnemyCount = unitData.initAttackEnemyCount;
-        Char_ID = unitData.prefab;
+        String_ID = unitData.prefab;
     }
 
     public UnitData_Csv() { }
@@ -103,10 +94,12 @@ public class UnitData_Csv
 
 public class Player_Csv : UnitData_Csv
 {
-    [Index(12)] public int Spawn_Price { get; set; }
-    [Index(13)] public float Spawn_Time { get; set; }
-    [Index(14)] public string Char_Info { get; set; }
-    [Index(15)] public int Shop_Value { get; set; }
+    [Index(13)] public int Spawn_Price { get; set; }
+    [Index(14)] public float Spawn_Time { get; set; }
+    [Index(15)] public string Char_Info { get; set; }
+    [Index(16)] public int Shop_Value { get; set; }
+    [Index(17)] public int Upgrade_ID_AT { get; set; }
+    [Index(18)] public int Upgrade_ID_DF { get; set; }
 
     public Player_Csv() : base() { }
     public Player_Csv(UnitData initStats) : base(initStats) { }
@@ -118,6 +111,8 @@ public class Player_Csv : UnitData_Csv
         unitData.spawnTime = Spawn_Time;
         unitData.desc = Char_Info;
         unitData.price = Shop_Value;
+        unitData.upgradeDamageID = Upgrade_ID_AT;
+        unitData.upgradeHPID = Upgrade_ID_DF;
     }
 
     protected override void SaveData(UnitData unitData)
@@ -127,13 +122,15 @@ public class Player_Csv : UnitData_Csv
         Spawn_Time = unitData.spawnTime;
         Char_Info = unitData.desc;
         Shop_Value = unitData.price;
+        Upgrade_ID_AT = unitData.upgradeDamageID;
+        Upgrade_ID_DF = unitData.upgradeHPID;
     }
 }
 
 public class Enemy_Csv : UnitData_Csv
 {
-    [Index(12)] public int Dead_Gold { get; set; }
-    [Index(13)] public int Dead_Exp { get; set; }
+    [Index(13)] public int Dead_Gold { get; set; }
+    [Index(14)] public int Dead_Exp { get; set; }
     public Enemy_Csv() : base() { }
     public Enemy_Csv(UnitData unitData) : base(unitData) { }
 
@@ -165,7 +162,7 @@ public class Skill_Csv
 {
     public string List { get; set; }
     public string ID { get; set; }
-    public TARGET Target { get; set; }
+    public int Target { get; set; }
     public int Gold_Supply { get; set; }
     public int Exp_Supply { get; set; }
     public int Flag_Supply { get; set; }
@@ -173,29 +170,23 @@ public class Skill_Csv
     public int Wide_Area_Range { get; set; }
     public float A_Speed_Decrease { get; set; }
     public float A_Speed_Increase { get; set; }
-    public int A_Speed_Increase_Nesting { get; set; }
+    public int A_Speed_Nesting { get; set; }
     public float Stun_Duration { get; set; }
 
     public void ToScriptable()
     {
-        SkillData skillData;
-        skillData = Resources.Load<SkillData>(string.Format(Paths.resourcesSkill, ID));
-        bool create = false;
-        if (skillData == null)
-        {
-            skillData = ScriptableObject.CreateInstance<SkillData>();
-            create = true;
-        }
+        SkillData skillData = ScriptableObject.CreateInstance<SkillData>();
 
         skillData.ignore = List;
         skillData.id = ID;
-        skillData.target = Target;
+        skillData.isCounterData = false;
+        skillData.target = (SkillData.TARGET)Target;
         skillData.onApplyGold = Gold_Supply;
         skillData.onApplyExp = Exp_Supply;
         skillData.clearFlag = Flag_Supply;
         skillData.attackSpeed = 0 + A_Speed_Decrease;
         skillData.attackSpeed -= A_Speed_Increase;
-        skillData.nesting = A_Speed_Increase_Nesting;
+        skillData.nesting = A_Speed_Nesting;
         skillData.duration = Stun_Duration;
         skillData.sturn = Stun_Duration > 0;
         if (skillData.sturn && skillData.nesting <= 0)
@@ -203,18 +194,109 @@ public class Skill_Csv
             skillData.nesting = 1;
             skillData.doResetDurationOnApply = true;
         }
-        if (Stun_Duration == 0 && A_Speed_Increase_Nesting > 0)
+        if (Stun_Duration == 0 && A_Speed_Nesting > 0)
             skillData.infinityDuration = true;
         else
             skillData.infinityDuration = false;
 
-        if (create)
+        AssetDatabase.CreateAsset(skillData,
+        string.Concat(
+            Paths.folderResources,
+            string.Format(Paths.resourcesSkill, skillData.id),
+            Paths._asset));
+    }
+
+    public Skill_Csv() { }
+    public Skill_Csv(SkillData skillData)
+    {
+        List = skillData.ignore;
+        ID = skillData.id;
+        Target = (int)skillData.target;
+        Gold_Supply = skillData.onApplyGold;
+        Exp_Supply = skillData.onApplyExp;
+        Flag_Supply = skillData.clearFlag;
+        if (skillData.attackSpeed > 0)
+            A_Speed_Decrease = skillData.attackSpeed;
+        if (skillData.attackSpeed < 0)
+        { A_Speed_Increase = -skillData.attackSpeed; A_Speed_Nesting = skillData.nesting; }
+        if (skillData.sturn)
+            Stun_Duration = skillData.duration;
+
+
+        foreach (var unitData in Resources.LoadAll<UnitData>(Paths.resourcesPlayer))
         {
-            AssetDatabase.CreateAsset(skillData,
-            string.Concat(
-                Paths.folderResources,
-                string.Format(Paths.resourcesSkill, skillData.id),
-                Paths._asset));
+            if (unitData.skill == ID)
+            {
+                Hp_Healing = unitData.initHeal;
+                Wide_Area_Range = unitData.initAttackEnemyCount;
+                break;
+            }
         }
+    }
+}
+
+public class Counter_Csv
+{
+    public string List { get; set; }
+    public string ID { get; set; }
+    public int Char_ID { get; set; }
+    public int Division { get; set; }
+    public int Target { get; set; }
+    public float Attack_Increase { get; set; }
+    public float Heal_Increase { get; set; }
+    public float Stun_Increase { get; set; }
+    public float A_Speed_Decrease { get; set; }
+
+    public void ToScriptable()
+    {
+        SkillData skillData = ScriptableObject.CreateInstance<SkillData>();
+
+        if (A_Speed_Decrease > 0f)
+            skillData.target = SkillData.TARGET.ENEMY;
+        else
+            skillData.target = SkillData.TARGET.ONESELF;
+
+
+        skillData.ignore = List;
+        skillData.id = ID;
+        skillData.applyCharID = Char_ID;
+        skillData.applyDivision = (UnitData.DIVISION)Division;
+        skillData.isCounterData = true;
+        skillData.targetDivision = (UnitData.DIVISION)Target;
+        if (Attack_Increase > 0f)
+            skillData.attackDamage_P = Attack_Increase - 1f;
+        skillData.attackSpeed = 0 + A_Speed_Decrease;
+        skillData.duration = Stun_Increase > 0f ? Stun_Increase + 1f : 0f;
+        skillData.sturn = skillData.duration > 0;
+        skillData.heal_P = Heal_Increase;
+
+
+        if (skillData.sturn && skillData.nesting <= 0)
+        {
+            skillData.nesting = 1;
+            skillData.doResetDurationOnApply = true;
+        }
+        if (skillData.duration == 0 && skillData.nesting > 0)
+            skillData.infinityDuration = true;
+        else
+            skillData.infinityDuration = false;
+
+        AssetDatabase.CreateAsset(skillData,
+        string.Concat(
+            Paths.folderResources,
+            string.Format(Paths.resourcesCounter, skillData.id),
+            Paths._asset));
+    }
+
+    public Counter_Csv() { }
+    public Counter_Csv(SkillData skillData)
+    {
+        List = skillData.ignore;
+        ID = skillData.id;
+        Target = (int)skillData.targetDivision;
+        Attack_Increase = skillData.attackDamage_P + 1f;
+        A_Speed_Decrease = skillData.attackSpeed;
+        Heal_Increase = skillData.heal_P;
+        Stun_Increase = skillData.duration - 1f;
     }
 }

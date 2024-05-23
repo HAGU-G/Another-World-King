@@ -16,25 +16,34 @@ MonoBehaviour:
   id: 201
   division: 3
   prefab: Mon_Archer
-  isTower: 0
-  initHP: 60
+  initHP: 100
   useStartHP: 0
   initHPStart: 0
-  combatType: 0
-  initAttackDamage: 5
+  typeCounter: 102
+  initAttackDamage: 30
   initAttackSpeed: 0.5
   initAttackRange: 2
   initAttackEnemyCount: 0
   initAttackOrder: 2
   initAttackEnemyOrder: 01000000
+  skill: 0
   initHeal: 0
   initMoveSpeed: 80
+  price: 0
   cost: 0
   spawnTime: 0
   initDropGold: 100
   initDropExp: 300
-  effect: MonArrow
-  image: "\uC774\uD6C4 \uACB0\uC815"
-  skill: 0
+  effectAttack: Attack_Archer
+  effectAttackHit: Hit_Archer
+  projectile: Projectile_Archer
   desc: 
-  price: 0
+  isTower: 0
+  stars_3_CastleHp: 0
+  stars_3_reward: 0
+  stars_2_CastleHp: 0
+  stars_2_reward: 0
+  stars_1_reward: 0
+  repeat_Reward: 0
+  upgradeDamageID: 0
+  upgradeHPID: 0
