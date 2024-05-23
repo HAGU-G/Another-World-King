@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
 
     public AudioSource musicPlayer;
     public AudioSource uiSoundPlayer;
+    public bool DoneTutorial { get; set; }
 
     private int flags;
     public int Flags
@@ -46,7 +47,7 @@ public class GameManager : MonoBehaviour
 #else
             int max = (DataTableManager.MinStageID + StageClearInfo.Count) < DataTableManager.MaxStageID
                 ? (DataTableManager.MinStageID + StageClearInfo.Count) : DataTableManager.MaxStageID;
-            selectedStageID = Mathf.Clamp(value, DataTableManager.MinStageID, max);
+            selectedStageID = Mathf.Clamp(value, DataTableManager.MinStageID + (DoneTutorial ? 1 : 0), max);
 #endif
         }
     }
@@ -72,7 +73,7 @@ public class GameManager : MonoBehaviour
     public void LoadingScene(string name)
     {
         NextScene = name;
-        SceneManager.LoadScene(Scenes.devLoading);
+        SceneManager.LoadScene(Scenes.loading);
     }
     public void ChangeScene(string name)
     {
@@ -121,7 +122,7 @@ public class GameManager : MonoBehaviour
             StageClearInfo.Add(stageID, star);
 
 
-        
+
         flags += flag;
 
         if (DataTableManager.StageUnlockID.ContainsKey(stageID))

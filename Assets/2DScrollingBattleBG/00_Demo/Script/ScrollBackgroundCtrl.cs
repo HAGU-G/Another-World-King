@@ -58,8 +58,6 @@ namespace ScrollBGTest
             //    MoveValue += MoveSpeed;
 
             //Material OffSet
-            Debug.Log(Screen.height);
-            Debug.Log(Screen.width);
             for (int i = 0; i < Background.Length; i++)
                 Ren[i].material.mainTextureOffset = new Vector2(MoveValue * ScrollSpeed[i], 0);
 

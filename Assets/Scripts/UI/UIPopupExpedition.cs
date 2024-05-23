@@ -1,12 +1,11 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.Android;
 
 public class UIPopupExpedition : MonoBehaviour
 {
     public RectTransform rectTransform;
     public TextMeshProUGUI textDescription;
-    public static readonly string formatDesc = "[{0}]\n{1}\n체력 : {2} / 공격력: {3} / 공격 속도 : {4}\n소환 가격 : {3}골드 /소환 쿨타임 : {4}초";
+    public static readonly string formatDesc = "[{0}]\n{1}\n체력 : {2} / 공격력: {3} / 공격 속도 : {4}\n소환 가격 : {5}골드 /소환 쿨타임 : {6}초";
 
     public void SetData(UnitData unitData, RectTransform slot)
     {

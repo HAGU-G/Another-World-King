@@ -14,6 +14,12 @@ public class TowerAI : UnitBase
     private float waitTime;
     private bool isPatternEnd = true;
     private int phase;
+    private bool isStopSpawn;
+
+    public void SetStopSpawn(bool stopSpawn)
+    {
+        isStopSpawn = stopSpawn;
+    }
 
     private void Awake()
     {
@@ -51,6 +57,9 @@ public class TowerAI : UnitBase
 
         if (Input.GetKeyDown(KeyCode.Delete))
             Damaged(100);
+
+        if (isStopSpawn)
+            return;
 
         if (isPatternEnd && Time.time >= nextSpawnTime)
         {

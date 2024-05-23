@@ -16,6 +16,7 @@ public class UnitBase : MonoBehaviour
     //State
     public bool IsTower => unitData.isTower;
     public bool isPlayer;
+    private bool isInvincibility;
     private bool isDead;
     public bool IsDead
     {
@@ -48,7 +49,7 @@ public class UnitBase : MonoBehaviour
         }
     }
     private int hp;
-    public int HP { get => hp; set => hp = Mathf.Clamp(value, 0, MaxHP); }
+    public int HP { get => hp; set => hp = Mathf.Clamp(value, isInvincibility ? 1 : 0, MaxHP); }
     public int AttackDamage
     {
         get
@@ -257,5 +258,9 @@ public class UnitBase : MonoBehaviour
     {
         if (!IsDead)
             HP += heal;
+    }
+    public void SetInvincibility(bool value)
+    {
+        isInvincibility = value;
     }
 }

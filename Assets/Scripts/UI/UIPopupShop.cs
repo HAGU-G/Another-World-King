@@ -24,7 +24,7 @@ public class UIPopupShop : MonoBehaviour
             selectSlot.slot.characterInfos.unitData.initAttackSpeed,
             selectSlot.slot.characterInfos.unitData.cost,
             selectSlot.slot.characterInfos.unitData.spawnTime);
-        textCost.text = selectSlot.slot.characterInfos.unitData.cost.ToString();
+        textCost.text = selectSlot.slot.characterInfos.unitData.price.ToString();
 
         if (!selectSlot.IsPurchased && selectSlot.IsUnlocked)
             buttonsPurchase.interactable = true;

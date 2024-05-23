@@ -1,5 +1,5 @@
 List,ID,Castle_Hp,Stars_3_CastleHp,Stars_3_reward,Stars_2_CastleHp,Stars_2_reward,Stars_1_reward,Repeat_Reward,Reward_Char1,Reward_Char2,Reward_Char3,Reward_Char4,String_ID
-튜토리얼,101,1000,700,20,0,0,0,0,1301,1202,0,0,0
+튜토리얼,101,1000,700,20,0,0,0,0,1301,1202,0,0,Stage_0
 1스테이지,102,1500,1050,30,750,25,15,1,1103,1302,1107,0,Stage_1
 2스테이지,103,1500,1050,50,750,40,25,3,1105,1104,1303,0,Stage_2
 3스테이지,104,1500,1050,60,750,50,30,5,1109,1203,0,0,Stage_3

@@ -25,7 +25,7 @@ public class UIWindowMain : UIWindow
         buttonPrevStage.onClick.AddListener(() => { GameManager.Instance.SelectedStageID--; Refresh(); });
         buttonExpedition.onClick.AddListener(() => { expedition.Open(); Close(); });
         buttonShop.onClick.AddListener(() => { shop.Open(); Close(); });
-        buttonPlay.onClick.AddListener(() => { GameManager.Instance.LoadingScene(Scenes.devStage); });
+        buttonPlay.onClick.AddListener(() => { GameManager.Instance.LoadingScene(Scenes.stage); });
     }
 
     public override void Refresh()

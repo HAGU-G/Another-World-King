@@ -58,9 +58,9 @@ public static class Tags
 
 public static class Scenes
 {
-    public static readonly string devMain = "DevMain";
-    public static readonly string devStage = "DevStage";
-    public static readonly string devLoading = "DevLoading";
+    public static readonly string main = "DevMain";
+    public static readonly string stage = "DevStage";
+    public static readonly string loading = "DevLoading";
 }
 
 

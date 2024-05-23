@@ -18,6 +18,7 @@ public static class SaveManager
         var save = saveData as SaveVersionClass;
         var gm = GameManager.Instance;
 
+        save.doneTutorial = gm.DoneTutorial;
         save.flags = gm.Flags;
         foreach (var id in gm.UnlockedID)
         {
@@ -88,6 +89,8 @@ public static class SaveManager
         }
 
         var load = saveData as SaveVersionClass;
+
+        GameManager.Instance.DoneTutorial = load.doneTutorial;
         GameManager.Instance.Flags = load.flags;
         GameManager.Instance.UnlockedID.Clear();
         foreach (var item in load.unlockedID)

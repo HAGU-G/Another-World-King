@@ -15,7 +15,7 @@ MonoBehaviour:
   ignore: "\uD29C\uD1A0\uB9AC\uC5BC"
   id: 101
   division: 0
-  prefab: 0
+  prefab: Stage_0
   initHP: 1000
   useStartHP: 0
   initHPStart: 0

@@ -9,6 +9,7 @@ public class SaveV1 : Save
 {
     public SaveV1() => Version = 1;
 
+    public bool doneTutorial;
     public int flags;
     public List<int> unlockedID = new();
     public List<int> purchasedID = new();

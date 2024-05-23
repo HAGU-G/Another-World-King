@@ -1,6 +1,4 @@
-using JetBrains.Annotations;
 using ScrollBGTest;
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEditor;
 using UnityEngine;
 
