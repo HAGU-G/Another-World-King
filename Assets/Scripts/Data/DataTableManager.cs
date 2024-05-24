@@ -111,7 +111,7 @@ public static class DataTableManager
             var records = csvReader.GetRecords(desc);
             foreach (var record in records)
             {
-                stringTable.Add(record.String_ID, record.String_Info);
+                stringTable.Add(record.String_ID, record.String_Info.Replace("<br>","\n"));
             }
         }
     }
