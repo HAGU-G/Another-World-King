@@ -12,16 +12,10 @@ public class TouchManager : MonoBehaviour
     public Vector2 DeltaPos { get; private set; }
     public Vector3 WorldDeltaPos { get; private set; }
     public Vector2 PrevPos { get; private set; }
+    public float MoveDistance { get; private set; }
 
-    private bool firstIDMoved;
-
-    private float dpi;
+    private float tapAllowInch = 0.2f;
     private int firstID;
-
-    private void Awake()
-    {
-        dpi = Screen.dpi;
-    }
 
     private void Update()
     {
@@ -38,11 +32,12 @@ public class TouchManager : MonoBehaviour
             {
                 if (firstID == touch.fingerId)
                     Pos = touch.position;
+                bool outTapDistance = false;
                 switch (touch.phase)
                 {
                     case TouchPhase.Began:
                         if (firstID == 0)
-                        { 
+                        {
                             firstID = touch.fingerId;
                             Pos = touch.position;
                             PrevPos = touch.position;
@@ -54,18 +49,18 @@ public class TouchManager : MonoBehaviour
                             break;
                         DeltaPos = touch.deltaPosition;
                         Moved = DeltaPos != Vector2.zero;
-                        if (!firstIDMoved)
-                            firstIDMoved = Moved;
+                        MoveDistance += DeltaPos.magnitude;
+                        outTapDistance = MoveDistance * Screen.dpi > tapAllowInch;
                         WorldDeltaPos = Camera.main.ScreenToWorldPoint(Pos) - Camera.main.ScreenToWorldPoint(PrevPos);
                         break;
                     case TouchPhase.Ended:
                     case TouchPhase.Canceled:
                         if (firstID != touch.fingerId)
                             break;
-                        Tap = !firstIDMoved;
+                        Tap = MoveDistance <= tapAllowInch * Screen.dpi && !outTapDistance;
                         firstID = 0;
                         Moved = false;
-                        firstIDMoved = false;
+                        MoveDistance = 0f;
                         break;
                 }
                 if (firstID == touch.fingerId)
@@ -75,10 +70,14 @@ public class TouchManager : MonoBehaviour
 #else
         MouseInput();
 #endif
+
+        if (MoveDistance >= tapAllowInch * Screen.dpi)
+            Debug.Log($"{MoveDistance} {tapAllowInch * Screen.dpi}");
     }
 
     private void MouseInput()
     {
+        bool outTapDistance = false;
         if (Input.GetMouseButtonDown(0))
         {
             Pos = PrevPos = Input.mousePosition;
@@ -90,15 +89,15 @@ public class TouchManager : MonoBehaviour
             Pos = Input.mousePosition;
             DeltaPos = Pos - PrevPos;
             Moved = DeltaPos != Vector2.zero;
-            if (!firstIDMoved)
-                firstIDMoved = Moved;
+            MoveDistance += DeltaPos.magnitude;
+            outTapDistance = MoveDistance > tapAllowInch * Screen.dpi;
             WorldDeltaPos = Camera.main.ScreenToWorldPoint(Pos) - Camera.main.ScreenToWorldPoint(PrevPos);
             PrevPos = Input.mousePosition;
         }
         if (Input.GetMouseButtonUp(0))
         {
-            Tap = !firstIDMoved;
-            firstIDMoved = false;
+            Tap = MoveDistance <= tapAllowInch * Screen.dpi && !outTapDistance;
+            MoveDistance = 0f;
         }
     }
 }
