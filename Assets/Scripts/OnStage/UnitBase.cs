@@ -172,11 +172,13 @@ public class UnitBase : MonoBehaviour
     {
         CounterSkill = skill;
     }
-    public void ApplyBuff(SkillData buff)
+    public void ApplyBuff(SkillData buff, int durationIncrease = 0)
     {
         if (!Buff.ContainsKey(buff.id))
         {
-            Buff.Add(buff.id, new SkillBase(buff));
+            var skillBase = new SkillBase(buff);
+            skillBase.IncreaseDuration(durationIncrease);
+            Buff.Add(buff.id, skillBase);
         }
         if (Buff[buff.id].Apply())
             OnApplyBuff(buff);

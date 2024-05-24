@@ -56,4 +56,5 @@ public class SkillData : ScriptableObject
     public int onApplyDrain;
 
     public bool sturn;
+    public float skillDuration;
 }

@@ -415,12 +415,16 @@ public class CharacterAI : UnitBase
                         unitAttacked = true;
 
                         if (!target.IsDead && Skill != null && Skill.target == SkillData.TARGET.ENEMY)
+                        {
                             target.ApplyBuff(Skill);
+                        }
                         if (!target.IsDead
                             && CounterSkill != null
                             && CounterSkill.target == SkillData.TARGET.ENEMY
                             && target.unitData.division == CounterSkill.targetDivision)
-                            target.ApplyBuff(CounterSkill);
+                        {
+                            target.ApplyBuff(CounterSkill); 
+                        }
                     }
 
                     if (isCounterBuffed && target.unitData.division != CounterSkill.targetDivision)

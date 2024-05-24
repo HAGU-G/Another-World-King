@@ -218,7 +218,10 @@ public class Skill_Csv
         if (skillData.attackSpeed > 0)
             A_Speed_Decrease = skillData.attackSpeed;
         if (skillData.attackSpeed < 0)
-        { A_Speed_Increase = -skillData.attackSpeed; A_Speed_Nesting = skillData.nesting; }
+        {
+            A_Speed_Increase = -skillData.attackSpeed;
+            A_Speed_Nesting = skillData.nesting;
+        }
         if (skillData.sturn)
             Stun_Duration = skillData.duration;
 
@@ -266,20 +269,10 @@ public class Counter_Csv
         if (Attack_Increase > 0f)
             skillData.attackDamage_P = Attack_Increase - 1f;
         skillData.attackSpeed = 0 + A_Speed_Decrease;
-        skillData.duration = Stun_Increase > 0f ? Stun_Increase + 1f : 0f;
-        skillData.sturn = skillData.duration > 0;
+        skillData.skillDuration = Stun_Increase > 0f ? Stun_Increase : 0f;
         skillData.heal_P = Heal_Increase;
-
-
-        if (skillData.sturn && skillData.nesting <= 0)
-        {
-            skillData.nesting = 1;
-            skillData.doResetDurationOnApply = true;
-        }
-        if (skillData.duration == 0 && skillData.nesting > 0)
-            skillData.infinityDuration = true;
-        else
-            skillData.infinityDuration = false;
+        skillData.nesting = 0;
+        skillData.infinityDuration = true;
 
         AssetDatabase.CreateAsset(skillData,
         string.Concat(
@@ -297,6 +290,6 @@ public class Counter_Csv
         Attack_Increase = skillData.attackDamage_P + 1f;
         A_Speed_Decrease = skillData.attackSpeed;
         Heal_Increase = skillData.heal_P;
-        Stun_Increase = skillData.duration - 1f;
+        Stun_Increase = skillData.skillDuration;
     }
 }
