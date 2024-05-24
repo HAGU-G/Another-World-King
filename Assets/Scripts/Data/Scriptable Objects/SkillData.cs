@@ -1,7 +1,6 @@
 using UnityEngine;
 
 
-
 [CreateAssetMenu(fileName = "스킬 ID", menuName = "데이터 생성/스킬")]
 public class SkillData : ScriptableObject
 {

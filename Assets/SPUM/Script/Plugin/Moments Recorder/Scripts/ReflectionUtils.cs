@@ -21,14 +21,14 @@
  *    distribution.
  */
 
-using UnityEngine;
 using System;
 using System.Linq.Expressions;
 using System.Reflection;
+using UnityEngine;
 
 namespace Moments
 {
-	public class ReflectionUtils<T> where T : class, new()
+    public class ReflectionUtils<T> where T : class, new()
 	{
 		readonly T _Instance;
 

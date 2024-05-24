@@ -72,9 +72,6 @@ public class TouchManager : MonoBehaviour
                     PrevPos = touch.position;
             }
         }
-#if UNITY_EDITOR
-        MouseInput();
-#endif
 #else
         MouseInput();
 #endif
