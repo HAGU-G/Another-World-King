@@ -70,9 +70,6 @@ public class TouchManager : MonoBehaviour
 #else
         MouseInput();
 #endif
-
-        if (MoveDistance >= tapAllowInch * Screen.dpi)
-            Debug.Log($"{MoveDistance} {tapAllowInch * Screen.dpi}");
     }
 
     private void MouseInput()

@@ -60,7 +60,6 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         SelectedStageID = DataTableManager.MinStageID;
 
-        //TESTCODE
 #if UNITY_EDITOR
         flags = 1000;
 #endif
