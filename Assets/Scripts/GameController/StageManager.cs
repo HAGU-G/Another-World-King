@@ -350,4 +350,10 @@ public class StageManager : MonoBehaviour
         });
 
     }
+
+    //TESTCODE
+    public void AAAA()
+    {
+        Time.timeScale += 0.5f;
+    }
 }

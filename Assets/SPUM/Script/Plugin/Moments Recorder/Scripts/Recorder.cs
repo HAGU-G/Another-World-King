@@ -21,18 +21,18 @@
  *    distribution.
  */
 
-using UnityEngine;
+using Moments.Encoder;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Moments.Encoder;
+using UnityEngine;
 using ThreadPriority = System.Threading.ThreadPriority;
 
 namespace Moments
 {
-	using UnityObject = UnityEngine.Object;
+    using UnityObject = UnityEngine.Object;
 
-	public enum RecorderState
+    public enum RecorderState
 	{
 		Recording,
 		Paused,

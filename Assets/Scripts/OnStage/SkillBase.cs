@@ -47,5 +47,10 @@ public class SkillBase
         }
         return Count;
     }
+
+    public void IncreaseDuration(float increaseValue)
+    {
+        CurrentDuration -= increaseValue;
+    }
 }
 

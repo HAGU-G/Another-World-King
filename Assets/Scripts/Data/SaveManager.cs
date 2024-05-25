@@ -18,7 +18,9 @@ public static class SaveManager
         var save = saveData as SaveVersionClass;
         var gm = GameManager.Instance;
 
+#if !UNITY_EDITOR
         save.doneTutorial = gm.DoneTutorial;
+#endif
         save.flags = gm.Flags;
         foreach (var id in gm.UnlockedID)
         {

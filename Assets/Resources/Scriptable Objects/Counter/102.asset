@@ -19,7 +19,7 @@ MonoBehaviour:
   applyDivision: 3
   applyCharID: 0
   targetDivision: 1
-  nesting: 1
+  nesting: 0
   duration: 0
   infinityDuration: 1
   doResetDurationOnApply: 0
@@ -45,3 +45,4 @@ MonoBehaviour:
   onApplyExp: 0
   onApplyDrain: 0
   sturn: 0
+  skillDuration: 0

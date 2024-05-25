@@ -15,7 +15,7 @@ List,String_ID,String_Info,,Char_ID
 성직자,Priest,프리스트,,
 공속 슬로우,Witch,위치,,
 스턴,Shaman,샤먼,,
-전사,Warrior_explan,페르시아 왕국의 명예로운 전사,,
+전사,Warrior_explan,[전사]<br>페르시아 왕국의 명예로운 전사,,
 탱커,Guardian_explan,주변을 지키기 위해 오랜 수련을 통해 강철과 같은 몸을 지니게 되었다.,,
 광부,Mine_explan,가족을 잃고 광부이지만 마족을 죽이기 위해 직접 군대에 지원했다.[공격시 골드 획득],,
 기수,Banner_explan,전쟁에서 이기기 위해 항상 깃발을 들고 맨 앞에 서서 아군을 응원한다.[승리 시 추가 깃발 획득],,

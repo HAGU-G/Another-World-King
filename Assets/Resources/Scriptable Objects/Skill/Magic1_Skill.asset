@@ -45,3 +45,4 @@ MonoBehaviour:
   onApplyExp: 0
   onApplyDrain: 0
   sturn: 0
+  skillDuration: 0
