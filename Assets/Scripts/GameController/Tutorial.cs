@@ -322,6 +322,7 @@ public class Tutorial : MonoBehaviour
         }
         cameraManager.SetCameraPosition(StageManager.Instance.playerTower.units[0].transform.position);
         ViewMessage(" 지금 아군 병사가 전부 밀려 난 게 보이십니까?\n적 성의 체력이 50% 미만이 되면 적 성의 마법사들이 한 번 마법을 사용하여 아군 병사가 전부 멀리 밀려납니다. 참고하시기 바랍니다.");
+        StageManager.Instance.enemyTower.SetStopSpawn(true);
         yield return StartCoroutine(CoWaitClick());
 
         ViewMessage("전하. 모의전투가 끝이 났습니다. 이제부터는 마왕군이 침략하고 있는 왕국을 구하기 위해서 출정을 떠날 차례입니다.\n희망이 없는 상황이지만..저는 총명했던 전하의 능력을 믿습니다.\n꼭 왕국을 구원하고 이 나라의 백성들을 구하는 영웅이 되시옵소서.");
