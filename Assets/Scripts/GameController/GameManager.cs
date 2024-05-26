@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     public AudioSource musicPlayer;
     public AudioSource uiSoundPlayer;
     public bool DoneTutorial { get; set; }
+    public bool IsFastGameSpeed { get; set; }
 
     private int flags;
     public int Flags
@@ -72,12 +73,14 @@ public class GameManager : MonoBehaviour
 
     public void LoadingScene(string name)
     {
+        Time.timeScale = 1f;
         SaveManager.GameSave();
         NextScene = name;
         SceneManager.LoadScene(Scenes.loading);
     }
     public void ChangeScene(string name)
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(name);
     }
 

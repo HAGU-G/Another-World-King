@@ -228,9 +228,8 @@ public class CharacterAI : UnitBase
         SetSkill(characterInfos.skillData);
         SetCounterSkill(characterInfos.counterSkillData);
 
-        upgrade = characterInfos.upgrade;
-        upgradeDamage = characterInfos.upgradeDamage;
-        upgradeHP = characterInfos.upgradeHP;
+        damageUpgradeValue = characterInfos.damageOnceUpgradeValue * characterInfos.damageUpgradedCount;
+        hpUpgradeValue = characterInfos.hpOnceUpgradeValue * characterInfos.hpUpgradedCount;
     }
 
     public override void ResetUnit()
@@ -308,6 +307,8 @@ public class CharacterAI : UnitBase
     protected virtual void Attack()
     {
         if (UnitState == UNIT_STATE.ATTACK)
+            return;
+        if (unitData.division == UnitData.DIVISION.BOMBER && blocks.Count == 0)
             return;
 
         UnitState = UNIT_STATE.ATTACK;

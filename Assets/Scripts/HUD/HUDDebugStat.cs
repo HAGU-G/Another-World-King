@@ -13,6 +13,6 @@ public class HUDDebugStat : MonoBehaviour
     void Update()
     {
         transform.localScale = character.isPlayer? Vectors.filpX : Vector3.one;
-        text.text = $"{character.unitData.division}\n{character.upgrade}\n체력\n{character.HP}\n공격력\n{character.AttackDamage}\n공속\n{character.AttackSpeed}\n\n{character.UnitState}";
+        text.text = $"{character.unitData.division}\n체력\n{character.HP}\n공격력\n{character.AttackDamage}\n공속\n{character.AttackSpeed}\n\n{character.UnitState}";
     }
 }

@@ -896,7 +896,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.79278564, y: 23.783325}
+  m_AnchoredPosition: {x: -0.7927246, y: 23.783325}
   m_SizeDelta: {x: -437.1389, y: -351.0359}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &789390253
@@ -1172,7 +1172,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3348059728456297575, guid: 6f4375bb7685b2b409f2307ea6212003, type: 3}
       propertyPath: m_Name
-      value: UI Manager
+      value: Canvas
       objectReference: {fileID: 0}
     - target: {fileID: 3348059728456297575, guid: 6f4375bb7685b2b409f2307ea6212003, type: 3}
       propertyPath: m_IsActive

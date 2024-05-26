@@ -7,10 +7,10 @@ public class CharacterInfos
     public SkillData skillData;
     public SkillData counterSkillData;
 
-    public UnitBase.UPGRADE upgrade;
-
-    public int upgradeDamage;
-    public int upgradeHP;
+    public int damageOnceUpgradeValue;
+    public int damageUpgradedCount;
+    public int hpOnceUpgradeValue;
+    public int hpUpgradedCount;
 
     public void SetData(UnitData unitData)
     {

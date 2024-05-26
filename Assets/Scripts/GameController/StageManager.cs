@@ -17,7 +17,7 @@ public class Stage
     public int Reward_Char2 { get; set; }
     public int Reward_Char3 { get; set; }
     public int Reward_Char4 { get; set; }
-    public string String_ID {  get; set; }
+    public string String_ID { get; set; }
 
 
 #if UNITY_EDITOR
@@ -83,6 +83,8 @@ public class StageManager : MonoBehaviour
     public int getGoldPer2Seconds;
     public int getExpPer2Seconds;
     public int castleDamage;
+    public int gameSpeedValue;
+    public bool IsTutorial { get; set; }
     #region Player
     public TowerAI playerTower;
     private int gold;
@@ -106,12 +108,18 @@ public class StageManager : MonoBehaviour
             uiOnStage.textExp.text = exp.ToString();
             foreach (var button in uiOnStage.buttonSummons)
             {
-                button.outline.enabled = isUpgrading
-                && !button.IsUpgraded
-                && ((uiOnStage.toggleUpgardeDamage.isOn && exp >= button.UpgradeExpDamage)
-                || (uiOnStage.toggleUpgardeHP.isOn && exp >= button.UpgradeExpHP));
-
+                button.outline.enabled =
+                    isUpgrading
+                    && (
+                    (uiOnStage.toggleUpgardeDamage.isOn
+                    && button.DamageUpgradedCount < button.DamageUpgradeMaxCount
+                    && exp >= button.DamageUpgradeExp)
+                    || (uiOnStage.toggleUpgardeHP.isOn
+                    && button.HPUpgradedCount < button.HPUpgradeMaxCount
+                    && exp >= button.HPUpgradeExp)
+                    );
             }
+            UpdateUpgradeToggle();
         }
     }
     private float goldInterval;
@@ -121,15 +129,24 @@ public class StageManager : MonoBehaviour
     #endregion
 
     private bool isUpgrading;
+    private bool canUpgradeDamage;
+    private bool canUpgradeHP;
+
     public static StageManager Instance => GameObject.FindWithTag(Tags.player)?.GetComponent<StageManager>();
 
     private void Start()
     {
         Gold = startGold;
         Exp = startExp;
+#if UNITY_EDITOR
+        Gold += 1000000;
+        //Exp += 1000000;
+#endif
         goldInterval = Time.time;
-        SetSummonButton();
-        SetUpgradeToggle();
+        InitSummonButton();
+        InitUpgradeToggle();
+        UpdateUpgradeToggle();
+        InitGameSpeedToggle();
 
         stageCamera.background = Instantiate(Resources.Load<ScrollBackgroundCtrl>(string.Format(Paths.resourcesBackgrounds, DataTableManager.Stages[GameManager.Instance.SelectedStageID].String_ID)), stageCamera.transform);
         enemyTower.unitData = playerTower.unitData = Resources.Load<UnitData>(string.Format(Paths.resourcesStage, GameManager.Instance.SelectedStageID));
@@ -245,7 +262,7 @@ public class StageManager : MonoBehaviour
     }
 
 
-    public void SetSummonButton()
+    public void InitSummonButton()
     {
         for (int i = 0; i < uiOnStage.buttonSummons.Length; i++)
         {
@@ -255,105 +272,130 @@ public class StageManager : MonoBehaviour
             {
                 if (isUpgrading)
                 {
-                    if (uiOnStage.buttonSummons[index].IsUpgraded == true)
-                        return;
-
-                    if (uiOnStage.toggleUpgardeDamage.isOn
-                    && uiOnStage.buttonSummons[index].outline.enabled)
+                    if (uiOnStage.toggleUpgardeDamage.isOn)
                     {
-                        uiOnStage.buttonSummons[index].UpgradeDamage();
-                        uiOnStage.toggleUpgardeDamage.isOn = false;
-                        Exp -= uiOnStage.buttonSummons[index].UpgradeExpDamage;
+                        if (uiOnStage.buttonSummons[index].outline.enabled)
+                        {
+                            uiOnStage.buttonSummons[index].UpgradeDamage();
+                            uiOnStage.toggleUpgardeDamage.isOn = false;
+                            Exp -= uiOnStage.buttonSummons[index].DamageUpgradeExp;
+                        }
                     }
-
-                    if (uiOnStage.toggleUpgardeHP.isOn
-                     && uiOnStage.buttonSummons[index].outline.enabled)
+                    else if (uiOnStage.toggleUpgardeHP.isOn)
                     {
-                        uiOnStage.buttonSummons[index].UpgradeHP();
-                        uiOnStage.toggleUpgardeHP.isOn = false;
-                        Exp -= uiOnStage.buttonSummons[index].UpgradeExpHP;
+                        if (uiOnStage.buttonSummons[index].outline.enabled)
+                        {
+                            uiOnStage.buttonSummons[index].UpgradeHP();
+                            uiOnStage.toggleUpgardeHP.isOn = false;
+                            Exp -= uiOnStage.buttonSummons[index].HPUpgradeExp;
+                        }
                     }
-
-                    uiOnStage.buttonSummons[index].IsUpgraded = true;
-                    return;
                 }
-
-                if (uiOnStage.buttonSummons[index].cooldown.value <= uiOnStage.buttonSummons[index].cooldown.minValue
-                && playerTower.CanSpawnUnit()
-                && UseGold(uiOnStage.buttonSummons[index].CharacterInfos.unitData.cost))
+                else
                 {
-                    playerTower.SpawnUnit(uiOnStage.buttonSummons[index].CharacterInfos);
-                    uiOnStage.buttonSummons[index].Summoned();
+                    if (uiOnStage.buttonSummons[index].cooldown.value <= uiOnStage.buttonSummons[index].cooldown.minValue
+                    && playerTower.CanSpawnUnit()
+                    && UseGold(uiOnStage.buttonSummons[index].CharacterInfos.unitData.cost))
+                    {
+                        playerTower.SpawnUnit(uiOnStage.buttonSummons[index].CharacterInfos);
+                        uiOnStage.buttonSummons[index].Summoned();
+                    }
                 }
             });
         }
     }
 
-    public void SetUpgradeToggle()
+    private void UpdateUpgradeToggle()
     {
-        uiOnStage.toggleUpgardeDamage.onValueChanged.AddListener(x =>
+        canUpgradeDamage = false;
+        foreach (var buttonsummon in uiOnStage.buttonSummons)
         {
-            if (x)
+            if (buttonsummon.gameObject.activeSelf
+                && exp >= buttonsummon.DamageUpgradeExp
+                && buttonsummon.DamageUpgradedCount < buttonsummon.DamageUpgradeMaxCount)
             {
-                bool canUpgrade = false;
-                foreach (var buttonsummon in uiOnStage.buttonSummons)
-                {
-                    if (buttonsummon.gameObject.activeSelf && exp >= buttonsummon.UpgradeExpDamage)
-                    {
-                        canUpgrade = true;
-                    }
-                }
-
-                if (!canUpgrade)
-                {
-                    uiOnStage.toggleUpgardeDamage.isOn = false;
-                    return;
-                }
+                canUpgradeDamage = true;
             }
+        }
+        uiOnStage.toggleUpgardeDamage.interactable = canUpgradeDamage&& !IsTutorial;
 
-            isUpgrading = x;
-
-            foreach (var button in uiOnStage.buttonSummons)
-            {
-
-                button.outline.enabled = x && !button.IsUpgraded && exp >= button.UpgradeExpDamage;
-                button.outline.color = Color.red;
-            }
-
-        });
-        uiOnStage.toggleUpgardeHP.onValueChanged.AddListener(x =>
+        canUpgradeHP = false;
+        foreach (var buttonsummon in uiOnStage.buttonSummons)
         {
-            if (x)
+            if (buttonsummon.gameObject.activeSelf
+                && exp >= buttonsummon.HPUpgradeExp
+                && buttonsummon.HPUpgradedCount < buttonsummon.HPUpgradeMaxCount)
             {
-                bool canUpgrade = false;
-                foreach (var buttonsummon in uiOnStage.buttonSummons)
-                {
-                    if (buttonsummon.gameObject.activeSelf && exp >= buttonsummon.UpgradeExpHP)
-                    {
-                        canUpgrade = true;
-                    }
-                }
-
-                if (!canUpgrade)
-                {
-                    uiOnStage.toggleUpgardeHP.isOn = false;
-                    return;
-                }
+                canUpgradeHP = true;
             }
-            isUpgrading = x;
-
-            foreach (var button in uiOnStage.buttonSummons)
-            {
-                button.outline.enabled = x && !button.IsUpgraded && exp >= button.UpgradeExpHP;
-                button.outline.color = Color.blue;
-            }
-        });
+        }
+        uiOnStage.toggleUpgardeHP.interactable = canUpgradeHP && !IsTutorial;
 
     }
-
-    //TESTCODE
-    public void AAAA()
+    private void InitUpgradeToggle()
     {
-        Time.timeScale += 0.5f;
+        //Damage
+        uiOnStage.toggleUpgardeDamage.onValueChanged.AddListener(x =>
+        {
+            foreach (var buttonsummon in uiOnStage.buttonSummons)
+            {
+
+                buttonsummon.outline.enabled = x && buttonsummon.DamageUpgradedCount < buttonsummon.DamageUpgradeMaxCount && exp >= buttonsummon.DamageUpgradeExp;
+                buttonsummon.outline.color = Color.red;
+                if(x)
+                {
+                    if (buttonsummon.gameObject.activeSelf
+                    && exp >= buttonsummon.DamageUpgradeExp
+                    && buttonsummon.DamageUpgradedCount < buttonsummon.DamageUpgradeMaxCount)
+                        buttonsummon.button.interactable = true;
+                    else
+                        buttonsummon.button.interactable = false;
+                }
+            }
+            isUpgrading = x;
+        });
+
+        //HP
+        uiOnStage.toggleUpgardeHP.onValueChanged.AddListener(x =>
+        {
+            foreach (var buttonsummon in uiOnStage.buttonSummons)
+            {
+
+                buttonsummon.outline.enabled = x && buttonsummon.HPUpgradedCount < buttonsummon.HPUpgradeMaxCount && exp >= buttonsummon.HPUpgradeExp;
+                buttonsummon.outline.color = Color.red;
+                if (x)
+                {
+                    if (buttonsummon.gameObject.activeSelf
+                    && exp >= buttonsummon.HPUpgradeExp
+                    && buttonsummon.HPUpgradedCount < buttonsummon.HPUpgradeMaxCount)
+                        buttonsummon.button.interactable = true;
+                    else
+                        buttonsummon.button.interactable = false;
+                }
+                else
+                {
+                    buttonsummon.button.interactable = true;
+                }
+            }
+            isUpgrading = x;
+        });
+    }
+
+    private void InitGameSpeedToggle()
+    {
+        uiOnStage.toggleGameSpeedFast.onValueChanged.AddListener(x =>
+        {
+            if (x)
+            {
+                Time.timeScale = gameSpeedValue;
+            }
+            else
+            {
+                Time.timeScale = 1f;
+            }
+            GameManager.Instance.IsFastGameSpeed = x;
+            uiOnStage.toggleGameSpeedNormal.isOn = !x;
+        });
+        uiOnStage.toggleGameSpeedFast.isOn = GameManager.Instance.IsFastGameSpeed;
     }
 }

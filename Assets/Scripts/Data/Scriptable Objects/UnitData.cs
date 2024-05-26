@@ -15,7 +15,8 @@ public class UnitData : ScriptableObject
         HEALER,
         MAGIC,
         SPECIAL,
-        CANNON
+        CANNON,
+        BOMBER
     }
 
     public string ignore; //Don't use in game

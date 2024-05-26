@@ -43,8 +43,7 @@ public class UnitBase : MonoBehaviour
                 buffedStat += buff.Value.skillData.hp * buff.Value.Count;
                 persentage += buff.Value.skillData.hp_P * buff.Value.Count;
             }
-            if (upgrade == UPGRADE.HP)
-                buffedStat += upgradeHP;
+            buffedStat += hpUpgradeValue;
             return Mathf.Clamp((int)Mathf.Ceil(buffedStat * (1f + persentage)), 1, int.MaxValue);
         }
     }
@@ -61,8 +60,7 @@ public class UnitBase : MonoBehaviour
                 buffedStat += buff.Value.skillData.attackDamage * buff.Value.Count;
                 persentage += buff.Value.skillData.attackDamage_P * buff.Value.Count;
             }
-            if (upgrade == UPGRADE.DAMAGE)
-                buffedStat += upgradeDamage;
+            buffedStat += damageUpgradeValue;
             return (int)Mathf.Ceil(buffedStat * (1f + persentage));
         }
     }
@@ -220,9 +218,8 @@ public class UnitBase : MonoBehaviour
     }
 
     //Upgrade
-    public UPGRADE upgrade;
-    public int upgradeDamage;
-    public int upgradeHP;
+    public int damageUpgradeValue;
+    public int hpUpgradeValue;
 
     //Behaviour
     protected virtual void Start()

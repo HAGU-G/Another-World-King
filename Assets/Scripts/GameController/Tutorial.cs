@@ -114,9 +114,11 @@ public class Tutorial : MonoBehaviour
     }
     private void HighlightOn(RectTransform rect)
     {
+        var corners = new Vector3[4];
         highlightRect.gameObject.SetActive(true);
+        rect.GetWorldCorners(corners);
+        highlightRect.sizeDelta = (corners[2] - corners[0]) / 2f;
         highlightRect.pivot = rect.pivot;
-        highlightRect.sizeDelta = new Vector2(rect.sizeDelta.x, rect.sizeDelta.y);
         highlightRect.position = rect.position;
     }
     private void HighlightOff()
@@ -184,14 +186,17 @@ public class Tutorial : MonoBehaviour
         //성 무적
         StageManager.Instance.playerTower.SetInvincibility(true);
         StageManager.Instance.enemyTower.SetInvincibility(true);
-        //일지정지 버튼 비활성화
+        //설정 버튼 비활성화
         StageManager.Instance.uiOnStage.pause.gameObject.SetActive(false);
+        StageManager.Instance.uiOnStage.toggleGameSpeedFast.gameObject.SetActive(false);
+        StageManager.Instance.uiOnStage.toggleGameSpeedNormal.gameObject.SetActive(false);
         //시간 정지
         Time.timeScale = 0f;
         //카메라 움직임 방지
         cameraManager = Camera.main.GetComponent<CameraManager>();
         SetCanMoveCamera(false);
         //강화버튼 비활성화
+        StageManager.Instance.IsTutorial = true;
         StageManager.Instance.uiOnStage.toggleUpgardeDamage.interactable = false;
         StageManager.Instance.uiOnStage.toggleUpgardeHP.interactable = false;
 
@@ -252,9 +257,9 @@ public class Tutorial : MonoBehaviour
         yield return StartCoroutine(CoWaitClick());
 
         ViewMessage("하단 우측의 \"공격력 강화\" 버튼이 보이시는지요? 이 버튼으로 우리 병사들을 더 강인하게 업그레이드 할 수 있습니다.");
-        HighlightOn("Upgrade");
+        HighlightOn("UpgradeRoot/Upgrade");
         yield return StartCoroutine(CoWaitClick());
-        
+
         ViewMessage("전하의 지혜를 사용해 원하시는 병사를 선택하고, 체력 혹은 경험치를 업그레이드 할 수 있습니다.\n마침 적을 죽여서 EXP를 얻었으니, 한번 병사를 강화를 해 보시는 걸 추천 드립니다.");
         SetHighlightColor(Color.yellow);
         textNext.gameObject.SetActive(false);
@@ -282,6 +287,7 @@ public class Tutorial : MonoBehaviour
         yield return StartCoroutine(CoWaitClick());
         CloseMessage();
         HighlightOff();
+        StageManager.Instance.IsTutorial = false;
         StageManager.Instance.uiOnStage.toggleUpgardeDamage.interactable = true;
         StageManager.Instance.uiOnStage.toggleUpgardeHP.interactable = true;
         Time.timeScale = 1f;
@@ -294,16 +300,16 @@ public class Tutorial : MonoBehaviour
         yield return StartCoroutine(CoWaitClick());
 
 
-        //HighlightOn(GameObject.Find("TowerEnemy").transform.Find("HP/Square").GetComponent<RectTransform>(), true);
         ViewMessage("전하, 저희의 목표는 적 성을 쓰러뜨리는 것입니다.\n적 성을 부수지 않는다면 적군은 계속해서 소환됩니다.");
         yield return StartCoroutine(CoWaitClick());
 
-        ViewMessage("잘 살펴 보시면 성의 상단에 빨간색 게이지 바가 보이실 것입니다.\n그것이 각 성 기지의 체력을 표현하는 것입니다.");
+        ViewMessage("잘 살펴 보시면 성의 상단에 빨간색 게이지 바가 보이실 것입니다.\n그것이 각 성 기지의 체력을 표현하는 것입니다.\n적의 성 체력을 다 깎으면 이번 전투는 저희의 승리이고");
+        HighlightOn(GameObject.Find("TowerEnemy/HUD HP/Slider Root/Slider").GetComponent<RectTransform>());
         yield return StartCoroutine(CoWaitClick());
 
-        //HighlightOn(GameObject.Find("TowerPlayer").transform.Find("HP/Square").GetComponent<RectTransform>(), true);
         cameraManager.SetCameraPosition(StageManager.Instance.playerTower.transform.position);
-        ViewMessage("적의 성 체력을 다 깎으면 이번 전투는 저희의 승리이고, 반대로 저희의 체력이 모두 깎이면 왕국은 멸망하게 됩니다.");
+        ViewMessage("반대로 저희의 체력이 모두 깎이면 왕국은 멸망하게 됩니다.");
+        HighlightOn(GameObject.Find("TowerPlayer/HUD HP/Slider Root/Slider").GetComponent<RectTransform>());
         yield return StartCoroutine(CoWaitClick());
 
         HighlightOff();
@@ -316,7 +322,7 @@ public class Tutorial : MonoBehaviour
         while (StageManager.Instance.enemyTower.HP > StageManager.Instance.enemyTower.MaxHP / 2f)
             yield return null;
         if (StageManager.Instance.playerTower.units.Count == 0)
-        { 
+        {
             StageManager.Instance.playerTower.SpawnUnit(GameManager.Instance.Expedition[0]);
             StageManager.Instance.playerTower.units[0].Knockback();
         }

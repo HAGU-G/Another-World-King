@@ -13,6 +13,8 @@ public class UIOnStage : MonoBehaviour
     public Toggle toggleUpgardeHP;
     public UIWindowStagePause windowStagePause;
     public Button pause;
+    public Toggle toggleGameSpeedFast;
+    public Toggle toggleGameSpeedNormal;
 
     private void Start()
     {

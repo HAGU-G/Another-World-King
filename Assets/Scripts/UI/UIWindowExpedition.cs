@@ -9,13 +9,13 @@ public class UIWindowExpedition : UIWindow
     public ToggleGroup toggleGroup;
     public Button buttonBack;
 
-    public UISlotExpedition[] expedition;
+    public UISlotExpedition[] expeditionSlots;
     public UIPopupExpedition popup;
     public Button popupClose;
     public GameObject counterInfo;
 
-    private UISlotCharacter select;
-    private UISlotExpedition selectSlot;
+    private UISlotCharacter selectedSlotCharacter;
+    private UISlotExpedition selectedSlotExpedition;
 
     private void Start()
     {
@@ -23,12 +23,19 @@ public class UIWindowExpedition : UIWindow
         popupClose.onClick.AddListener(ClosePopup);
         buttonBack.onClick.AddListener(() => { uiMain.Open(); Close(); });
 
-        for (int i = 0; i < expedition.Length; i++)
+        for (int i = 0; i < expeditionSlots.Length; i++)
         {
             int index = i;
-            expedition[i].button.onClick.AddListener(() => { SelectSlotExpedition(index); });
+            expeditionSlots[i].button.onClick.AddListener(() => { SelectSlotExpedition(index); });
+            expeditionSlots[i].onDeselect += () =>
+            {
+                if (selectedSlotExpedition == expeditionSlots[index])
+                {
+                    selectedSlotExpedition = null;
+                    ClosePopup();
+                }
+            };
         }
-
     }
     private void Update()
     {
@@ -39,43 +46,50 @@ public class UIWindowExpedition : UIWindow
     }
     public void ClosePopup()
     {
-        if (select != null)
-            select.toggle.isOn = false;
+        if (selectedSlotCharacter != null)
+            selectedSlotCharacter.toggle.isOn = false;
         else
             popup.Popup(false);
     }
 
     public void SelectSlotExpedition(int index)
     {
-
-        if (select != null)
+        if (selectedSlotCharacter != null)
         {
-            for (int i = 0; i < expedition.Length; i++)
+            for (int i = 0; i < expeditionSlots.Length; i++)
             {
-                if (expedition[i].characterInfos != null && expedition[i].characterInfos.unitData.id == select.characterInfos.unitData.id)
+                if (expeditionSlots[i].characterInfos != null
+                    && expeditionSlots[i].characterInfos.unitData.id == selectedSlotCharacter.characterInfos.unitData.id)
                 {
-                    expedition[i].SetData(null);
+                    expeditionSlots[i].SetData(null);
                     GameManager.Instance.SetExpedition(null, i);
                 }
             }
-            expedition[index].SetData(select.characterInfos);
-            select.toggle.isOn = false;
-            select = null;
-            selectSlot = expedition[index];
-            GameManager.Instance.SetExpedition(expedition[index].characterInfos, index);
+            expeditionSlots[index].SetData(selectedSlotCharacter.characterInfos);
+            GameManager.Instance.SetExpedition(expeditionSlots[index].characterInfos, index);
+        }
+
+        if (selectedSlotExpedition != expeditionSlots[index])
+        {
+            selectedSlotExpedition = expeditionSlots[index];
+
+            if (selectedSlotCharacter != null)
+            {
+                selectedSlotCharacter.toggle.isOn = false;
+            }
+            else if (selectedSlotExpedition.characterInfos != null)
+            {
+                popup.SetData(selectedSlotExpedition.characterInfos.unitData, selectedSlotExpedition.GetComponent<RectTransform>(), true);
+                popup.Popup(true);
+            }
+
         }
         else
         {
-            if (selectSlot != expedition[index])
-            {
-                selectSlot = expedition[index];
-            }
-            else
-            {
-                expedition[index].SetData(null);
-                selectSlot = null;
-                GameManager.Instance.SetExpedition(null, index);
-            }
+            expeditionSlots[index].SetData(null);
+            selectedSlotExpedition = null;
+            GameManager.Instance.SetExpedition(null, index);
+            ClosePopup();
         }
 
     }
@@ -91,12 +105,16 @@ public class UIWindowExpedition : UIWindow
 
         for (int i = 0; i < scrollRect.content.childCount; i++)
         {
-            select = null;
-            selectSlot = null;
+            selectedSlotCharacter = null;
+            selectedSlotExpedition = null;
             Destroy(scrollRect.content.GetChild(i).gameObject);
         }
 
         UnitData[] characters = Resources.LoadAll<UnitData>(string.Format(Paths.resourcesPlayer, string.Empty));
+        for (int i = 0; i < expeditionSlots.Length; i++)
+        {
+            expeditionSlots[i].SetData(GameManager.Instance.Expedition[i]);
+        }
         for (int i = 0; i < characters.Length; i++)
         {
 #if !UNITY_EDITOR
@@ -113,21 +131,17 @@ public class UIWindowExpedition : UIWindow
             {
                 if (x)
                 {
-                    select = slot;
-                    selectSlot = null;
+                    selectedSlotCharacter = slot;
                     popup.SetData(slot.characterInfos.unitData, slot.GetComponent<RectTransform>());
                 }
                 else
                 {
-                    select = null;
+                    selectedSlotCharacter = null;
                 }
                 popup.Popup(x);
             });
         }
-        for (int i = 0; i < expedition.Length; i++)
-        {
-            expedition[i].SetData(GameManager.Instance.Expedition[i]);
-        }
+
     }
 
     public void ShowCounterInfo()

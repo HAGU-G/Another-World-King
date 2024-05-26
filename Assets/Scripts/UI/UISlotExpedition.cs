@@ -1,13 +1,21 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UISlotExpedition : MonoBehaviour
+public class UISlotExpedition : MonoBehaviour,IDeselectHandler
 {
     public Button button;
     public TextMeshProUGUI textName;
     public CharacterInfos characterInfos;
     public UISlotCharacter slot;
+    public event System.Action onDeselect;
+
+    public void OnDeselect(BaseEventData eventData)
+    {
+        if (onDeselect != null)
+            onDeselect();
+    }
 
     public void SetData(CharacterInfos characterInfos)
     {
