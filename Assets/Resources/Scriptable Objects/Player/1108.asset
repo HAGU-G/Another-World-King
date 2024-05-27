@@ -22,10 +22,11 @@ MonoBehaviour:
   typeCounter: 
   initAttackDamage: 50
   initAttackSpeed: 1.5
-  initAttackRange: 1
-  initAttackEnemyCount: 0
+  initAttackRange: 3
+  initAttackStartRange: 1
+  initAttackEnemyCount: 3
   initAttackOrder: 1
-  initAttackEnemyOrder: 01000000
+  initAttackEnemyOrder: 010000000200000003000000
   skill: Drain_Skill
   initHeal: 25
   initMoveSpeed: 80

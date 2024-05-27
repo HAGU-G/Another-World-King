@@ -99,6 +99,11 @@ public class CharacterAI : UnitBase
             Move();
             return;
         }
+        else if (Mathf.Abs(targets[0].transform.position.x-transform.position.x) > AttackStartRange)
+        {
+            Move();
+            return;
+        }
 
         //ÀÚÆø
         if (IsSelfDestruct)
@@ -239,7 +244,7 @@ public class CharacterAI : UnitBase
 
         foreach (var c in GetComponents<Collider2D>())
             c.enabled = true;
-        attackCollider.size = new Vector2(0.3f + (AttackRange <= 1f ? (0.3f / AttackRange) : AttackRange * 0.6f), 0.1f);
+        attackCollider.size = new Vector2(0.3f + AttackRange * 0.6f, 0.1f);
         attackCollider.offset = new Vector2(-attackCollider.size.x * 0.5f, isPlayer ? 0.2f : 0.6f);
 
         lastAttackTime = Time.time - AttackSpeed;
@@ -293,7 +298,9 @@ public class CharacterAI : UnitBase
                 if (!targets.Contains(Tower.enemyTower.units[attackEnemyOrder - 1])
                     && Tower.enemyTower.units[attackEnemyOrder - 1].GetOrder() == attackEnemyOrder
                     && enemyInRange.Contains(Tower.enemyTower.units[attackEnemyOrder - 1]))
-                    targets.Add(Tower.enemyTower.units[attackEnemyOrder - 1]);
+                { 
+                    targets.Add(Tower.enemyTower.units[attackEnemyOrder - 1]); 
+                }
             }
             if (count >= AttackEnemyCount)
                 break;

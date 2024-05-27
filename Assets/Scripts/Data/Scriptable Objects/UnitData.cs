@@ -34,7 +34,8 @@ public class UnitData : ScriptableObject
     public int initAttackDamage;
     public float initAttackSpeed;
     public float initAttackRange;
-    public int initAttackEnemyCount;
+    public float initAttackStartRange;
+    public int initAttackEnemyCount = 1;
     public int initAttackOrder;
     public List<int> initAttackEnemyOrder = new() { 1 };
     public string skill;

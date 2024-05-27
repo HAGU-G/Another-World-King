@@ -53,6 +53,7 @@ public class SaveLoadScriptable
                 {
                     record.Heal = skills[record.Skill].Hp_Healing;
                     record.EnemyCount = skills[record.Skill].Wide_Area_Range;
+                    record.AttackRange = skills[record.Skill].Wide_Area_Range;
                 }
                 foreach (var counter in counters)
                 {
@@ -129,6 +130,7 @@ public class SaveLoadScriptable
                 {
                     record.Heal = datas.Item1[record.Skill].Hp_Healing;
                     record.EnemyCount = datas.Item1[record.Skill].Wide_Area_Range;
+                    record.AttackRange = datas.Item1[record.Skill].Wide_Area_Range;
                 }
                 foreach (var counter in datas.Item2)
                 {

@@ -23,6 +23,7 @@ MonoBehaviour:
   initAttackDamage: 80
   initAttackSpeed: 2
   initAttackRange: 2
+  initAttackStartRange: 2
   initAttackEnemyCount: 2
   initAttackOrder: 2
   initAttackEnemyOrder: 0100000002000000
