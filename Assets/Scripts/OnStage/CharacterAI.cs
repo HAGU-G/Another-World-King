@@ -401,10 +401,10 @@ public class CharacterAI : UnitBase
 
                         PlayAttackEffect();
                         var projectile = Instantiate(Resources.Load<Projectile>(string.Format(Paths.resourcesProjectiles, unitData.projectile)));
-                        projectile.transform.position = transform.position;
+                        projectile.transform.position = transform.position + Vector3.up * 0.6f;
                         projectile.Project(
                             this,
-                            unitData.division == UnitData.DIVISION.CANNON ? Tower.enemyTower.transform.position : target.transform.position, 
+                            unitData.division == UnitData.DIVISION.CANNON ? Tower.enemyTower.transform.position : target.transform.position,
                             atk,
                             CounterSkill != null ? CounterSkill.targetDivision : UnitData.DIVISION.NONE,
                             CounterSkill != null ? counterAtk : atk);
@@ -424,7 +424,7 @@ public class CharacterAI : UnitBase
                             && CounterSkill.target == SkillData.TARGET.ENEMY
                             && target.unitData.division == CounterSkill.targetDivision)
                         {
-                            target.ApplyBuff(CounterSkill); 
+                            target.ApplyBuff(CounterSkill);
                         }
                     }
 

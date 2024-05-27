@@ -17,8 +17,9 @@ public class Projectile : MonoBehaviour
     private void Update()
     {
         transform.position += new Vector3(velocityX * (isPlayer ? 1f : -1f), velocityY, 0) * Time.deltaTime;
+        var rotationDeg = Mathf.Rad2Deg * Mathf.Atan2(velocityY, velocityX);
         if (rotationImage)
-            transform.rotation = Quaternion.Euler(0, 0, Mathf.Rad2Deg * Mathf.Atan2(velocityY, velocityX));
+            transform.rotation = Quaternion.Euler(0, 0, isPlayer ? rotationDeg : 180f - rotationDeg);
         velocityY += gravity * Time.deltaTime;
     }
 
