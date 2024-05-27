@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Globalization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,6 +21,10 @@ public class UIWindowMain : UIWindow
     public TextMeshProUGUI flags;
     public UIIconDivision iconDivision;
     public GameObject monsterMessage;
+    public GameObject popupGameExit;
+    public GameObject popupCharacterUnlock;
+    public GameObject unlockCharacters;
+    public UISlotCharacter uiSlotCharacter;
 
     private void Start()
     {
@@ -29,6 +34,8 @@ public class UIWindowMain : UIWindow
         buttonExpedition.onClick.AddListener(() => { expedition.Open(); Close(); });
         buttonShop.onClick.AddListener(() => { shop.Open(); Close(); });
         buttonPlay.onClick.AddListener(() => { GameManager.Instance.LoadingScene(Scenes.stage); });
+        if (GameManager.Instance.NewCharacters.Count > 0)
+            PopupCharacterUnlockOnOff(true);
     }
 
     public override void Refresh()
@@ -63,7 +70,7 @@ public class UIWindowMain : UIWindow
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Application.Quit();
+            PopupGameExitOnOff(!popupGameExit.activeSelf);
         }
     }
 
@@ -122,5 +129,33 @@ public class UIWindowMain : UIWindow
     public void MonsterMessageOnOff()
     {
         monsterMessage.SetActive(!monsterMessage.activeSelf);
+    }
+
+    public void GameExit()
+    {
+        Application.Quit();
+    }
+
+    public void PopupGameExitOnOff(bool value)
+    {
+        popupGameExit.SetActive(value);
+    }
+
+    public void PopupCharacterUnlockOnOff(bool value)
+    {
+        popupCharacterUnlock.SetActive(value);
+        if (value)
+        {
+            foreach (var newCharacter in GameManager.Instance.NewCharacters)
+            {
+                var slotNewCharacter = Instantiate(uiSlotCharacter, unlockCharacters.transform);
+                CharacterInfos newCharacterInfos = new CharacterInfos();
+                newCharacterInfos.SetData(Resources.Load<UnitData>(string.Format(Paths.resourcesPlayer, newCharacter)));
+                slotNewCharacter.SetData(newCharacterInfos);
+                slotNewCharacter.ViewUnderSlotName();
+                slotNewCharacter.toggle.interactable = false;
+            }
+            GameManager.Instance.NewCharacters.Clear();
+        }
     }
 }

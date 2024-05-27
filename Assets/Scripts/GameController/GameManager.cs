@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
         }
     }
     public List<int> UnlockedID { get; private set; } = new();
+    public List<int> NewCharacters { get; private set; } = new();
     public List<int> PurchasedID { get; private set; } = new();
     public CharacterInfos[] Expedition { get; private set; } = new CharacterInfos[5];
     private int selectedStageID;
@@ -133,8 +134,13 @@ public class GameManager : MonoBehaviour
         {
             foreach (var charID in DataTableManager.StageUnlockID[stageID])
             {
+                if (charID == 0)
+                    continue;
                 if (!UnlockedID.Contains(charID))
+                {
                     UnlockedID.Add(charID);
+                    NewCharacters.Add(charID);
+                }
             }
         }
         SaveManager.GameSave();

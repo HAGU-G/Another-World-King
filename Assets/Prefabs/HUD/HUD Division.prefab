@@ -203,7 +203,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 91e63ba8a3e074c49914de9bd3c3e995, type: 3}
   healerColor: {r: 1, g: 0.8666667, b: 0, a: 1}
   icons:
-  - {fileID: 21300000, guid: 2ec8157697636482abade791a079b6a1, type: 3}
+  - {fileID: 21300000, guid: 9bd40e3f3442e45a3af87cd5e75ef2f6, type: 3}
   - {fileID: 21300000, guid: a1a096777af98433d832fec6f7efd718, type: 3}
   - {fileID: 21300000, guid: 05c9abbefdc534a2abba228c77c173d8, type: 3}
   - {fileID: 21300000, guid: ebdd17d1cdbe9434699253fc53fe5a61, type: 3}
