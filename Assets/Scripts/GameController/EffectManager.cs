@@ -9,6 +9,8 @@ public class EffectManager : MonoBehaviour
     //프리팹 이름, 풀
     // Start is called before the first frame update
 
+    public EffectPoolDrop effectPoolDrop;
+
     public Dictionary<string, IObjectPool<EffectPoolObject>> EffectPool { get; private set; } = new();
     public static EffectManager Instance => GameObject.FindWithTag(Tags.player)?.GetComponent<EffectManager>();
 
@@ -21,6 +23,9 @@ public class EffectManager : MonoBehaviour
             if (poolObject != null)
                 AddEffectPool(effect.name, poolObject);
         }
+
+        //드랍 이펙트
+        AddEffectPool(effectPoolDrop.name, effectPoolDrop);
     }
 
     public void AddEffectPool(string key, EffectPoolObject poolObject)
@@ -65,7 +70,7 @@ public class EffectManager : MonoBehaviour
     public void OnGetPoolObejct(EffectPoolObject poolObject)
     {
         poolObject.gameObject.SetActive(true);
-        poolObject.Particle.Play();
+        poolObject.ResetEffect();
     }
     public void OnReleasePoolObejct(EffectPoolObject poolObject)
     {

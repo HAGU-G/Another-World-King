@@ -14711,8 +14711,8 @@ GameObject:
   - component: {fileID: 6528518095115854762}
   - component: {fileID: 4458361529047128377}
   - component: {fileID: 7365407121761197023}
-  - component: {fileID: 5035706431761328381}
   - component: {fileID: -6418550750671499323}
+  - component: {fileID: 882470988351080220}
   m_Layer: 0
   m_Name: Hit_Shaman
   m_TagString: particles
@@ -19548,18 +19548,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &5035706431761328381
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5280648209428486394}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e468965dff39994ca6612877779c408, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!210 &-6418550750671499323
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -19572,6 +19560,18 @@ SortingGroup:
   m_SortingLayer: 3
   m_SortingOrder: 1
   m_SortAtRoot: 0
+--- !u!114 &882470988351080220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5280648209428486394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d9ec647eafc1de4682f00816d7663fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9056573497513393749
 GameObject:
   m_ObjectHideFlags: 0

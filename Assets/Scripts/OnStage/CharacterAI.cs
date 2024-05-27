@@ -22,6 +22,7 @@ public class CharacterAI : UnitBase
     private SpriteRenderer[] spriteRenderers;
     public Rigidbody2D rb;
     public BoxCollider2D attackCollider;
+    public Transform dropEffectPosition;
     private CharacterSound characterSound;
 
     public TowerAI Tower { get; set; }

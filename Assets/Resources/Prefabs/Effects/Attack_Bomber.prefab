@@ -29411,8 +29411,8 @@ GameObject:
   - component: {fileID: 8034871462346025648}
   - component: {fileID: 3811584193031435988}
   - component: {fileID: 5130990249741611582}
-  - component: {fileID: 870795058996042607}
   - component: {fileID: -5808889913979289244}
+  - component: {fileID: 683358218420729505}
   m_Layer: 0
   m_Name: Attack_Bomber
   m_TagString: Untagged
@@ -34251,18 +34251,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &870795058996042607
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2972137616953671510}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e468965dff39994ca6612877779c408, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!210 &-5808889913979289244
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -34275,6 +34263,18 @@ SortingGroup:
   m_SortingLayer: 3
   m_SortingOrder: 0
   m_SortAtRoot: 0
+--- !u!114 &683358218420729505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2972137616953671510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d9ec647eafc1de4682f00816d7663fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8758658320035755970
 GameObject:
   m_ObjectHideFlags: 0

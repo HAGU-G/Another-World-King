@@ -9811,8 +9811,8 @@ GameObject:
   - component: {fileID: 6075524089656264478}
   - component: {fileID: 1095630760094030714}
   - component: {fileID: 8999865015990476688}
-  - component: {fileID: 275397300231202604}
   - component: {fileID: 4046315920712052267}
+  - component: {fileID: 7433130243162670651}
   m_Layer: 0
   m_Name: Attack_Bloody
   m_TagString: Untagged
@@ -14650,18 +14650,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &275397300231202604
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1364070156239491832}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e468965dff39994ca6612877779c408, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!210 &4046315920712052267
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -14674,6 +14662,18 @@ SortingGroup:
   m_SortingLayer: 3
   m_SortingOrder: 0
   m_SortAtRoot: 0
+--- !u!114 &7433130243162670651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1364070156239491832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d9ec647eafc1de4682f00816d7663fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1577552550748070016
 GameObject:
   m_ObjectHideFlags: 0

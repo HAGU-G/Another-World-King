@@ -137,6 +137,9 @@ public class TowerAI : UnitBase
                 {
                     stage.GetExp(unit.unitData.initDropExp);
                     stage.GetGold(unit.unitData.initDropGold);
+                    var effectDrop = EffectManager.Instance.EffectPool[Effects.effectDrop].Get();
+                    effectDrop.transform.position = unit.dropEffectPosition.position;
+                    (effectDrop as EffectPoolDrop).SetValue(unit.unitData.initDropExp, unit.unitData.initDropGold);
                 }
             };
         units.Add(unit);

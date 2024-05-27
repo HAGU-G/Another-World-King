@@ -2444,6 +2444,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af60f8accef2c8547a45d5383ac51c53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  effectPoolDrop: {fileID: 6440049105412646270, guid: 5e1fb08e7ae30d644af86b72ca700ab6, type: 3}
 --- !u!82 &686351162
 AudioSource:
   m_ObjectHideFlags: 0

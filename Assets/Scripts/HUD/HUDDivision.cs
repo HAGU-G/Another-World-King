@@ -27,6 +27,11 @@ public class HUDDivision : MonoBehaviour
             SetDivision(stats.unitData.division);
         }
     }
+    private void Update()
+    {
+        if(stats.IsDead)
+            gameObject.SetActive(false);
+    }
 
     public void SetDivision(DIVISION division)
     {

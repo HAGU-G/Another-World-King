@@ -64,6 +64,8 @@ public class Projectile : MonoBehaviour
                 return;
             if (ownerDivision == UnitData.DIVISION.CANNON && !hitUnit.IsTower)
                 return;
+            if (ownerDivision != UnitData.DIVISION.CANNON && hitUnit.IsTower)
+                return;
 
             hitUnit.Damaged(hitUnit.unitData.division == counterDivision ? counterDamage : damage);
             if (EffectManager.Instance.EffectPool.ContainsKey(effectAttackHit))

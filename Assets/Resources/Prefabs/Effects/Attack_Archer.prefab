@@ -29332,7 +29332,7 @@ GameObject:
   - component: {fileID: 4026665142206687700}
   - component: {fileID: 4939626660716641432}
   - component: {fileID: -5450927579597451130}
-  - component: {fileID: 4814427495343772789}
+  - component: {fileID: 1286913567948284540}
   m_Layer: 0
   m_Name: Attack_Archer
   m_TagString: Untagged
@@ -34165,7 +34165,7 @@ SortingGroup:
   m_SortingLayer: 3
   m_SortingOrder: 0
   m_SortAtRoot: 0
---- !u!114 &4814427495343772789
+--- !u!114 &1286913567948284540
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -34174,6 +34174,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 6130567110401474471}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e468965dff39994ca6612877779c408, type: 3}
+  m_Script: {fileID: 11500000, guid: 9d9ec647eafc1de4682f00816d7663fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

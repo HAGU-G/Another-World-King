@@ -88,3 +88,8 @@ public static class Colors
 {
     public static readonly UnityEngine.Color transparent = new(1f, 1f, 1f, 0f);
 }
+
+public static class Effects
+{
+    public static readonly string effectDrop = "Effect_Drop";
+}

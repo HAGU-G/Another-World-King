@@ -14537,8 +14537,8 @@ GameObject:
   - component: {fileID: 6344485138352456221}
   - component: {fileID: 6344485138352456222}
   - component: {fileID: 6344485138352456223}
-  - component: {fileID: -6024810585037601002}
   - component: {fileID: 7547962641573971911}
+  - component: {fileID: 7825529695432213546}
   m_Layer: 0
   m_Name: Hit_Witch
   m_TagString: Untagged
@@ -19375,18 +19375,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &-6024810585037601002
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6344485138352456288}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e468965dff39994ca6612877779c408, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!210 &7547962641573971911
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -19399,6 +19387,18 @@ SortingGroup:
   m_SortingLayer: 3
   m_SortingOrder: 1
   m_SortAtRoot: 0
+--- !u!114 &7825529695432213546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6344485138352456288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d9ec647eafc1de4682f00816d7663fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6344485138564975955
 GameObject:
   m_ObjectHideFlags: 0
