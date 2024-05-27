@@ -239,7 +239,7 @@ public class CharacterAI : UnitBase
 
         foreach (var c in GetComponents<Collider2D>())
             c.enabled = true;
-        attackCollider.size = new Vector2(0.3f + (AttackRange <= 1f ? 0.3f : AttackRange * 0.6f), 0.1f);
+        attackCollider.size = new Vector2(0.3f + (AttackRange <= 1f ? (0.3f / AttackRange) : AttackRange * 0.6f), 0.1f);
         attackCollider.offset = new Vector2(-attackCollider.size.x * 0.5f, isPlayer ? 0.2f : 0.6f);
 
         lastAttackTime = Time.time - AttackSpeed;

@@ -17,9 +17,11 @@
  * that this copyright notice remain intact.
  */
 
+using System;
+
 namespace Moments.Encoder
 {
-    public class NeuQuant
+	public class NeuQuant
 	{
 		protected static readonly int netsize = 256; // Number of colours used
 

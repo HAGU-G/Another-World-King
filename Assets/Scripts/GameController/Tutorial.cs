@@ -327,7 +327,7 @@ public class Tutorial : MonoBehaviour
             StageManager.Instance.playerTower.units[0].Knockback();
         }
         cameraManager.SetCameraPosition(StageManager.Instance.playerTower.units[0].transform.position);
-        ViewMessage(" 지금 아군 병사가 전부 밀려 난 게 보이십니까?\n적 성의 체력이 50% 미만이 되면 적 성의 마법사들이 한 번 마법을 사용하여 아군 병사가 전부 멀리 밀려납니다. 참고하시기 바랍니다.");
+        ViewMessage(" 지금 아군 병사가 전부 밀려 난 게 보이십니까?\n적 성의 체력 일정 수준 미만이 되면 적 성의 마법사들이 한 번 마법을 사용하여 아군 병사가 전부 멀리 밀려납니다. 참고하시기 바랍니다.");
         StageManager.Instance.enemyTower.SetStopSpawn(true);
         yield return StartCoroutine(CoWaitClick());
 

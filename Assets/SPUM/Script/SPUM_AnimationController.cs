@@ -1,6 +1,6 @@
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class SPUM_AnimationController : MonoBehaviour
 {

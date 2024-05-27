@@ -21,15 +21,16 @@
  *    distribution.
  */
 
-using Moments.Encoder;
+using UnityEngine;
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using Moments.Encoder;
 using ThreadPriority = System.Threading.ThreadPriority;
 
 namespace Moments
 {
-    internal sealed class Worker
+	internal sealed class Worker
 	{
 		static int workerId = 1;
 
