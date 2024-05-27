@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnitData;
 
 public class HUDDivision : MonoBehaviour
 {
@@ -16,15 +17,22 @@ public class HUDDivision : MonoBehaviour
 
     private void Start()
     {
-        if(stats.isPlayer)
+        if (stats != null)
         {
-            circle.flipX = true;
-            icon.flipX = true;
+            if (stats.isPlayer)
+            {
+                circle.flipX = true;
+                icon.flipX = true;
+            }
+            SetDivision(stats.unitData.division);
         }
+    }
 
-        if (stats.unitData.division == UnitData.DIVISION.NONE
-            || stats.unitData.division == UnitData.DIVISION.CANNON
-            || stats.unitData.division == UnitData.DIVISION.BOMBER)
+    public void SetDivision(DIVISION division)
+    {
+        if (division == DIVISION.NONE
+            || division == DIVISION.CANNON
+            || division == DIVISION.BOMBER)
         {
             circle.sprite = circles[0];
             circle.color = noneColor;
@@ -32,20 +40,18 @@ public class HUDDivision : MonoBehaviour
         }
         else
         {
-            circle.sprite = circles[(int)stats.unitData.division];
-            icon.sprite = icons[(int)stats.unitData.division];
+            circle.sprite = circles[(int)division];
+            icon.sprite = icons[(int)division];
 
-            if (stats.unitData.division == UnitData.DIVISION.SPECIAL)
+            if (division == DIVISION.SPECIAL)
                 circle.color = debufferColor;
             else
                 circle.color = Color.white;
 
-            if (stats.unitData.division == UnitData.DIVISION.HEALER)
+            if (division == DIVISION.HEALER)
                 icon.color = healerColor;
             else
                 icon.color = Color.white;
         }
-
-
     }
 }
