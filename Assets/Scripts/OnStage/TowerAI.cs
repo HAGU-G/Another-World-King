@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TowerAI : UnitBase
 {
@@ -61,10 +62,8 @@ public class TowerAI : UnitBase
                         }
 
                         waitingUnits.Clear();
-                        CharacterInfos enemy = new();
-                        enemy.SetData(Resources.Load<UnitData>(string.Format(Paths.resourcesEnemy, towerData.bossID)));
-                        SpawnUnit(enemy);
-                        IsBossPhase = true;
+                        waitingUnits.Add(towerData.bossID);
+                        nextSpawnTime = Time.time;
                     }
                 }
             };
@@ -132,7 +131,8 @@ public class TowerAI : UnitBase
             CharacterInfos enemy = new();
             enemy.SetData(Resources.Load<UnitData>(string.Format(Paths.resourcesEnemy, waitingUnits[0])));
             SpawnUnit(enemy);
-            waitingUnits.RemoveAt(0);
+            if (waitingUnits.Count > 0)
+                waitingUnits.RemoveAt(0);
         }
 
         if (!isPatternEnd && waitingUnits.Count == 0)
@@ -177,16 +177,29 @@ public class TowerAI : UnitBase
             {
                 if (!unit.IsSelfDestruct)
                 {
-                    stage.GetExp(unit.unitData.initDropExp);
                     stage.GetGold(unit.unitData.initDropGold);
+                    stage.GetExp(unit.unitData.initDropExp);
                     var effectDrop = EffectManager.Instance.EffectPool[Effects.effectDrop].Get();
                     effectDrop.transform.position = unit.dropEffectPosition.position;
-                    (effectDrop as EffectPoolDrop).SetValue(unit.unitData.initDropExp, unit.unitData.initDropGold);
+                    (effectDrop as EffectPoolDrop).SetValue(unit.unitData.initDropGold, unit.unitData.initDropExp);
                 }
             };
 
             if (unit.unitData.id >= 400)
-                unit.OnDead += () => { Damaged(MaxHP); };
+            {
+                unit.GetComponentInChildren<CharacterAnimationEventListner>().onDeadAnimationEnd += () => { Damaged(MaxHP); };
+            
+                unit.OnDamaged += () =>
+                {
+                    stage.GetGold(unit.unitData.initDamagedGold);
+                    stage.GetExp(unit.unitData.initDamagedExp);
+                    var effectDrop = EffectManager.Instance.EffectPool[Effects.effectDrop].Get();
+                    effectDrop.transform.position = unit.dropEffectPosition.position;
+                    (effectDrop as EffectPoolDrop).SetValue(unit.unitData.initDamagedGold, unit.unitData.initDamagedExp);
+                };
+                IsBossPhase = true;
+                waitingUnits.Clear();
+            }
         }
         units.Add(unit);
     }
