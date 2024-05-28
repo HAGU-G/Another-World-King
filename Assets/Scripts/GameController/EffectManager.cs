@@ -5,10 +5,6 @@ using UnityEngine.Pool;
 public class EffectManager : MonoBehaviour
 {
 
-    //dic <key, 풀>
-    //프리팹 이름, 풀
-    // Start is called before the first frame update
-
     public EffectPoolDrop effectPoolDrop;
 
     public Dictionary<string, IObjectPool<EffectPoolObject>> EffectPool { get; private set; } = new();

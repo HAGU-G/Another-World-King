@@ -30,3 +30,16 @@ List,ID,Monster_1,Monster_2,Monster_3
 패턴29,Pattern29,101,201,201
 패턴30,Pattern30,102,201,201
 패턴31,Pattern31,100,0,0
+패턴32,Pattern32,101,101,0
+패턴33,Pattern33,101,102,0
+패턴34,Pattern34,102,102,0
+패턴35,Pattern35,104,201,0
+패턴36,Pattern36,102,201,201
+패턴37,Pattern37,202,202,0
+패턴38,Pattern38,104,202,0
+패턴39,Pattern39,101,202,202
+패턴40,Pattern40,204,301,0
+패턴41,Pattern41,103,201,203
+패턴42,Pattern42,401,0,0
+패턴43,Pattern43,402,0,0
+패턴44,Pattern44,403,0,0

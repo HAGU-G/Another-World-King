@@ -14,16 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ignore: "\uB300\uD3EC"
   id: 204
-  division: 3
+  division: 7
   prefab: Mon_Cannon
   initHP: 200
   useStartHP: 0
   initHPStart: 0
-  typeCounter: 102
-  initAttackDamage: 100
+  typeCounter: 
+  initAttackDamage: 30
   initAttackSpeed: 1
   initAttackRange: 1
-  initAttackEnemyCount: 0
+  initAttackStartRange: 1
+  initAttackEnemyCount: 1
   initAttackOrder: 1
   initAttackEnemyOrder: 01000000
   skill: 0
@@ -32,18 +33,14 @@ MonoBehaviour:
   price: 0
   cost: 0
   spawnTime: 0
-  initDropGold: 150
-  initDropExp: 350
+  initDropGold: 200
+  initDropExp: 120
+  initDamagedGold: 0
+  initDamagedExp: 0
   effectAttack: 0
   effectAttackHit: Hit_Cannon
   projectile: Projectile_Cannon
   desc: 
   isTower: 0
-  stars_3_CastleHp: 0
-  stars_3_reward: 0
-  stars_2_CastleHp: 0
-  stars_2_reward: 0
-  stars_1_reward: 0
-  repeat_Reward: 0
   upgradeDamageID: 0
   upgradeHPID: 0

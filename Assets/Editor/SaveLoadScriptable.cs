@@ -53,6 +53,7 @@ public class SaveLoadScriptable
                 {
                     record.Heal = skills[record.Skill].Hp_Healing;
                     record.EnemyCount = skills[record.Skill].Wide_Area_Range;
+                    record.AttackRange = skills[record.Skill].Wide_Area_Range;
                 }
                 foreach (var counter in counters)
                 {
@@ -129,6 +130,7 @@ public class SaveLoadScriptable
                 {
                     record.Heal = datas.Item1[record.Skill].Hp_Healing;
                     record.EnemyCount = datas.Item1[record.Skill].Wide_Area_Range;
+                    record.AttackRange = datas.Item1[record.Skill].Wide_Area_Range;
                 }
                 foreach (var counter in datas.Item2)
                 {
@@ -205,7 +207,7 @@ public class SaveLoadScriptable
         using (var writer = new StreamWriter(string.Concat(Paths.folderResources, Paths.resourcesStageTable, Paths._csv)))
         using (var csvWriter = new CsvWriter(writer, CultureInfo.InvariantCulture))
         {
-            var stats = Resources.LoadAll<UnitData>(string.Format(Paths.resourcesStage, string.Empty));
+            var stats = Resources.LoadAll<TowerData>(string.Format(Paths.resourcesStage, string.Empty));
 
             csvWriter.WriteHeader<Stage>();
             foreach (var record in stats)
@@ -214,7 +216,6 @@ public class SaveLoadScriptable
                 csvWriter.NextRecord();
                 csvWriter.WriteRecord(new Stage(record));
             }
-
         }
         AssetDatabase.Refresh();
         Debug.Log($"스테이지 {count}개 저장 완료.");

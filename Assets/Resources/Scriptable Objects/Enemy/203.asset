@@ -23,7 +23,8 @@ MonoBehaviour:
   initAttackDamage: 50
   initAttackSpeed: 0.5
   initAttackRange: 4
-  initAttackEnemyCount: 0
+  initAttackStartRange: 4
+  initAttackEnemyCount: 1
   initAttackOrder: 3
   initAttackEnemyOrder: 01000000
   skill: 0
@@ -32,18 +33,14 @@ MonoBehaviour:
   price: 0
   cost: 0
   spawnTime: 0
-  initDropGold: 200
-  initDropExp: 450
+  initDropGold: 250
+  initDropExp: 110
+  initDamagedGold: 0
+  initDamagedExp: 0
   effectAttack: Attack_Archer
   effectAttackHit: Hit_Archer
   projectile: Projectile_Sniper
   desc: 
   isTower: 0
-  stars_3_CastleHp: 0
-  stars_3_reward: 0
-  stars_2_CastleHp: 0
-  stars_2_reward: 0
-  stars_1_reward: 0
-  repeat_Reward: 0
   upgradeDamageID: 0
   upgradeHPID: 0

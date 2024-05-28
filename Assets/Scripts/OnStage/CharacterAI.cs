@@ -58,7 +58,6 @@ public class CharacterAI : UnitBase
                 {
                     spriteRenderer.color = new(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, spriteRenderer.color.a - 1f / 9f);
                 }
-
             }
             return;
         }
@@ -95,6 +94,11 @@ public class CharacterAI : UnitBase
 
         TargetFiltering();
         if (targets.Count == 0)
+        {
+            Move();
+            return;
+        }
+        else if (Mathf.Abs(targets[0].transform.position.x - transform.position.x) > AttackStartRange)
         {
             Move();
             return;
@@ -238,15 +242,13 @@ public class CharacterAI : UnitBase
         base.ResetUnit();
 
         foreach (var c in GetComponents<Collider2D>())
+        {
             c.enabled = true;
-        attackCollider.size = new Vector2(0.3f + (AttackRange <= 1f ? (0.3f / AttackRange) : AttackRange * 0.6f), 0.1f);
-        attackCollider.offset = new Vector2(-attackCollider.size.x * 0.5f, isPlayer ? 0.2f : 0.6f);
+        }
+
+        InitAttackCollider();
 
         lastAttackTime = Time.time - AttackSpeed;
-        if (isPlayer)
-            transform.localScale = Vectors.filpX;
-        else
-            transform.localScale = Vector3.one;
 
         enemyInRange.Clear();
         targets.Clear();
@@ -267,15 +269,27 @@ public class CharacterAI : UnitBase
         Idle();
     }
 
+    private void InitAttackCollider()
+    {
+        attackCollider.size = new Vector2(0.3f + AttackRange * 0.6f, 0.1f);
+        //attackCollider.offset = new Vector2(-attackCollider.size.x * 0.5f, isPlayer ? 0.2f : 0.6f);
+        attackCollider.offset = new Vector2(-attackCollider.size.x * 0.5f, 0.2f);
+
+        float charScale = 1f;
+        if (!isPlayer && unitData.id >= 400)
+            charScale = 2f;
+
+        if (isPlayer)
+            transform.localScale = Vectors.filpX * charScale;
+        else
+            transform.localScale = Vector3.one * charScale;
+    }
+
     public void SetTower(TowerAI tower)
     {
         Tower = tower;
         isPlayer = Tower.isPlayer;
-        attackCollider.offset = new Vector2(-attackCollider.size.x * 0.5f, isPlayer ? 0.2f : 0.6f);
-        if (isPlayer)
-            transform.localScale = Vectors.filpX;
-        else
-            transform.localScale = Vector3.one;
+        InitAttackCollider();
     }
 
     public int GetOrder() => Tower.units.IndexOf(this) + 1;
@@ -293,7 +307,9 @@ public class CharacterAI : UnitBase
                 if (!targets.Contains(Tower.enemyTower.units[attackEnemyOrder - 1])
                     && Tower.enemyTower.units[attackEnemyOrder - 1].GetOrder() == attackEnemyOrder
                     && enemyInRange.Contains(Tower.enemyTower.units[attackEnemyOrder - 1]))
+                {
                     targets.Add(Tower.enemyTower.units[attackEnemyOrder - 1]);
+                }
             }
             if (count >= AttackEnemyCount)
                 break;
@@ -326,7 +342,54 @@ public class CharacterAI : UnitBase
         }
     }
 
-    public void AttackHit()
+    private void LaunchProjectile(out bool unitAttacked, UnitBase target)
+    {
+        unitAttacked = true;
+
+        int atk;
+        int counterAtk;
+        if (CounterSkill != null)
+        {
+            ClearBuff(CounterSkill);
+            atk = AttackDamage;
+            ApplyBuff(CounterSkill);
+            counterAtk = AttackDamage;
+            if (isCounterBuffed && target.unitData.division != CounterSkill.targetDivision)
+                ClearBuff(CounterSkill);
+        }
+        else
+        {
+            atk = AttackDamage;
+            counterAtk = AttackDamage;
+        }
+
+        PlayAttackEffect();
+        var projectile = Instantiate(Resources.Load<Projectile>(string.Format(Paths.resourcesProjectiles, unitData.projectile)));
+
+
+        var targetPos = target.transform.position + Vector3.left * 0.3f * (isPlayer ? 1f : -1f);
+        if (unitData.division == UnitData.DIVISION.CANNON)
+        {
+            if (Tower.enemyTower.IsBossPhase && Tower.enemyTower.units.Count > 0)
+            {
+                targetPos = Tower.enemyTower.units[^1].transform.position;
+            }
+            else
+            {
+                targetPos = Tower.enemyTower.transform.position;
+                projectile.SetTowerTargeting();
+            }
+        }
+        projectile.transform.position = transform.position + Vector3.up * 0.6f;
+        projectile.Project(
+            this,
+            targetPos,
+            atk,
+            CounterSkill != null ? CounterSkill.targetDivision : UnitData.DIVISION.NONE,
+            CounterSkill != null ? counterAtk : atk);
+    }
+
+    private void AttackHit()
     {
         bool towerAttacked = false;
 
@@ -381,38 +444,22 @@ public class CharacterAI : UnitBase
                     if (unitData.division == UnitData.DIVISION.ARCHER
                         || unitData.division == UnitData.DIVISION.CANNON)
                     {
-                        unitAttacked = true;
-
-                        int atk;
-                        int counterAtk;
-                        if (CounterSkill != null)
-                        {
-                            ClearBuff(CounterSkill);
-                            atk = AttackDamage;
-                            ApplyBuff(CounterSkill);
-                            counterAtk = AttackDamage;
-                            if (isCounterBuffed && target.unitData.division != CounterSkill.targetDivision)
-                                ClearBuff(CounterSkill);
-                        }
-                        else
-                        {
-                            atk = AttackDamage;
-                            counterAtk = AttackDamage;
-                        }
-
-                        PlayAttackEffect();
-                        var projectile = Instantiate(Resources.Load<Projectile>(string.Format(Paths.resourcesProjectiles, unitData.projectile)));
-                        projectile.transform.position = transform.position + Vector3.up * 0.6f;
-                        projectile.Project(
-                            this,
-                            unitData.division == UnitData.DIVISION.CANNON ? Tower.enemyTower.transform.position : target.transform.position,
-                            atk,
-                            CounterSkill != null ? CounterSkill.targetDivision : UnitData.DIVISION.NONE,
-                            CounterSkill != null ? counterAtk : atk);
+                        LaunchProjectile(out unitAttacked, target);
                     }
                     else
                     {
-                        target.Damaged(AttackDamage);
+                        if (unitData.division == UnitData.DIVISION.BOMBER)
+                        {
+                            if (target.unitData.id < 400)
+                                target.Damaged(target.MaxHP);
+                            else
+                                target.Damaged(AttackDamage);
+                        }
+                        else
+                        {
+                            target.Damaged(AttackDamage);
+                        }
+
                         PlayHitEffect(target.transform.position);
                         unitAttacked = true;
 

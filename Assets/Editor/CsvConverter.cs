@@ -22,6 +22,7 @@ public class UnitData_Csv
     [Ignore] public int Heal { get; set; }
     [Ignore] public int EnemyCount { get; set; }
     [Ignore] public string TypeCounter { get; set; }
+    [Ignore] public float AttackRange { get; set; }
 
 
     public void ToScriptable(bool isPlayer)
@@ -47,7 +48,7 @@ public class UnitData_Csv
         unitData.initHP = Hp;
         unitData.initAttackDamage = Attack;
         unitData.initAttackSpeed = A_Speed;
-        unitData.initAttackRange = A_Range;
+        unitData.initAttackStartRange = A_Range;
         unitData.skill = Skill;
         unitData.effectAttack = My_Effect;
         unitData.effectAttackHit = Target_Effect;
@@ -55,7 +56,14 @@ public class UnitData_Csv
         unitData.initAttackOrder = Chr_Position;
         unitData.initHeal = Heal;
         unitData.prefab = String_ID;
-        unitData.typeCounter = TypeCounter; ;
+        unitData.typeCounter = TypeCounter;
+
+        if (AttackRange != 0 && unitData.division != UnitData.DIVISION.HEALER)
+            unitData.initAttackRange = AttackRange;
+        else
+            unitData.initAttackRange = A_Range;
+
+        
         if (EnemyCount > 1)
         {
             unitData.initAttackEnemyCount = EnemyCount;
@@ -74,7 +82,7 @@ public class UnitData_Csv
         Hp = unitData.initHP;
         Attack = unitData.initAttackDamage;
         A_Speed = unitData.initAttackSpeed;
-        A_Range = unitData.initAttackRange;
+        A_Range = unitData.initAttackStartRange;
         Skill = unitData.skill;
         My_Effect = unitData.effectAttack;
         Target_Effect = unitData.effectAttackHit;
@@ -131,6 +139,10 @@ public class Enemy_Csv : UnitData_Csv
 {
     [Index(13)] public int Dead_Gold { get; set; }
     [Index(14)] public int Dead_Exp { get; set; }
+    [Index(15)] public int Per_Gold { get; set; }
+    [Index(16)] public int Per_Exp { get; set; }
+    [Index(17)] public float Speed { get; set; }
+
     public Enemy_Csv() : base() { }
     public Enemy_Csv(UnitData unitData) : base(unitData) { }
 
@@ -139,6 +151,9 @@ public class Enemy_Csv : UnitData_Csv
         base.LoadData(unitData);
         unitData.initDropGold = Dead_Gold;
         unitData.initDropExp = Dead_Exp;
+        unitData.initDamagedGold = Per_Gold;
+        unitData.initDamagedExp = Per_Exp;
+        unitData.initMoveSpeed = Speed;
     }
 
     protected override void SaveData(UnitData unitData)
@@ -146,6 +161,9 @@ public class Enemy_Csv : UnitData_Csv
         base.SaveData(unitData);
         Dead_Gold = unitData.initDropGold;
         Dead_Exp = unitData.initDropExp;
+        Per_Gold = unitData.initDamagedGold;
+        Per_Exp = unitData.initDamagedExp;
+        Speed = unitData.initMoveSpeed;
     }
 
     protected override void CreateData(UnitData unitData)

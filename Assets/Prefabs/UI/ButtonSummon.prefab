@@ -721,7 +721,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cost: {fileID: 6126124988335884515}
+  damageUpgradeLabel: {fileID: 7181797212310277641}
   damageUpgradeText: {fileID: 5034692013860500918}
+  hpUpgradeLabel: {fileID: 8890938743217583446}
   hpUpgradeText: {fileID: 2148846147794821591}
   button: {fileID: 7779149641638129677}
   cooldown: {fileID: 6040256043185575955}

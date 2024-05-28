@@ -6,7 +6,9 @@ using UnityEngine.UIElements.Experimental;
 public class UIButtonSummon : MonoBehaviour
 {
     public TextMeshProUGUI cost;
+    public GameObject damageUpgradeLabel;
     public TextMeshProUGUI damageUpgradeText;
+    public GameObject hpUpgradeLabel;
     public TextMeshProUGUI hpUpgradeText;
     public Button button;
     public CharacterInfos CharacterInfos { get; private set; } = new();
@@ -43,7 +45,12 @@ public class UIButtonSummon : MonoBehaviour
 
         CharacterInfos.SetData(characterInfos.unitData);
         cost.text = CharacterInfos.unitData.cost.ToString();
-        SetUpgradeText();
+
+        damageUpgradeLabel.SetActive(false);
+        damageUpgradeText.gameObject.SetActive(false);
+        hpUpgradeLabel.SetActive(false);
+        hpUpgradeText.gameObject.SetActive(false);
+
         cooldown.maxValue = CharacterInfos.unitData.spawnTime;
         cooldown.value = 0f;
 
@@ -70,7 +77,7 @@ public class UIButtonSummon : MonoBehaviour
     private void Update()
     {
         if (cooldown.value > 0f)
-        { 
+        {
             cooldown.value -= Time.deltaTime;
             if (button.interactable && !outline.enabled)
                 button.interactable = false;
@@ -88,12 +95,15 @@ public class UIButtonSummon : MonoBehaviour
     }
     public void UpgradeDamage()
     {
-
+        damageUpgradeLabel.SetActive(true);
+        damageUpgradeText.gameObject.SetActive(true);
         DamageUpgradedCount++;
         SetUpgradeText();
     }
     public void UpgradeHP()
     {
+        hpUpgradeLabel.SetActive(true);
+        hpUpgradeText.gameObject.SetActive(true);
         HPUpgradedCount++;
         SetUpgradeText();
     }

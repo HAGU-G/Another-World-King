@@ -13,6 +13,7 @@ public class Projectile : MonoBehaviour
     private int counterDamage;
     private bool isPlayer;
     private string effectAttackHit;
+    private bool isTowerTargeting;
 
     private void Update()
     {
@@ -21,6 +22,11 @@ public class Projectile : MonoBehaviour
         if (rotationImage)
             transform.rotation = Quaternion.Euler(0, 0, isPlayer ? rotationDeg : 180f - rotationDeg);
         velocityY += gravity * Time.deltaTime;
+    }
+
+    public void SetTowerTargeting()
+    {
+        isTowerTargeting = true;
     }
 
     public void Project(UnitBase owner, Vector3 targetPos, int damage, UnitData.DIVISION counterDivision, int counterDamage)
@@ -62,9 +68,7 @@ public class Projectile : MonoBehaviour
         {
             if (!hitUnit.IsTower && collision.isTrigger)
                 return;
-            if (ownerDivision == UnitData.DIVISION.CANNON && !hitUnit.IsTower)
-                return;
-            if (ownerDivision != UnitData.DIVISION.CANNON && hitUnit.IsTower)
+            if (isTowerTargeting && !hitUnit.IsTower)
                 return;
 
             hitUnit.Damaged(hitUnit.unitData.division == counterDivision ? counterDamage : damage);

@@ -93,6 +93,8 @@ public class UnitBase : MonoBehaviour
             return buffedStat * (1f + persentage);
         }
     }
+    public float AttackStartRange => 0.6f + (unitData.initAttackStartRange <= 1f ? (0.3f * unitData.initAttackStartRange) : unitData.initAttackStartRange * 0.6f);
+
     public List<int> AttackEnemyOrder => unitData.initAttackEnemyOrder;
     public int AttackOrder => unitData.initAttackOrder;
     public int AttackEnemyCount => unitData.initAttackEnemyCount;
