@@ -187,6 +187,7 @@ MonoBehaviour:
   isPlayer: 0
   damageUpgradeValue: 0
   hpUpgradeValue: 0
+  attackRangeView: {fileID: 0}
   rb: {fileID: 3325342423257663449}
   attackCollider: {fileID: 7700066144859409963}
   dropEffectPosition: {fileID: 6741912953855469977}

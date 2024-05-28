@@ -7,6 +7,9 @@ public class HUDHealthBar : MonoBehaviour
     public UnitBase stats;
     public Slider healthBar;
     public RectTransform sliderRoot;
+    public RectTransform leftPosision;
+    public RectTransform rightPosision;
+
     private void Start()
     {
         gameObject.SetActive(true);
@@ -29,16 +32,15 @@ public class HUDHealthBar : MonoBehaviour
         sliderRoot.position = Camera.main.WorldToScreenPoint(stats.transform.position);
         if (stats.IsTower)
         {
-            float overPosition = sliderRoot.position.x + sliderRoot.sizeDelta.x * (stats.isPlayer ? -1f : 1f);
-            if (stats.isPlayer
-                && overPosition < Screen.safeArea.xMin)
+            if (stats.isPlayer 
+                & leftPosision.position.x < Screen.safeArea.xMin)
             {
-                sliderRoot.position -= new Vector3(overPosition - Screen.safeArea.xMin, 0f);
+                sliderRoot.position -= new Vector3(leftPosision.position.x - Screen.safeArea.xMin, 0f);
             }
             else if (!stats.isPlayer
-                && overPosition > Screen.safeArea.xMax)
+                && rightPosision.position.x > Screen.safeArea.xMax)
             {
-                sliderRoot.position -= new Vector3(overPosition - Screen.safeArea.xMax, 0f);
+                sliderRoot.position -= new Vector3(rightPosision.position.x - Screen.safeArea.xMax, 0f);
             }
         }
 

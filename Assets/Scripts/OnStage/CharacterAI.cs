@@ -49,6 +49,7 @@ public class CharacterAI : UnitBase
     protected override void Update()
     {
         base.Update();
+
         if (IsDead)
         {
             if (spriteRenderers != null && spriteRenderers.Length > 0 && Time.time >= alphaReduceTime + 1f / 3f)
@@ -318,7 +319,7 @@ public class CharacterAI : UnitBase
         if (enemyInRange.Contains(Tower.enemyTower))
             targets.Add(Tower.enemyTower);
 
-        IsSelfDestruct = (targets.Count == 1 && targets[0].IsTower);
+        IsSelfDestruct = (targets.Count == 1 && targets[0].IsTower && (isPlayer || (!isPlayer &&unitData.id<400)));
     }
 
     protected virtual void Attack()
@@ -491,7 +492,7 @@ public class CharacterAI : UnitBase
             Healed(Heal);
         }
 
-        if (towerAttacked)
+        if (towerAttacked && (isPlayer || (!isPlayer && unitData.id < 400)))
             Damaged(MaxHP);
     }
 
