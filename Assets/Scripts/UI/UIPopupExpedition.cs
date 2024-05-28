@@ -1,8 +1,10 @@
+using System.Diagnostics.Tracing;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 
-public class UIPopupExpedition : MonoBehaviour
+public class UIPopupExpedition : MonoBehaviour, IDeselectHandler
 {
     public RectTransform rectTransform;
     public TextMeshProUGUI textDescription;
@@ -12,6 +14,11 @@ public class UIPopupExpedition : MonoBehaviour
     private float maxY;
     private bool isSlotExpedition;
     private static readonly string formatDesc = "[{0}]\n{1}\n체력 : {2} / 공격력: {3} / 공격 속도 : {4}\n소환 가격 : {5}골드 /소환 쿨타임 : {6}초";
+
+    public void Selected()
+    {
+        EventSystem.current.SetSelectedGameObject(gameObject);
+    }
 
     public void Awake()
     {
@@ -91,5 +98,10 @@ public class UIPopupExpedition : MonoBehaviour
             x,
             isSlotExpedition ? y : Mathf.Clamp(y, minY, maxY),
             z);
+    }
+
+    public void OnDeselect(BaseEventData eventData)
+    {
+        Popup(false);
     }
 }

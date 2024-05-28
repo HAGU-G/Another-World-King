@@ -92,7 +92,7 @@ public static class SaveManager
 
         var load = saveData as SaveVersionClass;
 
-        GameManager.Instance.DoneTutorial = load.doneTutorial;
+        GameManager.Instance.IsDoneTutorial = load.doneTutorial;
         GameManager.Instance.Flags = load.flags;
         GameManager.Instance.UnlockedID.Clear();
         foreach (var item in load.unlockedID)

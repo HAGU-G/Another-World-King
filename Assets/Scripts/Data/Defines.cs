@@ -1,10 +1,18 @@
-﻿public static class AnimatorTriggers
+﻿using UnityEditor.PackageManager.Requests;
+
+public static class AnimatorTriggers
 {
     public static readonly string idle = "Idle";
     public static readonly string move = "Move";
     public static readonly string attack = "Attack";
     public static readonly string dead = "Dead";
     public static readonly string cantAct = "CantAct";
+}
+public static class AudioParameters
+{
+    public static readonly string musicVolume = "Music";
+    public static readonly string sfxVolume = "Sfx";
+    public static readonly string uiVolume = "UI";
 }
 
 public static class Paths
@@ -60,11 +68,10 @@ public static class Tags
 public static class Scenes
 {
     public static readonly string main = "Main";
+    public static readonly string title = "Title";
     public static readonly string stage = "Stage";
     public static readonly string loading = "Loading";
 }
-
-
 
 public static class Defines
 {
@@ -76,7 +83,7 @@ public static class Defines
     public static readonly string defeat = "Defeat";
     public static readonly string pause = "일시정지";
 
-    public static readonly string playerfrabsTutorial = "Tutorial";
+    public static readonly string playerfrabsStorySkip = "StorySkip";
 }
 
 public static class Vectors

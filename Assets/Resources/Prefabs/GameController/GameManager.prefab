@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1778124718810658729}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 216.85277, y: 148.97813, z: 0.66139615}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -50,6 +50,7 @@ MonoBehaviour:
   touchManager: {fileID: 7242640245955142419}
   musicPlayer: {fileID: 4668832217883842299}
   uiSoundPlayer: {fileID: 2243444843356108475}
+  audioBack: {fileID: 8300000, guid: bdcf26555fd93b842a7ebd11fe0c3838, type: 3}
 --- !u!82 &4668832217883842299
 AudioSource:
   m_ObjectHideFlags: 0

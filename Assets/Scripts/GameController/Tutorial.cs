@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
 public class Tutorial : MonoBehaviour
 {
@@ -23,36 +24,39 @@ public class Tutorial : MonoBehaviour
     public AudioClip bgmTitle;
     public AudioClip bgmStory;
 
+    public GameObject tutorialUI;
+
     private bool wait;
-    private bool isPlayingStory;
+    private bool isSkipChecked;
     private bool isPlayingTutorial;
     private CameraManager cameraManager;
 
+    private Coroutine coStory;
+    private Coroutine coTutorial;
 
-    private void Awake()
-    {
-#if UNITY_ANDROID_API
-        Screen.sleepTimeout = SleepTimeout.NeverSleep;
-#endif
-        // SaveManager.GameLoad();
-    }
     private void Start()
     {
         GameManager.PlayMusic(bgmTitle);
+        if (GameManager.Instance.IsSettingPlayTutorial)
+        {
+            isSkipChecked = true;
+            GameManager.Instance.IsSettingPlayTutorial = false;
+            LoadTutorialStage();
+        }
     }
 
     private void Update()
     {
         if (GameManager.Instance.touchManager.Tap)
         {
-            if (!isPlayingStory)
+            if (!isSkipChecked)
             {
                 CheckSkip();
             }
             else if (!isPlayingTutorial)
             {
-
-                Next();
+                if (GameManager.Instance.touchManager.receiver.ReceivedLastFrame)
+                    Next();
             }
             else
             {
@@ -76,16 +80,24 @@ public class Tutorial : MonoBehaviour
 
     public void CheckSkip()
     {
-        isPlayingStory = true;
+        isSkipChecked = true;
 
-        if (GameManager.Instance.DoneTutorial)
+        if (PlayerPrefs.GetInt(Defines.playerfrabsStorySkip, 0) == 0)
         {
-            GameManager.Instance.SelectedStageID++;
-            GameManager.Instance.LoadingScene(Scenes.main);
+            coStory = StartCoroutine(Co_ViewStory());
             return;
         }
 
-        StartCoroutine(Co_ViewStory());
+        if (GameManager.Instance.IsDoneTutorial)
+        {
+            GameManager.Instance.SelectedStageID++;
+            GameManager.Instance.LoadingScene(Scenes.main);
+        }
+        else
+        {
+            LoadTutorialStage();
+        }
+
     }
 
     private void ViewMessage(string message)
@@ -102,7 +114,8 @@ public class Tutorial : MonoBehaviour
     private IEnumerator CoWaitClick()
     {
         wait = true;
-        touchBlocker.gameObject.SetActive(true);
+        if (!isSkipChecked)
+            touchBlocker.gameObject.SetActive(true);
         textNext.gameObject.SetActive(true);
         while (wait)
             yield return null;
@@ -129,7 +142,7 @@ public class Tutorial : MonoBehaviour
         rect.GetWorldCorners(corners);
         highlightRect.pivot = rect.pivot;
         highlightRect.position = rect.position;
-        highlightRect.sizeDelta = (corners[2] - corners[0]) / 2.2f ;
+        highlightRect.sizeDelta = (corners[2] - corners[0]) / canvas.scaleFactor;
     }
     private void HighlightOff()
     {
@@ -175,7 +188,7 @@ public class Tutorial : MonoBehaviour
             return;
 
         SceneManager.sceneLoaded -= StartTutorial;
-        StartCoroutine(Co_ViewTutorial());
+        coTutorial = StartCoroutine(Co_ViewTutorial());
     }
 
     private IEnumerator Co_ViewStory()
@@ -187,11 +200,47 @@ public class Tutorial : MonoBehaviour
             story.sprite = s;
             yield return StartCoroutine(CoWaitClick());
         }
+
+        if (!GameManager.Instance.IsDoneTutorial)
+            PlayerPrefs.SetInt(Defines.playerfrabsStorySkip, 1);
+
+        if (GameManager.Instance.IsDoneTutorial)
+        {
+            GameManager.Instance.SelectedStageID++;
+            GameManager.Instance.LoadingScene(Scenes.main);
+        }
+        else
+        {
+            LoadTutorialStage();
+        }
+    }
+
+    public void SkipStory()
+    {
+        StopCoroutine(coStory);
+
+        if (!GameManager.Instance.IsDoneTutorial)
+            PlayerPrefs.SetInt(Defines.playerfrabsStorySkip, 1);
+
         LoadTutorialStage();
     }
+    public void SkipTutorial()
+    {
+        StopCoroutine(coTutorial);
+        GameManager.Instance.IsDoneTutorial = true;
+        StageManager.Instance.IsTutorial = true;
+        StageManager.Instance.Victory();
+        GameManager.Instance.SelectedStageID++;
+        Time.timeScale = 1f;
+        SetCanMoveCamera(true);
+        GameManager.Instance.LoadingScene(Scenes.main);
+        Destroy(gameObject);
+    }
+
     private IEnumerator Co_ViewTutorial()
     {
         isPlayingTutorial = true;
+        tutorialUI.SetActive(true);
 
         //적 소환 정지
         StageManager.Instance.enemyTower.SetStopSpawn(true);
@@ -338,14 +387,22 @@ public class Tutorial : MonoBehaviour
             StageManager.Instance.playerTower.SpawnUnit(GameManager.Instance.Expedition[0]);
             StageManager.Instance.playerTower.units[0].Knockback();
         }
+        touchBlocker.SetActive(true);
         cameraManager.SetCameraPosition(StageManager.Instance.playerTower.units[0].transform.position);
-        ViewMessage(" 지금 아군 병사가 전부 밀려 난 게 보이십니까?\n적 성의 체력 일정 수준 미만이 되면 적 성의 마법사들이 한 번 마법을 사용하여 아군 병사가 전부 멀리 밀려납니다. 참고하시기 바랍니다.");
+
+        while (StageManager.Instance.playerTower.units[0].UnitState == CharacterAI.UNIT_STATE.KNOCKBACK)
+            yield return null;
+        Time.timeScale = 0f;
+        ViewMessage("지금 아군 병사가 전부 밀려 난 게 보이십니까?\n적 성의 체력 일정 수준 미만이 되면 적 성의 마법사들이 한 번 마법을 사용하여 아군 병사가 전부 멀리 밀려납니다. 참고하시기 바랍니다.");
         StageManager.Instance.enemyTower.SetStopSpawn(true);
         yield return StartCoroutine(CoWaitClick());
 
         ViewMessage("전하. 모의전투가 끝이 났습니다. 이제부터는 마왕군이 침략하고 있는 왕국을 구하기 위해서 출정을 떠날 차례입니다.\n희망이 없는 상황이지만..저는 총명했던 전하의 능력을 믿습니다.\n꼭 왕국을 구원하고 이 나라의 백성들을 구하는 영웅이 되시옵소서.");
         yield return StartCoroutine(CoWaitClick());
-        GameManager.Instance.DoneTutorial = true;
+
+        GameManager.Instance.IsDoneTutorial = true;
+        StageManager.Instance.IsTutorial = false;
+        Time.timeScale = 1f;
         StageManager.Instance.Victory();
         GameManager.Instance.SelectedStageID++;
         Destroy(gameObject);
@@ -356,4 +413,6 @@ public class Tutorial : MonoBehaviour
     {
         GameManager.Instance.touchManager.receiver.gameObject.SetActive(value);
     }
+
+
 }

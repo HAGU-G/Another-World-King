@@ -19,12 +19,17 @@ public class UIWindowMain : UIWindow
     public TextMeshProUGUI currentStage;
     public Image currentStageImage;
     public TextMeshProUGUI flags;
+
+    public GameObject iconBoss;
     public UIIconDivision iconDivision;
     public GameObject monsterMessage;
+
     public GameObject popupGameExit;
     public GameObject popupCharacterUnlock;
     public GameObject unlockCharacters;
     public UISlotCharacter uiSlotCharacter;
+
+    public UIPopupSetting popupSetting;
 
     private void Start()
     {
@@ -56,6 +61,11 @@ public class UIWindowMain : UIWindow
         currentStageImage.sprite = Resources.Load<Sprite>(string.Format(Paths.resourcesImages, stageStringID));
         SetMostManyMonster(selectedID);
 
+        if (DataTableManager.Stages[selectedID].Boss_ID != 0)
+            iconBoss.SetActive(true);
+        else
+            iconBoss.SetActive(false);
+
         int count = 0;
         if (GameManager.Instance.StageClearInfo.ContainsKey(selectedID))
             count = GameManager.Instance.StageClearInfo[selectedID];
@@ -64,13 +74,31 @@ public class UIWindowMain : UIWindow
             star.isOn = count > 0;
             count--;
         }
+
+        if(selectedID == DataTableManager.MinStageID)
+            buttonPrevStage.interactable = false;
+        else
+            buttonPrevStage.interactable = true;
+
+        if (selectedID == DataTableManager.MaxStageID)
+            buttonNextStage.interactable = false;
+        else
+            buttonNextStage.interactable = true;
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            PopupGameExitOnOff(!popupGameExit.activeSelf);
+            GameManager.Instance.PlayAudioBack();
+            if (popupSetting.gameObject.activeSelf)
+            {
+                popupSetting.PopupOnOff(false);
+            }
+            else
+            {
+                PopupGameExitOnOff(!popupGameExit.activeSelf); 
+            }
         }
     }
 
@@ -126,9 +154,9 @@ public class UIWindowMain : UIWindow
             iconDivision.gameObject.SetActive(false);
         }
     }
-    public void MonsterMessageOnOff()
+    public void MonsterMessageOnOff(bool value)
     {
-        monsterMessage.SetActive(!monsterMessage.activeSelf);
+        monsterMessage.SetActive(value);
     }
 
     public void GameExit()

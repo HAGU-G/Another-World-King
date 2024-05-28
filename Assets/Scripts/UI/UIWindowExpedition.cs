@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UIWindowExpedition : UIWindow
@@ -41,7 +42,16 @@ public class UIWindowExpedition : UIWindow
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            uiMain.Open(); Close();
+            GameManager.Instance.PlayAudioBack();
+            if (counterInfo.activeSelf)
+            {
+                CounterInfoOnOff();
+            }
+            else
+            {
+                uiMain.Open();
+                Close();
+            }
         }
     }
     public void ClosePopup()
@@ -54,6 +64,7 @@ public class UIWindowExpedition : UIWindow
 
     public void SelectSlotExpedition(int index)
     {
+        bool setCharacter = false;
         if (selectedSlotCharacter != null)
         {
             for (int i = 0; i < expeditionSlots.Length; i++)
@@ -67,6 +78,8 @@ public class UIWindowExpedition : UIWindow
             }
             expeditionSlots[index].SetData(selectedSlotCharacter.characterInfos);
             GameManager.Instance.SetExpedition(expeditionSlots[index].characterInfos, index);
+            EventSystem.current.SetSelectedGameObject(null);
+            setCharacter = true;
         }
 
         if (selectedSlotExpedition != expeditionSlots[index])
@@ -92,6 +105,8 @@ public class UIWindowExpedition : UIWindow
             ClosePopup();
         }
 
+        if (setCharacter)
+            selectedSlotExpedition = null;
     }
 
     public override void Refresh()
@@ -133,6 +148,7 @@ public class UIWindowExpedition : UIWindow
                 {
                     selectedSlotCharacter = slot;
                     popup.SetData(slot.characterInfos.unitData, slot.GetComponent<RectTransform>());
+                    popup.Selected();
                 }
                 else
                 {
@@ -144,7 +160,7 @@ public class UIWindowExpedition : UIWindow
 
     }
 
-    public void ShowCounterInfo()
+    public void CounterInfoOnOff()
     {
         counterInfo.SetActive(!counterInfo.activeSelf);
     }

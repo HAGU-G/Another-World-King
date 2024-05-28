@@ -262,9 +262,13 @@ public class StageManager : MonoBehaviour
                 getFlags_P += character.skillData.clearFlag_P;
             }
         }
+
         GameManager.Instance.StageClear(GameManager.Instance.SelectedStageID, star, getFlags);
+        if (IsTutorial)
+            return;
         audioSource.PlayOneShot(audioWin);
         uiOnStage.windowStagePause.Victory(star, getFlags);
+
     }
 
 

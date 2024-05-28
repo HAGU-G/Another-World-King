@@ -4,18 +4,19 @@ using UnityEngine.UI;
 
 public class UIPopupShop : MonoBehaviour
 {
-    public RawImage rawImage;
     public TextMeshProUGUI textCost;
     public TextMeshProUGUI textName;
     public TextMeshProUGUI textDescription;
     public TextMeshProUGUI textStats;
     public Button buttonsPurchase;
+    public GameObject PopupBack;
+    public UISlotCharacter uiSlotCharacter;
 
     public static readonly string formatStats = "공격 {0}/체력 {1}/공격속도 {2}\n소환 가격 {3}골드\n소환 쿨타임 {4}초";
 
-    public void SetData(Rect rect, UISlotCharacterInShop selectSlot)
+    public void SetData(UISlotCharacterInShop selectSlot)
     {
-        rawImage.uvRect = rect;
+        uiSlotCharacter.SetData(selectSlot.slot.characterInfos);
         textName.text = DataTableManager.GetString(selectSlot.slot.characterInfos.unitData.prefab);
         textDescription.text = DataTableManager.GetString(selectSlot.slot.characterInfos.unitData.desc);
         textStats.text = string.Format(formatStats,
@@ -26,7 +27,7 @@ public class UIPopupShop : MonoBehaviour
             selectSlot.slot.characterInfos.unitData.spawnTime);
         textCost.text = selectSlot.slot.characterInfos.unitData.price.ToString();
 
-        if (!selectSlot.IsPurchased && selectSlot.IsUnlocked)
+        if (!selectSlot.IsPurchased && selectSlot.IsUnlocked && GameManager.Instance.Flags >= selectSlot.slot.characterInfos.unitData.price)
             buttonsPurchase.interactable = true;
         else
             buttonsPurchase.interactable = false;
@@ -35,5 +36,6 @@ public class UIPopupShop : MonoBehaviour
     public void Popup(bool value)
     {
         gameObject.SetActive(value);
+        PopupBack.SetActive(value);
     }
 }
