@@ -24,7 +24,8 @@ public class Tutorial : MonoBehaviour
     public AudioClip bgmStory;
 
     private bool wait;
-    private bool isWatching;
+    private bool isPlayingStory;
+    private bool isPlayingTutorial;
     private CameraManager cameraManager;
 
 
@@ -33,7 +34,7 @@ public class Tutorial : MonoBehaviour
 #if UNITY_ANDROID_API
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
 #endif
-        SaveManager.GameLoad();
+        // SaveManager.GameLoad();
     }
     private void Start()
     {
@@ -44,10 +45,19 @@ public class Tutorial : MonoBehaviour
     {
         if (GameManager.Instance.touchManager.Tap)
         {
-            if (!isWatching)
+            if (!isPlayingStory)
+            {
                 CheckSkip();
-            else
+            }
+            else if (!isPlayingTutorial)
+            {
+
                 Next();
+            }
+            else
+            {
+                Next();
+            }
         }
     }
 
@@ -66,7 +76,7 @@ public class Tutorial : MonoBehaviour
 
     public void CheckSkip()
     {
-        isWatching = true;
+        isPlayingStory = true;
 
         if (GameManager.Instance.DoneTutorial)
         {
@@ -117,9 +127,9 @@ public class Tutorial : MonoBehaviour
         var corners = new Vector3[4];
         highlightRect.gameObject.SetActive(true);
         rect.GetWorldCorners(corners);
-        highlightRect.sizeDelta = (corners[2] - corners[0]) / 2f;
         highlightRect.pivot = rect.pivot;
         highlightRect.position = rect.position;
+        highlightRect.sizeDelta = (corners[2] - corners[0]) / 2.2f ;
     }
     private void HighlightOff()
     {
@@ -181,6 +191,8 @@ public class Tutorial : MonoBehaviour
     }
     private IEnumerator Co_ViewTutorial()
     {
+        isPlayingTutorial = true;
+
         //利 家券 沥瘤
         StageManager.Instance.enemyTower.SetStopSpawn(true);
         //己 公利
