@@ -21,9 +21,9 @@ MonoBehaviour:
   initHPStart: 0
   typeCounter: 
   initAttackDamage: 20
-  initAttackSpeed: 1.5
-  initAttackRange: 3
-  initAttackStartRange: 3
+  initAttackSpeed: 3
+  initAttackRange: 2
+  initAttackStartRange: 2
   initAttackEnemyCount: 1
   initAttackOrder: 2
   initAttackEnemyOrder: 01000000
@@ -33,18 +33,14 @@ MonoBehaviour:
   price: 0
   cost: 0
   spawnTime: 0
-  initDropGold: 150
-  initDropExp: 300
+  initDropGold: 200
+  initDropExp: 100
+  initDamagedGold: 0
+  initDamagedExp: 0
   effectAttack: 0
   effectAttackHit: Hit_Shaman
   projectile: 0
   desc: 
   isTower: 0
-  stars_3_CastleHp: 0
-  stars_3_reward: 0
-  stars_2_CastleHp: 0
-  stars_2_reward: 0
-  stars_1_reward: 0
-  repeat_Reward: 0
   upgradeDamageID: 0
   upgradeHPID: 0

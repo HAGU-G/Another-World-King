@@ -16,11 +16,11 @@ MonoBehaviour:
   id: 1201
   division: 3
   prefab: Archer
-  initHP: 70
+  initHP: 100
   useStartHP: 0
   initHPStart: 0
   typeCounter: 102
-  initAttackDamage: 30
+  initAttackDamage: 35
   initAttackSpeed: 0.5
   initAttackRange: 2
   initAttackStartRange: 2
@@ -35,16 +35,12 @@ MonoBehaviour:
   spawnTime: 10
   initDropGold: 0
   initDropExp: 0
+  initDamagedGold: 0
+  initDamagedExp: 0
   effectAttack: Attack_Archer
   effectAttackHit: Hit_Archer
   projectile: Projectile_Archer
   desc: Archer_explan
   isTower: 0
-  stars_3_CastleHp: 0
-  stars_3_reward: 0
-  stars_2_CastleHp: 0
-  stars_2_reward: 0
-  stars_1_reward: 0
-  repeat_Reward: 0
   upgradeDamageID: 103
   upgradeHPID: 203

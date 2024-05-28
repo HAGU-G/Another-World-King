@@ -10,37 +10,37 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9e5390eeabe2e0148bd1783116bb6660, type: 3}
-  m_Name: 1102
+  m_Name: 402
   m_EditorClassIdentifier: 
-  ignore: "\uD0F1\uCEE4"
-  id: 1102
-  division: 2
-  prefab: Guardian
-  initHP: 400
+  ignore: "5\uC2A4\uD14C\uBCF4\uC2A4"
+  id: 402
+  division: 5
+  prefab: Boss_Sorcerer
+  initHP: 2500
   useStartHP: 0
   initHPStart: 0
-  typeCounter: 
-  initAttackDamage: 20
-  initAttackSpeed: 2
-  initAttackRange: 1
+  typeCounter: 103
+  initAttackDamage: 100
+  initAttackSpeed: 3
+  initAttackRange: 3
   initAttackStartRange: 1
-  initAttackEnemyCount: 1
-  initAttackOrder: 1
-  initAttackEnemyOrder: 01000000
-  skill: 0
+  initAttackEnemyCount: 3
+  initAttackOrder: 3
+  initAttackEnemyOrder: 010000000200000003000000
+  skill: Boss_Skill
   initHeal: 0
-  initMoveSpeed: 80
+  initMoveSpeed: 15
   price: 0
-  cost: 250
-  spawnTime: 7
+  cost: 0
+  spawnTime: 0
   initDropGold: 0
   initDropExp: 0
-  initDamagedGold: 0
-  initDamagedExp: 0
-  effectAttack: Attack_Warrior
-  effectAttackHit: Hit_Guardian
+  initDamagedGold: 100
+  initDamagedExp: 100
+  effectAttack: 0
+  effectAttackHit: Hit_Sorcerer
   projectile: 0
-  desc: Guardian_explan
+  desc: 
   isTower: 0
-  upgradeDamageID: 102
-  upgradeHPID: 202
+  upgradeDamageID: 0
+  upgradeHPID: 0

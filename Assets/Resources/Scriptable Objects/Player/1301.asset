@@ -31,20 +31,16 @@ MonoBehaviour:
   initHeal: 60
   initMoveSpeed: 80
   price: 20
-  cost: 150
+  cost: 250
   spawnTime: 5
   initDropGold: 0
   initDropExp: 0
+  initDamagedGold: 0
+  initDamagedExp: 0
   effectAttack: 0
   effectAttackHit: Hit_Priest
   projectile: 0
   desc: Priest_explan
   isTower: 0
-  stars_3_CastleHp: 0
-  stars_3_reward: 0
-  stars_2_CastleHp: 0
-  stars_2_reward: 0
-  stars_1_reward: 0
-  repeat_Reward: 0
   upgradeDamageID: 0
   upgradeHPID: 215

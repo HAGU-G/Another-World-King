@@ -35,16 +35,12 @@ MonoBehaviour:
   spawnTime: 0
   initDropGold: 50
   initDropExp: 5000
+  initDamagedGold: 0
+  initDamagedExp: 0
   effectAttack: Attack_Warrior
   effectAttackHit: 0
   projectile: 0
   desc: 
   isTower: 0
-  stars_3_CastleHp: 0
-  stars_3_reward: 0
-  stars_2_CastleHp: 0
-  stars_2_reward: 0
-  stars_1_reward: 0
-  repeat_Reward: 0
   upgradeDamageID: 0
   upgradeHPID: 0

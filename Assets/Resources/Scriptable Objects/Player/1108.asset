@@ -22,11 +22,11 @@ MonoBehaviour:
   typeCounter: 
   initAttackDamage: 50
   initAttackSpeed: 1.5
-  initAttackRange: 3
+  initAttackRange: 1
   initAttackStartRange: 1
-  initAttackEnemyCount: 3
+  initAttackEnemyCount: 1
   initAttackOrder: 1
-  initAttackEnemyOrder: 010000000200000003000000
+  initAttackEnemyOrder: 01000000
   skill: Drain_Skill
   initHeal: 25
   initMoveSpeed: 80
@@ -35,16 +35,12 @@ MonoBehaviour:
   spawnTime: 15
   initDropGold: 0
   initDropExp: 0
+  initDamagedGold: 0
+  initDamagedExp: 0
   effectAttack: Attack_Bloody
   effectAttackHit: 0
   projectile: 0
   desc: Bloody_explan
   isTower: 0
-  stars_3_CastleHp: 0
-  stars_3_reward: 0
-  stars_2_CastleHp: 0
-  stars_2_reward: 0
-  stars_1_reward: 0
-  repeat_Reward: 0
   upgradeDamageID: 110
   upgradeHPID: 210

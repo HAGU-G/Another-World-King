@@ -48,6 +48,8 @@ public class UnitData : ScriptableObject
     public float spawnTime;
     public int initDropGold;
     public int initDropExp;
+    public int initDamagedGold;
+    public int initDamagedExp;
 
     public string effectAttack;
     public string effectAttackHit;
@@ -55,12 +57,6 @@ public class UnitData : ScriptableObject
     public string desc;
 
     public bool isTower = false;
-    public int stars_3_CastleHp;
-    public int stars_3_reward;
-    public int stars_2_CastleHp;
-    public int stars_2_reward;
-    public int stars_1_reward;
-    public int repeat_Reward;
 
     public int upgradeDamageID;
     public int upgradeHPID;

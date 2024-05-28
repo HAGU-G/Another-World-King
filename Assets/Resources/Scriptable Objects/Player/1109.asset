@@ -35,16 +35,12 @@ MonoBehaviour:
   spawnTime: 15
   initDropGold: 0
   initDropExp: 0
+  initDamagedGold: 0
+  initDamagedExp: 0
   effectAttack: 0
   effectAttackHit: Hit_Berserker
   projectile: 0
   desc: Berserker_explan
   isTower: 0
-  stars_3_CastleHp: 0
-  stars_3_reward: 0
-  stars_2_CastleHp: 0
-  stars_2_reward: 0
-  stars_1_reward: 0
-  repeat_Reward: 0
   upgradeDamageID: 111
   upgradeHPID: 211

@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e5390eeabe2e0148bd1783116bb6660, type: 3}
+  m_Script: {fileID: 11500000, guid: e00f376774667e241a74af2ddae582b9, type: 3}
   m_Name: 104
   m_EditorClassIdentifier: 
   ignore: "3\uC2A4\uD14C\uC774\uC9C0"
@@ -35,16 +35,19 @@ MonoBehaviour:
   spawnTime: 0
   initDropGold: 0
   initDropExp: 0
+  initDamagedGold: 0
+  initDamagedExp: 0
   effectAttack: 
   effectAttackHit: 
   projectile: 
   desc: 
   isTower: 1
+  upgradeDamageID: 0
+  upgradeHPID: 0
   stars_3_CastleHp: 1050
   stars_3_reward: 60
   stars_2_CastleHp: 750
   stars_2_reward: 50
   stars_1_reward: 40
   repeat_Reward: 5
-  upgradeDamageID: 0
-  upgradeHPID: 0
+  bossID: 401

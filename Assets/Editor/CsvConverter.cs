@@ -139,6 +139,10 @@ public class Enemy_Csv : UnitData_Csv
 {
     [Index(13)] public int Dead_Gold { get; set; }
     [Index(14)] public int Dead_Exp { get; set; }
+    [Index(15)] public int Per_Gold { get; set; }
+    [Index(16)] public int Per_Exp { get; set; }
+    [Index(17)] public float Speed { get; set; }
+
     public Enemy_Csv() : base() { }
     public Enemy_Csv(UnitData unitData) : base(unitData) { }
 
@@ -147,6 +151,9 @@ public class Enemy_Csv : UnitData_Csv
         base.LoadData(unitData);
         unitData.initDropGold = Dead_Gold;
         unitData.initDropExp = Dead_Exp;
+        unitData.initDamagedGold = Per_Gold;
+        unitData.initDamagedExp = Per_Exp;
+        unitData.initMoveSpeed = Speed;
     }
 
     protected override void SaveData(UnitData unitData)
@@ -154,6 +161,9 @@ public class Enemy_Csv : UnitData_Csv
         base.SaveData(unitData);
         Dead_Gold = unitData.initDropGold;
         Dead_Exp = unitData.initDropExp;
+        Per_Gold = unitData.initDamagedGold;
+        Per_Exp = unitData.initDamagedExp;
+        Speed = unitData.initMoveSpeed;
     }
 
     protected override void CreateData(UnitData unitData)

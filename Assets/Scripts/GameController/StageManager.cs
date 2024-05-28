@@ -1,5 +1,6 @@
 using ScrollBGTest;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class Stage
@@ -18,11 +19,12 @@ public class Stage
     public int Reward_Char3 { get; set; }
     public int Reward_Char4 { get; set; }
     public string String_ID { get; set; }
+    public int Boss_ID { get; set; }
 
 
 #if UNITY_EDITOR
     public Stage() { }
-    public Stage(UnitData stage)
+    public Stage(TowerData stage)
     {
         List = stage.ignore;
         ID = stage.id;
@@ -34,16 +36,17 @@ public class Stage
         Stars_1_reward = stage.stars_1_reward;
         Repeat_Reward = stage.repeat_Reward;
         String_ID = stage.prefab;
+        Boss_ID = stage.bossID;
     }
     public void ToScriptable()
     {
-        UnitData unitData;
+        TowerData unitData;
 
-        unitData = Resources.Load<UnitData>(string.Format(Paths.resourcesStage, ID));
+        unitData = Resources.Load<TowerData>(string.Format(Paths.resourcesStage, ID));
         bool create = false;
         if (unitData == null)
         {
-            unitData = ScriptableObject.CreateInstance<UnitData>();
+            unitData = ScriptableObject.CreateInstance<TowerData>();
             create = true;
         }
 
@@ -58,6 +61,7 @@ public class Stage
         unitData.stars_1_reward = Stars_1_reward;
         unitData.repeat_Reward = Repeat_Reward;
         unitData.prefab = String_ID;
+        unitData.bossID = Boss_ID;
 
         if (create)
         {
@@ -140,7 +144,7 @@ public class StageManager : MonoBehaviour
         Exp = startExp;
 #if UNITY_EDITOR
         Gold += 1000000;
-        //Exp += 1000000;
+        Exp += 1000000;
 #endif
         goldInterval = Time.time;
         InitSummonButton();
@@ -149,7 +153,7 @@ public class StageManager : MonoBehaviour
         InitGameSpeedToggle();
 
         stageCamera.background = Instantiate(Resources.Load<ScrollBackgroundCtrl>(string.Format(Paths.resourcesBackgrounds, DataTableManager.Stages[GameManager.Instance.SelectedStageID].String_ID)), stageCamera.transform);
-        enemyTower.unitData = playerTower.unitData = Resources.Load<UnitData>(string.Format(Paths.resourcesStage, GameManager.Instance.SelectedStageID));
+        enemyTower.unitData = playerTower.unitData = Resources.Load<TowerData>(string.Format(Paths.resourcesStage, GameManager.Instance.SelectedStageID));
         playerTower.isPlayer = true;
         playerTower.ResetUnit();
         playerTower.OnDead += Defeat;
@@ -218,12 +222,14 @@ public class StageManager : MonoBehaviour
         int prevStar = 0;
         int flag = 0;
 
+        var playerTowerData = playerTower.unitData as TowerData;
+
         switch (playerTower.HP)
         {
-            case int hp when hp >= playerTower.unitData.stars_3_CastleHp:
+            case int hp when hp >= playerTowerData.stars_3_CastleHp:
                 star = 3;
                 break;
-            case int hp when hp >= playerTower.unitData.stars_2_CastleHp:
+            case int hp when hp >= playerTowerData.stars_2_CastleHp:
                 star = 2;
                 break;
             default:
@@ -240,13 +246,13 @@ public class StageManager : MonoBehaviour
         {
             flag += i switch
             {
-                3 => playerTower.unitData.stars_3_reward - playerTower.unitData.stars_2_reward,
-                2 => playerTower.unitData.stars_2_reward - playerTower.unitData.stars_1_reward,
-                _ => playerTower.unitData.stars_1_reward
+                3 => playerTowerData.stars_3_reward - playerTowerData.stars_2_reward,
+                2 => playerTowerData.stars_2_reward - playerTowerData.stars_1_reward,
+                _ => playerTowerData.stars_1_reward
             };
         }
 
-        var getFlags = prevStar == 3 ? playerTower.unitData.repeat_Reward : flag;
+        var getFlags = prevStar == 3 ? playerTowerData.repeat_Reward : flag;
         float getFlags_P = 0f;
         foreach (var character in GameManager.Instance.Expedition)
         {
