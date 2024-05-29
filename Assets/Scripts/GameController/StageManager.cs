@@ -89,6 +89,7 @@ public class StageManager : MonoBehaviour
     public int castleDamage;
     public int gameSpeedValue;
     public bool IsTutorial { get; set; }
+    public bool IsShowHUDStat { get; set; }
     #region Player
     public TowerAI playerTower;
     private int gold;

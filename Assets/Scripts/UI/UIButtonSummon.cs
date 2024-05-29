@@ -15,6 +15,7 @@ public class UIButtonSummon : MonoBehaviour
     public Slider cooldown;
     public Image outline;
     public UISlotCharacter uISlotCharacter;
+    public readonly static string upgradeTextFormat = "Lv {0}";
 
     public int DamageUpgradeExp { get; private set; }
     public int DamageUpgradedCount
@@ -45,11 +46,7 @@ public class UIButtonSummon : MonoBehaviour
 
         CharacterInfos.SetData(characterInfos.unitData);
         cost.text = CharacterInfos.unitData.cost.ToString();
-
-        damageUpgradeLabel.SetActive(false);
-        damageUpgradeText.gameObject.SetActive(false);
-        hpUpgradeLabel.SetActive(false);
-        hpUpgradeText.gameObject.SetActive(false);
+        SetUpgradeText();
 
         cooldown.maxValue = CharacterInfos.unitData.spawnTime;
         cooldown.value = 0f;
@@ -95,22 +92,18 @@ public class UIButtonSummon : MonoBehaviour
     }
     public void UpgradeDamage()
     {
-        damageUpgradeLabel.SetActive(true);
-        damageUpgradeText.gameObject.SetActive(true);
         DamageUpgradedCount++;
         SetUpgradeText();
     }
     public void UpgradeHP()
     {
-        hpUpgradeLabel.SetActive(true);
-        hpUpgradeText.gameObject.SetActive(true);
         HPUpgradedCount++;
         SetUpgradeText();
     }
 
     public void SetUpgradeText()
     {
-        damageUpgradeText.text = (DamageUpgradedCount * CharacterInfos.damageOnceUpgradeValue).ToString();
-        hpUpgradeText.text = (HPUpgradedCount * CharacterInfos.hpOnceUpgradeValue).ToString();
+        damageUpgradeText.text = string.Format(upgradeTextFormat,1+DamageUpgradedCount);
+        hpUpgradeText.text = string.Format(upgradeTextFormat, 1 + HPUpgradedCount);
     }
 }

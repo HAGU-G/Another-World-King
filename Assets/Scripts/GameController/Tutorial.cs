@@ -321,7 +321,7 @@ public class Tutorial : MonoBehaviour
         HighlightOn("UpgradeRoot/Upgrade");
         yield return StartCoroutine(CoWaitClick());
 
-        ViewMessage("전하의 지혜를 사용해 원하시는 병사를 선택하고, 체력 혹은 경험치를 업그레이드 할 수 있습니다.\n마침 적을 죽여서 EXP를 얻었으니, 한번 병사를 강화를 해 보시는 걸 추천 드립니다.");
+        ViewMessage("전하의 지혜를 사용해 원하시는 병사를 선택하고, 공격력 혹은 체력을 5번까지 업그레이드 할 수 있습니다.\n마침 적을 죽여서 EXP를 얻었으니, 한번 병사를 강화를 해 보시는 걸 추천 드립니다.");
         SetHighlightColor(Color.yellow);
         textNext.gameObject.SetActive(false);
         StageManager.Instance.uiOnStage.toggleUpgardeDamage.interactable = true;
