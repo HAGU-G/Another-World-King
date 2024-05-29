@@ -14,10 +14,14 @@ public class HUDStat : MonoBehaviour
     }
     private void Update()
     {
-        if(character.IsDead) 
+        if (character.IsDead)
+        {
             gameObject.SetActive(false);
+            return;
+        }
+
         HUDStatOnOff(StageManager.Instance.IsShowHUDStat);
-        transform.localScale = character.isPlayer ? Vectors.filpX : Vector3.one;
+        transform.localScale = character.isPlayer ? Vectors.filpX : (Vector3.one * (character.CurrnetUnitData.id >= 400 ? 0.5f : 1f));
         text.text = string.Format(textFormat, character.AttackDamage, character.HP, character.AttackSpeed);
     }
 

@@ -1,7 +1,12 @@
 using ScrollBGTest;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.Pool;
+using static UnityEditor.Experimental.GraphView.Port;
+using static UnityEngine.UI.CanvasScaler;
 
 public class Stage
 {
@@ -137,7 +142,49 @@ public class StageManager : MonoBehaviour
     private bool canUpgradeDamage;
     private bool canUpgradeHP;
 
+    public IObjectPool<CharacterAI> CharacterAIPool { get; private set; }
+    public CharacterAI characterRoot;
+
     public static StageManager Instance => GameObject.FindWithTag(Tags.player)?.GetComponent<StageManager>();
+
+    private void Awake()
+    {
+        int capacity = 20;
+        CharacterAIPool = new ObjectPool<CharacterAI>(
+            OnCreatePoolObject,
+            OnGetPoolObejct,
+            OnReleasePoolObejct,
+            OnDestroyPoolObejct, true, capacity, 1000);
+        
+        List<CharacterAI> units = new();
+        for (int i = 0; i < capacity; i++)
+        {
+            units.Add(CharacterAIPool.Get());
+        }
+        foreach (var unit in units)
+        {
+            CharacterAIPool.Release(unit);
+        }
+    }
+
+    private CharacterAI OnCreatePoolObject()
+    {
+        var unit = Instantiate(characterRoot, Vector3.down * 100f, Quaternion.Euler(Vector3.up)).GetComponent<CharacterAI>();
+        unit.gameObject.SetActive(false);
+        return unit;
+    }
+    private void OnGetPoolObejct(CharacterAI charAI)
+    {
+        charAI.CurrentStageManager = this;
+        charAI.gameObject.SetActive(true);
+        charAI.Init();
+    }
+    private void OnReleasePoolObejct(CharacterAI charAI)
+    {
+        charAI.gameObject.SetActive(false);
+        charAI.transform.position += Vector3.down * 100f;
+    }
+    private void OnDestroyPoolObejct(CharacterAI charAI) => Destroy(charAI.gameObject);
 
     private void Start()
     {
@@ -154,7 +201,7 @@ public class StageManager : MonoBehaviour
         InitGameSpeedToggle();
 
         stageCamera.background = Instantiate(Resources.Load<ScrollBackgroundCtrl>(string.Format(Paths.resourcesBackgrounds, DataTableManager.Stages[GameManager.Instance.SelectedStageID].String_ID)), stageCamera.transform);
-        enemyTower.unitData = playerTower.unitData = Resources.Load<TowerData>(string.Format(Paths.resourcesStage, GameManager.Instance.SelectedStageID));
+        enemyTower.CurrnetUnitData = playerTower.CurrnetUnitData = Resources.Load<TowerData>(string.Format(Paths.resourcesStage, GameManager.Instance.SelectedStageID));
         playerTower.isPlayer = true;
         playerTower.ResetUnit();
         playerTower.OnDead += Defeat;
@@ -223,7 +270,7 @@ public class StageManager : MonoBehaviour
         int prevStar = 0;
         int flag = 0;
 
-        var playerTowerData = playerTower.unitData as TowerData;
+        var playerTowerData = playerTower.CurrnetUnitData as TowerData;
 
         switch (playerTower.HP)
         {
@@ -238,9 +285,9 @@ public class StageManager : MonoBehaviour
                 break;
         };
 
-        if (GameManager.Instance.StageClearInfo.ContainsKey(playerTower.unitData.id))
+        if (GameManager.Instance.StageClearInfo.ContainsKey(playerTower.CurrnetUnitData.id))
         {
-            prevStar = GameManager.Instance.StageClearInfo[playerTower.unitData.id];
+            prevStar = GameManager.Instance.StageClearInfo[playerTower.CurrnetUnitData.id];
         }
 
         for (int i = prevStar + 1; i <= star; i++)
@@ -328,7 +375,7 @@ public class StageManager : MonoBehaviour
                 canUpgradeDamage = true;
             }
         }
-        uiOnStage.toggleUpgardeDamage.interactable = canUpgradeDamage&& !IsTutorial;
+        uiOnStage.toggleUpgardeDamage.interactable = canUpgradeDamage && !IsTutorial;
 
         canUpgradeHP = false;
         foreach (var buttonsummon in uiOnStage.buttonSummons)
@@ -353,7 +400,7 @@ public class StageManager : MonoBehaviour
 
                 buttonsummon.outline.enabled = x && buttonsummon.DamageUpgradedCount < buttonsummon.DamageUpgradeMaxCount && exp >= buttonsummon.DamageUpgradeExp;
                 buttonsummon.outline.color = Color.red;
-                if(x)
+                if (x)
                 {
                     if (buttonsummon.gameObject.activeSelf
                     && exp >= buttonsummon.DamageUpgradeExp

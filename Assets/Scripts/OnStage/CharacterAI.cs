@@ -23,7 +23,12 @@ public class CharacterAI : UnitBase
     public Rigidbody2D rb;
     public BoxCollider2D attackCollider;
     public Transform dropEffectPosition;
+    public HUDDivision hudDivision;
+    public HUDStat hudStat;
+    public HUDHealthBar hudHealthBar;
+    public Transform bossStatPos;
     private CharacterSound characterSound;
+    private GameObject prefab;
 
     public TowerAI Tower { get; set; }
     private List<UnitBase> enemyInRange = new();
@@ -32,19 +37,55 @@ public class CharacterAI : UnitBase
 
     public bool IsSuicide { get; private set; }
     private float lastAttackTime;
-    private float alphaReduceTime;
+    public float alphaReduceTime = 3f;
+    private float knockbackTime;
+    private float currentAlphaTime;
     private bool isCounterBuffed;
     public bool IsSelfDestruct { get; private set; }
 
     public UNIT_STATE UnitState { get; private set; }
 
-    protected virtual void Awake()
+    private void OnDisable()
+    {
+        Tower = null;
+        enemyInRange.Clear();
+        targets.Clear();
+        blocks.Clear();
+        IsSuicide = false;
+        lastAttackTime = 0f;
+        knockbackTime = 0f;
+        currentAlphaTime = 0f;
+        isCounterBuffed = false;
+        IsSelfDestruct = false;
+        UnitState = UNIT_STATE.IDLE;
+        CurrnetUnitData = null;
+        CurrentStageManager = null;
+        SetInvincibility(false);
+        IsDead = false;
+        SetSkill(null);
+        SetCounterSkill(null);
+        Buff.Clear();
+        damageUpgradeValue = 0;
+        hpUpgradeValue = 0;
+        EvnetClear();
+        if (prefab != null)
+        {
+            Destroy(prefab);
+        }
+    }
+    public void Init()
     {
         OnDead += () => { Dead(); };
 #if UNITY_EDITOR
         var d = Instantiate(Resources.Load(Paths.resourcesDebugStat), transform);
         OnDead += () => { Destroy(d); };
 #endif
+        if (hudDivision != null)
+            hudDivision.gameObject.SetActive(true);
+        if (hudStat != null)
+            hudStat.gameObject.SetActive(true);
+        if (hudHealthBar != null)
+            hudHealthBar.gameObject.SetActive(true);
     }
 
     protected override void Update()
@@ -53,21 +94,28 @@ public class CharacterAI : UnitBase
 
         if (IsDead)
         {
-            if (spriteRenderers != null && spriteRenderers.Length > 0 && Time.time >= alphaReduceTime + 1f / 3f)
+            currentAlphaTime += Time.deltaTime;
+            if (spriteRenderers != null && spriteRenderers.Length > 0)
             {
-                alphaReduceTime = Time.time;
                 foreach (var spriteRenderer in spriteRenderers)
                 {
-                    spriteRenderer.color = new(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, spriteRenderer.color.a - 1f / 9f);
+                    spriteRenderer.color = Color.Lerp(
+                        new(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1f),
+                        new(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0f),
+                        currentAlphaTime / alphaReduceTime);
                 }
+            }
+            if (currentAlphaTime >= alphaReduceTime)
+            {
+                CurrentStageManager.CharacterAIPool.Release(this);
             }
             return;
         }
         if (UnitState == UNIT_STATE.KNOCKBACK)
         {
-            if (Time.time < alphaReduceTime + 1f / 10f)
+            if (Time.time < knockbackTime + 1f / 10f)
                 return;
-            alphaReduceTime = Time.time;
+            knockbackTime = Time.time;
 
             if (Mathf.Sign(rb.velocity.x) == (isPlayer ? -1f : 1f))
             {
@@ -140,7 +188,7 @@ public class CharacterAI : UnitBase
                 if (clipLength > AttackSpeed)
                     speed = clipLength / AttackSpeed;
 
-                animator.speed = speed * unitData.initAttackSpeed / AttackSpeed;
+                animator.speed = speed * CurrnetUnitData.initAttackSpeed / AttackSpeed;
                 animator.ResetTrigger(AnimatorTriggers.move);
                 animator.ResetTrigger(AnimatorTriggers.idle);
                 animator.ResetTrigger(AnimatorTriggers.cantAct);
@@ -214,7 +262,6 @@ public class CharacterAI : UnitBase
         foreach (var c in GetComponents<Collider2D>())
             c.enabled = false;
         Stop();
-        Destroy(gameObject, 3f);
     }
 
     public void CantAct()
@@ -231,13 +278,14 @@ public class CharacterAI : UnitBase
 
     public void SetUnitData(CharacterInfos characterInfos)
     {
-        Instantiate(characterInfos.dress, transform);
-        unitData = characterInfos.unitData;
+        prefab = Instantiate(characterInfos.dress, transform);
+        CurrnetUnitData = characterInfos.unitData;
         SetSkill(characterInfos.skillData);
         SetCounterSkill(characterInfos.counterSkillData);
 
         damageUpgradeValue = characterInfos.damageOnceUpgradeValue * characterInfos.damageUpgradedCount;
         hpUpgradeValue = characterInfos.hpOnceUpgradeValue * characterInfos.hpUpgradedCount;
+        hudDivision.Init();
     }
 
     public override void ResetUnit()
@@ -272,7 +320,8 @@ public class CharacterAI : UnitBase
             };
         }
         characterSound = GetComponentInChildren<CharacterSound>();
-        spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+        spriteRenderers = prefab.GetComponentsInChildren<SpriteRenderer>();
+
         Idle();
     }
 
@@ -283,13 +332,23 @@ public class CharacterAI : UnitBase
         attackCollider.offset = new Vector2(-attackCollider.size.x * 0.5f, 0.2f);
 
         float charScale = 1f;
-        if (!isPlayer && unitData.id >= 400)
+        if (!isPlayer && CurrnetUnitData.id >= 400)
             charScale = 2f;
 
         if (isPlayer)
             transform.localScale = Vectors.filpX * charScale;
         else
             transform.localScale = Vector3.one * charScale;
+
+
+        if (!isPlayer && CurrnetUnitData.id >= 400)
+        {
+            hudStat.transform.position = bossStatPos.position;
+        }
+        else
+        {
+            hudStat.transform.position = dropEffectPosition.position;
+        }
     }
 
     public void SetTower(TowerAI tower)
@@ -325,14 +384,14 @@ public class CharacterAI : UnitBase
         if (enemyInRange.Contains(Tower.enemyTower))
             targets.Add(Tower.enemyTower);
 
-        IsSelfDestruct = (targets.Count == 1 && targets[0].IsTower && (isPlayer || (!isPlayer && unitData.id < 400)));
+        IsSelfDestruct = (targets.Count == 1 && targets[0].IsTower && (isPlayer || (!isPlayer && CurrnetUnitData.id < 400)));
     }
 
     protected virtual void Attack()
     {
         if (UnitState == UNIT_STATE.ATTACK)
             return;
-        if (unitData.division == UnitData.DIVISION.BOMBER && blocks.Count == 0)
+        if (CurrnetUnitData.division == UnitData.DIVISION.BOMBER && blocks.Count == 0)
             return;
 
         UnitState = UNIT_STATE.ATTACK;
@@ -342,7 +401,7 @@ public class CharacterAI : UnitBase
         if (targets != null
             && CounterSkill != null
             && CounterSkill.target == SkillData.TARGET.ONESELF
-            && targets.Find(x => x.unitData.division == CounterSkill.targetDivision) != null)
+            && targets.Find(x => x.CurrnetUnitData.division == CounterSkill.targetDivision) != null)
         {
             ApplyBuff(CounterSkill);
             isCounterBuffed = true;
@@ -361,7 +420,7 @@ public class CharacterAI : UnitBase
             atk = AttackDamage;
             ApplyBuff(CounterSkill);
             counterAtk = AttackDamage;
-            if (isCounterBuffed && target.unitData.division != CounterSkill.targetDivision)
+            if (isCounterBuffed && target.CurrnetUnitData.division != CounterSkill.targetDivision)
                 ClearBuff(CounterSkill);
         }
         else
@@ -371,11 +430,11 @@ public class CharacterAI : UnitBase
         }
 
         PlayAttackEffect();
-        var projectile = Instantiate(Resources.Load<Projectile>(string.Format(Paths.resourcesProjectiles, unitData.projectile)));
+        var projectile = Instantiate(Resources.Load<Projectile>(string.Format(Paths.resourcesProjectiles, CurrnetUnitData.projectile)));
 
 
         var targetPos = target.transform.position + Vector3.left * 0.3f * (isPlayer ? 1f : -1f);
-        if (unitData.division == UnitData.DIVISION.CANNON)
+        if (CurrnetUnitData.division == UnitData.DIVISION.CANNON)
         {
             if (Tower.enemyTower.IsBossPhase && Tower.enemyTower.units.Count > 0)
             {
@@ -445,19 +504,19 @@ public class CharacterAI : UnitBase
                 }
                 else
                 {
-                    if (isCounterBuffed && target.unitData.division != CounterSkill.targetDivision)
+                    if (isCounterBuffed && target.CurrnetUnitData.division != CounterSkill.targetDivision)
                         ClearBuff(CounterSkill);
 
-                    if (unitData.division == UnitData.DIVISION.ARCHER
-                        || unitData.division == UnitData.DIVISION.CANNON)
+                    if (CurrnetUnitData.division == UnitData.DIVISION.ARCHER
+                        || CurrnetUnitData.division == UnitData.DIVISION.CANNON)
                     {
                         LaunchProjectile(out unitAttacked, target);
                     }
                     else
                     {
-                        if (unitData.division == UnitData.DIVISION.BOMBER)
+                        if (CurrnetUnitData.division == UnitData.DIVISION.BOMBER)
                         {
-                            if (!target.isPlayer && target.unitData.id < 400)
+                            if (!target.isPlayer && target.CurrnetUnitData.id < 400)
                                 target.Damaged(AttackDamage);
                             else
                                 target.Damaged(target.MaxHP);
@@ -477,13 +536,13 @@ public class CharacterAI : UnitBase
                         if (!target.IsDead
                             && CounterSkill != null
                             && CounterSkill.target == SkillData.TARGET.ENEMY
-                            && target.unitData.division == CounterSkill.targetDivision)
+                            && target.CurrnetUnitData.division == CounterSkill.targetDivision)
                         {
                             target.ApplyBuff(CounterSkill);
                         }
                     }
 
-                    if (isCounterBuffed && target.unitData.division != CounterSkill.targetDivision)
+                    if (isCounterBuffed && target.CurrnetUnitData.division != CounterSkill.targetDivision)
                         ApplyBuff(CounterSkill);
                 }
                 count++;
@@ -498,7 +557,7 @@ public class CharacterAI : UnitBase
             Healed(Heal);
         }
 
-        if (towerAttacked && (isPlayer || (!isPlayer && unitData.id < 400)))
+        if (towerAttacked && (isPlayer || (!isPlayer && CurrnetUnitData.id < 400)))
             Damaged(MaxHP);
     }
 
@@ -610,7 +669,7 @@ public class CharacterAI : UnitBase
         UnitState = UNIT_STATE.KNOCKBACK;
         SetAnimation(AnimatorTriggers.cantAct);
         rb.velocity = Vector2.left * -transform.localScale.x * 10f;
-        alphaReduceTime = Time.time;
+        knockbackTime = Time.time;
         if (CounterSkill != null)
         {
             ClearBuff(CounterSkill);
@@ -637,12 +696,12 @@ public class CharacterAI : UnitBase
 
     public void PlayAttackEffect()
     {
-        if (unitData.effectAttack == Defines.zero)
+        if (CurrnetUnitData.effectAttack == Defines.zero)
             return;
 
-        if (EffectManager.Instance.EffectPool.ContainsKey(unitData.effectAttack))
+        if (EffectManager.Instance.EffectPool.ContainsKey(CurrnetUnitData.effectAttack))
         {
-            var effect = EffectManager.Instance.EffectPool[unitData.effectAttack].Get();
+            var effect = EffectManager.Instance.EffectPool[CurrnetUnitData.effectAttack].Get();
             effect.gameObject.transform.position = transform.position;
             effect.transform.localScale = isPlayer ? Vectors.filpX : Vector3.one;
         }
@@ -650,12 +709,12 @@ public class CharacterAI : UnitBase
 
     public void PlayHitEffect(Vector3 enemyPos)
     {
-        if (unitData.effectAttackHit == Defines.zero)
+        if (CurrnetUnitData.effectAttackHit == Defines.zero)
             return;
 
-        if (EffectManager.Instance.EffectPool.ContainsKey(unitData.effectAttackHit))
+        if (EffectManager.Instance.EffectPool.ContainsKey(CurrnetUnitData.effectAttackHit))
         {
-            var effect = EffectManager.Instance.EffectPool[unitData.effectAttackHit].Get();
+            var effect = EffectManager.Instance.EffectPool[CurrnetUnitData.effectAttackHit].Get();
             effect.gameObject.transform.position = enemyPos;
             effect.transform.localScale = isPlayer ? Vectors.filpX : Vector3.one;
         }

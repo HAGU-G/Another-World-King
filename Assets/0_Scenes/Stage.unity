@@ -2813,6 +2813,7 @@ MonoBehaviour:
   gameSpeedValue: 2
   playerTower: {fileID: 1370779872}
   enemyTower: {fileID: 1893667659}
+  characterRoot: {fileID: 7057274257859823147, guid: f9025effca4be164faa0dc838d7b9b0e, type: 3}
 --- !u!114 &686351161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4796,10 +4797,10 @@ RectTransform:
   - {fileID: 622814554}
   m_Father: {fileID: 785803551}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 177.80597, y: -71.56}
+  m_SizeDelta: {x: 108.53731, y: 103.119995}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1069688300
 GameObject:
@@ -6601,10 +6602,10 @@ RectTransform:
   - {fileID: 8160798}
   m_Father: {fileID: 785803551}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 59.268654, y: -71.56}
+  m_SizeDelta: {x: 108.53731, y: 103.119995}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1413674066
 MonoBehaviour:

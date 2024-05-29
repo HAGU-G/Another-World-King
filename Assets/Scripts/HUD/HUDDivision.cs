@@ -15,7 +15,7 @@ public class HUDDivision : MonoBehaviour
     public SpriteRenderer circle;
     public SpriteRenderer icon;
 
-    private void Start()
+    public void Init()
     {
         if (stats != null)
         {
@@ -24,7 +24,7 @@ public class HUDDivision : MonoBehaviour
                 circle.flipX = true;
                 icon.flipX = true;
             }
-            SetDivision(stats.unitData.division);
+            SetDivision(stats.CurrnetUnitData.division);
         }
     }
     private void Update()

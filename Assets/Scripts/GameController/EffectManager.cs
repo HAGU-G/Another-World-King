@@ -26,8 +26,6 @@ public class EffectManager : MonoBehaviour
 
     public void AddEffectPool(string key, EffectPoolObject poolObject)
     {
-
-
         if (!EffectPool.ContainsKey(key))
         {
             int capacity = 5;
@@ -43,15 +41,16 @@ public class EffectManager : MonoBehaviour
                 OnDestroyPoolObejct, true, capacity, 1000);
             EffectPool.Add(key, pool);
 
-            List<EffectPoolObject> effects = new();
-            for (int i = 0; i < capacity; i++)
-            {
-                effects.Add(EffectPool[key].Get());
-            }
-            foreach (var effect in effects)
-            {
-                effect.gameObject.SetActive(false);
-            }
+            //이펙트 미리 생성
+            //List<EffectPoolObject> effects = new();
+            //for (int i = 0; i < capacity; i++)
+            //{
+            //    effects.Add(EffectPool[key].Get());
+            //}
+            //foreach (var effect in effects)
+            //{
+            //    effect.gameObject.SetActive(false);
+            //}
         }
     }
 
