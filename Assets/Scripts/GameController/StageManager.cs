@@ -89,6 +89,7 @@ public class StageManager : MonoBehaviour
     public int castleDamage;
     public int gameSpeedValue;
     public bool IsTutorial { get; set; }
+    public bool IsShowHUDStat { get; set; }
     #region Player
     public TowerAI playerTower;
     private int gold;
@@ -262,9 +263,13 @@ public class StageManager : MonoBehaviour
                 getFlags_P += character.skillData.clearFlag_P;
             }
         }
+
         GameManager.Instance.StageClear(GameManager.Instance.SelectedStageID, star, getFlags);
+        if (IsTutorial)
+            return;
         audioSource.PlayOneShot(audioWin);
         uiOnStage.windowStagePause.Victory(star, getFlags);
+
     }
 
 

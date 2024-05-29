@@ -10,6 +10,7 @@ public class UISlotCharacter : MonoBehaviour
 
     public RawImage rawImage;
     public CharacterInfos characterInfos;
+    public UIIconDivision uiIconDivision;
 
     public void SetData(CharacterInfos characterInfos)
     {
@@ -21,6 +22,7 @@ public class UISlotCharacter : MonoBehaviour
         {
             rawImage.uvRect = GameObject.FindWithTag(Tags.uiManager).GetComponent<UIManager>().AddSlotRenderers(characterInfos.dress);
         }
+        uiIconDivision.SetDivision(characterInfos.unitData.division);
     }
 
     public void ViewUnderSlotName()

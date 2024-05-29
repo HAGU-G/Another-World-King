@@ -30,6 +30,7 @@ public class CharacterAI : UnitBase
     private List<UnitBase> targets = new();
     private List<UnitBase> blocks = new();
 
+    public bool IsSuicide { get; private set; }
     private float lastAttackTime;
     private float alphaReduceTime;
     private bool isCounterBuffed;
@@ -263,7 +264,11 @@ public class CharacterAI : UnitBase
             eventListener.onAttackHit += AttackHit;
             eventListener.onAttackEnd += AttackEnd;
             eventListener.onPlayAttackEffect += PlayAttackEffect;
-            eventListener.onKillSelf += () => { Damaged(MaxHP); };
+            eventListener.onKillSelf += () => 
+            {
+                IsSuicide = true;
+                Damaged(MaxHP); 
+            };
         }
         characterSound = GetComponentInChildren<CharacterSound>();
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
@@ -319,7 +324,7 @@ public class CharacterAI : UnitBase
         if (enemyInRange.Contains(Tower.enemyTower))
             targets.Add(Tower.enemyTower);
 
-        IsSelfDestruct = (targets.Count == 1 && targets[0].IsTower && (isPlayer || (!isPlayer &&unitData.id<400)));
+        IsSelfDestruct = (targets.Count == 1 && targets[0].IsTower && (isPlayer || (!isPlayer && unitData.id < 400)));
     }
 
     protected virtual void Attack()
@@ -397,7 +402,7 @@ public class CharacterAI : UnitBase
         TargetFiltering();
         if (IsHealer)
         {
-            if (GetOrder() == 1 && targets != null && targets.Count == 1)
+            if (GetOrder() == 1 && targets != null && targets.Count >= 1)
             {
                 if (targets[0].IsTower)
                 {
@@ -451,10 +456,10 @@ public class CharacterAI : UnitBase
                     {
                         if (unitData.division == UnitData.DIVISION.BOMBER)
                         {
-                            if (target.unitData.id < 400)
-                                target.Damaged(target.MaxHP);
-                            else
+                            if (!target.isPlayer && target.unitData.id < 400)
                                 target.Damaged(AttackDamage);
+                            else
+                                target.Damaged(target.MaxHP);
                         }
                         else
                         {

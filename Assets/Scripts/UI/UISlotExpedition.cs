@@ -10,6 +10,7 @@ public class UISlotExpedition : MonoBehaviour,IDeselectHandler
     public CharacterInfos characterInfos;
     public UISlotCharacter slot;
     public event System.Action onDeselect;
+    public UIIconDivision uiIconDivision;
 
     public void OnDeselect(BaseEventData eventData)
     {
@@ -24,6 +25,7 @@ public class UISlotExpedition : MonoBehaviour,IDeselectHandler
             this.characterInfos = null;
             textName.text = string.Empty;
             slot.gameObject.SetActive(false);
+            uiIconDivision.gameObject.SetActive(false);
         }
         else
         {
@@ -31,6 +33,8 @@ public class UISlotExpedition : MonoBehaviour,IDeselectHandler
             slot.SetData(characterInfos);
             this.characterInfos = characterInfos;
             textName.text = DataTableManager.GetString(characterInfos.unitData.prefab);
+            uiIconDivision.gameObject.SetActive(true);
+            uiIconDivision.SetDivision(characterInfos.unitData.division);
         }
     }
 }

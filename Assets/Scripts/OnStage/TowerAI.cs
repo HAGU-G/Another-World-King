@@ -175,7 +175,7 @@ public class TowerAI : UnitBase
         {
             unit.OnDead += () =>
             {
-                if (!unit.IsSelfDestruct)
+                if (!unit.IsSelfDestruct && !unit.IsSuicide)
                 {
                     stage.GetGold(unit.unitData.initDropGold);
                     stage.GetExp(unit.unitData.initDropExp);

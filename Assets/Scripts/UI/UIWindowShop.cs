@@ -12,6 +12,8 @@ public class UIWindowShop : UIWindow
     public Button buttonBack;
     public Button purchase;
     public Button cancel;
+
+    public RectTransform flagRect;
     public TextMeshProUGUI flags;
 
     public UIPopupShop popup;
@@ -19,18 +21,39 @@ public class UIWindowShop : UIWindow
     private CharacterInfos select;
     private UISlotCharacterInShop selectSlot;
 
+    private void Awake()
+    {
+        var popupCorners = new Vector3[4];
+        var FlagCorners = new Vector3[4];
+        popup.GetComponent<RectTransform>().GetWorldCorners(popupCorners);
+        flagRect.GetWorldCorners(FlagCorners);
+        if (popupCorners[2].x > FlagCorners[0].x)
+        {
+            popup.transform.position += Vector3.right * (FlagCorners[0].x - popupCorners[2].x);
+        }
+
+    }
+
     private void Start()
     {
         ClosePopup();
         buttonBack.onClick.AddListener(() => { uiMain.Open(); Close(); ClosePopup(); });
         cancel.onClick.AddListener(ClosePopup);
-
     }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            uiMain.Open(); Close();
+            GameManager.Instance.PlayAudioBack();
+            if (popup.gameObject.activeSelf)
+            {
+                ClosePopup();
+            }
+            else
+            {
+                uiMain.Open();
+                Close();
+            }
         }
     }
 
@@ -117,7 +140,7 @@ public class UIWindowShop : UIWindow
                 {
                     select = slot.slot.characterInfos;
                     selectSlot = slot;
-                    popup.SetData(selectSlot.slot.rawImage.uvRect, selectSlot);
+                    popup.SetData(selectSlot);
                 }
                 else if (selectSlot == slot)
                 {

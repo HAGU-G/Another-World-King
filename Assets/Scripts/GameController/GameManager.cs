@@ -21,8 +21,10 @@ public class GameManager : MonoBehaviour
 
     public AudioSource musicPlayer;
     public AudioSource uiSoundPlayer;
-    public bool DoneTutorial { get; set; }
+    public AudioClip audioBack;
+    public bool IsDoneTutorial { get; set; }
     public bool IsFastGameSpeed { get; set; }
+    public bool IsSettingPlayTutorial { get; set; }
 
     private int flags;
     public int Flags
@@ -174,5 +176,10 @@ public class GameManager : MonoBehaviour
         Instance.musicPlayer.Stop();
         Instance.musicPlayer.clip = clip;
         Instance.musicPlayer.Play();
+    }
+
+    public void PlayAudioBack()
+    {
+        Instance.uiSoundPlayer.PlayOneShot(audioBack);
     }
 }
