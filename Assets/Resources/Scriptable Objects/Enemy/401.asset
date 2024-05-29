@@ -16,13 +16,13 @@ MonoBehaviour:
   id: 401
   division: 2
   prefab: Boss_Guardian
-  initHP: 2000
+  initHP: 3000
   useStartHP: 0
   initHPStart: 0
   typeCounter: 
   initAttackDamage: 400
   initAttackSpeed: 3
-  initAttackRange: 1
+  initAttackRange: 1.1
   initAttackStartRange: 1.1
   initAttackEnemyCount: 1
   initAttackOrder: 1
@@ -35,7 +35,7 @@ MonoBehaviour:
   spawnTime: 0
   initDropGold: 0
   initDropExp: 0
-  initDamagedGold: 100
+  initDamagedGold: 50
   initDamagedExp: 100
   effectAttack: Attack_Warrior
   effectAttackHit: 0

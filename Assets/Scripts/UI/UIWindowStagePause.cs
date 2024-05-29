@@ -13,6 +13,7 @@ public class UIWindowStagePause : UIWindow
     public Button restart;
     public Button goMain;
     public Toggle[] stars;
+    public readonly static string flagTextFormat = "+{0}";
 
     private float currentTimeScale;
 
@@ -38,7 +39,7 @@ public class UIWindowStagePause : UIWindow
             starCount--;
         }
         audioSource.Play();
-        flags.text = flag.ToString();
+        flags.text = string.Format(flagTextFormat,flag);
         title.text = Defines.victory;
     }
 

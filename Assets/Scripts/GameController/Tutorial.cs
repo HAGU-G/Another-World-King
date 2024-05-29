@@ -25,6 +25,9 @@ public class Tutorial : MonoBehaviour
     public AudioClip bgmStory;
 
     public GameObject tutorialUI;
+    public RayReceiver tutorialRayReceiver;
+    public GameObject popupSkipStory;
+    public GameObject popupSkipTuto;
 
     private bool wait;
     private bool isSkipChecked;
@@ -33,6 +36,8 @@ public class Tutorial : MonoBehaviour
 
     private Coroutine coStory;
     private Coroutine coTutorial;
+
+    private float prevTimeScale;
 
     private void Start()
     {
@@ -58,7 +63,7 @@ public class Tutorial : MonoBehaviour
                 if (GameManager.Instance.touchManager.receiver.ReceivedLastFrame)
                     Next();
             }
-            else
+            else if (tutorialRayReceiver.ReceivedLastFrame)
             {
                 Next();
             }
@@ -114,8 +119,8 @@ public class Tutorial : MonoBehaviour
     private IEnumerator CoWaitClick()
     {
         wait = true;
-        if (!isSkipChecked)
-            touchBlocker.gameObject.SetActive(true);
+        touchBlocker.gameObject.SetActive(true);
+        tutorialRayReceiver.gameObject.SetActive(true);
         textNext.gameObject.SetActive(true);
         while (wait)
             yield return null;
@@ -125,6 +130,7 @@ public class Tutorial : MonoBehaviour
     {
         wait = false;
         touchBlocker.gameObject.SetActive(false);
+        tutorialRayReceiver.gameObject.SetActive(false);
     }
 
     private void SetHighlightColor(Color color)
@@ -414,5 +420,22 @@ public class Tutorial : MonoBehaviour
         GameManager.Instance.touchManager.receiver.gameObject.SetActive(value);
     }
 
-
+    public void PopupSkipStoryOnOff(bool value)
+    {
+        popupSkipStory.SetActive(value);
+    }
+    public void PopupSkipTutoOnOff(bool value)
+    {
+        if (value)
+        {
+            prevTimeScale = Time.timeScale;
+            Time.timeScale = 0f;
+            popupSkipTuto.SetActive(true);
+        }
+        else
+        {
+            popupSkipTuto.SetActive(false);
+            Time.timeScale = prevTimeScale;
+        }
+    }
 }

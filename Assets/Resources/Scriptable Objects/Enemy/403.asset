@@ -16,14 +16,14 @@ MonoBehaviour:
   id: 403
   division: 1
   prefab: Boss_Demonking
-  initHP: 2500
+  initHP: 3500
   useStartHP: 0
   initHPStart: 0
   typeCounter: 101
   initAttackDamage: 400
   initAttackSpeed: 3
-  initAttackRange: 1
-  initAttackStartRange: 1
+  initAttackRange: 1.1
+  initAttackStartRange: 1.1
   initAttackEnemyCount: 1
   initAttackOrder: 1
   initAttackEnemyOrder: 01000000
@@ -35,7 +35,7 @@ MonoBehaviour:
   spawnTime: 0
   initDropGold: 0
   initDropExp: 0
-  initDamagedGold: 100
+  initDamagedGold: 50
   initDamagedExp: 100
   effectAttack: Attack_Warrior
   effectAttackHit: 0

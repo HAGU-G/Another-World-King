@@ -4,9 +4,9 @@ List,ID,Division,Pattern_1,Waiting_Time_1,Weight_1,Pattern_2,Waiting_Time_2,Weig
 스테이지1_1,102,1,Pattern1,4,5,Pattern1,4,3,Pattern7,4,2,0,0,0
 스테이지1_2,202,2,Pattern1,4,4,Pattern1,4,3,Pattern2,4,2,Pattern7,4,1
 스테이지1_3,302,3,Pattern1,4,4,Pattern12,4,3,Pattern32,4,2,Pattern33,4,2
-스테이지2_1,103,1,Pattern2,4,5,Pattern2,4,3,Pattern7,4,2,0,0,0
-스테이지2_2,203,2,Pattern2,4,4,Pattern2,4,3,Pattern8,4,2,Pattern16,4,1
-스테이지2_3,303,3,Pattern2,4,3,Pattern34,4,3,Pattern16,4,2,Pattern17,4,2
+스테이지2_1,103,1,Pattern2,6,5,0,0,0,Pattern7,5,2,0,0,0
+스테이지2_2,203,2,Pattern2,6,4,0,0,0,Pattern8,4,2,Pattern16,6,1
+스테이지2_3,303,3,Pattern2,6,3,Pattern34,5,3,Pattern16,5,2,Pattern17,5,2
 스테이지3_1,104,1,Pattern1,4,3,Pattern7,4,4,Pattern7,4,3,0,0,0
 스테이지3_2,204,2,Pattern7,4,3,Pattern35,5,3,Pattern12,5,2,Pattern36,5,2
 스테이지4_1,105,1,Pattern2,4,3,Pattern8,4,4,Pattern8,4,3,0,0,0
