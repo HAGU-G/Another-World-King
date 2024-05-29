@@ -155,6 +155,7 @@ public class CharacterAI : UnitBase
                 switch (trigger)
                 {
                     case string s when s == AnimatorTriggers.move:
+                        animator.speed = MoveSpeed / 80f;
                         animator.ResetTrigger(AnimatorTriggers.idle);
                         animator.ResetTrigger(AnimatorTriggers.cantAct);
                         break;
@@ -264,10 +265,10 @@ public class CharacterAI : UnitBase
             eventListener.onAttackHit += AttackHit;
             eventListener.onAttackEnd += AttackEnd;
             eventListener.onPlayAttackEffect += PlayAttackEffect;
-            eventListener.onKillSelf += () => 
+            eventListener.onKillSelf += () =>
             {
                 IsSuicide = true;
-                Damaged(MaxHP); 
+                Damaged(MaxHP);
             };
         }
         characterSound = GetComponentInChildren<CharacterSound>();

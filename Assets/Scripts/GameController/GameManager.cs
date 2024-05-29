@@ -47,13 +47,7 @@ public class GameManager : MonoBehaviour
         get => selectedStageID;
         set
         {
-#if UNITY_EDITOR
-            selectedStageID = Mathf.Clamp(value, DataTableManager.MinStageID, DataTableManager.MaxStageID);
-#else
-            int max = (DataTableManager.MinStageID + StageClearInfo.Count) < DataTableManager.MaxStageID
-                ? (DataTableManager.MinStageID + StageClearInfo.Count) : DataTableManager.MaxStageID;
-            selectedStageID = Mathf.Clamp(value, DataTableManager.MinStageID + (DoneTutorial ? 1 : 0), max);
-#endif
+            selectedStageID = Mathf.Clamp(value, DataTableManager.MinStageID + (IsDoneTutorial ? 1 : 0), DataTableManager.MaxStageID);
         }
     }
     public Dictionary<int, int> StageClearInfo { get; private set; } = new();

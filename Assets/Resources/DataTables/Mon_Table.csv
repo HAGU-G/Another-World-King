@@ -11,6 +11,6 @@ List,ID,Division,Hp,Attack,A_Speed,A_Range,Chr_Position,My_Effect,Target_Effect,
 스나이퍼,203,3,100,50,0.5,4,3,Attack_Archer,Hit_Archer,Projectile_Sniper,0,Mon_Sniper,250,110,0,0,80
 대포,204,7,200,30,1,1,1,0,Hit_Cannon,Projectile_Cannon,0,Mon_Cannon,200,120,0,0,80
 스턴,301,6,100,20,3,2,2,0,Hit_Shaman,0,Stun_Skill,Mon_Shaman,200,100,0,0,80
-3스테보스,401,2,3000,400,3,1.1,1,Attack_Warrior,0,0,0,Boss_Guardian,0,0,50,100,15
+3스테보스,401,2,3000,400,3,1.1,1,Attack_Boss1,0,0,0,Boss_Guardian,0,0,50,100,15
 5스테보스,402,5,3500,100,3,1.1,3,0,Hit_Sorcerer,0,Boss_Skill,Boss_Sorcerer,0,0,50,100,15
 7스테보스,403,1,3500,400,3,1.1,1,Attack_Warrior,0,0,0,Boss_Demonking,0,0,50,100,15

@@ -45,13 +45,6 @@ public class UIWindowMain : UIWindow
 
     public override void Refresh()
     {
-        foreach (var characterInfo in GameManager.Instance.Expedition)
-        {
-            buttonPlay.interactable = characterInfo != null;
-            if (buttonPlay.interactable)
-                break;
-        }
-
         var selectedID = GameManager.Instance.SelectedStageID;
 
         flags.text = GameManager.Instance.Flags.ToString();
@@ -61,10 +54,7 @@ public class UIWindowMain : UIWindow
         currentStageImage.sprite = Resources.Load<Sprite>(string.Format(Paths.resourcesImages, stageStringID));
         SetMostManyMonster(selectedID);
 
-        if (DataTableManager.Stages[selectedID].Boss_ID != 0)
-            iconBoss.SetActive(true);
-        else
-            iconBoss.SetActive(false);
+        iconBoss.SetActive(DataTableManager.Stages[selectedID].Boss_ID != 0);
 
         int count = 0;
         if (GameManager.Instance.StageClearInfo.ContainsKey(selectedID))
@@ -75,15 +65,27 @@ public class UIWindowMain : UIWindow
             count--;
         }
 
-        if(selectedID == DataTableManager.MinStageID)
-            buttonPrevStage.interactable = false;
-        else
-            buttonPrevStage.interactable = true;
+        buttonPrevStage.interactable = selectedID != DataTableManager.MinStageID;
+        buttonNextStage.interactable = selectedID != DataTableManager.MaxStageID;
 
-        if (selectedID == DataTableManager.MaxStageID)
-            buttonNextStage.interactable = false;
+        
+
+        int max = (DataTableManager.MinStageID + GameManager.Instance.StageClearInfo.Count) < DataTableManager.MaxStageID
+                ? (DataTableManager.MinStageID + GameManager.Instance.StageClearInfo.Count) : DataTableManager.MaxStageID;
+        if (selectedID <= max)
+        {
+            foreach (var characterInfo in GameManager.Instance.Expedition)
+            {
+                buttonPlay.interactable = characterInfo != null;
+                if (buttonPlay.interactable)
+                    break;
+            }
+        }
         else
-            buttonNextStage.interactable = true;
+        {
+            buttonPlay.interactable = false;
+        }
+
     }
 
     private void Update()
@@ -97,7 +99,7 @@ public class UIWindowMain : UIWindow
             }
             else
             {
-                PopupGameExitOnOff(!popupGameExit.activeSelf); 
+                PopupGameExitOnOff(!popupGameExit.activeSelf);
             }
         }
     }
