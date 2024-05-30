@@ -33,7 +33,7 @@ MonoBehaviour:
   price: 0
   cost: 0
   spawnTime: 0
-  initDropGold: 150
+  initDropGold: 100
   initDropExp: 90
   initDamagedGold: 0
   initDamagedExp: 0

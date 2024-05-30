@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -46,7 +44,17 @@ public class UIPopupSetting : MonoBehaviour
     }
     public void PlayTutorial()
     {
-        GameManager.Instance.IsSettingPlayTutorial = true;
+        var gm = GameManager.Instance;
+        gm.IsSettingPlayTutorial = true;
+        gm.PrevExpedition.Clear();
+        foreach (var character in gm.Expedition)
+        {
+            if (character != null)
+                gm.PrevExpedition.Add(character.unitData.id);
+            else
+                gm.PrevExpedition.Add(0);
+        }
+        gm.PrevSelectedStageID = gm.SelectedStageID;
         GameManager.Instance.LoadingScene(Scenes.title);
     }
     public void PopupOnOff(bool value)

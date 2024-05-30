@@ -1,12 +1,15 @@
 using Newtonsoft.Json;
 using System.IO;
 using UnityEngine;
+using System.Security.Cryptography;
 using SaveVersionClass = SaveV1;
 
 public static class SaveManager
 {
-    private static string saveDirectory = $"{Application.persistentDataPath}/save";
-    private static string saveFile = "save.king";
+    private static readonly string saveDirectory = $"{Application.persistentDataPath}/save";
+    private static readonly string saveFile = "save_v_2.king";
+    private static readonly string key = "fje1f553d54fe3g9";
+
 
     private static Save saveData;
 
@@ -19,7 +22,7 @@ public static class SaveManager
         var gm = GameManager.Instance;
 
 #if !UNITY_EDITOR
-        save.doneTutorial = gm.DoneTutorial;
+        save.doneTutorial = gm.IsDoneTutorial;
 #endif
         save.flags = gm.Flags;
         foreach (var id in gm.UnlockedID)
@@ -62,14 +65,27 @@ public static class SaveManager
 
         if (!Directory.Exists(saveDirectory))
             Directory.CreateDirectory(saveDirectory);
+
         var path = Path.Combine(saveDirectory, saveFile);
-        using (var writer = new JsonTextWriter(new StreamWriter(path)))
+        using (var stringWriter = new StringWriter())
         {
-            var serializer = new JsonSerializer();
-            serializer.Formatting = Formatting.Indented;
-            serializer.TypeNameHandling = TypeNameHandling.All;
-            serializer.Serialize(writer, save);
+            using (var jsonWriter = new JsonTextWriter(stringWriter))
+            {
+                var serializer = new JsonSerializer();
+                serializer.Formatting = Formatting.Indented;
+                serializer.TypeNameHandling = TypeNameHandling.All;
+                serializer.Serialize(jsonWriter, save);
+            }
+            using (var fileWriter = new StreamWriter(path))
+            {
+                byte[] bytes = System.Text.Encoding.UTF8.GetBytes(stringWriter.ToString());
+
+                ICryptoTransform cryptoTransform = NewRijndaeManaged().CreateEncryptor();
+                byte[] result = cryptoTransform.TransformFinalBlock(bytes, 0, bytes.Length);
+                fileWriter.Write(System.Convert.ToBase64String(result, 0, result.Length));
+            }
         }
+
     }
 
     public static void GameLoad()
@@ -82,12 +98,20 @@ public static class SaveManager
         if (!File.Exists(path))
             return;
 
-        using (var reader = new JsonTextReader(new StreamReader(path)))
+        using (var fileReader = new StreamReader(path))
         {
-            var serializer = new JsonSerializer();
-            serializer.Formatting = Formatting.Indented;
-            serializer.TypeNameHandling = TypeNameHandling.All;
-            saveData = serializer.Deserialize<Save>(reader);
+           var readString =  fileReader.ReadToEnd();
+            byte[] bytes = System.Convert.FromBase64String(readString);
+
+            ICryptoTransform cryptoTransform2 = NewRijndaeManaged().CreateDecryptor();
+            byte[] result = cryptoTransform2.TransformFinalBlock(bytes, 0, bytes.Length);
+            using (var reader = new JsonTextReader(new StringReader(System.Text.Encoding.UTF8.GetString(result))))
+            {
+                var serializer = new JsonSerializer();
+                serializer.Formatting = Formatting.Indented;
+                serializer.TypeNameHandling = TypeNameHandling.All;
+                saveData = serializer.Deserialize<Save>(reader);
+            }
         }
 
         var load = saveData as SaveVersionClass;
@@ -138,5 +162,19 @@ public static class SaveManager
         }
     }
 
+
+    public static RijndaelManaged NewRijndaeManaged()
+    {
+        byte[] keys = System.Text.Encoding.UTF8.GetBytes(key);
+        byte[] newKeys = new byte[keys.Length];
+        System.Array.Copy(keys, 0, newKeys, 0, keys.Length);
+
+        RijndaelManaged rijndaelManaged = new RijndaelManaged();
+        rijndaelManaged.Key = newKeys;
+        rijndaelManaged.Mode = CipherMode.ECB;
+        rijndaelManaged.Padding = PaddingMode.PKCS7;
+
+        return rijndaelManaged;
+    }
 
 }

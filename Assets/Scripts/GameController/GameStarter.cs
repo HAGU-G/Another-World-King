@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
-using static UnityEngine.Rendering.DebugUI;
 
 public class GameStarter : MonoBehaviour
 {
@@ -11,6 +8,7 @@ public class GameStarter : MonoBehaviour
     private void Awake()
     {
 #if UNITY_ANDROID_API
+        //Application.targetFrameRate = 60;
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
 #endif
         SaveManager.GameLoad();

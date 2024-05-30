@@ -1,6 +1,4 @@
-﻿using UnityEditor.PackageManager.Requests;
-
-public static class AnimatorTriggers
+﻿public static class AnimatorTriggers
 {
     public static readonly string idle = "Idle";
     public static readonly string move = "Move";

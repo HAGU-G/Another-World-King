@@ -3,7 +3,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static UnityEngine.Rendering.DebugUI;
 
 public class Tutorial : MonoBehaviour
 {
@@ -45,7 +44,6 @@ public class Tutorial : MonoBehaviour
         if (GameManager.Instance.IsSettingPlayTutorial)
         {
             isSkipChecked = true;
-            GameManager.Instance.IsSettingPlayTutorial = false;
             LoadTutorialStage();
         }
     }
@@ -95,7 +93,6 @@ public class Tutorial : MonoBehaviour
 
         if (GameManager.Instance.IsDoneTutorial)
         {
-            GameManager.Instance.SelectedStageID++;
             GameManager.Instance.LoadingScene(Scenes.main);
         }
         else
@@ -228,7 +225,14 @@ public class Tutorial : MonoBehaviour
         if (!GameManager.Instance.IsDoneTutorial)
             PlayerPrefs.SetInt(Defines.playerfrabsStorySkip, 1);
 
-        LoadTutorialStage();
+        if (GameManager.Instance.IsDoneTutorial)
+        {
+            GameManager.Instance.LoadingScene(Scenes.main);
+        }
+        else
+        {
+            LoadTutorialStage();
+        }
     }
     public void SkipTutorial()
     {
@@ -236,11 +240,27 @@ public class Tutorial : MonoBehaviour
         GameManager.Instance.IsDoneTutorial = true;
         StageManager.Instance.IsTutorial = true;
         StageManager.Instance.Victory();
-        GameManager.Instance.SelectedStageID++;
         Time.timeScale = 1f;
         SetCanMoveCamera(true);
+        if(GameManager.Instance.IsSettingPlayTutorial)
+        {
+            GameManager.Instance.IsSettingPlayTutorial = false;
+            LoadPrevInfo();
+        }
+        else
+        {
+            GameManager.Instance.SelectedStageID++;
+        }
         GameManager.Instance.LoadingScene(Scenes.main);
         Destroy(gameObject);
+    }
+    public void LoadPrevInfo()
+    {
+        GameManager.Instance.SelectedStageID = GameManager.Instance.PrevSelectedStageID;
+        for (int i = 0; i < GameManager.Instance.PrevExpedition.Count; i++)
+        {
+            GameManager.Instance.SetExpedition(GameManager.Instance.PrevExpedition[i], i);
+        }
     }
 
     private IEnumerator Co_ViewTutorial()
@@ -257,6 +277,7 @@ public class Tutorial : MonoBehaviour
         StageManager.Instance.uiOnStage.pause.gameObject.SetActive(false);
         StageManager.Instance.uiOnStage.toggleGameSpeedFast.gameObject.SetActive(false);
         StageManager.Instance.uiOnStage.toggleGameSpeedNormal.gameObject.SetActive(false);
+        StageManager.Instance.uiOnStage.toggleUnitInfo.gameObject.SetActive(false);
         //시간 정지
         Time.timeScale = 0f;
         //카메라 움직임 방지
@@ -410,7 +431,15 @@ public class Tutorial : MonoBehaviour
         StageManager.Instance.IsTutorial = false;
         Time.timeScale = 1f;
         StageManager.Instance.Victory();
-        GameManager.Instance.SelectedStageID++;
+        if (GameManager.Instance.IsSettingPlayTutorial)
+        {
+            GameManager.Instance.IsSettingPlayTutorial = false;
+            LoadPrevInfo();
+        }
+        else
+        {
+            GameManager.Instance.SelectedStageID++;
+        }
         Destroy(gameObject);
 
     }

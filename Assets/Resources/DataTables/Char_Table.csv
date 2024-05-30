@@ -1,7 +1,7 @@
 List,ID,Division,Hp,Attack,A_Speed,A_Range,Chr_Position,My_Effect,Target_Effect,A_Effect_Image,Skill,String_ID,Spawn_Price,Spawn_Time,Char_Info,Shop_Value,Upgrade_ID_AT,Upgrade_ID_DF
 전사,1101,1,150,60,1.5,1,1,Attack_Warrior,0,0,0,Warrior,200,5,Warrior_explan,0,101,201
 탱커,1102,2,400,20,2,1,1,Attack_Warrior,Hit_Guardian,0,0,Guardian,300,7,Guardian_explan,0,102,202
-광부,1103,1,200,20,1,1,1,Attack_Mine,0,0,Gold_Skill,Mine,150,10,Mine_explan,30,105,205
+광부,1103,1,200,30,1,1,1,Attack_Mine,0,0,Gold_Skill,Mine,100,10,Mine_explan,30,105,205
 기수,1104,1,150,30,1.5,1,1,0,0,0,Plag_Skill,Banner,150,3,Banner_explan,40,106,206
 해머,1105,1,150,100,2,1,1,0,Hit_Olaf,0,0,Olaf,250,10,Olaf_explan,40,107,207
 폭발,1106,8,100,300,3,1,1,Attack_Bomber,0,0,Bomber_Skill,Bomber,350,15,Bomber_explan,40,108,208

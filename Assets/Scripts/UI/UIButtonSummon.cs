@@ -1,7 +1,6 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements.Experimental;
 
 public class UIButtonSummon : MonoBehaviour
 {
@@ -15,7 +14,7 @@ public class UIButtonSummon : MonoBehaviour
     public Slider cooldown;
     public Image outline;
     public UISlotCharacter uISlotCharacter;
-    public readonly static string upgradeTextFormat = "Lv {0}";
+    public static readonly string upgradeTextFormat = "Lv {0}";
 
     public int DamageUpgradeExp { get; private set; }
     public int DamageUpgradedCount

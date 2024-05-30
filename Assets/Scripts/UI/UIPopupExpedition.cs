@@ -1,8 +1,6 @@
-using System.Diagnostics.Tracing;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UIElements;
 
 public class UIPopupExpedition : MonoBehaviour, IDeselectHandler
 {
@@ -104,4 +102,9 @@ public class UIPopupExpedition : MonoBehaviour, IDeselectHandler
     {
         Popup(false);
     }
+
+    //public void OnPointerDown(PointerEventData eventData)
+    //{
+    //    Popup(false);
+    //}
 }
