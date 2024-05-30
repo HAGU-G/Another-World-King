@@ -133,22 +133,37 @@ public class UIWindowMain : UIWindow
                 }
             }
 
-            int monsterID = 0;
-            int mostWeight = 0;
-            foreach (var monster in monsters)
+            Dictionary<UnitData.DIVISION, int> divisions = new();
+            foreach(var monster in monsters)
             {
                 if (monster.Key == 0)
                     continue;
-                if (monster.Value > mostWeight)
+
+                var division = Resources.Load<UnitData>(string.Format(Paths.resourcesEnemy, monster.Key)).division;
+                if (division == UnitData.DIVISION.BOMBER
+                    || division == UnitData.DIVISION.CANNON)
                 {
-                    monsterID = monster.Key;
-                    mostWeight = monster.Value;
+                    division = UnitData.DIVISION.NONE;
                 }
-                //Debug.Log($"{monster.Key} {monster.Value}");
+                if(divisions.ContainsKey(division))
+                    divisions[division] += monster.Value;
+                else
+                    divisions.Add(division, monster.Value);
             }
 
-            if (monsterID != 0)
-                iconDivision.SetDivision(Resources.Load<UnitData>(string.Format(Paths.resourcesEnemy, monsterID)).division);
+            UnitData.DIVISION mostDivision = 0;
+            int mostWeight = 0;
+            foreach (var dv in divisions)
+            {
+                if (dv.Value > mostWeight)
+                {
+                    mostDivision = dv.Key;
+                    mostWeight = dv.Value;
+                }
+            }
+
+            iconDivision.SetDivision(mostDivision);
+
         }
         else
         {

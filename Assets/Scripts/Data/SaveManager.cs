@@ -7,7 +7,7 @@ using SaveVersionClass = SaveV1;
 public static class SaveManager
 {
     private static readonly string saveDirectory = $"{Application.persistentDataPath}/save";
-    private static readonly string saveFile = "save_v_2.king";
+    private static readonly string saveFile = "save_obt.king";
     private static readonly string key = "fje1f553d54fe3g9";
 
 
@@ -140,6 +140,7 @@ public static class SaveManager
             else
                 GameManager.Instance.SetExpedition(null, i);
         }
+        GameManager.Instance.SelectedStageID = load.selectedStageID;
     }
 
     public static void GameReset()

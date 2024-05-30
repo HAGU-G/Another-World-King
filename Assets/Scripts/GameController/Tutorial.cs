@@ -222,9 +222,6 @@ public class Tutorial : MonoBehaviour
     {
         StopCoroutine(coStory);
 
-        if (!GameManager.Instance.IsDoneTutorial)
-            PlayerPrefs.SetInt(Defines.playerfrabsStorySkip, 1);
-
         if (GameManager.Instance.IsDoneTutorial)
         {
             GameManager.Instance.LoadingScene(Scenes.main);
@@ -237,6 +234,10 @@ public class Tutorial : MonoBehaviour
     public void SkipTutorial()
     {
         StopCoroutine(coTutorial);
+
+        if (!GameManager.Instance.IsDoneTutorial)
+            PlayerPrefs.SetInt(Defines.playerfrabsStorySkip, 1);
+
         GameManager.Instance.IsDoneTutorial = true;
         StageManager.Instance.IsTutorial = true;
         StageManager.Instance.Victory();
@@ -426,6 +427,10 @@ public class Tutorial : MonoBehaviour
 
         ViewMessage("전하. 모의전투가 끝이 났습니다. 이제부터는 마왕군이 침략하고 있는 왕국을 구하기 위해서 출정을 떠날 차례입니다.\n희망이 없는 상황이지만..저는 총명했던 전하의 능력을 믿습니다.\n꼭 왕국을 구원하고 이 나라의 백성들을 구하는 영웅이 되시옵소서.");
         yield return StartCoroutine(CoWaitClick());
+
+
+        if (!GameManager.Instance.IsDoneTutorial)
+            PlayerPrefs.SetInt(Defines.playerfrabsStorySkip, 1);
 
         GameManager.Instance.IsDoneTutorial = true;
         StageManager.Instance.IsTutorial = false;

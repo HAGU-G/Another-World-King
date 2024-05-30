@@ -68,7 +68,7 @@ public class Projectile : MonoBehaviour
         {
             if (!hitUnit.IsTower && collision.isTrigger)
                 return;
-            if (isTowerTargeting && !hitUnit.IsTower)
+            if (isTowerTargeting != hitUnit.IsTower)
                 return;
 
             hitUnit.Damaged(hitUnit.CurrnetUnitData.division == counterDivision ? counterDamage : damage);

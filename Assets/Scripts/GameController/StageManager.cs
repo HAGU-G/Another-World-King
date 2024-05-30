@@ -1,4 +1,5 @@
 using ScrollBGTest;
+using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -151,7 +152,7 @@ public class StageManager : MonoBehaviour
             OnGetPoolObejct,
             OnReleasePoolObejct,
             OnDestroyPoolObejct, true, capacity, 1000);
-        
+
         List<CharacterAI> units = new();
         for (int i = 0; i < capacity; i++)
         {
@@ -165,9 +166,10 @@ public class StageManager : MonoBehaviour
 
     private CharacterAI OnCreatePoolObject()
     {
-        var unit = Instantiate(characterRoot, Vector3.down * 100f, Quaternion.Euler(Vector3.up)).GetComponent<CharacterAI>();
-        unit.gameObject.SetActive(false);
-        return unit;
+        var charAI = Instantiate(characterRoot, Vector3.down * 10000f, Quaternion.Euler(Vector3.up)).GetComponent<CharacterAI>();
+        charAI.hudHealthBar.sliderRoot.transform.position += Vector3.down * 10000f;
+        charAI.gameObject.SetActive(false);
+        return charAI;
     }
     private void OnGetPoolObejct(CharacterAI charAI)
     {
@@ -177,8 +179,8 @@ public class StageManager : MonoBehaviour
     }
     private void OnReleasePoolObejct(CharacterAI charAI)
     {
+        charAI.hudHealthBar.sliderRoot.transform.position += Vector3.down * 10000f;
         charAI.gameObject.SetActive(false);
-        charAI.transform.position += Vector3.down * 100f;
     }
     private void OnDestroyPoolObejct(CharacterAI charAI) => Destroy(charAI.gameObject);
 

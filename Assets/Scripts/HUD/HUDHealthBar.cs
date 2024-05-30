@@ -17,9 +17,6 @@ public class HUDHealthBar : MonoBehaviour
 
     private void Update()
     {
-        if (!gameObject.activeSelf)
-            return;
-
         UpdateHealthBar();
         if (stats.IsDead && !stats.IsTower)
             gameObject.SetActive(false);
