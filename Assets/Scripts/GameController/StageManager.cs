@@ -1,12 +1,8 @@
 using ScrollBGTest;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEditor;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.Pool;
-using static UnityEditor.Experimental.GraphView.Port;
-using static UnityEngine.UI.CanvasScaler;
 
 public class Stage
 {

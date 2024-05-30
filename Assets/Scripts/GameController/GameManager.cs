@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
     public bool IsDoneTutorial { get; set; }
     public bool IsFastGameSpeed { get; set; }
     public bool IsSettingPlayTutorial { get; set; }
+    public List<int> PrevExpedition { get; set; } = new();
+    public int PrevSelectedStageID { get; set; }
 
     private int flags;
     public int Flags
@@ -47,7 +49,7 @@ public class GameManager : MonoBehaviour
         get => selectedStageID;
         set
         {
-            selectedStageID = Mathf.Clamp(value, DataTableManager.MinStageID + (IsDoneTutorial ? 1 : 0), DataTableManager.MaxStageID);
+            selectedStageID = Mathf.Clamp(value, DataTableManager.MinStageID + ((IsDoneTutorial && !IsSettingPlayTutorial) ? 1 : 0), DataTableManager.MaxStageID);
         }
     }
     public Dictionary<int, int> StageClearInfo { get; private set; } = new();
@@ -103,10 +105,16 @@ public class GameManager : MonoBehaviour
     public void SetExpedition(int id, int index)
     {
         UnitData character = Resources.Load<UnitData>(string.Format(Paths.resourcesPlayer, id));
-
-        var characterInfos = new CharacterInfos();
-        characterInfos.SetData(character);
-        SetExpedition(characterInfos, index);
+        if (character == null)
+        {
+            SetExpedition(null, index);
+        }
+        else
+        {
+            var characterInfos = new CharacterInfos();
+            characterInfos.SetData(character);
+            SetExpedition(characterInfos, index);
+        }
     }
 
 

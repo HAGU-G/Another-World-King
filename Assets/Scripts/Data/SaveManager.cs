@@ -22,7 +22,7 @@ public static class SaveManager
         var gm = GameManager.Instance;
 
 #if !UNITY_EDITOR
-        save.doneTutorial = gm.DoneTutorial;
+        save.doneTutorial = gm.IsDoneTutorial;
 #endif
         save.flags = gm.Flags;
         foreach (var id in gm.UnlockedID)
@@ -105,7 +105,6 @@ public static class SaveManager
 
             ICryptoTransform cryptoTransform2 = NewRijndaeManaged().CreateDecryptor();
             byte[] result = cryptoTransform2.TransformFinalBlock(bytes, 0, bytes.Length);
-            Debug.Log(System.Text.Encoding.UTF8.GetString(result));
             using (var reader = new JsonTextReader(new StringReader(System.Text.Encoding.UTF8.GetString(result))))
             {
                 var serializer = new JsonSerializer();

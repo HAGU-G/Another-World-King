@@ -16,6 +16,7 @@ public abstract class UIWindow : MonoBehaviour
     public virtual void Close()
     {
         gameObject.SetActive(false);
+        SaveManager.GameSave();
     }
 
     public virtual void Refresh()

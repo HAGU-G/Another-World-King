@@ -20,7 +20,7 @@ MonoBehaviour:
   useStartHP: 0
   initHPStart: 0
   typeCounter: 101
-  initAttackDamage: 20
+  initAttackDamage: 30
   initAttackSpeed: 1
   initAttackRange: 1
   initAttackStartRange: 1
@@ -31,7 +31,7 @@ MonoBehaviour:
   initHeal: 0
   initMoveSpeed: 80
   price: 30
-  cost: 150
+  cost: 100
   spawnTime: 10
   initDropGold: 0
   initDropExp: 0
