@@ -22,28 +22,25 @@ MonoBehaviour:
   typeCounter: 101
   initAttackDamage: 100
   initAttackSpeed: 2
-  initAttackRange: 2
-  initAttackEnemyCount: 0
+  initAttackRange: 1
+  initAttackStartRange: 1
+  initAttackEnemyCount: 1
   initAttackOrder: 1
   initAttackEnemyOrder: 01000000
   skill: 0
   initHeal: 0
   initMoveSpeed: 80
   price: 40
-  cost: 200
+  cost: 250
   spawnTime: 10
   initDropGold: 0
   initDropExp: 0
+  initDamagedGold: 0
+  initDamagedExp: 0
   effectAttack: 0
   effectAttackHit: Hit_Olaf
   projectile: 0
   desc: Olaf_explan
   isTower: 0
-  stars_3_CastleHp: 0
-  stars_3_reward: 0
-  stars_2_CastleHp: 0
-  stars_2_reward: 0
-  stars_1_reward: 0
-  repeat_Reward: 0
   upgradeDamageID: 107
   upgradeHPID: 207

@@ -15,7 +15,8 @@ public class UnitData : ScriptableObject
         HEALER,
         MAGIC,
         SPECIAL,
-        CANNON
+        CANNON,
+        BOMBER
     }
 
     public string ignore; //Don't use in game
@@ -33,7 +34,8 @@ public class UnitData : ScriptableObject
     public int initAttackDamage;
     public float initAttackSpeed;
     public float initAttackRange;
-    public int initAttackEnemyCount;
+    public float initAttackStartRange;
+    public int initAttackEnemyCount = 1;
     public int initAttackOrder;
     public List<int> initAttackEnemyOrder = new() { 1 };
     public string skill;
@@ -46,6 +48,8 @@ public class UnitData : ScriptableObject
     public float spawnTime;
     public int initDropGold;
     public int initDropExp;
+    public int initDamagedGold;
+    public int initDamagedExp;
 
     public string effectAttack;
     public string effectAttackHit;
@@ -53,12 +57,6 @@ public class UnitData : ScriptableObject
     public string desc;
 
     public bool isTower = false;
-    public int stars_3_CastleHp;
-    public int stars_3_reward;
-    public int stars_2_CastleHp;
-    public int stars_2_reward;
-    public int stars_1_reward;
-    public int repeat_Reward;
 
     public int upgradeDamageID;
     public int upgradeHPID;

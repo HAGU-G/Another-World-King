@@ -9,12 +9,14 @@ public class TowerAI : UnitBase
     public List<CharacterAI> units { get; private set; } = new();
     public List<int> waitingUnits = new();
 
+    private TowerData towerData => CurrnetUnitData as TowerData;
     private bool isBlocked;
     private float nextSpawnTime;
     private float waitTime;
     private bool isPatternEnd = true;
     private int phase;
     private bool isStopSpawn;
+    public bool IsBossPhase { get; private set; }
 
     public void SetStopSpawn(bool stopSpawn)
     {
@@ -31,17 +33,54 @@ public class TowerAI : UnitBase
                     units[i].Damaged(units[i].MaxHP);
             };
         };
-        OnDamaged += () =>
+
+        if (!isPlayer)
         {
-            if (phase < 2 && HP <= MaxHP * 0.5f)
+            OnDamaged += () =>
             {
-                phase = 2;
-                foreach (var unit in enemyTower.units)
+                if (phase < 2 && HP <= MaxHP * 0.5f)
                 {
-                    unit.Knockback();
+                    phase = 2;
+                    if (towerData.bossID == 0)
+                    {
+                        foreach (var unit in enemyTower.units)
+                        {
+                            unit.Knockback();
+                        }
+                    }
+
                 }
-            }
-        };
+                if (phase < 3 && HP <= MaxHP * 0.3f)
+                {
+                    phase = 3;
+                    if (towerData.bossID != 0)
+                    {
+                        foreach (var unit in enemyTower.units)
+                        {
+                            unit.Knockback();
+                        }
+
+                        waitingUnits.Clear();
+                        waitingUnits.Add(towerData.bossID);
+                        nextSpawnTime = Time.time;
+                    }
+                }
+            };
+        }
+        else
+        {
+            OnDamaged += () =>
+            {
+                if (phase < 2 && HP <= MaxHP * 0.5f)
+                {
+                    phase = 2;
+                    foreach (var unit in enemyTower.units)
+                    {
+                        unit.Knockback();
+                    }
+                }
+            };
+        }
     }
     protected override void Start()
     {
@@ -58,15 +97,15 @@ public class TowerAI : UnitBase
         if (Input.GetKeyDown(KeyCode.Delete))
             Damaged(100);
 #endif
-        if (isStopSpawn)
+        if (isStopSpawn || IsBossPhase)
             return;
 
         if (isPatternEnd && Time.time >= nextSpawnTime)
         {
             int stageID = GameManager.Instance.SelectedStageID;
-            if (HP <= MaxHP * 0.3f)
+            if (phase == 2)
                 stageID += 200;
-            else if (HP <= MaxHP * 0.5f)
+            else if (phase == 3)
                 stageID += 100;
 
             while (stageID >= 200 && !DataTableManager.MonsterAppares.ContainsKey(stageID))
@@ -91,7 +130,8 @@ public class TowerAI : UnitBase
             CharacterInfos enemy = new();
             enemy.SetData(Resources.Load<UnitData>(string.Format(Paths.resourcesEnemy, waitingUnits[0])));
             SpawnUnit(enemy);
-            waitingUnits.RemoveAt(0);
+            if (waitingUnits.Count > 0)
+                waitingUnits.RemoveAt(0);
         }
 
         if (!isPatternEnd && waitingUnits.Count == 0)
@@ -125,20 +165,42 @@ public class TowerAI : UnitBase
 
     public void SpawnUnit(CharacterInfos characterInfos)
     {
-        var unit = Instantiate(characterRoot, transform.position, Quaternion.Euler(Vector3.up)).GetComponent<CharacterAI>();
+        var unit = stage.CharacterAIPool.Get();
+        unit.transform.position = transform.position;
         unit.SetUnitData(characterInfos);
         unit.ResetUnit();
         unit.SetTower(this);
         unit.OnDead += () => { units.Remove(unit); };
         if (!isPlayer)
+        {
             unit.OnDead += () =>
             {
-                if (!unit.IsSelfDestruct)
+                if (!unit.IsSelfDestruct && !unit.IsSuicide)
                 {
-                    stage.GetExp(unit.unitData.initDropExp);
-                    stage.GetGold(unit.unitData.initDropGold);
+                    stage.GetGold(unit.CurrnetUnitData.initDropGold);
+                    stage.GetExp(unit.CurrnetUnitData.initDropExp);
+                    var effectDrop = EffectManager.Instance.EffectPool[Effects.effectDrop].Get();
+                    effectDrop.transform.position = unit.dropEffectPosition.position;
+                    (effectDrop as EffectPoolDrop).SetValue(unit.CurrnetUnitData.initDropGold, unit.CurrnetUnitData.initDropExp);
                 }
             };
+
+            if (unit.CurrnetUnitData.id >= 400)
+            {
+                unit.GetComponentInChildren<CharacterAnimationEventListner>().onDeadAnimationEnd += () => { Damaged(MaxHP); };
+            
+                unit.OnDamaged += () =>
+                {
+                    stage.GetGold(unit.CurrnetUnitData.initDamagedGold);
+                    stage.GetExp(unit.CurrnetUnitData.initDamagedExp);
+                    var effectDrop = EffectManager.Instance.EffectPool[Effects.effectDrop].Get();
+                    effectDrop.transform.position = unit.dropEffectPosition.position;
+                    (effectDrop as EffectPoolDrop).SetValue(unit.CurrnetUnitData.initDamagedGold, unit.CurrnetUnitData.initDamagedExp);
+                };
+                IsBossPhase = true;
+                waitingUnits.Clear();
+            }
+        }
         units.Add(unit);
     }
 

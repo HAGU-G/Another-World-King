@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 3481531425032647151}
   - component: {fileID: 5207259976063893578}
   - component: {fileID: 6464848120765120811}
-  - component: {fileID: 7483311908800750203}
   - component: {fileID: -547611261630076577}
+  - component: {fileID: 9183663991985564525}
   m_Layer: 0
   m_Name: Attack_Alchemist
   m_TagString: Untagged
@@ -55,7 +55,7 @@ ParticleSystem:
   serializedVersion: 8
   lengthInSec: 1
   simulationSpeed: 1
-  stopAction: 0
+  stopAction: 1
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
@@ -4854,18 +4854,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &7483311908800750203
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 863429879592591854}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e468965dff39994ca6612877779c408, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!210 &-547611261630076577
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -4878,6 +4866,18 @@ SortingGroup:
   m_SortingLayer: 3
   m_SortingOrder: 0
   m_SortAtRoot: 0
+--- !u!114 &9183663991985564525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 863429879592591854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d9ec647eafc1de4682f00816d7663fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1787509054004477859
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,16 +12,20 @@ public class UIWindowStagePause : UIWindow
     public Button restart;
     public Button goMain;
     public Toggle[] stars;
+    public readonly static string flagTextFormat = "+{0}";
+
+    private float currentTimeScale;
 
     private void Awake()
     {
-        back.onClick.AddListener(() => { Time.timeScale = 1f; Close(); });
-        restart.onClick.AddListener(() => { Time.timeScale = 1f; GameManager.Instance.LoadingScene(Scenes.stage); });
-        goMain.onClick.AddListener(() => { Time.timeScale = 1f; GameManager.Instance.LoadingScene(Scenes.main); });
+        back.onClick.AddListener(() => { Time.timeScale = currentTimeScale; Close(); });
+        restart.onClick.AddListener(() => { Time.timeScale = currentTimeScale; GameManager.Instance.LoadingScene(Scenes.stage); });
+        goMain.onClick.AddListener(() => { Time.timeScale = currentTimeScale; GameManager.Instance.LoadingScene(Scenes.main); });
     }
 
     public void Victory(int starCount, int flag)
     {
+        currentTimeScale =Time.timeScale;
         Time.timeScale = 0f;
         Open();
         back.gameObject.SetActive(false);
@@ -34,12 +38,13 @@ public class UIWindowStagePause : UIWindow
             starCount--;
         }
         audioSource.Play();
-        flags.text = flag.ToString();
+        flags.text = string.Format(flagTextFormat,flag);
         title.text = Defines.victory;
     }
 
     public void Defeat()
     {
+        currentTimeScale = Time.timeScale;
         Time.timeScale = 0f;
         Open();
         back.gameObject.SetActive(false);
@@ -54,6 +59,7 @@ public class UIWindowStagePause : UIWindow
     }
     public void Pause()
     {
+        currentTimeScale = Time.timeScale;
         Time.timeScale = 0f;
         Open();
         win.SetActive(false);

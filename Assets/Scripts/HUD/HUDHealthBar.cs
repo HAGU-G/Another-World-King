@@ -1,13 +1,44 @@
 using UnityEngine;
+using UnityEngine.UI;
 
-[RequireComponent(typeof(UnitBase))]
 public class HUDHealthBar : MonoBehaviour
 {
     public UnitBase stats;
-    public SpriteRenderer healthBar;
+    public Slider healthBar;
+    public RectTransform sliderRoot;
+    public RectTransform leftPosision;
+    public RectTransform rightPosision;
+
+    private void Start()
+    {
+        gameObject.SetActive(true);
+        UpdateHealthBar();
+    }
 
     private void Update()
     {
-        healthBar.transform.localScale = new Vector3(Mathf.Lerp(0f, 0.5f, (float)stats.HP / stats.MaxHP), 0.05f, 1.0f);
+        UpdateHealthBar();
+        if (stats.IsDead && !stats.IsTower)
+            gameObject.SetActive(false);
+    }
+
+    private void UpdateHealthBar()
+    {
+        healthBar.value = (float)stats.HP / stats.MaxHP;
+        sliderRoot.position = Camera.main.WorldToScreenPoint(stats.transform.position);
+        if (stats.IsTower)
+        {
+            if (stats.isPlayer 
+                & leftPosision.position.x < Screen.safeArea.xMin)
+            {
+                sliderRoot.position -= new Vector3(leftPosision.position.x - Screen.safeArea.xMin, 0f);
+            }
+            else if (!stats.isPlayer
+                && rightPosision.position.x > Screen.safeArea.xMax)
+            {
+                sliderRoot.position -= new Vector3(rightPosision.position.x - Screen.safeArea.xMax, 0f);
+            }
+        }
+
     }
 }

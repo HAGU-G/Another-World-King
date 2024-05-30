@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static Demo_Project.SceneManager;
 
 
 namespace Demo_Project

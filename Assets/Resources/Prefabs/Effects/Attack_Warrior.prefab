@@ -34286,8 +34286,8 @@ GameObject:
   - component: {fileID: 8669686536258560255}
   - component: {fileID: 5069186395637674201}
   - component: {fileID: 3834213586654520725}
-  - component: {fileID: -7950244422101502206}
   - component: {fileID: 8845398288487503597}
+  - component: {fileID: 2335532244434429499}
   m_Layer: 7
   m_Name: Attack_Warrior
   m_TagString: Untagged
@@ -39114,18 +39114,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &-7950244422101502206
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2642749838293771946}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e468965dff39994ca6612877779c408, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!210 &8845398288487503597
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -39138,3 +39126,15 @@ SortingGroup:
   m_SortingLayer: 3
   m_SortingOrder: 0
   m_SortAtRoot: 0
+--- !u!114 &2335532244434429499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2642749838293771946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d9ec647eafc1de4682f00816d7663fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

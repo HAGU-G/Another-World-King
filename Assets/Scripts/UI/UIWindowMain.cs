@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,6 +19,17 @@ public class UIWindowMain : UIWindow
     public Image currentStageImage;
     public TextMeshProUGUI flags;
 
+    public GameObject iconBoss;
+    public UIIconDivision iconDivision;
+    public GameObject monsterMessage;
+
+    public GameObject popupGameExit;
+    public GameObject popupCharacterUnlock;
+    public GameObject unlockCharacters;
+    public UISlotCharacter uiSlotCharacter;
+
+    public UIPopupSetting popupSetting;
+
     private void Start()
     {
         Refresh();
@@ -26,38 +38,168 @@ public class UIWindowMain : UIWindow
         buttonExpedition.onClick.AddListener(() => { expedition.Open(); Close(); });
         buttonShop.onClick.AddListener(() => { shop.Open(); Close(); });
         buttonPlay.onClick.AddListener(() => { GameManager.Instance.LoadingScene(Scenes.stage); });
+        if (GameManager.Instance.NewCharacters.Count > 0)
+            PopupCharacterUnlockOnOff(true);
     }
 
     public override void Refresh()
     {
-        foreach (var characterInfo in GameManager.Instance.Expedition)
-        {
-            buttonPlay.interactable = characterInfo != null;
-            if (buttonPlay.interactable)
-                break;
-        }
+        var selectedID = GameManager.Instance.SelectedStageID;
 
         flags.text = GameManager.Instance.Flags.ToString();
-        var stageStringID = DataTableManager.Stages[GameManager.Instance.SelectedStageID].String_ID;
+        var stageStringID = DataTableManager.Stages[selectedID].String_ID;
         currentStage.text = DataTableManager.GetString(stageStringID);
 
         currentStageImage.sprite = Resources.Load<Sprite>(string.Format(Paths.resourcesImages, stageStringID));
+        SetMostManyMonster(selectedID);
+
+        iconBoss.SetActive(DataTableManager.Stages[selectedID].Boss_ID != 0);
 
         int count = 0;
-        if (GameManager.Instance.StageClearInfo.ContainsKey(GameManager.Instance.SelectedStageID))
-            count = GameManager.Instance.StageClearInfo[GameManager.Instance.SelectedStageID];
+        if (GameManager.Instance.StageClearInfo.ContainsKey(selectedID))
+            count = GameManager.Instance.StageClearInfo[selectedID];
         foreach (var star in stars)
         {
             star.isOn = count > 0;
             count--;
         }
+
+        buttonPrevStage.interactable = selectedID != DataTableManager.MinStageID;
+        buttonNextStage.interactable = selectedID != DataTableManager.MaxStageID;
+
+        
+
+        int max = (DataTableManager.MinStageID + GameManager.Instance.StageClearInfo.Count) < DataTableManager.MaxStageID
+                ? (DataTableManager.MinStageID + GameManager.Instance.StageClearInfo.Count) : DataTableManager.MaxStageID;
+        if (selectedID <= max)
+        {
+            foreach (var characterInfo in GameManager.Instance.Expedition)
+            {
+                buttonPlay.interactable = characterInfo != null;
+                if (buttonPlay.interactable)
+                    break;
+            }
+        }
+        else
+        {
+            buttonPlay.interactable = false;
+        }
+
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Application.Quit();
+            GameManager.Instance.PlayAudioBack();
+            if (popupSetting.gameObject.activeSelf)
+            {
+                popupSetting.PopupOnOff(false);
+            }
+            else
+            {
+                PopupGameExitOnOff(!popupGameExit.activeSelf);
+            }
+        }
+    }
+
+    private void SetMostManyMonster(int selectedID)
+    {
+        if (DataTableManager.MonsterAppares.ContainsKey(selectedID))
+        {
+            iconDivision.gameObject.SetActive(true);
+            Dictionary<int, int> monsters = new();
+            for (int i = 0; i < 3; i++)
+            {
+                int appareID = selectedID + i * 100;
+                if (!DataTableManager.MonsterAppares.ContainsKey(appareID))
+                    continue;
+                foreach (var patternSet in DataTableManager.MonsterAppares[appareID].PatternSets)
+                {
+                    if (monsters.ContainsKey(DataTableManager.Patterns[patternSet.pattern].Monster_1))
+                        monsters[DataTableManager.Patterns[patternSet.pattern].Monster_1] += patternSet.weight;
+                    else
+                        monsters.Add(DataTableManager.Patterns[patternSet.pattern].Monster_1, patternSet.weight);
+
+                    if (monsters.ContainsKey(DataTableManager.Patterns[patternSet.pattern].Monster_2))
+                        monsters[DataTableManager.Patterns[patternSet.pattern].Monster_2] += patternSet.weight;
+                    else
+                        monsters.Add(DataTableManager.Patterns[patternSet.pattern].Monster_2, patternSet.weight);
+
+                    if (monsters.ContainsKey(DataTableManager.Patterns[patternSet.pattern].Monster_3))
+                        monsters[DataTableManager.Patterns[patternSet.pattern].Monster_3] += patternSet.weight;
+                    else
+                        monsters.Add(DataTableManager.Patterns[patternSet.pattern].Monster_3, patternSet.weight);
+                }
+            }
+
+            Dictionary<UnitData.DIVISION, int> divisions = new();
+            foreach(var monster in monsters)
+            {
+                if (monster.Key == 0)
+                    continue;
+
+                var division = Resources.Load<UnitData>(string.Format(Paths.resourcesEnemy, monster.Key)).division;
+                if (division == UnitData.DIVISION.BOMBER
+                    || division == UnitData.DIVISION.CANNON)
+                {
+                    division = UnitData.DIVISION.NONE;
+                }
+                if(divisions.ContainsKey(division))
+                    divisions[division] += monster.Value;
+                else
+                    divisions.Add(division, monster.Value);
+            }
+
+            UnitData.DIVISION mostDivision = 0;
+            int mostWeight = 0;
+            foreach (var dv in divisions)
+            {
+                if (dv.Value > mostWeight)
+                {
+                    mostDivision = dv.Key;
+                    mostWeight = dv.Value;
+                }
+            }
+
+            iconDivision.SetDivision(mostDivision);
+
+        }
+        else
+        {
+            iconDivision.gameObject.SetActive(false);
+        }
+    }
+    public void MonsterMessageOnOff(bool value)
+    {
+        monsterMessage.SetActive(value);
+    }
+
+    public void GameExit()
+    {
+        Application.Quit();
+    }
+
+    public void PopupGameExitOnOff(bool value)
+    {
+        popupGameExit.SetActive(value);
+    }
+
+    public void PopupCharacterUnlockOnOff(bool value)
+    {
+        popupCharacterUnlock.SetActive(value);
+        if (value)
+        {
+            foreach (var newCharacter in GameManager.Instance.NewCharacters)
+            {
+                var slotNewCharacter = Instantiate(uiSlotCharacter, unlockCharacters.transform);
+                CharacterInfos newCharacterInfos = new CharacterInfos();
+                newCharacterInfos.SetData(Resources.Load<UnitData>(string.Format(Paths.resourcesPlayer, newCharacter)));
+                slotNewCharacter.SetData(newCharacterInfos);
+                slotNewCharacter.ViewUnderSlotName();
+                slotNewCharacter.toggle.interactable = false;
+            }
+            GameManager.Instance.NewCharacters.Clear();
         }
     }
 }

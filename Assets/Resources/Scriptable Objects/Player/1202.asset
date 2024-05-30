@@ -23,6 +23,7 @@ MonoBehaviour:
   initAttackDamage: 80
   initAttackSpeed: 2
   initAttackRange: 2
+  initAttackStartRange: 2
   initAttackEnemyCount: 2
   initAttackOrder: 2
   initAttackEnemyOrder: 0100000002000000
@@ -34,16 +35,12 @@ MonoBehaviour:
   spawnTime: 7
   initDropGold: 0
   initDropExp: 0
+  initDamagedGold: 0
+  initDamagedExp: 0
   effectAttack: 0
   effectAttackHit: Hit_Sorcerer
   projectile: 0
   desc: Sorcerer_explan
   isTower: 0
-  stars_3_CastleHp: 0
-  stars_3_reward: 0
-  stars_2_CastleHp: 0
-  stars_2_reward: 0
-  stars_1_reward: 0
-  repeat_Reward: 0
   upgradeDamageID: 104
   upgradeHPID: 204

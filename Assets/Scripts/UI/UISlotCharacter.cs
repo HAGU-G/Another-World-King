@@ -6,17 +6,27 @@ public class UISlotCharacter : MonoBehaviour
 {
     public Toggle toggle;
     public TextMeshProUGUI textName;
+    public TextMeshProUGUI textNameUnderSlot;
+
     public RawImage rawImage;
     public CharacterInfos characterInfos;
+    public UIIconDivision uiIconDivision;
 
     public void SetData(CharacterInfos characterInfos)
     {
         this.characterInfos = characterInfos;
-        textName.text = DataTableManager.GetString(characterInfos.unitData.prefab);
+        var name = DataTableManager.GetString(characterInfos.unitData.prefab);
+        textName.text = textNameUnderSlot.text = name;
 
         if (characterInfos.dress != null)
         {
             rawImage.uvRect = GameObject.FindWithTag(Tags.uiManager).GetComponent<UIManager>().AddSlotRenderers(characterInfos.dress);
         }
+        uiIconDivision.SetDivision(characterInfos.unitData.division);
+    }
+
+    public void ViewUnderSlotName()
+    {
+        textNameUnderSlot.gameObject.SetActive(true);
     }
 }

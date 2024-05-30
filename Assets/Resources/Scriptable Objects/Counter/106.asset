@@ -19,9 +19,9 @@ MonoBehaviour:
   applyDivision: 0
   applyCharID: 1303
   targetDivision: 5
-  nesting: 1
-  duration: 2
-  infinityDuration: 0
+  nesting: 0
+  duration: 0
+  infinityDuration: 1
   doResetDurationOnApply: 0
   hp: 0
   hp_P: 0
@@ -44,4 +44,5 @@ MonoBehaviour:
   onApplyGold: 0
   onApplyExp: 0
   onApplyDrain: 0
-  sturn: 1
+  sturn: 0
+  skillDuration: 1

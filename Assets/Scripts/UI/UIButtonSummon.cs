@@ -5,16 +5,31 @@ using UnityEngine.UI;
 public class UIButtonSummon : MonoBehaviour
 {
     public TextMeshProUGUI cost;
-    public TextMeshProUGUI characterName;
+    public GameObject damageUpgradeLabel;
+    public TextMeshProUGUI damageUpgradeText;
+    public GameObject hpUpgradeLabel;
+    public TextMeshProUGUI hpUpgradeText;
     public Button button;
     public CharacterInfos CharacterInfos { get; private set; } = new();
     public Slider cooldown;
     public Image outline;
     public UISlotCharacter uISlotCharacter;
+    public static readonly string upgradeTextFormat = "Lv {0}";
 
-    public int UpgradeExpDamage { get; private set; }
-    public int UpgradeExpHP { get; private set; }
-    public bool IsUpgraded { get; set; }
+    public int DamageUpgradeExp { get; private set; }
+    public int DamageUpgradedCount
+    {
+        get => CharacterInfos.damageUpgradedCount;
+        private set => CharacterInfos.damageUpgradedCount = value;
+    }
+    public int DamageUpgradeMaxCount { get; private set; }
+    public int HPUpgradeExp { get; private set; }
+    public int HPUpgradedCount
+    {
+        get => CharacterInfos.hpUpgradedCount;
+        private set => CharacterInfos.hpUpgradedCount = value;
+    }
+    public int HPUpgradeMaxCount { get; private set; }
 
     public void SetData(CharacterInfos characterInfos)
     {
@@ -31,28 +46,26 @@ public class UIButtonSummon : MonoBehaviour
         CharacterInfos.SetData(characterInfos.unitData);
         cost.text = CharacterInfos.unitData.cost.ToString();
         SetUpgradeText();
+
         cooldown.maxValue = CharacterInfos.unitData.spawnTime;
         cooldown.value = 0f;
 
         if (DataTableManager.Upgrades.ContainsKey(CharacterInfos.unitData.upgradeDamageID))
         {
-            UpgradeExpDamage = DataTableManager.Upgrades[CharacterInfos.unitData.upgradeDamageID].Exp;
-            CharacterInfos.upgradeDamage = DataTableManager.Upgrades[CharacterInfos.unitData.upgradeDamageID].Value;
-        }
-        else
-        {
-            UpgradeExpDamage = int.MaxValue;
+            var upgrade = DataTableManager.Upgrades[CharacterInfos.unitData.upgradeDamageID];
+            DamageUpgradeExp = upgrade.Exp;
+            CharacterInfos.damageOnceUpgradeValue = upgrade.Value;
+            DamageUpgradeMaxCount = upgrade.Count;
         }
 
         if (DataTableManager.Upgrades.ContainsKey(CharacterInfos.unitData.upgradeHPID))
         {
-            UpgradeExpHP = DataTableManager.Upgrades[CharacterInfos.unitData.upgradeHPID].Exp;
-            CharacterInfos.upgradeHP = DataTableManager.Upgrades[CharacterInfos.unitData.upgradeHPID].Value;
+            var upgrade = DataTableManager.Upgrades[CharacterInfos.unitData.upgradeHPID];
+            HPUpgradeExp = upgrade.Exp;
+            CharacterInfos.hpOnceUpgradeValue = upgrade.Value;
+            HPUpgradeMaxCount = upgrade.Count;
         }
-        else
-        {
-            UpgradeExpHP = int.MaxValue;
-        }
+
         uISlotCharacter.SetData(CharacterInfos);
 
     }
@@ -60,38 +73,36 @@ public class UIButtonSummon : MonoBehaviour
     private void Update()
     {
         if (cooldown.value > 0f)
+        {
             cooldown.value -= Time.deltaTime;
+            if (button.interactable && !outline.enabled)
+                button.interactable = false;
+        }
+        else if (!button.interactable && !outline.enabled)
+        {
+            button.interactable = true;
+        }
     }
 
     public void Summoned()
     {
         cooldown.value = cooldown.maxValue;
+        button.interactable = false;
     }
     public void UpgradeDamage()
     {
-        CharacterInfos.upgrade = UnitBase.UPGRADE.DAMAGE;
+        DamageUpgradedCount++;
         SetUpgradeText();
     }
     public void UpgradeHP()
     {
-        CharacterInfos.upgrade = UnitBase.UPGRADE.HP;
+        HPUpgradedCount++;
         SetUpgradeText();
     }
 
     public void SetUpgradeText()
     {
-
-        switch (CharacterInfos.upgrade)
-        {
-            case UnitBase.UPGRADE.NONE:
-                characterName.text = string.Empty;
-                break;
-            case UnitBase.UPGRADE.DAMAGE:
-                characterName.text = Defines.upgradeDamage;
-                break;
-            case UnitBase.UPGRADE.HP:
-                characterName.text = Defines.upgradeHP;
-                break;
-        }
+        damageUpgradeText.text = string.Format(upgradeTextFormat,1+DamageUpgradedCount);
+        hpUpgradeText.text = string.Format(upgradeTextFormat, 1 + HPUpgradedCount);
     }
 }

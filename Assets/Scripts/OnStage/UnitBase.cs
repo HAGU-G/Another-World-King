@@ -10,18 +10,18 @@ public class UnitBase : MonoBehaviour
         HP
     }
 
-    public UnitData unitData { get; set; }
-    private StageManager stageManager;
+    public UnitData CurrnetUnitData { get; set; }
+    public StageManager CurrentStageManager { get; set; }
 
     //State
-    public bool IsTower => unitData.isTower;
+    public bool IsTower => CurrnetUnitData.isTower;
     public bool isPlayer;
     private bool isInvincibility;
     private bool isDead;
     public bool IsDead
     {
         get => isDead;
-        private set
+        protected set
         {
             isDead = value;
             if (isDead && OnDead != null)
@@ -31,20 +31,18 @@ public class UnitBase : MonoBehaviour
 
 
     //Buffed Stats (Use at Runtime)
-    public int Level { get; private set; } = 1;
     public int MaxHP
     {
         get
         {
-            float buffedStat = unitData.initHP;
+            float buffedStat = CurrnetUnitData.initHP;
             float persentage = 0f;
             foreach (var buff in Buff)
             {
                 buffedStat += buff.Value.skillData.hp * buff.Value.Count;
                 persentage += buff.Value.skillData.hp_P * buff.Value.Count;
             }
-            if (upgrade == UPGRADE.HP)
-                buffedStat += upgradeHP;
+            buffedStat += hpUpgradeValue;
             return Mathf.Clamp((int)Mathf.Ceil(buffedStat * (1f + persentage)), 1, int.MaxValue);
         }
     }
@@ -54,15 +52,14 @@ public class UnitBase : MonoBehaviour
     {
         get
         {
-            float buffedStat = unitData.initAttackDamage;
+            float buffedStat = CurrnetUnitData.initAttackDamage;
             float persentage = 0f;
             foreach (var buff in Buff)
             {
                 buffedStat += buff.Value.skillData.attackDamage * buff.Value.Count;
                 persentage += buff.Value.skillData.attackDamage_P * buff.Value.Count;
             }
-            if (upgrade == UPGRADE.DAMAGE)
-                buffedStat += upgradeDamage;
+            buffedStat += damageUpgradeValue;
             return (int)Mathf.Ceil(buffedStat * (1f + persentage));
         }
     }
@@ -70,7 +67,7 @@ public class UnitBase : MonoBehaviour
     {
         get
         {
-            float buffedStat = unitData.initAttackSpeed;
+            float buffedStat = CurrnetUnitData.initAttackSpeed;
             float persentage = 0f;
             foreach (var buff in Buff)
             {
@@ -85,7 +82,7 @@ public class UnitBase : MonoBehaviour
     {
         get
         {
-            float buffedStat = unitData.initAttackRange;
+            float buffedStat = CurrnetUnitData.initAttackRange;
             float persentage = 0f;
             foreach (var buff in Buff)
             {
@@ -95,16 +92,18 @@ public class UnitBase : MonoBehaviour
             return buffedStat * (1f + persentage);
         }
     }
-    public List<int> AttackEnemyOrder => unitData.initAttackEnemyOrder;
-    public int AttackOrder => unitData.initAttackOrder;
-    public int AttackEnemyCount => unitData.initAttackEnemyCount;
+    public float AttackStartRange => 0.625f + (CurrnetUnitData.initAttackStartRange <= 1f ? (0.3f * CurrnetUnitData.initAttackStartRange) : CurrnetUnitData.initAttackStartRange * 0.6f);
+
+    public List<int> AttackEnemyOrder => CurrnetUnitData.initAttackEnemyOrder;
+    public int AttackOrder => CurrnetUnitData.initAttackOrder;
+    public int AttackEnemyCount => CurrnetUnitData.initAttackEnemyCount;
 
     //etc
     public float MoveSpeed
     {
         get
         {
-            float buffedStat = unitData.initMoveSpeed;
+            float buffedStat = CurrnetUnitData.initMoveSpeed;
             float persentage = 0f;
             foreach (var buff in Buff)
             {
@@ -118,7 +117,7 @@ public class UnitBase : MonoBehaviour
     {
         get
         {
-            float buffedStat = unitData.initDropGold;
+            float buffedStat = CurrnetUnitData.initDropGold;
             float persentage = 0f;
             foreach (var buff in Buff)
             {
@@ -132,7 +131,7 @@ public class UnitBase : MonoBehaviour
     {
         get
         {
-            float buffedStat = unitData.initDropExp;
+            float buffedStat = CurrnetUnitData.initDropExp;
             float persentage = 0f;
             foreach (var buff in Buff)
             {
@@ -142,12 +141,12 @@ public class UnitBase : MonoBehaviour
             return buffedStat * (1f + persentage);
         }
     }
-    public bool IsHealer => unitData.division == UnitData.DIVISION.HEALER;
+    public bool IsHealer => CurrnetUnitData.division == UnitData.DIVISION.HEALER;
     public int Heal
     {
         get
         {
-            float buffedStat = unitData.initHeal;
+            float buffedStat = CurrnetUnitData.initHeal;
             float persentage = 0f;
             foreach (var buff in Buff)
             {
@@ -172,11 +171,13 @@ public class UnitBase : MonoBehaviour
     {
         CounterSkill = skill;
     }
-    public void ApplyBuff(SkillData buff)
+    public void ApplyBuff(SkillData buff, int durationIncrease = 0)
     {
         if (!Buff.ContainsKey(buff.id))
         {
-            Buff.Add(buff.id, new SkillBase(buff));
+            var skillBase = new SkillBase(buff);
+            skillBase.IncreaseDuration(durationIncrease);
+            Buff.Add(buff.id, skillBase);
         }
         if (Buff[buff.id].Apply())
             OnApplyBuff(buff);
@@ -190,10 +191,10 @@ public class UnitBase : MonoBehaviour
     }
     public void OnApplyBuff(SkillData buff)
     {
-        if (stageManager != null)
+        if (CurrentStageManager != null)
         {
-            stageManager.GetGold(buff.onApplyGold);
-            stageManager.GetExp(buff.onApplyExp);
+            CurrentStageManager.GetGold(buff.onApplyGold);
+            CurrentStageManager.GetExp(buff.onApplyExp);
         }
     }
     private void UpdateBuffDuration(float deltaTime)
@@ -218,14 +219,14 @@ public class UnitBase : MonoBehaviour
     }
 
     //Upgrade
-    public UPGRADE upgrade;
-    public int upgradeDamage;
-    public int upgradeHP;
+    public int damageUpgradeValue;
+    public int hpUpgradeValue;
 
     //Behaviour
     protected virtual void Start()
     {
-        stageManager = GameObject.FindWithTag(Tags.player).GetComponent<StageManager>();
+        if (CurrentStageManager == null)
+            CurrentStageManager = GameObject.FindWithTag(Tags.player).GetComponent<StageManager>();
     }
     protected virtual void Update()
     {
@@ -237,7 +238,7 @@ public class UnitBase : MonoBehaviour
     public virtual void ResetUnit()
     {
         Buff.Clear();
-        hp = unitData.useStartHP ? unitData.initHPStart : MaxHP;
+        hp = CurrnetUnitData.useStartHP ? CurrnetUnitData.initHPStart : MaxHP;
         IsDead = false;
     }
 
@@ -245,6 +246,12 @@ public class UnitBase : MonoBehaviour
     //Combat & Evemt
     public event System.Action OnDead = null;
     public event System.Action OnDamaged = null;
+    public void EvnetClear()
+    {
+        OnDead = null;
+        OnDamaged = null;
+    }
+
     public void Damaged(int damage)
     {
         HP -= damage;

@@ -6,6 +6,7 @@ public class CharacterAnimationEventListner : MonoBehaviour
     public event System.Action onAttackEnd;
     public event System.Action onPlayAttackEffect;
     public event System.Action onKillSelf;
+    public event System.Action onDeadAnimationEnd;
 
     private CharacterSound characterSound;
 
@@ -39,5 +40,9 @@ public class CharacterAnimationEventListner : MonoBehaviour
         if (onKillSelf != null)
             onKillSelf();
     }
-
+    public void DeadAnimationEnd()
+    {
+        if (onDeadAnimationEnd != null)
+            onDeadAnimationEnd();
+    }
 }

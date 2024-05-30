@@ -21,7 +21,12 @@ public class GameManager : MonoBehaviour
 
     public AudioSource musicPlayer;
     public AudioSource uiSoundPlayer;
-    public bool DoneTutorial { get; set; }
+    public AudioClip audioBack;
+    public bool IsDoneTutorial { get; set; }
+    public bool IsFastGameSpeed { get; set; }
+    public bool IsSettingPlayTutorial { get; set; }
+    public List<int> PrevExpedition { get; set; } = new();
+    public int PrevSelectedStageID { get; set; }
 
     private int flags;
     public int Flags
@@ -35,6 +40,7 @@ public class GameManager : MonoBehaviour
         }
     }
     public List<int> UnlockedID { get; private set; } = new();
+    public List<int> NewCharacters { get; private set; } = new();
     public List<int> PurchasedID { get; private set; } = new();
     public CharacterInfos[] Expedition { get; private set; } = new CharacterInfos[5];
     private int selectedStageID;
@@ -43,13 +49,7 @@ public class GameManager : MonoBehaviour
         get => selectedStageID;
         set
         {
-#if UNITY_EDITOR
-            selectedStageID = Mathf.Clamp(value, DataTableManager.MinStageID, DataTableManager.MaxStageID);
-#else
-            int max = (DataTableManager.MinStageID + StageClearInfo.Count) < DataTableManager.MaxStageID
-                ? (DataTableManager.MinStageID + StageClearInfo.Count) : DataTableManager.MaxStageID;
-            selectedStageID = Mathf.Clamp(value, DataTableManager.MinStageID + (DoneTutorial ? 1 : 0), max);
-#endif
+            selectedStageID = Mathf.Clamp(value, DataTableManager.MinStageID + ((IsDoneTutorial && !IsSettingPlayTutorial) ? 1 : 0), DataTableManager.MaxStageID);
         }
     }
     public Dictionary<int, int> StageClearInfo { get; private set; } = new();
@@ -60,7 +60,6 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         SelectedStageID = DataTableManager.MinStageID;
 
-        //TESTCODE
 #if UNITY_EDITOR
         flags = 1000;
 #endif
@@ -73,12 +72,14 @@ public class GameManager : MonoBehaviour
 
     public void LoadingScene(string name)
     {
+        Time.timeScale = 1f;
         SaveManager.GameSave();
         NextScene = name;
         SceneManager.LoadScene(Scenes.loading);
     }
     public void ChangeScene(string name)
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(name);
     }
 
@@ -104,10 +105,16 @@ public class GameManager : MonoBehaviour
     public void SetExpedition(int id, int index)
     {
         UnitData character = Resources.Load<UnitData>(string.Format(Paths.resourcesPlayer, id));
-
-        var characterInfos = new CharacterInfos();
-        characterInfos.SetData(character);
-        SetExpedition(characterInfos, index);
+        if (character == null)
+        {
+            SetExpedition(null, index);
+        }
+        else
+        {
+            var characterInfos = new CharacterInfos();
+            characterInfos.SetData(character);
+            SetExpedition(characterInfos, index);
+        }
     }
 
 
@@ -131,8 +138,13 @@ public class GameManager : MonoBehaviour
         {
             foreach (var charID in DataTableManager.StageUnlockID[stageID])
             {
+                if (charID == 0)
+                    continue;
                 if (!UnlockedID.Contains(charID))
+                {
                     UnlockedID.Add(charID);
+                    NewCharacters.Add(charID);
+                }
             }
         }
         SaveManager.GameSave();
@@ -166,5 +178,10 @@ public class GameManager : MonoBehaviour
         Instance.musicPlayer.Stop();
         Instance.musicPlayer.clip = clip;
         Instance.musicPlayer.Play();
+    }
+
+    public void PlayAudioBack()
+    {
+        Instance.uiSoundPlayer.PlayOneShot(audioBack);
     }
 }

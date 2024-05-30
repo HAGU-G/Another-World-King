@@ -1,13 +1,16 @@
-List,ID,Division,Hp,Attack,A_Speed,A_Range,Chr_Position,My_Effect,Target_Effect,A_Effect_Image,Skill,String_ID,Dead_Gold,Dead_Exp
-튜토리얼 전사,100,1,80,20,1.5,1,1,Attack_Warrior,0,0,0,Mon_Warrior,50,5000
-전사,101,1,150,70,1.5,1,1,Attack_Warrior,0,0,0,Mon_Warrior,50,200
-탱커,102,2,400,40,2,1,1,Attack_Warrior,Hit_Guardian,0,0,Mon_Guardian,100,350
-흡혈 탱커,103,2,300,50,1.5,1,1,Attack_Bloody,0,0,Drain_Skill,Mon_Bloody,200,400
-해머,104,1,150,100,2,2,1,0,Hit_Olaf,0,0,Mon_Olaf,100,300
-폭발,105,1,100,999,3,1,1,Attack_Bomber,0,0,0,Mon_Bomber,100,350
-광전사,106,1,200,40,2,1,1,0,Hit_Berserker,0,Fast_Skill,Mon_Berserker,200,300
-궁수,201,3,100,30,0.5,2,2,Attack_Archer,Hit_Archer,Projectile_Archer,0,Mon_Archer,100,300
-마법사,202,5,100,80,2,2,2,0,Hit_Sorcerer,0,Magic1_Skill,Mon_Sorcerer,100,350
-스나이퍼,203,3,100,50,0.5,4,3,Attack_Archer,Hit_Archer,Projectile_Sniper,0,Mon_Sniper,200,450
-대포,204,3,200,100,1,1,1,0,Hit_Cannon,Projectile_Cannon,0,Mon_Cannon,150,350
-스턴,301,6,100,20,1.5,3,2,0,Hit_Shaman,0,Stun_Skill,Mon_Shaman,150,300
+List,ID,Division,Hp,Attack,A_Speed,A_Range,Chr_Position,My_Effect,Target_Effect,A_Effect_Image,Skill,String_ID,Dead_Gold,Dead_Exp,Per_Gold,Per_Exp,Speed
+튜토리얼 전사,100,1,80,20,1.5,1,1,Attack_Warrior,0,0,0,Mon_Warrior,50,5000,0,0,80
+전사,101,1,150,60,1.5,1,1,Attack_Warrior,0,0,0,Mon_Warrior,100,80,0,0,80
+탱커,102,2,400,40,2,1,1,Attack_Warrior,Hit_Guardian,0,0,Mon_Guardian,100,80,0,0,80
+흡혈 탱커,103,2,300,50,1.5,1,1,Attack_Bloody,0,0,Drain_Skill,Mon_Bloody,200,90,0,0,80
+해머,104,1,150,100,2,2,1,0,Hit_Olaf,0,0,Mon_Olaf,100,80,0,0,80
+폭발,105,8,100,999,3,1,1,Attack_Bomber,0,0,Bomber_Skill,Mon_Bomber,100,90,0,0,80
+광전사,106,1,200,40,2,1,1,0,Hit_Berserker,0,Fast_Skill,Mon_Berserker,200,100,0,0,80
+궁수,201,3,100,35,0.5,2,2,Attack_Archer,Hit_Archer,Projectile_Archer,0,Mon_Archer,100,100,0,0,80
+마법사,202,5,100,80,2,2,2,0,Hit_Sorcerer,0,Magic1_Skill,Mon_Sorcerer,100,100,0,0,80
+스나이퍼,203,3,100,50,0.5,4,3,Attack_Archer,Hit_Archer,Projectile_Sniper,0,Mon_Sniper,200,110,0,0,80
+대포,204,7,200,30,1,1,1,0,Hit_Cannon,Projectile_Cannon,0,Mon_Cannon,150,120,0,0,80
+스턴,301,6,100,20,3,2,2,0,Hit_Shaman,0,Stun_Skill,Mon_Shaman,150,100,0,0,80
+3스테보스,401,2,3000,400,3,1.02,1,Attack_Boss1,0,0,0,Boss_Guardian,0,0,50,100,25
+5스테보스,402,5,3500,100,3,1.02,3,0,Hit_Sorcerer,0,Boss_Skill,Boss_Sorcerer,0,0,50,100,25
+7스테보스,403,1,3500,400,3,1.02,1,Attack_Boss1,0,0,0,Boss_Demonking,0,0,50,100,25

@@ -23,7 +23,8 @@ MonoBehaviour:
   initAttackDamage: 50
   initAttackSpeed: 1.5
   initAttackRange: 1
-  initAttackEnemyCount: 0
+  initAttackStartRange: 1
+  initAttackEnemyCount: 1
   initAttackOrder: 1
   initAttackEnemyOrder: 01000000
   skill: Drain_Skill
@@ -33,17 +34,13 @@ MonoBehaviour:
   cost: 0
   spawnTime: 0
   initDropGold: 200
-  initDropExp: 400
+  initDropExp: 90
+  initDamagedGold: 0
+  initDamagedExp: 0
   effectAttack: Attack_Bloody
   effectAttackHit: 0
   projectile: 0
   desc: 
   isTower: 0
-  stars_3_CastleHp: 0
-  stars_3_reward: 0
-  stars_2_CastleHp: 0
-  stars_2_reward: 0
-  stars_1_reward: 0
-  repeat_Reward: 0
   upgradeDamageID: 0
   upgradeHPID: 0

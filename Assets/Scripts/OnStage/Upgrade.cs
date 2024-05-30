@@ -5,4 +5,5 @@ public class Upgrade
     public int ID { get; set; }
     public int Value { get; set; }
     public int Exp { get; set; }
+    public int Count {  get; set; }
 }

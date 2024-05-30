@@ -14,36 +14,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ignore: "\uD3ED\uBC1C"
   id: 1106
-  division: 1
+  division: 8
   prefab: Bomber
   initHP: 100
   useStartHP: 0
   initHPStart: 0
-  typeCounter: 101
-  initAttackDamage: 999
+  typeCounter: 
+  initAttackDamage: 300
   initAttackSpeed: 3
-  initAttackRange: 1
-  initAttackEnemyCount: 0
+  initAttackRange: 2
+  initAttackStartRange: 1
+  initAttackEnemyCount: 2
   initAttackOrder: 1
-  initAttackEnemyOrder: 01000000
-  skill: 0
+  initAttackEnemyOrder: 0100000002000000
+  skill: Bomber_Skill
   initHeal: 0
   initMoveSpeed: 80
   price: 40
-  cost: 300
+  cost: 350
   spawnTime: 15
   initDropGold: 0
   initDropExp: 0
+  initDamagedGold: 0
+  initDamagedExp: 0
   effectAttack: Attack_Bomber
   effectAttackHit: 0
   projectile: 0
   desc: Bomber_explan
   isTower: 0
-  stars_3_CastleHp: 0
-  stars_3_reward: 0
-  stars_2_CastleHp: 0
-  stars_2_reward: 0
-  stars_1_reward: 0
-  repeat_Reward: 0
   upgradeDamageID: 108
   upgradeHPID: 208

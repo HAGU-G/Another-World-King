@@ -20,7 +20,7 @@ MonoBehaviour:
   applyCharID: 0
   targetDivision: 0
   nesting: 1
-  duration: 2
+  duration: 1
   infinityDuration: 0
   doResetDurationOnApply: 1
   hp: 0
@@ -45,3 +45,4 @@ MonoBehaviour:
   onApplyExp: 0
   onApplyDrain: 0
   sturn: 1
+  skillDuration: 0

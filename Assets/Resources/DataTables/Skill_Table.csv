@@ -7,4 +7,6 @@ List,ID,Target,Gold_Supply,Exp_Supply,Flag_Supply,Hp_Healing,Wide_Area_Range,A_S
 성직자,Heal_Skill,2,0,0,0,60,1,0,0,0,0
 위치,Slow_Skill,1,0,0,0,0,1,1,0,2,0
 광전사,Fast_Skill,3,0,0,0,0,0,0,0.5,3,0
-스턴,Stun_Skill,1,0,0,0,0,0,0,0,0,2
+스턴,Stun_Skill,1,0,0,0,0,0,0,0,0,1
+보스,Boss_Skill,1,0,0,0,0,3,0,0,0,0
+폭탄,Bomber_Skill,1,0,0,0,0,2,0,0,0,0
