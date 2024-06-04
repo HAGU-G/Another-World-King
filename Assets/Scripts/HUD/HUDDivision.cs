@@ -17,17 +17,15 @@ public class HUDDivision : MonoBehaviour
     {
         if (stats != null)
         {
-            if (stats.isPlayer)
-            {
-                circle.flipX = true;
-                icon.flipX = true;
-            }
+            //FIXED 06.04
+            circle.flipX = stats.isPlayer;
+            icon.flipX = stats.isPlayer;
             SetDivision(stats.CurrnetUnitData.division);
         }
     }
     private void Update()
     {
-        if(stats.IsDead)
+        if (stats.IsDead)
             gameObject.SetActive(false);
     }
 

@@ -77,8 +77,9 @@ public class CharacterAI : UnitBase
     {
         OnDead += () => { Dead(); };
 #if UNITY_EDITOR
-        var d = Instantiate(Resources.Load(Paths.resourcesDebugStat), transform);
-        OnDead += () => { Destroy(d); };
+        //TESTCODE
+        //var d = Instantiate(Resources.Load(Paths.resourcesDebugStat), transform);
+        //OnDead += () => { Destroy(d); };
 #endif
         if (hudDivision != null)
             hudDivision.gameObject.SetActive(true);
@@ -356,6 +357,7 @@ public class CharacterAI : UnitBase
         Tower = tower;
         isPlayer = Tower.isPlayer;
         InitAttackCollider();
+        hudDivision.Init();
     }
 
     public int GetOrder() => Tower.units.IndexOf(this) + 1;

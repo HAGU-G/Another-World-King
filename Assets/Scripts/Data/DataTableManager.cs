@@ -68,7 +68,6 @@ public static class DataTableManager
             MaxStageID = stage.id > MaxStageID ? stage.id : MaxStageID;
             MinStageID = stage.id < MinStageID ? stage.id : MinStageID;
         }
-        //MinStageID++;
 
         //StageUnlockID
         textAsset = Resources.Load<TextAsset>(Paths.resourcesStageTable);
