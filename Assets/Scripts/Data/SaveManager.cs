@@ -76,6 +76,7 @@ public static class SaveManager
                 serializer.TypeNameHandling = TypeNameHandling.All;
                 serializer.Serialize(jsonWriter, save);
             }
+            //TODO 바이너리 형식으로 저장하도록 변경
             using (var fileWriter = new StreamWriter(path))
             {
                 byte[] bytes = System.Text.Encoding.UTF8.GetBytes(stringWriter.ToString());

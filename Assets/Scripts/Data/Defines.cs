@@ -1,4 +1,6 @@
-﻿public static class AnimatorTriggers
+﻿using System.Runtime.InteropServices.WindowsRuntime;
+
+public static class AnimatorTriggers
 {
     public static readonly string idle = "Idle";
     public static readonly string move = "Move";
