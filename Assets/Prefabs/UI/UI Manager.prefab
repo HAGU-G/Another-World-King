@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotCamera: {fileID: 0}
-  rowsAndColumns: 20
+  rowsAndColumns: 5
 --- !u!223 &2097801888176962275
 Canvas:
   m_ObjectHideFlags: 0

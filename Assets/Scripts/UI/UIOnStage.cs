@@ -37,8 +37,8 @@ public class UIOnStage : MonoBehaviour
         {
             var stageManager = StageManager.Instance;
             mapSlider.transform.position = mapSliderPosition2.position;
-            var sizeX = (Camera.main.WorldToScreenPoint(stageManager.enemyTower.GetComponentInChildren<HUDHealthBar>().leftPosition.position).x
-                - Camera.main.WorldToScreenPoint(stageManager.playerTower.GetComponentInChildren<HUDHealthBar>().rightPosition.position).x)
+            var sizeX = (Camera.main.WorldToScreenPoint(stageManager.enemyTower.GetComponentInChildren<HealthBar>().leftPosition.position).x
+                - Camera.main.WorldToScreenPoint(stageManager.playerTower.GetComponentInChildren<HealthBar>().rightPosition.position).x)
                 / canvas.scaleFactor * 0.95f;
             mapSliderRectTransform.sizeDelta = new(sizeX, mapSliderRectTransform.sizeDelta.y);
         }

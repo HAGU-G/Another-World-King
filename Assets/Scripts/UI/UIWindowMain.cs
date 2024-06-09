@@ -33,13 +33,36 @@ public class UIWindowMain : UIWindow
     private void Start()
     {
         Refresh();
-        buttonNextStage.onClick.AddListener(() => { GameManager.Instance.SelectedStageID++; Refresh(); });
-        buttonPrevStage.onClick.AddListener(() => { GameManager.Instance.SelectedStageID--; Refresh(); });
-        buttonExpedition.onClick.AddListener(() => { expedition.Open(); Close(); });
-        buttonShop.onClick.AddListener(() => { shop.Open(); Close(); });
-        buttonPlay.onClick.AddListener(() => { GameManager.Instance.LoadingScene(Scenes.stage); });
+
+        buttonNextStage.onClick.AddListener(() =>
+        {
+            GameManager.Instance.SelectedStageID++; Refresh();
+        });
+
+        buttonPrevStage.onClick.AddListener(() =>
+        {
+            GameManager.Instance.SelectedStageID--; Refresh();
+        });
+
+        buttonExpedition.onClick.AddListener(() =>
+        {
+            expedition.Open(); Close();
+        });
+
+        buttonShop.onClick.AddListener(() =>
+        {
+            shop.Open(); Close();
+        });
+
+        buttonPlay.onClick.AddListener(() =>
+        {
+            SceneLoadManager.Instance.ChangeScene(Scenes.stage);
+        });
+
         if (GameManager.Instance.NewCharacters.Count > 0)
+        {
             PopupCharacterUnlockOnOff(true);
+        }
     }
 
     public override void Refresh()
@@ -67,7 +90,7 @@ public class UIWindowMain : UIWindow
         buttonPrevStage.interactable = selectedID != DataTableManager.MinStageID;
         buttonNextStage.interactable = selectedID != DataTableManager.MaxStageID;
 
-        
+
 
         int max = (DataTableManager.MinStageID + GameManager.Instance.StageClearInfo.Count) < DataTableManager.MaxStageID
                 ? (DataTableManager.MinStageID + GameManager.Instance.StageClearInfo.Count) : DataTableManager.MaxStageID;
@@ -134,7 +157,7 @@ public class UIWindowMain : UIWindow
             }
 
             Dictionary<UnitData.DIVISION, int> divisions = new();
-            foreach(var monster in monsters)
+            foreach (var monster in monsters)
             {
                 if (monster.Key == 0)
                     continue;
@@ -145,7 +168,7 @@ public class UIWindowMain : UIWindow
                 {
                     division = UnitData.DIVISION.NONE;
                 }
-                if(divisions.ContainsKey(division))
+                if (divisions.ContainsKey(division))
                     divisions[division] += monster.Value;
                 else
                     divisions.Add(division, monster.Value);

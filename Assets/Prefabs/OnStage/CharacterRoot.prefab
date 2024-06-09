@@ -361,7 +361,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4188209395971711368, guid: 8bb49eff6be85364eb244560e933a729, type: 3}
       propertyPath: m_Name
-      value: HUD HP
+      value: Health Bar
       objectReference: {fileID: 0}
     - target: {fileID: 5478981919089419305, guid: 8bb49eff6be85364eb244560e933a729, type: 3}
       propertyPath: m_PresetInfoIsWorld
@@ -478,7 +478,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7684538562913004396, guid: ec0d842f91fd8db489878ee818a6cf0f, type: 3}
       propertyPath: m_Name
-      value: HUD Stat
+      value: Stat Info
       objectReference: {fileID: 0}
     - target: {fileID: 9141505888082094324, guid: ec0d842f91fd8db489878ee818a6cf0f, type: 3}
       propertyPath: m_SortingLayer
@@ -603,7 +603,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8331421878225151565, guid: 1e9c38502eb4ba84086a6874185a06fa, type: 3}
       propertyPath: m_Name
-      value: HUD Division
+      value: Division Icon
       objectReference: {fileID: 0}
     - target: {fileID: 8830664644648496601, guid: 1e9c38502eb4ba84086a6874185a06fa, type: 3}
       propertyPath: stats

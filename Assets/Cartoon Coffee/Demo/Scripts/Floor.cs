@@ -8,7 +8,6 @@ namespace Demo_Project
         // Start is called before the first frame update
         void Start()
         {
-            SceneManager.listOfFloors.Add(this.gameObject);
         }
 
         // Update is called once per frame

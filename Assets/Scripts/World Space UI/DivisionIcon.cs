@@ -1,7 +1,7 @@
 using UnityEngine;
 using static UnitData;
 
-public class HUDDivision : MonoBehaviour
+public class DivisionIcon : MonoBehaviour
 {
     public UnitBase stats;
     public Color debufferColor;

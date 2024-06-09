@@ -14,7 +14,6 @@ public class GameStarter : MonoBehaviour
         SaveManager.GameLoad();
     }
 
-
     private void Start()
     {
         if (PlayerPrefs.GetInt(AudioParameters.musicVolume, 1) == 0)

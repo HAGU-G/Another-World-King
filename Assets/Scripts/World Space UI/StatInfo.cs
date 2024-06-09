@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class HUDStat : MonoBehaviour
+public class StatInfo : MonoBehaviour
 {
     public GameObject background;
     public TextMeshPro text;

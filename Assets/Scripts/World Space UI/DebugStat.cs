@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class HUDDebugStat : MonoBehaviour
+public class DebugStat : MonoBehaviour
 {
     public TextMeshPro text;
     private CharacterAI character;

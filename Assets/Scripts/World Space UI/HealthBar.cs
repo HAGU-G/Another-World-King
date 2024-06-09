@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HUDHealthBar : MonoBehaviour
+public class HealthBar : MonoBehaviour
 {
     public UnitBase stats;
     public Slider healthBar;

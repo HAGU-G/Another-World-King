@@ -12,7 +12,9 @@ public class GameManager : MonoBehaviour
         get
         {
             if (instance == null)
-                instance = Instantiate(Resources.Load<GameObject>(Paths.resourcesGameManager)).GetComponent<GameManager>();
+            {
+                instance = Instantiate(Resources.Load<GameManager>(Paths.resourcesGameManager));
+            }
 
             return instance;
         }
@@ -36,7 +38,9 @@ public class GameManager : MonoBehaviour
         {
             flags = value;
             if (flags < 0)
+            {
                 flags = 0;
+            }
         }
     }
     public List<int> UnlockedID { get; private set; } = new();
@@ -53,7 +57,6 @@ public class GameManager : MonoBehaviour
         }
     }
     public Dictionary<int, int> StageClearInfo { get; private set; } = new();
-    public string NextScene { get; set; }
 
     private void Awake()
     {
@@ -67,20 +70,9 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         if (Instance != this)
+        {
             Destroy(gameObject);
-    }
-
-    public void LoadingScene(string name)
-    {
-        Time.timeScale = 1f;
-        SaveManager.GameSave();
-        NextScene = name;
-        SceneManager.LoadScene(Scenes.loading);
-    }
-    public void ChangeScene(string name)
-    {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(name);
+        }
     }
 
     public void SetExpedition(CharacterInfos characterInfos, int index = -1)
@@ -90,14 +82,18 @@ public class GameManager : MonoBehaviour
             for (int i = 0; i < Expedition.Length; i++)
             {
                 if (Expedition[i] != null)
+                {
                     continue;
+                }
                 index = i;
                 break;
             }
         }
 
         if (index < 0)
+        {
             return;
+        }
 
         Expedition[index] = characterInfos;
     }
@@ -126,9 +122,13 @@ public class GameManager : MonoBehaviour
     public void StageClear(int stageID, int star, int flag)
     {
         if (StageClearInfo.ContainsKey(stageID))
+        {
             StageClearInfo[stageID] = StageClearInfo[stageID] < star ? star : StageClearInfo[stageID];
+        }
         else
+        {
             StageClearInfo.Add(stageID, star);
+        }
 
 
 
@@ -139,7 +139,9 @@ public class GameManager : MonoBehaviour
             foreach (var charID in DataTableManager.StageUnlockID[stageID])
             {
                 if (charID == 0)
+                {
                     continue;
+                }
                 if (!UnlockedID.Contains(charID))
                 {
                     UnlockedID.Add(charID);
@@ -153,7 +155,9 @@ public class GameManager : MonoBehaviour
     public bool AddPurchasedID(CharacterInfos characterInfos)
     {
         if (PurchasedID.Contains(characterInfos.unitData.id))
+        {
             return false;
+        }
 
         if (flags >= characterInfos.unitData.price)
         {

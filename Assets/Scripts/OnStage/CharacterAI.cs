@@ -23,9 +23,9 @@ public class CharacterAI : UnitBase
     public Rigidbody2D rb;
     public BoxCollider2D attackCollider;
     public Transform dropEffectPosition;
-    public HUDDivision hudDivision;
-    public HUDStat hudStat;
-    public HUDHealthBar hudHealthBar;
+    public DivisionIcon hudDivision;
+    public StatInfo hudStat;
+    public HealthBar hudHealthBar;
     public Transform bossStatPos;
     private CharacterSound characterSound;
     private GameObject prefab;

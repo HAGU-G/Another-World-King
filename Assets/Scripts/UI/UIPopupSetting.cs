@@ -55,7 +55,7 @@ public class UIPopupSetting : MonoBehaviour
                 gm.PrevExpedition.Add(0);
         }
         gm.PrevSelectedStageID = gm.SelectedStageID;
-        GameManager.Instance.LoadingScene(Scenes.title);
+        SceneLoadManager.Instance.ChangeScene(Scenes.title);
     }
     public void PopupOnOff(bool value)
     {

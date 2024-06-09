@@ -19,8 +19,8 @@ public class UIWindowStagePause : UIWindow
     private void Awake()
     {
         back.onClick.AddListener(() => { Time.timeScale = currentTimeScale; Close(); });
-        restart.onClick.AddListener(() => { Time.timeScale = currentTimeScale; GameManager.Instance.LoadingScene(Scenes.stage); });
-        goMain.onClick.AddListener(() => { Time.timeScale = currentTimeScale; GameManager.Instance.LoadingScene(Scenes.main); });
+        restart.onClick.AddListener(() => { Time.timeScale = currentTimeScale; SceneLoadManager.Instance.ChangeScene(Scenes.stage); });
+        goMain.onClick.AddListener(() => { Time.timeScale = currentTimeScale; SceneLoadManager.Instance.ChangeScene(Scenes.main); });
     }
 
     public void Victory(int starCount, int flag)
