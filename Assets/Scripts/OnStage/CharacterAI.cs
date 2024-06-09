@@ -287,6 +287,7 @@ public class CharacterAI : UnitBase
         damageUpgradeValue = characterInfos.damageOnceUpgradeValue * characterInfos.damageUpgradedCount;
         hpUpgradeValue = characterInfos.hpOnceUpgradeValue * characterInfos.hpUpgradedCount;
         hudDivision.Init();
+        hudHealthBar.Init();
     }
 
     public override void ResetUnit()
@@ -358,6 +359,7 @@ public class CharacterAI : UnitBase
         isPlayer = Tower.isPlayer;
         InitAttackCollider();
         hudDivision.Init();
+        hudHealthBar.Init();
     }
 
     public int GetOrder() => Tower.units.IndexOf(this) + 1;

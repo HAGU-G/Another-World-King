@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 451515381052341762}
   - component: {fileID: 8830664644648496601}
   m_Layer: 10
-  m_Name: HUD Division
+  m_Name: Division Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

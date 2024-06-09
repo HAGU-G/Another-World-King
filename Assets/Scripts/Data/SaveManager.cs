@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.IO;
 using UnityEngine;
 using System.Security.Cryptography;
-using SaveVersionClass = SaveV1;
+using CurrentSaveVersion = SaveV1;
 
 public static class SaveManager
 {
@@ -16,9 +16,9 @@ public static class SaveManager
     public static void GameSave()
     {
         if (saveData == null)
-            saveData = new SaveVersionClass();
+            saveData = new CurrentSaveVersion();
 
-        var save = saveData as SaveVersionClass;
+        var save = saveData as CurrentSaveVersion;
         var gm = GameManager.Instance;
 
 #if !UNITY_EDITOR
@@ -91,7 +91,7 @@ public static class SaveManager
 
     public static void GameLoad()
     {
-        saveData = new SaveVersionClass();
+        saveData = new CurrentSaveVersion();
 
         if (!Directory.Exists(saveDirectory))
             return;
@@ -115,7 +115,7 @@ public static class SaveManager
             }
         }
 
-        var load = saveData as SaveVersionClass;
+        var load = saveData as CurrentSaveVersion;
 
         GameManager.Instance.IsDoneTutorial = load.doneTutorial;
         GameManager.Instance.Flags = load.flags;

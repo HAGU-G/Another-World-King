@@ -5,10 +5,16 @@ public class HUDHealthBar : MonoBehaviour
 {
     public UnitBase stats;
     public Slider healthBar;
-    public RectTransform sliderRoot;
-    public RectTransform leftPosision;
-    public RectTransform rightPosision;
-
+    public RectTransform slider;
+    public RectTransform leftPosition;
+    public RectTransform rightPosition;
+    public void Init()
+    {
+        if (stats != null)
+        {
+            transform.localScale = stats.isPlayer ? Vectors.filpX : Vector3.one;
+        }
+    }
     private void Start()
     {
         gameObject.SetActive(true);
@@ -25,18 +31,25 @@ public class HUDHealthBar : MonoBehaviour
     private void UpdateHealthBar()
     {
         healthBar.value = (float)stats.HP / stats.MaxHP;
-        sliderRoot.position = Camera.main.WorldToScreenPoint(stats.transform.position);
         if (stats.IsTower)
         {
-            if (stats.isPlayer 
-                & leftPosision.position.x < Screen.safeArea.xMin)
+
+            var safeAreaXMin = Camera.main.ScreenToWorldPoint(new(Screen.safeArea.xMin, 0f)).x;
+            var safeAreaXMax = Camera.main.ScreenToWorldPoint(new(Screen.safeArea.xMax, 0f)).x;
+
+
+            transform.position = stats.transform.position;
+            if (stats.isPlayer
+                & leftPosition.position.x < safeAreaXMin)
             {
-                sliderRoot.position -= new Vector3(leftPosision.position.x - Screen.safeArea.xMin, 0f);
+                transform.position -= new Vector3(
+                    leftPosition.position.x - safeAreaXMin, 0f);
             }
             else if (!stats.isPlayer
-                && rightPosision.position.x > Screen.safeArea.xMax)
+                && rightPosition.position.x > safeAreaXMax)
             {
-                sliderRoot.position -= new Vector3(rightPosision.position.x - Screen.safeArea.xMax, 0f);
+                transform.position -= new Vector3(
+                    rightPosition.position.x - safeAreaXMax, 0f);
             }
         }
 

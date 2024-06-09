@@ -167,7 +167,7 @@ public class StageManager : MonoBehaviour
     private CharacterAI OnCreatePoolObject()
     {
         var charAI = Instantiate(characterRoot, Vector3.down * 10000f, Quaternion.Euler(Vector3.up)).GetComponent<CharacterAI>();
-        charAI.hudHealthBar.sliderRoot.transform.position += Vector3.down * 10000f;
+        //charAI.hudHealthBar.slider.transform.position += Vector3.down * 10000f;
         charAI.gameObject.SetActive(false);
         return charAI;
     }
@@ -179,7 +179,7 @@ public class StageManager : MonoBehaviour
     }
     private void OnReleasePoolObejct(CharacterAI charAI)
     {
-        charAI.hudHealthBar.sliderRoot.transform.position += Vector3.down * 10000f;
+        //charAI.hudHealthBar.slider.transform.position += Vector3.down * 10000f;
         charAI.gameObject.SetActive(false);
     }
     private void OnDestroyPoolObejct(CharacterAI charAI) => Destroy(charAI.gameObject);
