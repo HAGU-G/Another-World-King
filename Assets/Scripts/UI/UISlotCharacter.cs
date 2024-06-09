@@ -20,7 +20,7 @@ public class UISlotCharacter : MonoBehaviour
 
         if (characterInfos.dress != null)
         {
-            rawImage.uvRect = GameObject.FindWithTag(Tags.uiManager).GetComponent<UIManager>().AddSlotRenderers(characterInfos.dress);
+            rawImage.uvRect = GameObject.FindWithTag(Tags.uiManager).GetComponent<UISlotRenderer>().AddSlotRenderers(characterInfos.dress);
         }
         uiIconDivision.SetDivision(characterInfos.unitData.division);
     }

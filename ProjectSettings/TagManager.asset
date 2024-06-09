@@ -9,6 +9,7 @@ TagManager:
   - Window
   - UIController
   - TouchController
+  - StageController
   layers:
   - Default
   - TransparentFX

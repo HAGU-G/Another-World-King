@@ -1,33 +1,40 @@
 using ScrollBGTest;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Camera))]
 public class CameraManager : MonoBehaviour
 {
     public ScrollBackgroundCtrl background;
-    public Transform pos1;
-    public Transform pos2;
-
-    public bool lockX;
-    public bool lockY;
-    public bool lockZ;
+    public Transform playerTowerPos;
+    public Transform enemyTowerPos;
 
     public float xLeftBound;
     public float xRightBound;
 
     private float constant;
-
+    public float MinX { get; private set; }
+    public float MaxX { get; private set; }
+    public bool IsCameraMoved { get; private set; }
 
     private void Awake()
     {
         constant = 1 + (((float)Screen.width / Screen.height - 1f) - (2532f / 1170f - 1f)) / (2532f / 1170f - 1f) / 2f;
     }
 
+    private void Start()
+    {
+        MinX = playerTowerPos.position.x + xLeftBound * constant;
+        MaxX = enemyTowerPos.position.x - xRightBound * constant;
+    }
+
     public void Update()
     {
+        IsCameraMoved = false;
         if (GameManager.Instance.touchManager.Moved && GameManager.Instance.touchManager.receiver.Received)
         {
-            MoveCamera(GameManager.Instance.touchManager.WorldDeltaPos*1.3f, Vector3.right);
+            MoveCamera(GameManager.Instance.touchManager.WorldDeltaPos * 1.3f, Vector3.right);
+            IsCameraMoved = true;
         }
     }
 
@@ -41,16 +48,10 @@ public class CameraManager : MonoBehaviour
     }
     public void SetCameraPosition(Vector3 position)
     {
-        background.MoveValue = lockX ? transform.position.x : Mathf.Clamp(position.x,
-            (pos1.position.x < pos2.position.x ? pos1.position.x : pos2.position.x) + xLeftBound * constant,
-            (pos1.position.x > pos2.position.x ? pos1.position.x : pos2.position.x) - xRightBound * constant);
+        background.MoveValue = Mathf.Clamp(position.x, MinX, MaxX);
         transform.position = new(
             background.MoveValue,
-            lockY ? transform.position.y : Mathf.Clamp(position.y,
-            pos1.position.y < pos2.position.y ? pos1.position.y : pos2.position.y,
-            pos1.position.y > pos2.position.y ? pos1.position.y : pos2.position.y),
-            lockZ ? transform.position.z : Mathf.Clamp(position.z,
-            pos1.position.z < pos2.position.z ? pos1.position.z : pos2.position.z,
-            pos1.position.z > pos2.position.z ? pos1.position.z : pos2.position.z));
+            transform.position.y,
+            transform.position.z);
     }
 }

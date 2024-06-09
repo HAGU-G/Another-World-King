@@ -48,11 +48,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3348059728456297575}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab9fa492f624b1a4ebc577fd479c448a, type: 3}
+  m_Script: {fileID: 11500000, guid: 5a99da0c866bbd74a96e75f2fcbd6ec9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   slotCamera: {fileID: 0}
-  rowsAndColumns: 4
+  rowsAndColumns: 20
 --- !u!223 &2097801888176962275
 Canvas:
   m_ObjectHideFlags: 0

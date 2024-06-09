@@ -142,7 +142,7 @@ public class StageManager : MonoBehaviour
     public IObjectPool<CharacterAI> CharacterAIPool { get; private set; }
     public CharacterAI characterRoot;
 
-    public static StageManager Instance => GameObject.FindWithTag(Tags.player)?.GetComponent<StageManager>();
+    public static StageManager Instance => GameObject.FindWithTag(Tags.stageManager)?.GetComponent<StageManager>();
 
     private void Awake()
     {
@@ -198,8 +198,18 @@ public class StageManager : MonoBehaviour
         UpdateUpgradeToggle();
         InitGameSpeedToggle();
 
-        stageCamera.background = Instantiate(Resources.Load<ScrollBackgroundCtrl>(string.Format(Paths.resourcesBackgrounds, DataTableManager.Stages[GameManager.Instance.SelectedStageID].String_ID)), stageCamera.transform);
-        enemyTower.CurrnetUnitData = playerTower.CurrnetUnitData = Resources.Load<TowerData>(string.Format(Paths.resourcesStage, GameManager.Instance.SelectedStageID));
+        stageCamera.background = Instantiate(
+            Resources.Load<ScrollBackgroundCtrl>(
+                string.Format(Paths.resourcesBackgrounds,
+                DataTableManager.Stages[GameManager.Instance.SelectedStageID].String_ID)
+                ),
+            stageCamera.transform);
+
+        enemyTower.CurrnetUnitData = playerTower.CurrnetUnitData =
+            Resources.Load<TowerData>(
+                string.Format(Paths.resourcesStage, GameManager.Instance.SelectedStageID)
+            );
+
         playerTower.isPlayer = true;
         playerTower.ResetUnit();
         playerTower.OnDead += Defeat;
@@ -396,7 +406,10 @@ public class StageManager : MonoBehaviour
             foreach (var buttonsummon in uiOnStage.buttonSummons)
             {
 
-                buttonsummon.outline.enabled = x && buttonsummon.DamageUpgradedCount < buttonsummon.DamageUpgradeMaxCount && exp >= buttonsummon.DamageUpgradeExp;
+                buttonsummon.outline.enabled = x
+                && buttonsummon.DamageUpgradedCount < buttonsummon.DamageUpgradeMaxCount
+                && exp >= buttonsummon.DamageUpgradeExp;
+
                 buttonsummon.outline.color = Color.red;
                 if (x)
                 {
@@ -417,7 +430,10 @@ public class StageManager : MonoBehaviour
             foreach (var buttonsummon in uiOnStage.buttonSummons)
             {
 
-                buttonsummon.outline.enabled = x && buttonsummon.HPUpgradedCount < buttonsummon.HPUpgradeMaxCount && exp >= buttonsummon.HPUpgradeExp;
+                buttonsummon.outline.enabled = x 
+                && buttonsummon.HPUpgradedCount < buttonsummon.HPUpgradeMaxCount
+                && exp >= buttonsummon.HPUpgradeExp;
+
                 buttonsummon.outline.color = Color.red;
                 if (x)
                 {

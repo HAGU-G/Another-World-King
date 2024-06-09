@@ -33,10 +33,8 @@ public class HUDHealthBar : MonoBehaviour
         healthBar.value = (float)stats.HP / stats.MaxHP;
         if (stats.IsTower)
         {
-
             var safeAreaXMin = Camera.main.ScreenToWorldPoint(new(Screen.safeArea.xMin, 0f)).x;
             var safeAreaXMax = Camera.main.ScreenToWorldPoint(new(Screen.safeArea.xMax, 0f)).x;
-
 
             transform.position = stats.transform.position;
             if (stats.isPlayer

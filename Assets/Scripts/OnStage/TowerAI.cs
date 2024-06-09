@@ -85,7 +85,7 @@ public class TowerAI : UnitBase
     protected override void Start()
     {
         base.Start();
-        stage = GameObject.FindWithTag(Tags.player).GetComponent<StageManager>();
+        stage = GameObject.FindWithTag(Tags.stageManager).GetComponent<StageManager>();
     }
 
     protected override void Update()

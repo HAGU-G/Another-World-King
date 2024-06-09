@@ -22,7 +22,9 @@ public class TouchManager : MonoBehaviour
         Tap = false;
         Touch = false;
 
-#if UNITY_ANDROID_API
+#if UNITY_EDITOR_WIN
+        MouseInput();
+#elif UNITY_ANDROID_API
         int touchCount = Input.touchCount;
         if (touchCount > 0)
         {
@@ -84,16 +86,18 @@ public class TouchManager : MonoBehaviour
         {
             Touch = true;
             Pos = Input.mousePosition;
+
             DeltaPos = Pos - PrevPos;
             Moved = DeltaPos != Vector2.zero;
             MoveDistance += DeltaPos.magnitude;
-            outTapDistance = MoveDistance > tapAllowInch * Screen.dpi;
+            outTapDistance = MoveDistance * Screen.dpi > tapAllowInch;
             WorldDeltaPos = Camera.main.ScreenToWorldPoint(Pos) - Camera.main.ScreenToWorldPoint(PrevPos);
             PrevPos = Input.mousePosition;
         }
         if (Input.GetMouseButtonUp(0))
         {
             Tap = MoveDistance <= tapAllowInch * Screen.dpi && !outTapDistance;
+            Moved = false;
             MoveDistance = 0f;
         }
     }

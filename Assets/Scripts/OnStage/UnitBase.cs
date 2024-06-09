@@ -226,7 +226,7 @@ public class UnitBase : MonoBehaviour
     protected virtual void Start()
     {
         if (CurrentStageManager == null)
-            CurrentStageManager = GameObject.FindWithTag(Tags.player).GetComponent<StageManager>();
+            CurrentStageManager = GameObject.FindWithTag(Tags.stageManager).GetComponent<StageManager>();
     }
     protected virtual void Update()
     {

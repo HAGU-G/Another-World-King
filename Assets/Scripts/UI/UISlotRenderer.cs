@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIManager : MonoBehaviour
+public class UISlotRenderer : MonoBehaviour
 {
     public Camera slotCamera;
     private Vector3 zeroPos;

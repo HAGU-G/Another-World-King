@@ -9,7 +9,7 @@ public class EffectManager : MonoBehaviour
 
     public Dictionary<string, IObjectPool<EffectPoolObject>> EffectPool { get; private set; } = new();
     //TODO 스테이지매니저나 다른 곳에 할당해두고 사용하도록 변경
-    public static EffectManager Instance => GameObject.FindWithTag(Tags.player)?.GetComponent<EffectManager>();
+    public static EffectManager Instance => GameObject.FindWithTag(Tags.stageManager)?.GetComponent<EffectManager>();
 
     private void Awake()
     {

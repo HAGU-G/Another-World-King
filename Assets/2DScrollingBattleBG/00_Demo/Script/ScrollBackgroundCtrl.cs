@@ -33,10 +33,6 @@ namespace ScrollBGTest
 
         void Start()
         {
-            //Reset Values
-            MoveValue = 0;
-            SkyMoveValue = 0;
-
             //Get MeshRenderers
             for (int i = 0; i < Background.Length; i++)
                 Ren[i] = Background[i].GetComponent<MeshRenderer>();
@@ -48,13 +44,6 @@ namespace ScrollBGTest
 
         void Update()
         {
-            //Input
-            //if (Input.GetKey(KeyCode.LeftArrow))
-            //    MoveValue -= MoveSpeed;
-
-            //if (Input.GetKey(KeyCode.RightArrow))
-            //    MoveValue += MoveSpeed;
-
             //Material OffSet
             for (int i = 0; i < Background.Length; i++)
                 Ren[i].material.mainTextureOffset = new Vector2(MoveValue * ScrollSpeed[i], 0);
