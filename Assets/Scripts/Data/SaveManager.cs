@@ -76,15 +76,12 @@ public static class SaveManager
                 serializer.TypeNameHandling = TypeNameHandling.All;
                 serializer.Serialize(jsonWriter, save);
             }
-            //TODO 바이너리 형식으로 저장하도록 변경
-            using (var fileWriter = new StreamWriter(path))
-            {
-                byte[] bytes = System.Text.Encoding.UTF8.GetBytes(stringWriter.ToString());
 
-                ICryptoTransform cryptoTransform = NewRijndaeManaged().CreateEncryptor();
-                byte[] result = cryptoTransform.TransformFinalBlock(bytes, 0, bytes.Length);
-                fileWriter.Write(System.Convert.ToBase64String(result, 0, result.Length));
-            }
+            byte[] bytes = System.Text.Encoding.UTF8.GetBytes(stringWriter.ToString());
+            ICryptoTransform cryptoTransform = NewRijndaeManaged().CreateEncryptor();
+            byte[] result = cryptoTransform.TransformFinalBlock(bytes, 0, bytes.Length);
+            File.WriteAllBytes(path, result);
+            //TODO 구글 플레이 게임과 연동
         }
 
     }
@@ -93,26 +90,26 @@ public static class SaveManager
     {
         saveData = new CurrentSaveVersion();
 
+        
+        //TODO 구글 플레이 게임과 연동
+
+
         if (!Directory.Exists(saveDirectory))
             return;
         var path = Path.Combine(saveDirectory, saveFile);
         if (!File.Exists(path))
             return;
 
-        using (var fileReader = new StreamReader(path))
-        {
-           var readString =  fileReader.ReadToEnd();
-            byte[] bytes = System.Convert.FromBase64String(readString);
+        byte[] bytes = File.ReadAllBytes(path);
 
-            ICryptoTransform cryptoTransform2 = NewRijndaeManaged().CreateDecryptor();
-            byte[] result = cryptoTransform2.TransformFinalBlock(bytes, 0, bytes.Length);
-            using (var reader = new JsonTextReader(new StringReader(System.Text.Encoding.UTF8.GetString(result))))
-            {
-                var serializer = new JsonSerializer();
-                serializer.Formatting = Formatting.Indented;
-                serializer.TypeNameHandling = TypeNameHandling.All;
-                saveData = serializer.Deserialize<Save>(reader);
-            }
+        ICryptoTransform cryptoTransform2 = NewRijndaeManaged().CreateDecryptor();
+        byte[] result = cryptoTransform2.TransformFinalBlock(bytes, 0, bytes.Length);
+        using (var reader = new JsonTextReader(new StringReader(System.Text.Encoding.UTF8.GetString(result))))
+        {
+            var serializer = new JsonSerializer();
+            serializer.Formatting = Formatting.Indented;
+            serializer.TypeNameHandling = TypeNameHandling.All;
+            saveData = serializer.Deserialize<Save>(reader);
         }
 
         var load = saveData as CurrentSaveVersion;

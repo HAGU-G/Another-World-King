@@ -28,8 +28,6 @@ public class SceneLoadManager : MonoBehaviour
     private void Update()
     {
         slider.value = asyncOperation.progress;
-        Debug.Log(slider.value);
-        Debug.Log(asyncOperation.progress);
     }
 
     public void Init()
