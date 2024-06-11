@@ -14,8 +14,7 @@ public class GPGSManager : Singleton<GPGSManager>
     public Button buttonLoad;
     public TextMeshProUGUI log;
 
-    private string savedGameFilename = "save.bin";
-    private string saveData = "세이브 로드 확인";
+    public bool IsSigned { get; private set; }
 
     void Awake()
     {
@@ -40,6 +39,7 @@ public class GPGSManager : Singleton<GPGSManager>
         {
             log.text = "Failed to sign in.";
         }
+        IsSigned = result == SignInStatus.Success;
     }
 
     public void ShowSelectUI()
@@ -49,7 +49,7 @@ public class GPGSManager : Singleton<GPGSManager>
         bool allowDelete = true;
 
         ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
-        savedGameClient.ShowSelectSavedGameUI("Select saved game",
+        savedGameClient.ShowSelectSavedGameUI("저장된 게임 선택",
             maxNumToDisplay,
             allowCreateNew,
             allowDelete,
@@ -73,19 +73,19 @@ public class GPGSManager : Singleton<GPGSManager>
 
     public void SaveGame()
     {
-        OpenSavedGame(savedGameFilename, OnSavedGameOpenedForSave);
+        SaveManager.GameSave();
+        OpenSavedGame(SaveManager.saveFile, OnSavedGameOpenedForSave);
     }
 
     void OnSavedGameOpenedForSave(SavedGameRequestStatus status, ISavedGameMetadata game)
     {
-        if (status == SavedGameRequestStatus.Success)
+        if (status == SavedGameRequestStatus.Success && SaveManager.EncryptedSaveData != null)
         {
-            byte[] data = System.Text.Encoding.UTF8.GetBytes(saveData);
             SavedGameMetadataUpdate update = new SavedGameMetadataUpdate.Builder()
-                .WithUpdatedDescription("Saved at " + DateTime.Now.ToString())
+                .WithUpdatedDescription("저장 일시 : " + DateTime.Now.ToString())
                 .Build();
 
-            PlayGamesPlatform.Instance.SavedGame.CommitUpdate(game, update, data, OnSavedGameCommit);
+            PlayGamesPlatform.Instance.SavedGame.CommitUpdate(game, update, SaveManager.EncryptedSaveData, OnSavedGameCommit);
         }
         else
         {
@@ -107,7 +107,7 @@ public class GPGSManager : Singleton<GPGSManager>
 
     public void LoadGame()
     {
-        OpenSavedGame(savedGameFilename, OnSavedGameOpenedForLoad);
+        OpenSavedGame(SaveManager.saveFile, OnSavedGameOpenedForLoad);
     }
 
     void OnSavedGameOpenedForLoad(SavedGameRequestStatus status, ISavedGameMetadata game)
@@ -126,8 +126,9 @@ public class GPGSManager : Singleton<GPGSManager>
     {
         if (readStatus == SavedGameRequestStatus.Success)
         {
+            SaveManager.GameLoad(data);
             string loadedData = System.Text.Encoding.UTF8.GetString(data);
-            log.text = "Game loaded successfully: " + loadedData;
+            log.text = "Game loaded successfully: \n" + loadedData;
         }
         else
         {

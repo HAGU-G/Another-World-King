@@ -7,11 +7,12 @@ using CurrentSaveVersion = SaveV1;
 public static class SaveManager
 {
     private static readonly string saveDirectory = $"{Application.persistentDataPath}/save";
-    private static readonly string saveFile = "save_obt.king";
+    public static readonly string saveFile = "save_obt.king";
     private static readonly string key = "fje1f553d54fe3g9";
 
 
     private static Save saveData;
+    public static byte[] EncryptedSaveData { get; private set; } = null;
 
     public static void GameSave()
     {
@@ -21,9 +22,8 @@ public static class SaveManager
         var save = saveData as CurrentSaveVersion;
         var gm = GameManager.Instance;
 
-#if !UNITY_EDITOR
         save.doneTutorial = gm.IsDoneTutorial;
-#endif
+
         save.flags = gm.Flags;
         foreach (var id in gm.UnlockedID)
         {
@@ -79,31 +79,33 @@ public static class SaveManager
 
             byte[] bytes = System.Text.Encoding.UTF8.GetBytes(stringWriter.ToString());
             ICryptoTransform cryptoTransform = NewRijndaeManaged().CreateEncryptor();
-            byte[] result = cryptoTransform.TransformFinalBlock(bytes, 0, bytes.Length);
-            File.WriteAllBytes(path, result);
-            //TODO 구글 플레이 게임과 연동
+            EncryptedSaveData = cryptoTransform.TransformFinalBlock(bytes, 0, bytes.Length);
+            File.WriteAllBytes(path, EncryptedSaveData);
         }
-
     }
 
-    public static void GameLoad()
+    public static void GameLoad(byte[] data = null)
     {
         saveData = new CurrentSaveVersion();
 
-        
-        //TODO 구글 플레이 게임과 연동
+        if (data == null)
+        {
+            if (!Directory.Exists(saveDirectory))
+                return;
 
+            var path = Path.Combine(saveDirectory, saveFile);
+            if (!File.Exists(path))
+                return;
 
-        if (!Directory.Exists(saveDirectory))
-            return;
-        var path = Path.Combine(saveDirectory, saveFile);
-        if (!File.Exists(path))
-            return;
-
-        byte[] bytes = File.ReadAllBytes(path);
+            EncryptedSaveData = File.ReadAllBytes(path);
+        }
+        else
+        {
+            EncryptedSaveData = data;
+        }
 
         ICryptoTransform cryptoTransform2 = NewRijndaeManaged().CreateDecryptor();
-        byte[] result = cryptoTransform2.TransformFinalBlock(bytes, 0, bytes.Length);
+        byte[] result = cryptoTransform2.TransformFinalBlock(EncryptedSaveData, 0, EncryptedSaveData.Length);
         using (var reader = new JsonTextReader(new StringReader(System.Text.Encoding.UTF8.GetString(result))))
         {
             var serializer = new JsonSerializer();
