@@ -4,21 +4,26 @@ using GooglePlayGames.BasicApi.SavedGame;
 using System;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SocialPlatforms.Impl;
 
 
 public class GPGSManager : Singleton<GPGSManager>
 {
-    public Button buttonSignIn;
-    public Button buttonShowSelectUI;
-    public Button buttonSave;
-    public Button buttonLoad;
     public TextMeshProUGUI log;
 
     public bool IsSigned { get; private set; }
 
-    void Awake()
+    private void Awake()
     {
-        PlayGamesPlatform.DebugLogEnabled = true;
+        if(!IsSigned)
+        {
+            Init();
+        }
+    }
+
+    public void Init()
+    {
+        //PlayGamesPlatform.DebugLogEnabled = true;
         PlayGamesPlatform.Activate();
         SignIn();
     }
@@ -40,6 +45,16 @@ public class GPGSManager : Singleton<GPGSManager>
             log.text = "Failed to sign in.";
         }
         IsSigned = result == SignInStatus.Success;
+    }
+
+    public void ShowAchievementUI()
+    {
+        PlayGamesPlatform.Instance.ShowAchievementsUI();
+    }
+
+    public void ShowLeaderboard()
+    {
+
     }
 
     public void ShowSelectUI()

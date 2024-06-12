@@ -10,6 +10,8 @@ public class GameStarter : MonoBehaviour
 #if UNITY_ANDROID_API
         //Application.targetFrameRate = 60;
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
+        GPGSManager.Instance.Init();
+        GPGSManager.Instance.SignIn();
 #endif
         SaveManager.GameLoad();
     }
