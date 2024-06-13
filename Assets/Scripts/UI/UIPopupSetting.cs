@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -8,6 +9,8 @@ public class UIPopupSetting : MonoBehaviour
     public Toggle toggleMusic;
     public Toggle toggleSfx;
     public Toggle toggleStorySkip;
+    public Button buttonAchivement;
+    public Button buttonLeaderboard;
 
     private void Start()
     {
@@ -25,6 +28,9 @@ public class UIPopupSetting : MonoBehaviour
             toggleStorySkip.isOn = false;
         else
             toggleStorySkip.isOn = true;
+
+        buttonAchivement.onClick.AddListener(GPGSManager.Instance.ShowAchievementUI);
+        buttonLeaderboard.onClick.AddListener(GPGSManager.Instance.ShowLeaderboardUI);
     }
 
     public void MusicOnOff(bool value)

@@ -15,10 +15,31 @@ public static class DataTableManager
     public static Dictionary<int, Stage> Stages { get; private set; } = new();
     public static int MinStageID { get; private set; } = int.MaxValue;
     public static int MaxStageID { get; private set; } = int.MinValue;
+    public static int StageCount { get; private set; }
+    public static int CharacterCount { get; private set; }
 
     static DataTableManager()
     {
-        //Patterns
+        LoadPatterns();
+        LoadMonsterAppares();
+        LoadStages();
+        LoadCharacterUnlocks();
+        LoadUpgrades();
+        LoadStringTable();
+        LoadCharacterCount();
+    }
+
+
+    public static string GetString(string id)
+    {
+        if (stringTable.ContainsKey(id))
+            return stringTable[id];
+        else
+            return string.Empty;
+    }
+
+    private static void LoadPatterns()
+    {
         var textAsset = Resources.Load<TextAsset>(Paths.resourcesPatternTable);
         using (var reader = new StringReader(textAsset.text))
         using (var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture))
@@ -29,9 +50,11 @@ public static class DataTableManager
                 Patterns.Add(record.ID, record);
             }
         }
+    }
 
-        //MonsterAppares
-        textAsset = Resources.Load<TextAsset>(Paths.resourcesMonAppareTable);
+    private static void LoadMonsterAppares()
+    {
+        var textAsset = Resources.Load<TextAsset>(Paths.resourcesMonAppareTable);
         using (var reader = new StringReader(textAsset.text))
         using (var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture))
         {
@@ -60,17 +83,22 @@ public static class DataTableManager
                 MonsterAppares.Add(ma.ID, ma);
             }
         }
+    }
 
-        //Stages
+    private static void LoadStages()
+    {
         var asset = Resources.LoadAll<UnitData>(string.Format(Paths.resourcesStage, string.Empty));
         foreach (var stage in asset)
         {
+            StageCount++;
             MaxStageID = stage.id > MaxStageID ? stage.id : MaxStageID;
             MinStageID = stage.id < MinStageID ? stage.id : MinStageID;
         }
+    }
 
-        //StageUnlockID
-        textAsset = Resources.Load<TextAsset>(Paths.resourcesStageTable);
+    private static void LoadCharacterUnlocks()
+    {
+        var textAsset = Resources.Load<TextAsset>(Paths.resourcesStageTable);
         using (var reader = new StringReader(textAsset.text))
         using (var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture))
         {
@@ -88,9 +116,11 @@ public static class DataTableManager
                 StageUnlockID.Add(record.ID, ids);
             }
         }
+    }
 
-        //Upgrade
-        textAsset = Resources.Load<TextAsset>(Paths.resourcesUpgradeTable);
+    private static void LoadUpgrades()
+    {
+        var textAsset = Resources.Load<TextAsset>(Paths.resourcesUpgradeTable);
         using (var reader = new StringReader(textAsset.text))
         using (var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture))
         {
@@ -100,9 +130,11 @@ public static class DataTableManager
                 Upgrades.Add(record.ID, record);
             }
         }
+    }
 
-        //StringTable
-        textAsset = Resources.Load<TextAsset>(Paths.resourcesStringTable);
+    private static void LoadStringTable()
+    {
+        var textAsset = Resources.Load<TextAsset>(Paths.resourcesStringTable);
         using (var reader = new StringReader(textAsset.text))
         using (var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture))
         {
@@ -110,17 +142,23 @@ public static class DataTableManager
             var records = csvReader.GetRecords(desc);
             foreach (var record in records)
             {
-                stringTable.Add(record.String_ID, record.String_Info.Replace("<br>","\n"));
+                stringTable.Add(record.String_ID, record.String_Info.Replace("<br>", "\n"));
             }
         }
     }
 
-
-    public static string GetString(string id)
+    private static void LoadCharacterCount()
     {
-        if (stringTable.ContainsKey(id))
-            return stringTable[id];
-        else
-            return string.Empty;
+        var textAsset = Resources.Load<TextAsset>(Paths.resourcesCharTable);
+        using (var reader = new StringReader(textAsset.text))
+        using (var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture))
+        {
+            csvReader.Read();
+            while(csvReader.Read())
+            {
+                CharacterCount++;
+            }
+            Debug.Log(CharacterCount);
+        }
     }
 }

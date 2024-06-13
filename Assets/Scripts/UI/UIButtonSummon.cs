@@ -19,15 +19,29 @@ public class UIButtonSummon : MonoBehaviour
     public int DamageUpgradeExp { get; private set; }
     public int DamageUpgradedCount
     {
-        get => CharacterInfos.damageUpgradedCount;
-        private set => CharacterInfos.damageUpgradedCount = value;
+        get
+        {
+            return CharacterInfos.damageUpgradedCount;
+        }
+        private set
+        {
+            CharacterInfos.damageUpgradedCount = value;
+            AchievementCheck();
+        }
     }
     public int DamageUpgradeMaxCount { get; private set; }
     public int HPUpgradeExp { get; private set; }
     public int HPUpgradedCount
     {
-        get => CharacterInfos.hpUpgradedCount;
-        private set => CharacterInfos.hpUpgradedCount = value;
+        get
+        {
+            return CharacterInfos.hpUpgradedCount;
+        }
+        private set
+        {
+            CharacterInfos.hpUpgradedCount = value;
+            AchievementCheck();
+        }
     }
     public int HPUpgradeMaxCount { get; private set; }
 
@@ -100,9 +114,19 @@ public class UIButtonSummon : MonoBehaviour
         SetUpgradeText();
     }
 
+    private void AchievementCheck()
+    {
+        if(HPUpgradedCount == HPUpgradeMaxCount
+            && DamageUpgradedCount == DamageUpgradeMaxCount
+            && !StageManager.Instance.IsTutorial)
+        {
+            GPGSManager.Instance.UnlockAchievement(GPGSIds.achievement_upgrade);
+        }
+    }
+
     public void SetUpgradeText()
     {
-        damageUpgradeText.text = string.Format(upgradeTextFormat,1+DamageUpgradedCount);
+        damageUpgradeText.text = string.Format(upgradeTextFormat, 1 + DamageUpgradedCount);
         hpUpgradeText.text = string.Format(upgradeTextFormat, 1 + HPUpgradedCount);
     }
 }

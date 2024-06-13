@@ -2,20 +2,17 @@ using GooglePlayGames.BasicApi;
 using GooglePlayGames;
 using GooglePlayGames.BasicApi.SavedGame;
 using System;
-using UnityEngine.UI;
 using TMPro;
-using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine;
 
 
 public class GPGSManager : Singleton<GPGSManager>
 {
-    public TextMeshProUGUI log;
-
     public bool IsSigned { get; private set; }
 
     private void Awake()
     {
-        if(!IsSigned)
+        if (!IsSigned)
         {
             Init();
         }
@@ -23,7 +20,7 @@ public class GPGSManager : Singleton<GPGSManager>
 
     public void Init()
     {
-        //PlayGamesPlatform.DebugLogEnabled = true;
+        PlayGamesPlatform.DebugLogEnabled = true;
         PlayGamesPlatform.Activate();
         SignIn();
     }
@@ -33,28 +30,29 @@ public class GPGSManager : Singleton<GPGSManager>
         PlayGamesPlatform.Instance.Authenticate(OnAuthentication);
     }
 
-    void OnAuthentication(SignInStatus result)
+    private void OnAuthentication(SignInStatus result)
     {
-        if (result == SignInStatus.Success)
-        {
-            log.text = "Signed in successfully.";
-            // Signed in successfully, we can now proceed with saving or loading
-        }
-        else
-        {
-            log.text = "Failed to sign in.";
-        }
         IsSigned = result == SignInStatus.Success;
     }
 
     public void ShowAchievementUI()
     {
-        PlayGamesPlatform.Instance.ShowAchievementsUI();
+        Social.ShowAchievementsUI();
     }
 
     public void ShowLeaderboard()
     {
+        Social.ShowLeaderboardUI();
+    }
 
+    public void UnlockAchievement(string achievementID, float progress = 100f)
+    {
+        Social.ReportProgress(achievementID, progress, (success) => { });
+    }
+
+    public void ReportLeaderBoard(string leaderboardID, int score)
+    {
+        Social.ReportScore(score, leaderboardID, (success) => { });
     }
 
     public void ShowSelectUI()
@@ -69,6 +67,11 @@ public class GPGSManager : Singleton<GPGSManager>
             allowCreateNew,
             allowDelete,
             OnSavedGameSelected);
+    }
+
+    public void ShowLeaderboardUI()
+    {
+        Social.ShowLeaderboardUI();
     }
 
     public void OnSavedGameSelected(SelectUIStatus status, ISavedGameMetadata game)
@@ -104,7 +107,6 @@ public class GPGSManager : Singleton<GPGSManager>
         }
         else
         {
-            log.text = "Failed to open saved game.";
         }
     }
 
@@ -112,11 +114,9 @@ public class GPGSManager : Singleton<GPGSManager>
     {
         if (commitStatus == SavedGameRequestStatus.Success)
         {
-            log.text = "Game saved successfully.";
         }
         else
         {
-            log.text = "Failed to save game.";
         }
     }
 
@@ -133,7 +133,6 @@ public class GPGSManager : Singleton<GPGSManager>
         }
         else
         {
-            log.text = "Failed to open saved game.";
         }
     }
 
@@ -143,11 +142,9 @@ public class GPGSManager : Singleton<GPGSManager>
         {
             SaveManager.GameLoad(data);
             string loadedData = System.Text.Encoding.UTF8.GetString(data);
-            log.text = "Game loaded successfully: \n" + loadedData;
         }
         else
         {
-            log.text = "Failed to load game.";
         }
     }
 

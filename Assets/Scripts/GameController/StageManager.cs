@@ -269,6 +269,7 @@ public class StageManager : MonoBehaviour
     public void Defeat()
     {
         audioSource.PlayOneShot(audioLose);
+        GPGSManager.Instance.UnlockAchievement(GPGSIds.achievement_defeat);
         uiOnStage.windowStagePause.Defeat();
     }
 

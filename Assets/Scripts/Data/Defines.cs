@@ -37,13 +37,13 @@ public static class Paths
     public static readonly string resourcesStageTable = "DataTables/Stage_Table";
     public static readonly string resourcesUpgradeTable = "DataTables/Upgrade_Table";
     public static readonly string resourcesStringTable = "DataTables/String_Table";
+    public static readonly string resourcesCharTable = "DataTables/Char_Table";
 
 #if UNITY_EDITOR
     public static readonly string folderScriptableObjects = "Assets/Resources/Scriptable Objects";
 
     public static readonly string resourcesDebugStat = "Prefabs/Debug/DebugStat";
 
-    public static readonly string resourcesCharTable = "DataTables/Char_Table";
     public static readonly string resourcesMonTable = "DataTables/Mon_Table";
     public static readonly string resourcesSkillTable = "DataTables/Skill_Table";
     public static readonly string resourcesCounterTable = "DataTables/Counter_Table";

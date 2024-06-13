@@ -24,13 +24,16 @@
 
 public static class GPGSIds
 {
-        public const string achievement__ = "CgkIyvat1Z0MEAIQCQ"; // <GPGSID>
-        public const string achievement = "CgkIyvat1Z0MEAIQAQ"; // <GPGSID>
-        public const string achievement_2 = "CgkIyvat1Z0MEAIQBg"; // <GPGSID>
-        public const string achievement_3 = "CgkIyvat1Z0MEAIQCA"; // <GPGSID>
-        public const string achievement_7 = "CgkIyvat1Z0MEAIQBA"; // <GPGSID>
-        public const string achievement_4 = "CgkIyvat1Z0MEAIQBw"; // <GPGSID>
-        public const string achievement_5 = "CgkIyvat1Z0MEAIQBQ"; // <GPGSID>
+        public const string event_playTime = "CgkIyvat1Z0MEAIQCg"; // <GPGSID>
+        public const string achievement_upgrade = "CgkIyvat1Z0MEAIQCQ"; // <GPGSID>
+        public const string achievement_tutorial = "CgkIyvat1Z0MEAIQAQ"; // <GPGSID>
+        public const string achievement_clear3 = "CgkIyvat1Z0MEAIQAg"; // <GPGSID>
+        public const string achievement_shopper = "CgkIyvat1Z0MEAIQBQ"; // <GPGSID>
+        public const string leaderboard_flags = "CgkIyvat1Z0MEAIQCw"; // <GPGSID>
+        public const string achievement_defeat = "CgkIyvat1Z0MEAIQCA"; // <GPGSID>
+        public const string achievement_stars3 = "CgkIyvat1Z0MEAIQBw"; // <GPGSID>
+        public const string achievement_clear5 = "CgkIyvat1Z0MEAIQAw"; // <GPGSID>
+        public const string achievement_clear7 = "CgkIyvat1Z0MEAIQBA"; // <GPGSID>
 
 }
 

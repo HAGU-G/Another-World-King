@@ -37,6 +37,11 @@ public class GameManager : MonoBehaviour
         set
         {
             flags = value;
+            if(value > 0)
+            {
+                GPGSManager.Instance.ReportLeaderBoard(GPGSIds.leaderboard_flags, value);
+            }
+
             if (flags < 0)
             {
                 flags = 0;
@@ -149,7 +154,41 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+
+        AchievementCheck(stageID);
         SaveManager.GameSave();
+    }
+
+    private void AchievementCheck(int stageID)
+    {
+        switch (stageID)
+        {
+            case 104:
+                GPGSManager.Instance.UnlockAchievement(GPGSIds.achievement_clear3);
+                break;
+            case 106:
+                GPGSManager.Instance.UnlockAchievement(GPGSIds.achievement_clear5);
+                break;
+            case 108:
+                GPGSManager.Instance.UnlockAchievement(GPGSIds.achievement_clear7);
+                break;
+        }
+
+        if (StageClearInfo.Count != DataTableManager.StageCount)
+        {
+            return;
+        }
+
+        foreach (var info in StageClearInfo)
+        {
+            if (info.Value != 3)
+            {
+                return;
+            }
+        }
+
+        GPGSManager.Instance.UnlockAchievement(GPGSIds.achievement_stars3);
+
     }
 
     public bool AddPurchasedID(CharacterInfos characterInfos)
@@ -163,6 +202,10 @@ public class GameManager : MonoBehaviour
         {
             flags -= characterInfos.unitData.price;
             PurchasedID.Add(characterInfos.unitData.id);
+            if(PurchasedID.Count == DataTableManager.CharacterCount)
+            {
+                GPGSManager.Instance.UnlockAchievement(GPGSIds.achievement_shopper);
+            }
             SaveManager.GameSave();
             return true;
         }

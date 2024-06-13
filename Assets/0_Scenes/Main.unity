@@ -11465,7 +11465,7 @@ GameObject:
   - component: {fileID: 1423878156}
   - component: {fileID: 1423878159}
   m_Layer: 5
-  m_Name: LeaderBoard
+  m_Name: Button LeaderBoard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11542,18 +11542,6 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 8300000, guid: 0697fa9b253cec84b8cbdae0d92ca8b5, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 3996299129655289651, guid: 6e11a61837fe79249ac084a307ece70b, type: 3}
-        m_TargetAssemblyTypeName: GPGSManager, Assembly-CSharp
-        m_MethodName: ShowSelectUI
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -16317,6 +16305,8 @@ MonoBehaviour:
   toggleMusic: {fileID: 1441414198}
   toggleSfx: {fileID: 1697523905}
   toggleStorySkip: {fileID: 678038932}
+  buttonAchivement: {fileID: 2023308950}
+  buttonLeaderboard: {fileID: 1423878156}
 --- !u!114 &2004849394 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1677390458836456712, guid: 0e35e098d58a9b8478d9012665c4c66d, type: 3}
@@ -16439,7 +16429,7 @@ GameObject:
   - component: {fileID: 2023308950}
   - component: {fileID: 2023308953}
   m_Layer: 5
-  m_Name: Achivement
+  m_Name: Button Achivement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16516,18 +16506,6 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 8300000, guid: 0697fa9b253cec84b8cbdae0d92ca8b5, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 3996299129655289651, guid: 6e11a61837fe79249ac084a307ece70b, type: 3}
-        m_TargetAssemblyTypeName: GPGSManager, Assembly-CSharp
-        m_MethodName: ShowAchievementUI
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
