@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static UnityEngine.Rendering.DebugUI;
 
 public class GameManager : MonoBehaviour
 {
@@ -37,11 +38,6 @@ public class GameManager : MonoBehaviour
         set
         {
             flags = value;
-            if(value > 0)
-            {
-                GPGSManager.Instance.ReportLeaderBoard(GPGSIds.leaderboard_flags, value);
-            }
-
             if (flags < 0)
             {
                 flags = 0;
@@ -137,7 +133,7 @@ public class GameManager : MonoBehaviour
 
 
 
-        flags += flag;
+        Flags += flag;
 
         if (DataTableManager.StageUnlockID.ContainsKey(stageID))
         {
@@ -155,12 +151,13 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        AchievementCheck(stageID);
+        AchievementCheck(stageID, flag);
         SaveManager.GameSave();
     }
 
-    private void AchievementCheck(int stageID)
+    private void AchievementCheck(int stageID, int flag)
     {
+        //스테이지 클리어
         switch (stageID)
         {
             case 104:
@@ -174,6 +171,13 @@ public class GameManager : MonoBehaviour
                 break;
         }
 
+        //누적 깃발
+        if (flag > 0)
+        {
+            GPGSManager.Instance.ReportLeaderBoard(GPGSIds.leaderboard_flags, flag);
+        }
+
+        //모든 스테이지 별 3개로 클리어
         if (StageClearInfo.Count != DataTableManager.StageCount)
         {
             return;

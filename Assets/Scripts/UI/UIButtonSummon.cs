@@ -118,7 +118,7 @@ public class UIButtonSummon : MonoBehaviour
     {
         if(HPUpgradedCount == HPUpgradeMaxCount
             && DamageUpgradedCount == DamageUpgradeMaxCount
-            && !StageManager.Instance.IsTutorial)
+            && GameManager.Instance.SelectedStageID != DataTableManager.MinStageID)
         {
             GPGSManager.Instance.UnlockAchievement(GPGSIds.achievement_upgrade);
         }
