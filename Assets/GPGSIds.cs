@@ -24,7 +24,6 @@
 
 public static class GPGSIds
 {
-        public const string event_playTime = "CgkIyvat1Z0MEAIQCg"; // <GPGSID>
         public const string achievement_upgrade = "CgkIyvat1Z0MEAIQCQ"; // <GPGSID>
         public const string achievement_tutorial = "CgkIyvat1Z0MEAIQAQ"; // <GPGSID>
         public const string achievement_clear3 = "CgkIyvat1Z0MEAIQAg"; // <GPGSID>

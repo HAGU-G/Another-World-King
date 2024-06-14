@@ -50,9 +50,10 @@ public class GPGSManager : Singleton<GPGSManager>
         Social.ReportProgress(achievementID, progress, (success) => { });
     }
 
-    public void ReportLeaderBoard(string leaderboardID, int score)
+    public void ReportLeaderBoard(string leaderboardID, int value)
     {
-        Social.ReportScore(score, leaderboardID, (success) => { });
+        Social.ReportScore(value, leaderboardID, (success) => { });
+        Debug.Log("Á™¾î");
     }
 
     public void ShowSelectUI()

@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    public int cumulativeFlags;
     public List<int> UnlockedID { get; private set; } = new();
     public List<int> NewCharacters { get; private set; } = new();
     public List<int> PurchasedID { get; private set; } = new();
@@ -174,7 +175,8 @@ public class GameManager : MonoBehaviour
         //누적 깃발
         if (flag > 0)
         {
-            GPGSManager.Instance.ReportLeaderBoard(GPGSIds.leaderboard_flags, flag);
+            cumulativeFlags += flag;
+            GPGSManager.Instance.ReportLeaderBoard(GPGSIds.leaderboard_flags, cumulativeFlags);
         }
 
         //모든 스테이지 별 3개로 클리어

@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.IO;
 using UnityEngine;
 using System.Security.Cryptography;
-using CurrentSaveVersion = SaveV1;
+using CurrentSaveVersion = SaveV2;
 
 public static class SaveManager
 {
@@ -11,7 +11,7 @@ public static class SaveManager
     private static readonly string key = "fje1f553d54fe3g9";
 
 
-    private static Save saveData;
+    public static Save saveData = new CurrentSaveVersion();
     public static byte[] EncryptedSaveData { get; private set; } = null;
 
     public static void GameSave()
@@ -22,6 +22,7 @@ public static class SaveManager
         var save = saveData as CurrentSaveVersion;
         var gm = GameManager.Instance;
 
+        //Version 1
         save.doneTutorial = gm.IsDoneTutorial;
 
         save.flags = gm.Flags;
@@ -61,7 +62,9 @@ public static class SaveManager
             }
         }
         save.selectedStageID = gm.SelectedStageID;
-
+        
+        //Version 2
+        save.cumulativeFlags = gm.cumulativeFlags;
 
         if (!Directory.Exists(saveDirectory))
             Directory.CreateDirectory(saveDirectory);
@@ -86,7 +89,7 @@ public static class SaveManager
 
     public static void GameLoad(byte[] data = null)
     {
-        saveData = new CurrentSaveVersion();
+        
 
         if (data == null)
         {
@@ -104,6 +107,8 @@ public static class SaveManager
             EncryptedSaveData = data;
         }
 
+        Save loadedSaveData = new CurrentSaveVersion();
+
         ICryptoTransform cryptoTransform2 = NewRijndaeManaged().CreateDecryptor();
         byte[] result = cryptoTransform2.TransformFinalBlock(EncryptedSaveData, 0, EncryptedSaveData.Length);
         using (var reader = new JsonTextReader(new StringReader(System.Text.Encoding.UTF8.GetString(result))))
@@ -111,36 +116,60 @@ public static class SaveManager
             var serializer = new JsonSerializer();
             serializer.Formatting = Formatting.Indented;
             serializer.TypeNameHandling = TypeNameHandling.All;
-            saveData = serializer.Deserialize<Save>(reader);
+            loadedSaveData = serializer.Deserialize<Save>(reader);
+        }
+        
+        while (loadedSaveData.Version != saveData.Version)
+        {
+            if(loadedSaveData.Version < saveData.Version)
+            {
+                loadedSaveData = loadedSaveData.VersionUp();
+            }
+            else if(loadedSaveData.Version > saveData.Version)
+            {
+                loadedSaveData = loadedSaveData.VersionDown();
+            }
         }
 
+        saveData = loadedSaveData;
+        
         var load = saveData as CurrentSaveVersion;
+        var gameManager = GameManager.Instance;
 
-        GameManager.Instance.IsDoneTutorial = load.doneTutorial;
-        GameManager.Instance.Flags = load.flags;
-        GameManager.Instance.UnlockedID.Clear();
+        //Version 1
+        gameManager.IsDoneTutorial = load.doneTutorial;
+        gameManager.Flags = load.flags;
+
+        gameManager.UnlockedID.Clear();
         foreach (var item in load.unlockedID)
         {
-            GameManager.Instance.UnlockedID.Add(item);
+            gameManager.UnlockedID.Add(item);
         }
-        GameManager.Instance.PurchasedID.Clear();
+
+        gameManager.PurchasedID.Clear();
         foreach (var item in load.purchasedID)
         {
-            GameManager.Instance.PurchasedID.Add(item);
+            gameManager.PurchasedID.Add(item);
         }
-        GameManager.Instance.StageClearInfo.Clear();
+
+        gameManager.StageClearInfo.Clear();
         foreach (var item in load.stageClearInfo)
         {
-            GameManager.Instance.StageClearInfo.Add(item.Key, item.Value);
+            gameManager.StageClearInfo.Add(item.Key, item.Value);
         }
-        for (int i = 0; i < GameManager.Instance.Expedition.Length; i++)
+
+        for (int i = 0; i < gameManager.Expedition.Length; i++)
         {
             if (load.expedition.ContainsKey(i))
-                GameManager.Instance.SetExpedition(load.expedition[i], i);
+                gameManager.SetExpedition(load.expedition[i], i);
             else
-                GameManager.Instance.SetExpedition(null, i);
+                gameManager.SetExpedition(null, i);
         }
-        GameManager.Instance.SelectedStageID = load.selectedStageID;
+
+        gameManager.SelectedStageID = load.selectedStageID;
+
+        //Version 2
+        gameManager.cumulativeFlags = load.cumulativeFlags;
     }
 
     public static void GameReset()

@@ -5,6 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Pool;
 
+#region ForDataTable
 public class Stage
 {
     public string List { get; set; }
@@ -76,6 +77,7 @@ public class Stage
     }
 #endif
 }
+#endregion
 
 public class StageManager : MonoBehaviour
 {
@@ -138,6 +140,8 @@ public class StageManager : MonoBehaviour
     private bool isUpgrading;
     private bool canUpgradeDamage;
     private bool canUpgradeHP;
+
+    private float playTime;
 
     public IObjectPool<CharacterAI> CharacterAIPool { get; private set; }
     public CharacterAI characterRoot;
@@ -217,10 +221,13 @@ public class StageManager : MonoBehaviour
         enemyTower.isPlayer = false;
         enemyTower.ResetUnit();
         enemyTower.OnDead += Victory;
+
+        playTime = 0f;
     }
 
     private void Update()
     {
+        playTime += Time.deltaTime;
         if (Time.time >= goldInterval + 2f)
         {
             goldInterval = Time.time;
@@ -280,6 +287,7 @@ public class StageManager : MonoBehaviour
         int flag = 0;
 
         var playerTowerData = playerTower.CurrnetUnitData as TowerData;
+        var gameManager = GameManager.Instance;
 
         switch (playerTower.HP)
         {
@@ -294,9 +302,9 @@ public class StageManager : MonoBehaviour
                 break;
         };
 
-        if (GameManager.Instance.StageClearInfo.ContainsKey(playerTower.CurrnetUnitData.id))
+        if (gameManager.StageClearInfo.ContainsKey(playerTower.CurrnetUnitData.id))
         {
-            prevStar = GameManager.Instance.StageClearInfo[playerTower.CurrnetUnitData.id];
+            prevStar = gameManager.StageClearInfo[playerTower.CurrnetUnitData.id];
         }
 
         for (int i = prevStar + 1; i <= star; i++)
@@ -311,7 +319,7 @@ public class StageManager : MonoBehaviour
 
         var getFlags = prevStar == 3 ? playerTowerData.repeat_Reward : flag;
         float getFlags_P = 0f;
-        foreach (var character in GameManager.Instance.Expedition)
+        foreach (var character in gameManager.Expedition)
         {
             if (character != null && character.skillData != null)
             {
@@ -320,7 +328,7 @@ public class StageManager : MonoBehaviour
             }
         }
 
-        GameManager.Instance.StageClear(GameManager.Instance.SelectedStageID, star, getFlags);
+        gameManager.StageClear(gameManager.SelectedStageID, star, getFlags);
         if (IsTutorial)
             return;
         audioSource.PlayOneShot(audioWin);
@@ -431,7 +439,7 @@ public class StageManager : MonoBehaviour
             foreach (var buttonsummon in uiOnStage.buttonSummons)
             {
 
-                buttonsummon.outline.enabled = x 
+                buttonsummon.outline.enabled = x
                 && buttonsummon.HPUpgradedCount < buttonsummon.HPUpgradeMaxCount
                 && exp >= buttonsummon.HPUpgradeExp;
 

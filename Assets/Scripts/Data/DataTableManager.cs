@@ -158,7 +158,6 @@ public static class DataTableManager
             {
                 CharacterCount++;
             }
-            Debug.Log(CharacterCount);
         }
     }
 }
