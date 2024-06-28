@@ -37,7 +37,6 @@ public class TouchManager : MonoBehaviour
 
         if (Touchscreen.current != null)
         {
-            Debug.Log("UNITY_ANDROID_API");
             int touchCount = UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches.Count;
             if (touchCount > 0)
             {
@@ -85,7 +84,6 @@ public class TouchManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("UNITY_EDITOR_WIN");
             MouseInput();
         }
     }
