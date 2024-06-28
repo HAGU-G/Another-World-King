@@ -1,4 +1,7 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.EnhancedTouch;
+using TouchPhase = UnityEngine.InputSystem.TouchPhase;
 
 public class TouchManager : MonoBehaviour
 {
@@ -15,86 +18,103 @@ public class TouchManager : MonoBehaviour
     public float MoveDistance { get; private set; }
 
     private float tapAllowInch = 0.2f;
-    private int firstID;
+    private Finger firstID;
+
+    private void Awake()
+    {
+        EnhancedTouchSupport.Enable();
+    }
+
+    private void OnDestroy()
+    {
+        EnhancedTouchSupport.Disable();
+    }
 
     private void Update()
     {
         Tap = false;
         Touch = false;
 
-#if UNITY_EDITOR_WIN
-        MouseInput();
-#elif UNITY_ANDROID_API
-        int touchCount = Input.touchCount;
-        if (touchCount > 0)
+        if (Touchscreen.current != null)
         {
-            Touch = true;
-
-            foreach (var touch in Input.touches)
+            Debug.Log("UNITY_ANDROID_API");
+            int touchCount = UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches.Count;
+            if (touchCount > 0)
             {
-                if (firstID == touch.fingerId)
-                    Pos = touch.position;
-                bool outTapDistance = false;
-                switch (touch.phase)
+                Touch = true;
+
+                foreach (var touch in UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches)
                 {
-                    case TouchPhase.Began:
-                        if (firstID == 0)
-                        {
-                            firstID = touch.fingerId;
-                            Pos = touch.position;
-                            PrevPos = touch.position;
-                        }
-                        break;
-                    case TouchPhase.Moved:
-                    case TouchPhase.Stationary:
-                        if (firstID != touch.fingerId)
+                    if (firstID == touch.finger)
+                        Pos = touch.screenPosition;
+                    bool outTapDistance = false;
+                    switch (touch.phase)
+                    {
+                        case TouchPhase.Began:
+                            if (firstID == null)
+                            {
+                                firstID = touch.finger;
+                                Pos = touch.screenPosition;
+                                PrevPos = touch.screenPosition;
+                            }
                             break;
-                        DeltaPos = touch.deltaPosition;
-                        Moved = DeltaPos != Vector2.zero;
-                        MoveDistance += DeltaPos.magnitude;
-                        outTapDistance = MoveDistance * Screen.dpi > tapAllowInch;
-                        WorldDeltaPos = Camera.main.ScreenToWorldPoint(Pos) - Camera.main.ScreenToWorldPoint(PrevPos);
-                        break;
-                    case TouchPhase.Ended:
-                    case TouchPhase.Canceled:
-                        if (firstID != touch.fingerId)
+                        case TouchPhase.Moved:
+                        case TouchPhase.Stationary:
+                            if (firstID != touch.finger)
+                                break;
+                            DeltaPos = touch.delta;
+                            Moved = DeltaPos != Vector2.zero;
+                            MoveDistance += DeltaPos.magnitude;
+                            outTapDistance = MoveDistance * Screen.dpi > tapAllowInch;
+                            WorldDeltaPos = Camera.main.ScreenToWorldPoint(Pos) - Camera.main.ScreenToWorldPoint(PrevPos);
                             break;
-                        Tap = MoveDistance <= tapAllowInch * Screen.dpi && !outTapDistance;
-                        firstID = 0;
-                        Moved = false;
-                        MoveDistance = 0f;
-                        break;
+                        case TouchPhase.Ended:
+                        case TouchPhase.Canceled:
+                            if (firstID != touch.finger)
+                                break;
+                            Tap = MoveDistance <= tapAllowInch * Screen.dpi && !outTapDistance;
+                            firstID = null;
+                            Moved = false;
+                            MoveDistance = 0f;
+                            break;
+                    }
+                    if (firstID == touch.finger)
+                        PrevPos = touch.screenPosition;
                 }
-                if (firstID == touch.fingerId)
-                    PrevPos = touch.position;
             }
         }
-#else
-        MouseInput();
-#endif
+        else
+        {
+            Debug.Log("UNITY_EDITOR_WIN");
+            MouseInput();
+        }
     }
 
     private void MouseInput()
     {
+        var mouse = Mouse.current;
+        if (mouse == null)
+            return;
+
         bool outTapDistance = false;
-        if (Input.GetMouseButtonDown(0))
+        if (mouse.leftButton.wasPressedThisFrame)
         {
-            Pos = PrevPos = Input.mousePosition;
+            Pos = PrevPos = mouse.position.value;
             Touch = true;
         }
-        if (Input.GetMouseButton(0))
+        if (mouse.leftButton.isPressed)
         {
             Touch = true;
-            Pos = Input.mousePosition;
+            Pos = mouse.position.value;
 
             DeltaPos = Pos - PrevPos;
             Moved = DeltaPos != Vector2.zero;
             MoveDistance += DeltaPos.magnitude;
             outTapDistance = MoveDistance * Screen.dpi > tapAllowInch;
             WorldDeltaPos = Camera.main.ScreenToWorldPoint(Pos) - Camera.main.ScreenToWorldPoint(PrevPos);
-            PrevPos = Input.mousePosition;
+            PrevPos = mouse.position.value;
         }
-        if (Input.GetMouseButtonUp(0))
+        if (mouse.leftButton.wasReleasedThisFrame)
         {
             Tap = MoveDistance <= tapAllowInch * Screen.dpi && !outTapDistance;
             Moved = false;

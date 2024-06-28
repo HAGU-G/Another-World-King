@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class UIWindowShop : UIWindow
@@ -42,7 +43,8 @@ public class UIWindowShop : UIWindow
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        var kb = Keyboard.current;
+        if (kb != null && kb.escapeKey.wasPressedThisFrame)
         {
             GameManager.Instance.PlayAudioBack();
             if (popup.gameObject.activeSelf)

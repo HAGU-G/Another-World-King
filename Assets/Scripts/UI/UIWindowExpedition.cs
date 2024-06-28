@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class UIWindowExpedition : UIWindow
@@ -40,7 +41,8 @@ public class UIWindowExpedition : UIWindow
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        var kb = Keyboard.current;
+        if (kb != null && kb.escapeKey.wasPressedThisFrame)
         {
             GameManager.Instance.PlayAudioBack();
             if (counterInfo.activeSelf)

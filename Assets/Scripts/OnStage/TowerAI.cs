@@ -94,8 +94,8 @@ public class TowerAI : UnitBase
         if (IsDead || isPlayer)
             return;
 #if UNITY_EDITOR
-        if (Input.GetKeyDown(KeyCode.Delete))
-            Damaged(100);
+        //if (Input.GetKeyDown(KeyCode.Delete))
+        //    Damaged(100);
 #endif
         if (isStopSpawn || IsBossPhase)
             return;
