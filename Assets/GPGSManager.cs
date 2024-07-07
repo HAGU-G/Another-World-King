@@ -2,7 +2,6 @@ using GooglePlayGames.BasicApi;
 using GooglePlayGames;
 using GooglePlayGames.BasicApi.SavedGame;
 using System;
-using TMPro;
 using UnityEngine;
 
 
@@ -20,7 +19,11 @@ public class GPGSManager : Singleton<GPGSManager>
 
     public void Init()
     {
+#if UNITY_EDITOR
         PlayGamesPlatform.DebugLogEnabled = true;
+#else
+        PlayGamesPlatform.DebugLogEnabled = false;
+#endif
         PlayGamesPlatform.Activate();
         SignIn();
     }
@@ -53,7 +56,6 @@ public class GPGSManager : Singleton<GPGSManager>
     public void ReportLeaderBoard(string leaderboardID, int value)
     {
         Social.ReportScore(value, leaderboardID, (success) => { });
-        Debug.Log("Á™¾î");
     }
 
     public void ShowSelectUI()
